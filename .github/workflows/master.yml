@@ -51,7 +51,7 @@ jobs:
       - name: Zip SolutionManager
         uses: papeloto/action-zip@v1
         with:
-          files: $Env:GITHUB_WORKSPACE\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
+          files: $Env:GITHUB_WORKSPACE\src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*.*
           dest: SolutionManager.zip 
       
       - name: Create Release
