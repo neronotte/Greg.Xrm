@@ -31,12 +31,13 @@ namespace Greg.Xrm.SolutionManager
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SolutionManagerPluginControl));
 			this.toolStripMenu = new System.Windows.Forms.ToolStrip();
-			this.tsbClose = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			this.tsbClose = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tStartMonitoring = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tStopMonitoring = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
 			this.tStoppingLabel = new Greg.Xrm.Views.ToolStripBindableLabel();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -48,12 +49,27 @@ namespace Greg.Xrm.SolutionManager
             this.tssSeparator1,
             this.tStartMonitoring,
             this.tStopMonitoring,
-            this.tStoppingLabel});
+            this.tStoppingLabel,
+            this.toolStripSeparator1});
 			this.toolStripMenu.Location = new System.Drawing.Point(0, 0);
 			this.toolStripMenu.Name = "toolStripMenu";
 			this.toolStripMenu.Size = new System.Drawing.Size(956, 25);
 			this.toolStripMenu.TabIndex = 4;
 			this.toolStripMenu.Text = "toolStrip1";
+			// 
+			// tssSeparator1
+			// 
+			this.tssSeparator1.Name = "tssSeparator1";
+			this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// dockPanel
+			// 
+			this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dockPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingSdi;
+			this.dockPanel.Location = new System.Drawing.Point(0, 25);
+			this.dockPanel.Name = "dockPanel";
+			this.dockPanel.Size = new System.Drawing.Size(956, 477);
+			this.dockPanel.TabIndex = 5;
 			// 
 			// tsbClose
 			// 
@@ -64,11 +80,6 @@ namespace Greg.Xrm.SolutionManager
 			this.tsbClose.Size = new System.Drawing.Size(23, 22);
 			this.tsbClose.Text = "Close this tool";
 			this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
-			// 
-			// tssSeparator1
-			// 
-			this.tssSeparator1.Name = "tssSeparator1";
-			this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// tStartMonitoring
 			// 
@@ -90,20 +101,16 @@ namespace Greg.Xrm.SolutionManager
 			this.tStopMonitoring.Text = "Stop monitoring";
 			this.tStopMonitoring.Click += new System.EventHandler(this.OnStopMonitoringClick);
 			// 
-			// dockPanel
-			// 
-			this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dockPanel.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingSdi;
-			this.dockPanel.Location = new System.Drawing.Point(0, 25);
-			this.dockPanel.Name = "dockPanel";
-			this.dockPanel.Size = new System.Drawing.Size(956, 477);
-			this.dockPanel.TabIndex = 5;
-			// 
 			// tStoppingLabel
 			// 
 			this.tStoppingLabel.Name = "tStoppingLabel";
 			this.tStoppingLabel.Size = new System.Drawing.Size(128, 22);
 			this.tStoppingLabel.Text = "Stopping... please wait!";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// SolutionManagerPluginControl
 			// 
@@ -129,5 +136,6 @@ namespace Greg.Xrm.SolutionManager
 		private Greg.Xrm.Views.ToolStripBindableButton tStartMonitoring;
 		private Greg.Xrm.Views.ToolStripBindableButton tStopMonitoring;
 		private Greg.Xrm.Views.ToolStripBindableLabel tStoppingLabel;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 	}
 }

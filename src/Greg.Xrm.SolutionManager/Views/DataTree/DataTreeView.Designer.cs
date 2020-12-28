@@ -46,7 +46,7 @@ namespace Greg.Xrm.SolutionManager.Views.DataTree
 			this.tree.Location = new System.Drawing.Point(0, 0);
 			this.tree.Name = "tree";
 			this.tree.SelectedImageIndex = 0;
-			this.tree.Size = new System.Drawing.Size(284, 261);
+			this.tree.Size = new System.Drawing.Size(558, 657);
 			this.tree.TabIndex = 0;
 			// 
 			// images
@@ -60,7 +60,7 @@ namespace Greg.Xrm.SolutionManager.Views.DataTree
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(284, 261);
+			this.ClientSize = new System.Drawing.Size(558, 657);
 			this.CloseButton = false;
 			this.CloseButtonVisible = false;
 			this.Controls.Add(this.tree);

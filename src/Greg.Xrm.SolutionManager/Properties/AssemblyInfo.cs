@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Greg.Xrm.SolutionManager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("This plugin overcomes one of the main limits of make.powerapps.com: an easy to use UI to check the progress of the solution import and get import errors.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany(PluginConstants.AssemblyCompany)]
 [assembly: AssemblyProduct("Greg.Xrm.SolutionManager")]

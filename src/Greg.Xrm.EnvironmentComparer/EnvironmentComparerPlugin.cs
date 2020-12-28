@@ -14,7 +14,7 @@ namespace Greg.Xrm.EnvironmentComparer
 	// Do not forget to update version number and author (company attribute) in AssemblyInfo.cs class
 	// To generate Base64 string for Images below, you can use https://www.base64-image.de/
 	[Export(typeof(IXrmToolBoxPlugin)),
-		ExportMetadata("Name", "_n Environment Comparer"),
+		ExportMetadata("Name", "_n.EnvironmentComparer"),
 		ExportMetadata("Description", "Compares entities between two environments"),
 		ExportMetadata("BackgroundColor", PluginConstants.BackgroundColor), // Use a HTML color name
 		ExportMetadata("PrimaryFontColor", PluginConstants.PrimaryFontColor), // Or an hexadecimal code
@@ -36,7 +36,7 @@ namespace Greg.Xrm.EnvironmentComparer
 		{
 			// If you have external assemblies that you need to load, uncomment the following to 
 			// hook into the event that will fire when an Assembly fails to resolve
-			// AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
+			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
 		}
 
 		/// <summary>

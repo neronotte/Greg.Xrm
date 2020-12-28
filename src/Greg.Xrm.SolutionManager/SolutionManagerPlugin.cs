@@ -13,8 +13,8 @@ namespace Greg.Xrm.SolutionManager
 	// Do not forget to update version number and author (company attribute) in AssemblyInfo.cs class
 	// To generate Base64 string for Images below, you can use https://www.base64-image.de/
 	[Export(typeof(IXrmToolBoxPlugin)),
-		ExportMetadata("Name", "_n Solution Manager"),
-		ExportMetadata("Description", "This is a description for my first plugin"),
+		ExportMetadata("Name", "_n.SolutionManager"),
+		ExportMetadata("Description", "This plugin overcomes one of the main limits of make.powerapps.com: an easy to use UI to check the progress of the solution import and get import errors."),
 		// Please specify the base64 content of a 32x32 pixels image
 		ExportMetadata("SmallImageBase64", PluginConstants.SmallImageBase64),
 		// Please specify the base64 content of a 80x80 pixels image
@@ -36,7 +36,7 @@ namespace Greg.Xrm.SolutionManager
 		{
 			// If you have external assemblies that you need to load, uncomment the following to 
 			// hook into the event that will fire when an Assembly fails to resolve
-			// AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
+			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
 		}
 
 		/// <summary>

@@ -90,6 +90,16 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 			var sb = new StringBuilder();
 			sb.Append("Last check      : ").Append(now.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
 
+			sb.AppendLine();
+			sb.Append("*** SOLUTION INFO ***").AppendLine();
+			sb.Append("uniquename  : ").Append(importJob.uniquename).AppendLine();
+			sb.Append("friendlyname: ").Append(importJob.friendlyname).AppendLine();
+			sb.Append("version     : ").Append(importJob.version).AppendLine();
+			sb.Append("publisher   : ").Append(importJob.publisherid?.Name).AppendLine();
+			sb.Append("description : ").Append(importJob.description).AppendLine();
+			sb.Append("*********************").AppendLine();
+			sb.AppendLine();
+
 			if (!importJob.startedon.HasValue)
 			{
 				sb.AppendLine("NOT STARTED!");
@@ -158,6 +168,7 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 		{
 			this.lblOccurrences.Text = string.Empty;
 			this.pFind.Visible = true;
+			this.txtFind.Focus();
 		}
 
 		private void OnFindKeyDown(object sender, KeyEventArgs e)

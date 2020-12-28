@@ -21,6 +21,13 @@ namespace Greg.Xrm.SolutionManager.Model
 		public DateTime? createdon => Get<DateTime?>();
 		public EntityReference createdby => Get<EntityReference>();
 		public string data => Get<string>();
+
+
+		public string uniquename => GetAliased<string>("s", nameof(uniquename));
+		public string friendlyname => GetAliased<string>("s", nameof(friendlyname));
+		public string description => GetAliased<string>("s", nameof(description));
+		public EntityReference publisherid => GetAliased<EntityReference>("s", nameof(publisherid));
+		public string version => GetAliased<string>("s", nameof(version));
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -46,6 +53,16 @@ namespace Greg.Xrm.SolutionManager.Model
 					nameof(createdon),
 					nameof(createdby),
 					nameof(data));
+
+				var solutionLink = query.AddLink("solution", "solutionid", "solutionid", JoinOperator.LeftOuter);
+				solutionLink.EntityAlias = "s";
+				solutionLink.Columns.AddColumns(
+					nameof(uniquename),
+					nameof(friendlyname), 
+					nameof(description), 
+					nameof(publisherid), 
+					nameof(version));
+
 				query.AddOrder(nameof(startedon), OrderType.Descending);
 
 				var importJob = service.RetrieveMultiple(query).Entities.Select(x => new ImportJob(x)).FirstOrDefault();
