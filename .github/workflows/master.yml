@@ -27,7 +27,7 @@ jobs:
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
         
-      - name: Restore NuGet packages
+      - name: Setup NuGet
         uses: nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
@@ -38,12 +38,15 @@ jobs:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       
-      - name: NuGet Restore
+      - name: Restore NuGet packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: nuget restore Greg.Xrm.sln
       
-      - name: Build DotNET35
-        run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln
+      - name: Build solution
+        run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln /t:Build /p:Configuration=Release
+        
+      - name: Zip SolutionManager
+        run: zip -r SolutionManager.zip $Env:GITHUB_WORKSPACE\src\Greg.Xrm.SolutionManager\bin\release
       
       - name: Create Release
         id: create_release
@@ -63,8 +66,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./my-artifact.zip
-          asset_name: my-artifact.zip
+          asset_path: ./SolutionManager.zip
+          asset_name: SolutionManager.zip
           asset_content_type: application/zip
           
           
