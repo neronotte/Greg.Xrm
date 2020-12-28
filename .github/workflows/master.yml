@@ -45,10 +45,13 @@ jobs:
       - name: Build solution
         run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln /t:Build /p:Configuration=Release
         
+      - name: Echo
+        run: echo $Env:GITHUB_WORKSPACE
+        
       - name: Zip SolutionManager
         uses: papeloto/action-zip@v1
         with:
-          files: $Env:GITHUB_WORKSPACE\src\Greg.Xrm.SolutionManager\bin\release
+          files: $Env:GITHUB_WORKSPACE\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
           dest: SolutionManager.zip 
       
       - name: Create Release
