@@ -24,8 +24,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
   
-      - name: setup-msbuild
+      - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
+        
+      - name: Restore NuGet packages
+        uses: nuget/setup-nuget@v1
+        with:
+          nuget-version: '5.x'
+          
+      - uses: actions/cache@v1
+        id: cache
+        with:
+          path: ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
+      
+      - name: NuGet Restore
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: nuget restore Greg.Xrm.sln
       
       - name: Build DotNET35
         run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln
