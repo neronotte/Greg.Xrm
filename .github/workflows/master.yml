@@ -28,7 +28,7 @@ jobs:
         uses: microsoft/setup-msbuild@v1
       
       - name: Build DotNET35
-        run: .\MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln
+        run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln
       
       - name: Create Release
         id: create_release
