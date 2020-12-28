@@ -39,7 +39,7 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       
       - name: Restore NuGet packages
-        if: steps.cache.outputs.cache-hit != 'true'
+        # if: steps.cache.outputs.cache-hit != 'true'
         run: nuget restore Greg.Xrm.sln
       
       - name: Build solution
