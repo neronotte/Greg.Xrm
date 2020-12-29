@@ -46,12 +46,12 @@ jobs:
         run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln /t:Build /p:Configuration=Release
         
       - name: Echo SolutionManager folder
-        run: dir ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
+        run: dir ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release
         
       - name: Zip SolutionManager
         uses: papeloto/action-zip@v1
         with:
-          files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
+          files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release
           dest: SolutionManager.zip
       
       - name: Create Release
