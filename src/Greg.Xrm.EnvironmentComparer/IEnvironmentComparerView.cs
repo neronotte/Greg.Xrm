@@ -14,5 +14,6 @@ namespace Greg.Xrm.EnvironmentComparer
 		void CanExecuteComparison(bool value);
 
 		void ShowComparisonResult(CompareResult result);
+		void CanLoadEntities(bool value);
 	}
 }

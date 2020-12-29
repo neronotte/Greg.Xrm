@@ -41,6 +41,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.tExecuteComparison = new System.Windows.Forms.ToolStripButton();
 			this.tDownloadExcelFile = new System.Windows.Forms.ToolStripButton();
 			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			this.tLoadEntities = new System.Windows.Forms.ToolStripButton();
 			this.tools.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -54,6 +55,7 @@ namespace Greg.Xrm.EnvironmentComparer
             this.tEnv2Name,
             this.tConnectToEnv2,
             this.toolStripSeparator1,
+            this.tLoadEntities,
             this.tOpenMemento,
             this.tExecuteComparison,
             this.tDownloadExcelFile});
@@ -152,6 +154,17 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.dockPanel.Size = new System.Drawing.Size(1175, 602);
 			this.dockPanel.TabIndex = 5;
 			// 
+			// tLoadEntities
+			// 
+			this.tLoadEntities.Enabled = false;
+			this.tLoadEntities.Image = ((System.Drawing.Image)(resources.GetObject("tLoadEntities.Image")));
+			this.tLoadEntities.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.tLoadEntities.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tLoadEntities.Name = "tLoadEntities";
+			this.tLoadEntities.Size = new System.Drawing.Size(94, 22);
+			this.tLoadEntities.Text = "Load entities";
+			this.tLoadEntities.Click += new System.EventHandler(this.OnLoadEntitiesClick);
+			// 
 			// EnvironmentComparerPluginControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -180,5 +193,6 @@ namespace Greg.Xrm.EnvironmentComparer
 		private System.Windows.Forms.ToolStripButton tOpenMemento;
 		private System.Windows.Forms.ToolStripButton tExecuteComparison;
 		private System.Windows.Forms.ToolStripButton tDownloadExcelFile;
+		private System.Windows.Forms.ToolStripButton tLoadEntities;
 	}
 }

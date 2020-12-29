@@ -92,6 +92,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			{
 				item.SubItems.Add(ex.ToString()).ForeColor = color;
 			}
+			item.EnsureVisible();
 		}
 	}
 }

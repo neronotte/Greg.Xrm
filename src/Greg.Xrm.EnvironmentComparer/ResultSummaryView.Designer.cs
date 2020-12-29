@@ -37,7 +37,10 @@ namespace Greg.Xrm.EnvironmentComparer
 			// 
 			// resultTree
 			// 
+			this.resultTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(40)))));
 			this.resultTree.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.resultTree.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.resultTree.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
 			this.resultTree.ImageIndex = 0;
 			this.resultTree.ImageList = this.images;
 			this.resultTree.Location = new System.Drawing.Point(0, 0);
@@ -63,6 +66,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(657, 627);
 			this.Controls.Add(this.resultTree);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ResultSummaryView";
 			this.ResumeLayout(false);
 

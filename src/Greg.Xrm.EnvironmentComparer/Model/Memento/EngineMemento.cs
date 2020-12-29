@@ -5,6 +5,10 @@ namespace Greg.Xrm.EnvironmentComparer.Model.Memento
 {
 	public class EngineMemento : IValidatableObject
 	{
+		public EngineMemento()
+		{
+			this.Entities = new List<EntityMemento>();
+		}
 		public List<EntityMemento> Entities { get; set; }
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)

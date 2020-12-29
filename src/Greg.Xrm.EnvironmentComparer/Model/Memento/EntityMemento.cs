@@ -8,7 +8,8 @@ namespace Greg.Xrm.EnvironmentComparer.Model.Memento
 	{
 		public EntityMemento()
 		{
-			this.OnlyActive = true;
+			this.KeyAttributeNames = new List<string>();
+			this.AttributesToSkip = new List<string>();
 		}
 
 		public string EntityName { get; set; }

@@ -1,5 +1,5 @@
 ﻿
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Configurator
 {
 	partial class ConfiguratorView
 	{
@@ -36,6 +36,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.tRemove = new System.Windows.Forms.ToolStripButton();
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.images = new System.Windows.Forms.ImageList(this.components);
+			this.tEdit = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -43,6 +44,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			// 
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tAdd,
+            this.tEdit,
             this.tRemove});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
@@ -58,6 +60,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.tAdd.Name = "tAdd";
 			this.tAdd.Size = new System.Drawing.Size(23, 22);
 			this.tAdd.Text = "toolStripButton1";
+			this.tAdd.Click += new System.EventHandler(this.OnAddClick);
 			// 
 			// tRemove
 			// 
@@ -70,7 +73,10 @@ namespace Greg.Xrm.EnvironmentComparer
 			// 
 			// treeView1
 			// 
+			this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(40)))));
 			this.treeView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.treeView1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.treeView1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
 			this.treeView1.ImageIndex = 0;
 			this.treeView1.ImageList = this.images;
 			this.treeView1.Location = new System.Drawing.Point(0, 25);
@@ -88,6 +94,15 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.images.Images.SetKeyName(2, "skip");
 			this.images.Images.SetKeyName(3, "active");
 			// 
+			// tEdit
+			// 
+			this.tEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tEdit.Image = ((System.Drawing.Image)(resources.GetObject("tEdit.Image")));
+			this.tEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tEdit.Name = "tEdit";
+			this.tEdit.Size = new System.Drawing.Size(23, 22);
+			this.tEdit.Text = "toolStripButton1";
+			// 
 			// ConfiguratorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -95,6 +110,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.ClientSize = new System.Drawing.Size(565, 510);
 			this.Controls.Add(this.treeView1);
 			this.Controls.Add(this.toolStrip1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ConfiguratorView";
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
@@ -110,5 +126,6 @@ namespace Greg.Xrm.EnvironmentComparer
 		private System.Windows.Forms.ToolStripButton tRemove;
 		private System.Windows.Forms.TreeView treeView1;
 		private System.Windows.Forms.ImageList images;
+		private System.Windows.Forms.ToolStripButton tEdit;
 	}
 }

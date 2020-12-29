@@ -29,6 +29,7 @@ namespace Greg.Xrm.EnvironmentComparer
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OutputView));
 			this.listView1 = new System.Windows.Forms.ListView();
 			this.cTimestamp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.cLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -38,18 +39,19 @@ namespace Greg.Xrm.EnvironmentComparer
 			// 
 			// listView1
 			// 
+			this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(40)))));
 			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.cTimestamp,
             this.cLevel,
             this.cMessage,
             this.cException});
 			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listView1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.listView1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.listView1.FullRowSelect = true;
 			this.listView1.HideSelection = false;
 			this.listView1.Location = new System.Drawing.Point(0, 0);
 			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(967, 219);
+			this.listView1.Size = new System.Drawing.Size(1007, 269);
 			this.listView1.TabIndex = 0;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
@@ -77,8 +79,9 @@ namespace Greg.Xrm.EnvironmentComparer
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(967, 219);
+			this.ClientSize = new System.Drawing.Size(1007, 269);
 			this.Controls.Add(this.listView1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "OutputView";
 			this.ResumeLayout(false);
 

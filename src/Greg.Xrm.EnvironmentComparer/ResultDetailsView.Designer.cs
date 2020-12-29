@@ -30,18 +30,20 @@ namespace Greg.Xrm.EnvironmentComparer
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultDetailsView));
 			this.listView1 = new System.Windows.Forms.ListView();
 			this.cKey = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.cResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+			this.cFields = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.cEnv1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.cEnv2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-			this.cFields = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.SuspendLayout();
 			// 
 			// listView1
 			// 
+			this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(40)))));
 			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.cKey,
             this.cResult,
@@ -49,9 +51,8 @@ namespace Greg.Xrm.EnvironmentComparer
             this.cEnv1,
             this.cEnv2});
 			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.listView1.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.listView1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.listView1.FullRowSelect = true;
-			this.listView1.GridLines = true;
 			this.listView1.HideSelection = false;
 			this.listView1.Location = new System.Drawing.Point(0, 0);
 			this.listView1.Name = "listView1";
@@ -72,6 +73,11 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.cResult.Text = "Result";
 			this.cResult.Width = 150;
 			// 
+			// cFields
+			// 
+			this.cFields.Text = "Attributes";
+			this.cFields.Width = 200;
+			// 
 			// cEnv1
 			// 
 			this.cEnv1.Text = "ENV1 values";
@@ -82,11 +88,6 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.cEnv2.Text = "ENV2 values";
 			this.cEnv2.Width = 400;
 			// 
-			// cFields
-			// 
-			this.cFields.Text = "Attributes";
-			this.cFields.Width = 200;
-			// 
 			// ResultDetailsView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -94,6 +95,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.ClientSize = new System.Drawing.Size(1025, 651);
 			this.CloseButtonVisible = false;
 			this.Controls.Add(this.listView1);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ResultDetailsView";
 			this.TabText = "Comparison Result Details";
 			this.ResumeLayout(false);
