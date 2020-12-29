@@ -244,12 +244,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>IF $(ConfigurationName) == Debug (
-      IF NOT EXIST Plugins mkdir Plugins
-      xcopy "$(TargetDir)Greg.*.dll" "$(TargetDir)Plugins\" /Y
-      xcopy "$(TargetDir)Greg.*.pdb" "$(TargetDir)Plugins\" /Y
-      xcopy "$(TargetDir)EPPlus.dll" "$(TargetDir)Plugins\" /Y
-      )</PostBuildEvent>
+    <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
+xcopy "$(TargetDir)Greg.*.dll" "$(TargetDir)Plugins\" /Y
+xcopy "$(TargetDir)Greg.*.pdb" "$(TargetDir)Plugins\" /Y
+xcopy "$(TargetDir)EPPlus.dll" "$(TargetDir)Plugins\" /Y</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.  
