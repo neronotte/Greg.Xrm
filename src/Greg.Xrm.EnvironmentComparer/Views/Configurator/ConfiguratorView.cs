@@ -1,13 +1,13 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
-using Greg.Xrm.EnvironmentComparer.Views.Configurator;
 using Greg.Xrm.Messaging;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Greg.Xrm.EnvironmentComparer.Configurator
+namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
 	public partial class ConfiguratorView : DockContent
 	{
@@ -113,6 +113,23 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 			this.treeView1.EndUpdate();
 		}
 
+		private void OnAfterSelectTreeNode(object sender, TreeViewEventArgs e)
+		{
+			var node = e.Node;
+
+			if (node != null && node.Tag == null)
+			{
+				node = node.Parent;
+			}
+
+			this.tEdit.Enabled = node != null;
+			this.tEdit.Text = $"Edit {node.Text}".Trim();
+			this.tEdit.Tag = node;
+			this.tRemove.Enabled = node != null;
+			this.tRemove.Text = $"Remove {node.Text}".Trim();
+			this.tRemove.Tag = node;
+		}
+
 		private void OnAddClick(object sender, EventArgs e)
 		{
 			if (this.EntityMetadataList.Count == 0) return;
@@ -120,7 +137,49 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 
 			using (var dialog = new ConfiguratorDialog(this.EntityMetadataList))
 			{
-				if (dialog.ShowDialog(this) != System.Windows.Forms.DialogResult.OK) return;
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+
+				var memento = dialog.Memento;
+				this.memento.Entities.Add(memento);
+				OnMementoChanged();
+			}
+		}
+
+		private void OnRemoveClick(object sender, EventArgs e)
+		{
+			var btn = (ToolStripButton)sender;
+			if (!(btn.Tag is TreeNode node))
+			{
+				MessageBox.Show("No node selected!");
+				return;
+			}
+
+			var confirm = MessageBox.Show($"Do you really want to remove entity <{node.Text}>?", $"Remove {node.Text}", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (confirm != DialogResult.Yes) return;
+
+
+			var entityMemento = (EntityMemento)node.Tag;
+			this.Memento.Entities.Remove(entityMemento);
+			this.OnMementoChanged();
+			this.OnAfterSelectTreeNode(sender, new TreeViewEventArgs(null));
+		}
+
+		private void OnEditClick(object sender, EventArgs e)
+		{
+			var btn = (ToolStripButton)sender;
+			if (!(btn.Tag is TreeNode node))
+			{
+				MessageBox.Show("No node selected!");
+				return;
+			}
+
+			var entityMemento = (EntityMemento)node.Tag;
+
+			using (var dialog = new ConfiguratorDialog(this.EntityMetadataList))
+			{
+				dialog.Memento = entityMemento;
+
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
 				var memento = dialog.Memento;
 				this.memento.Entities.Add(memento);

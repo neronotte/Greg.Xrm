@@ -1,5 +1,5 @@
 ﻿
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
 	partial class ResultDetailsView
 	{

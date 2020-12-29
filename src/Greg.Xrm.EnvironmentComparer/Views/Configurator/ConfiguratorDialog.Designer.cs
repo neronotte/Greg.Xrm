@@ -69,14 +69,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.txtEntitySearch.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.txtEntitySearch.Location = new System.Drawing.Point(12, 34);
 			this.txtEntitySearch.Name = "txtEntitySearch";
-			this.txtEntitySearch.Size = new System.Drawing.Size(460, 20);
+			this.txtEntitySearch.Size = new System.Drawing.Size(440, 20);
 			this.txtEntitySearch.TabIndex = 2;
 			this.txtEntitySearch.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnEntitySearchKeyUp);
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnCancel.Location = new System.Drawing.Point(397, 473);
+			this.btnCancel.Location = new System.Drawing.Point(377, 473);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 3;
@@ -91,14 +91,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.lstEntities.FormattingEnabled = true;
 			this.lstEntities.Location = new System.Drawing.Point(12, 57);
 			this.lstEntities.Name = "lstEntities";
-			this.lstEntities.Size = new System.Drawing.Size(460, 56);
+			this.lstEntities.Size = new System.Drawing.Size(440, 56);
 			this.lstEntities.TabIndex = 4;
 			this.lstEntities.SelectedIndexChanged += new System.EventHandler(this.OnEntitySelectionChanged);
 			// 
 			// btnAccept
 			// 
 			this.btnAccept.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAccept.Location = new System.Drawing.Point(316, 473);
+			this.btnAccept.Location = new System.Drawing.Point(296, 473);
 			this.btnAccept.Name = "btnAccept";
 			this.btnAccept.Size = new System.Drawing.Size(75, 23);
 			this.btnAccept.TabIndex = 5;
@@ -114,7 +114,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.chlKey.FormattingEnabled = true;
 			this.chlKey.Location = new System.Drawing.Point(30, 200);
 			this.chlKey.Name = "chlKey";
-			this.chlKey.Size = new System.Drawing.Size(441, 94);
+			this.chlKey.Size = new System.Drawing.Size(422, 94);
 			this.chlKey.TabIndex = 6;
 			// 
 			// label2
@@ -166,7 +166,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.chlSkip.FormattingEnabled = true;
 			this.chlSkip.Location = new System.Drawing.Point(12, 345);
 			this.chlSkip.Name = "chlSkip";
-			this.chlSkip.Size = new System.Drawing.Size(460, 94);
+			this.chlSkip.Size = new System.Drawing.Size(440, 94);
 			this.chlSkip.TabIndex = 11;
 			// 
 			// chkOnlyActive
@@ -201,7 +201,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.Controls.Add(this.label1);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "ConfiguratorDialog";
+			this.ShowInTaskbar = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Add entity";
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();

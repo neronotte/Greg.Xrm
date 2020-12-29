@@ -1,5 +1,5 @@
 ﻿
-namespace Greg.Xrm.EnvironmentComparer.Configurator
+namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
 	partial class ConfiguratorView
 	{
@@ -33,10 +33,10 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguratorView));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.tAdd = new System.Windows.Forms.ToolStripButton();
+			this.tEdit = new System.Windows.Forms.ToolStripButton();
 			this.tRemove = new System.Windows.Forms.ToolStripButton();
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.images = new System.Windows.Forms.ImageList(this.components);
-			this.tEdit = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -54,22 +54,33 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 			// 
 			// tAdd
 			// 
-			this.tAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tAdd.Enabled = false;
 			this.tAdd.Image = ((System.Drawing.Image)(resources.GetObject("tAdd.Image")));
 			this.tAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tAdd.Name = "tAdd";
-			this.tAdd.Size = new System.Drawing.Size(23, 22);
-			this.tAdd.Text = "toolStripButton1";
+			this.tAdd.Size = new System.Drawing.Size(82, 22);
+			this.tAdd.Text = "Add entity";
 			this.tAdd.Click += new System.EventHandler(this.OnAddClick);
+			// 
+			// tEdit
+			// 
+			this.tEdit.Enabled = false;
+			this.tEdit.Image = ((System.Drawing.Image)(resources.GetObject("tEdit.Image")));
+			this.tEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tEdit.Name = "tEdit";
+			this.tEdit.Size = new System.Drawing.Size(47, 22);
+			this.tEdit.Text = "Edit";
+			this.tEdit.Click += new System.EventHandler(this.OnEditClick);
 			// 
 			// tRemove
 			// 
-			this.tRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tRemove.Enabled = false;
 			this.tRemove.Image = ((System.Drawing.Image)(resources.GetObject("tRemove.Image")));
 			this.tRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tRemove.Name = "tRemove";
-			this.tRemove.Size = new System.Drawing.Size(23, 22);
-			this.tRemove.Text = "toolStripButton1";
+			this.tRemove.Size = new System.Drawing.Size(70, 22);
+			this.tRemove.Text = "Remove";
+			this.tRemove.Click += new System.EventHandler(this.OnRemoveClick);
 			// 
 			// treeView1
 			// 
@@ -84,6 +95,7 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 			this.treeView1.SelectedImageIndex = 0;
 			this.treeView1.Size = new System.Drawing.Size(565, 485);
 			this.treeView1.TabIndex = 1;
+			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnAfterSelectTreeNode);
 			// 
 			// images
 			// 
@@ -94,15 +106,6 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 			this.images.Images.SetKeyName(2, "skip");
 			this.images.Images.SetKeyName(3, "active");
 			// 
-			// tEdit
-			// 
-			this.tEdit.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tEdit.Image = ((System.Drawing.Image)(resources.GetObject("tEdit.Image")));
-			this.tEdit.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tEdit.Name = "tEdit";
-			this.tEdit.Size = new System.Drawing.Size(23, 22);
-			this.tEdit.Text = "toolStripButton1";
-			// 
 			// ConfiguratorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -112,6 +115,8 @@ namespace Greg.Xrm.EnvironmentComparer.Configurator
 			this.Controls.Add(this.toolStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ConfiguratorView";
+			this.TabText = "Configurator";
+			this.Text = "Configurator";
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.ResumeLayout(false);

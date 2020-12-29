@@ -1,7 +1,9 @@
-﻿using Greg.Xrm.EnvironmentComparer.Configurator;
-using Greg.Xrm.EnvironmentComparer.Messaging;
+﻿using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
+using Greg.Xrm.EnvironmentComparer.Views.Configurator;
+using Greg.Xrm.EnvironmentComparer.Views.Output;
+using Greg.Xrm.EnvironmentComparer.Views.Results;
 using Greg.Xrm.Messaging;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
@@ -14,7 +16,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase, IEnvironmentComparerView
 	{
@@ -31,7 +33,7 @@ namespace Greg.Xrm.EnvironmentComparer
 		private readonly EnvironmentComparerPresenter presenter;
 		private readonly IMessenger messenger;
 
-
+		private readonly EnvironmentComparerViewModel viewModel = new EnvironmentComparerViewModel();
 
 		public EnvironmentComparerPluginControl()
 		{
@@ -42,8 +44,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.tEnv1Name.Text = "1. Connect to environment 1";
 			this.tConnectToEnv2.Text = ConnectToEnvironment2String;
 
-			this.configuratorView = new ConfiguratorView(this.messenger);
-			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
+
 			this.outputView = new OutputView();
 			this.outputView.Show(this.dockPanel, DockState.DockBottom);
 
@@ -53,7 +54,14 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.resultDetailsView = new ResultDetailsView();
 			this.resultDetailsView.Show(this.dockPanel, DockState.Document);
 
-			this.presenter = new EnvironmentComparerPresenter(this.outputView, this);
+			this.configuratorView = new ConfiguratorView(this.messenger);
+			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
+
+
+			this.presenter = new EnvironmentComparerPresenter(this.outputView, this, this.viewModel);
+
+
+			this.tLoadEntities.DataBindings.Add(nameof(this.tLoadEntities.Enabled), this.viewModel, nameof(this.viewModel.CanLoadEntities));
 		}
 
 
@@ -226,10 +234,6 @@ namespace Greg.Xrm.EnvironmentComparer
 			});
 		}
 
-		public void CanLoadEntities(bool value)
-		{
-			this.tLoadEntities.Enabled = value;
-		}
 
 		private void OnLoadEntitiesClick(object sender, EventArgs e)
 		{

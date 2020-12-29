@@ -28,15 +28,25 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.lstEntities.Items.AddRange(dtoList);
 			this.txtEntitySearch.AutoCompleteCustomSource.AddRange(dtoList.Select(x => x.Name).ToArray());
 
-			this.rUseAttributes.CheckedChanged += (s, e) => { 
-				this.rUseGuid.Checked = !this.rUseAttributes.Checked; 
-				this.chlKey.Enabled = this.rUseAttributes.Checked; 
+			this.rUseAttributes.CheckedChanged += (s, e) =>
+			{
+				this.rUseGuid.Checked = !this.rUseAttributes.Checked;
+				this.chlKey.Enabled = this.rUseAttributes.Checked;
 			};
-			this.rUseGuid.CheckedChanged += (s, e) => { this.rUseAttributes.Checked = !this.rUseGuid.Checked;  };
+			this.rUseGuid.CheckedChanged += (s, e) => { this.rUseAttributes.Checked = !this.rUseGuid.Checked; };
 		}
 
 
-		public EntityMemento Memento { get; private set; }
+		private EntityMemento memento;
+		public EntityMemento Memento
+		{
+			get => this.memento;
+			set
+			{
+				this.memento = value ?? new EntityMemento();
+				this.OnMementoChanged();
+			}
+		}
 
 		private void OnEntitySearchKeyUp(object sender, KeyEventArgs e)
 		{
@@ -84,8 +94,58 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			Close();
 		}
 
+
+
+		private void OnMementoChanged()
+		{
+			if (!string.IsNullOrWhiteSpace(memento.EntityName))
+			{
+				var entityMetadata = this.dtoList.FirstOrDefault(x => string.Equals(x.Name, memento.EntityName, StringComparison.OrdinalIgnoreCase));
+				if (entityMetadata != null)
+				{
+					this.txtEntitySearch.Text = entityMetadata.Name;
+					this.lstEntities.SelectedIndex = this.lstEntities.Items.IndexOf(entityMetadata);
+				}
+			}
+
+			this.rUseGuid.Checked = memento.KeyUseGuid;
+			this.rUseAttributes.Checked = !memento.KeyUseGuid;
+			this.chlKey.Enabled = this.rUseAttributes.Checked;
+
+			if (memento.KeyAttributeNames.Count > 0)
+			{
+				foreach (var key in this.chlKey.Items.Cast<AttributeMetadataDto>().ToArray())
+				{
+					if (memento.KeyAttributeNames.Contains(key.Name))
+					{
+						var index = this.chlKey.Items.IndexOf(key);
+						this.chlKey.SetItemChecked(index, true);
+					}
+				}
+			}
+
+			if (memento.AttributesToSkip.Count > 0)
+			{
+				foreach (var key in this.chlSkip.Items.Cast<AttributeMetadataDto>().ToArray())
+				{
+					if (memento.AttributesToSkip.Contains(key.Name))
+					{
+						var index = this.chlSkip.Items.IndexOf(key);
+						this.chlSkip.SetItemChecked(index, true);
+					}
+				}
+			}
+
+
+			this.chkOnlyActive.Checked = memento.OnlyActive;
+		}
+
+
+
 		private void OnOKClick(object sender, EventArgs e)
 		{
+			this.errorProvider.Clear();
+
 			if (!(lstEntities.SelectedItem is EntityMetadataDto dto))
 			{
 				this.errorProvider.SetError(lstEntities, "Please select an entity");
@@ -93,7 +153,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			}
 
 			var useGuid = this.rUseGuid.Checked;
-			var  keyAttributeNames = Array.Empty<string>();
+			var keyAttributeNames = Array.Empty<string>();
 			if (!useGuid)
 			{
 				var keyAttributes = this.chlKey.CheckedItems.Cast<AttributeMetadataDto>().ToList();
@@ -110,18 +170,24 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				.Select(x => x.Name)
 				.ToArray();
 
+
+			var intersection = keyAttributeNames.Intersect(skipAttributeNames).Join(", ");
+			if (!string.IsNullOrWhiteSpace(intersection))
+			{
+				this.errorProvider.SetError(this.chlSkip, $"You cannot skip key attributes ({intersection})!");
+				return;
+			}
+
 			var onlyActive = this.chkOnlyActive.Checked;
 
-			var entityMemento = new EntityMemento
-			{
-				EntityName = dto.Name,
-				KeyUseGuid = useGuid,
-				OnlyActive = onlyActive
-			};
-			entityMemento.KeyAttributeNames.AddRange(keyAttributeNames);
-			entityMemento.AttributesToSkip.AddRange(skipAttributeNames);
+			this.Memento.EntityName = dto.Name;
+			this.Memento.KeyUseGuid = useGuid;
+			this.Memento.OnlyActive = onlyActive;
+			this.Memento.KeyAttributeNames.Clear();
+			this.Memento.KeyAttributeNames.AddRange(keyAttributeNames);
+			this.Memento.AttributesToSkip.Clear();
+			this.Memento.AttributesToSkip.AddRange(skipAttributeNames);
 
-			this.Memento = entityMemento;
 			this.DialogResult = DialogResult.OK;
 			Close();
 		}

@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public interface IEnvironmentComparerView
 	{
@@ -14,6 +14,5 @@ namespace Greg.Xrm.EnvironmentComparer
 		void CanExecuteComparison(bool value);
 
 		void ShowComparisonResult(CompareResult result);
-		void CanLoadEntities(bool value);
 	}
 }
