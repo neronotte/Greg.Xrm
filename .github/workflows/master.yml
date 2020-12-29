@@ -48,11 +48,23 @@ jobs:
       - name: Echo SolutionManager folder
         run: dir ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
         
-      - name: Zip SolutionManager
-        uses: papeloto/action-zip@v1
+      #- name: Zip SolutionManager
+      #  uses: papeloto/action-zip@v1
+      #  with:
+      #    files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*
+      #    dest: SolutionManager.zip
+
+      - name: Zip Release
+        uses: TheDoctor0/zip-release@0.4.1
         with:
-          files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*
-          dest: SolutionManager.zip
+            # Filename for archive
+            filename: SolutionManager.zip
+            # Base path for archive files
+            path: .
+            # Working directory before zipping
+            directory: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
+            # Tool to use for archiving
+            type: zip
       
       - name: Create Release
         id: create_release
