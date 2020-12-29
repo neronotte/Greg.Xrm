@@ -45,20 +45,14 @@ jobs:
       - name: Build solution
         run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln /t:Build /p:Configuration=Release
         
-      - name: Echo
-        run: echo $Env:GITHUB_WORKSPACE
+      - name: Echo SolutionManager folder
+        run: dir ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
         
-      #- name: Zip SolutionManager
-      #  uses: papeloto/action-zip@v1
-      #  with:
-      #    files: src/Greg.Xrm.SolutionManager/bin/Release/Plugins/
-      #    dest: SolutionManager.zip 
-      
       - name: Zip SolutionManager
-        uses: montudor/action-zip@v0.1.1
+        uses: papeloto/action-zip@v1
         with:
-          args: zip -qq -r SolutionManager.zip ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
-      
+          files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
+          dest: SolutionManager.zip
       
       - name: Create Release
         id: create_release
