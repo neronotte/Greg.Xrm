@@ -48,11 +48,17 @@ jobs:
       - name: Echo
         run: echo $Env:GITHUB_WORKSPACE
         
+      #- name: Zip SolutionManager
+      #  uses: papeloto/action-zip@v1
+      #  with:
+      #    files: src/Greg.Xrm.SolutionManager/bin/Release/Plugins/
+      #    dest: SolutionManager.zip 
+      
       - name: Zip SolutionManager
-        uses: papeloto/action-zip@v1
+        uses: montudor/action-zip@v01.1.1
         with:
-          files: src/Greg.Xrm.SolutionManager/bin/Release/Plugins/
-          dest: SolutionManager.zip 
+          args: zip -qq -r SolutionManager.zip ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
+      
       
       - name: Create Release
         id: create_release
