@@ -24,48 +24,44 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
   
+
       - name: Setup MSBuild
         uses: microsoft/setup-msbuild@v1
         
+
       - name: Setup NuGet
         uses: nuget/setup-nuget@v1
         with:
           nuget-version: '5.x'
           
+
       - uses: actions/cache@v1
         id: cache
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
       
+
       - name: Restore NuGet packages
         # if: steps.cache.outputs.cache-hit != 'true'
         run: nuget restore Greg.Xrm.sln
       
+
       - name: Build solution
         run: MSBuild.exe $Env:GITHUB_WORKSPACE\Greg.Xrm.sln /t:Build /p:Configuration=Release
         
+
       - name: Echo SolutionManager folder
         run: dir ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
         
-      #- name: Zip SolutionManager
-      #  uses: papeloto/action-zip@v1
-      #  with:
-      #    files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*
-      #    dest: SolutionManager.zip
 
-      - name: Zip Release
-        uses: TheDoctor0/zip-release@0.4.1
+      - name: Zip SolutionManager
+        uses: papeloto/action-zip@v1
         with:
-            # Filename for archive
-            filename: SolutionManager.zip
-            # Base path for archive files
-            path: .
-            # Working directory before zipping
-            directory: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
-            # Tool to use for archiving
-            type: zip
+          files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*
+          dest: SolutionManager.zip
       
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -77,6 +73,7 @@ jobs:
           draft: false
           prerelease: false
           
+
       - name: Upload Release Asset
         id: upload-release-asset 
         uses: actions/upload-release-asset@v1
