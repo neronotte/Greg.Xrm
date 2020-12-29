@@ -51,7 +51,7 @@ jobs:
       - name: Zip SolutionManager
         uses: papeloto/action-zip@v1
         with:
-          files: ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*.*
+          files: src/Greg.Xrm.SolutionManager/bin/Release/Plugins/
           dest: SolutionManager.zip 
       
       - name: Create Release
@@ -60,7 +60,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
+          tag_name: ${{ github.ref }}_${{ github.run_number }}
           release_name: Release ${{ github.run_number }}
           draft: false
           prerelease: false
