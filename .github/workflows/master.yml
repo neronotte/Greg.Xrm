@@ -55,7 +55,7 @@ jobs:
       #    dest: SolutionManager.zip 
       
       - name: Zip SolutionManager
-        uses: montudor/action-zip@v01.1.1
+        uses: montudor/action-zip@v0.1.1
         with:
           args: zip -qq -r SolutionManager.zip ${{ github.workspace }}\src\Greg.Xrm.SolutionManager\bin\Release\Plugins
       
