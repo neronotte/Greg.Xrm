@@ -35,6 +35,8 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 		public RecordComparisonResult Result { get; }
 		public IReadOnlyCollection<Difference> DifferentProperties { get; }
 
+		public Dictionary<string, string> AdditionalInfo { get; }
+
 		public override string ToString()
 		{
 			return this.Result.ToString();

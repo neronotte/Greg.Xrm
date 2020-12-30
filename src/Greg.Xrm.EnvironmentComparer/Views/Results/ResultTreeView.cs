@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Model;
+using Greg.Xrm.Theming;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
@@ -9,21 +10,30 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
-	public partial class ResultSummaryView : DockContent
+	public partial class ResultTreeView : DockContent
 	{
+		private readonly IThemeProvider themeProvider;
 		private readonly Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected;
 		private CompareResult compareResult;
 
 		private readonly Color Green = Color.FromArgb(142, 209, 24);
 
-		public ResultSummaryView(Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected)
+		public ResultTreeView(IThemeProvider themeProvider, Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected)
 		{
 			InitializeComponent();
 
 			base.TabText = "Result Summary";
-			this.onResultSelected = onResultSelected;
+			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
+			this.onResultSelected = onResultSelected ?? throw new ArgumentNullException(nameof(onResultSelected));
+			this.ApplyTheme();
 		}
 
+
+		private void ApplyTheme()
+		{
+			var theme = this.themeProvider.GetCurrentTheme();
+			theme.ApplyTo(this.resultTree);
+		}
 
 		public CompareResult CompareResult
 		{

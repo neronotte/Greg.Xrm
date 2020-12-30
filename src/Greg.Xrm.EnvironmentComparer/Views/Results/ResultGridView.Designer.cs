@@ -1,7 +1,7 @@
 ﻿
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
-	partial class ResultDetailsView
+	partial class ResultGridView
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -30,7 +30,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultDetailsView));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultGridView));
 			this.listView1 = new System.Windows.Forms.ListView();
 			this.cKey = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.cResult = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -39,6 +39,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cEnv2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.cmiCopyToEnv2 = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmiCopyToEnv1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmiCompare = new System.Windows.Forms.ToolStripMenuItem();
+			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// listView1
@@ -50,6 +55,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
             this.cFields,
             this.cEnv1,
             this.cEnv2});
+			this.listView1.ContextMenuStrip = this.contextMenu;
 			this.listView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.listView1.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.listView1.FullRowSelect = true;
@@ -60,8 +66,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.listView1.TabIndex = 1;
 			this.listView1.UseCompatibleStateImageBehavior = false;
 			this.listView1.View = System.Windows.Forms.View.Details;
-			this.listView1.MouseLeave += new System.EventHandler(this.listView1_MouseLeave);
-			this.listView1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseMove);
+			this.listView1.SelectedIndexChanged += new System.EventHandler(this.OnRecordSelectionChanged);
+			this.listView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnResultKeyUp);
 			// 
 			// cKey
 			// 
@@ -88,7 +94,43 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cEnv2.Text = "ENV2 values";
 			this.cEnv2.Width = 400;
 			// 
-			// ResultDetailsView
+			// contextMenu
+			// 
+			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmiCopyToEnv2,
+            this.cmiCopyToEnv1,
+            this.cmiCompare});
+			this.contextMenu.Name = "contextMenuStrip1";
+			this.contextMenu.Size = new System.Drawing.Size(181, 92);
+			// 
+			// cmiCopyToEnv2
+			// 
+			this.cmiCopyToEnv2.Enabled = false;
+			this.cmiCopyToEnv2.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_right;
+			this.cmiCopyToEnv2.Name = "cmiCopyToEnv2";
+			this.cmiCopyToEnv2.Size = new System.Drawing.Size(180, 22);
+			this.cmiCopyToEnv2.Text = "Copy to ENV2";
+			this.cmiCopyToEnv2.Click += new System.EventHandler(this.OnCopyToEnv2Click);
+			// 
+			// cmiCopyToEnv1
+			// 
+			this.cmiCopyToEnv1.Enabled = false;
+			this.cmiCopyToEnv1.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_left;
+			this.cmiCopyToEnv1.Name = "cmiCopyToEnv1";
+			this.cmiCopyToEnv1.Size = new System.Drawing.Size(180, 22);
+			this.cmiCopyToEnv1.Text = "Copy to ENV1";
+			this.cmiCopyToEnv1.Click += new System.EventHandler(this.OnCopyToEnv1Click);
+			// 
+			// cmiCompare
+			// 
+			this.cmiCompare.Enabled = false;
+			this.cmiCompare.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.compare;
+			this.cmiCompare.Name = "cmiCompare";
+			this.cmiCompare.Size = new System.Drawing.Size(180, 22);
+			this.cmiCompare.Text = "Compare...";
+			this.cmiCompare.Click += new System.EventHandler(this.OnCompareClick);
+			// 
+			// ResultGridView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -96,8 +138,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.CloseButtonVisible = false;
 			this.Controls.Add(this.listView1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "ResultDetailsView";
+			this.Name = "ResultGridView";
 			this.TabText = "Comparison Result Details";
+			this.contextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -111,5 +154,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private System.Windows.Forms.ColumnHeader cFields;
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 		private System.Windows.Forms.ToolTip toolTip;
+		private System.Windows.Forms.ContextMenuStrip contextMenu;
+		private System.Windows.Forms.ToolStripMenuItem cmiCopyToEnv2;
+		private System.Windows.Forms.ToolStripMenuItem cmiCopyToEnv1;
+		private System.Windows.Forms.ToolStripMenuItem cmiCompare;
 	}
 }
