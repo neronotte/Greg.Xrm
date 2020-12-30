@@ -23,3 +23,9 @@ It provides the following capabilities
 - autorefresh
 - search by CTRL+F / F3
 - enriched output log view via treeview
+
+
+# Wishlist
+
+- Possibilità di copiare record da un'ambiente ad un'altro. Possibilmente con comandi via commandline. Da mettere in un tool dedicato o dentro EnvironmentComparer
+- Possibilità di monitorare il processo di uninstall delle solution.

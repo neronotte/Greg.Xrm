@@ -1,7 +1,14 @@
-﻿using Greg.Xrm.EnvironmentComparer.Model;
+﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
+using Greg.Xrm.EnvironmentComparer.Views.Configurator;
+using Greg.Xrm.EnvironmentComparer.Views.Output;
+using Greg.Xrm.EnvironmentComparer.Views.Results;
+using Greg.Xrm.Messaging;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
@@ -9,7 +16,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase, IEnvironmentComparerView
 	{
@@ -24,16 +31,20 @@ namespace Greg.Xrm.EnvironmentComparer
 		private readonly ResultDetailsView resultDetailsView;
 
 		private readonly EnvironmentComparerPresenter presenter;
+		private readonly IMessenger messenger;
+
+		private readonly EnvironmentComparerViewModel viewModel = new EnvironmentComparerViewModel();
 
 		public EnvironmentComparerPluginControl()
 		{
 			InitializeComponent();
 
+			this.messenger = new Messenger(this);
+
 			this.tEnv1Name.Text = "1. Connect to environment 1";
 			this.tConnectToEnv2.Text = ConnectToEnvironment2String;
 
-			this.configuratorView = new ConfiguratorView();
-			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
+
 			this.outputView = new OutputView();
 			this.outputView.Show(this.dockPanel, DockState.DockBottom);
 
@@ -43,13 +54,21 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.resultDetailsView = new ResultDetailsView();
 			this.resultDetailsView.Show(this.dockPanel, DockState.Document);
 
-			this.presenter = new EnvironmentComparerPresenter(this.outputView, this);
+			this.configuratorView = new ConfiguratorView(this.messenger);
+			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
+
+
+			this.presenter = new EnvironmentComparerPresenter(this.outputView, this, this.viewModel);
+
+
+			this.tLoadEntities.DataBindings.Add(nameof(this.tLoadEntities.Enabled), this.viewModel, nameof(this.viewModel.CanLoadEntities));
 		}
 
 
 		protected override void ConnectionDetailsUpdated(NotifyCollectionChangedEventArgs e)
 		{
 			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
+			this.messenger.Send<ResetEntityList>();
 		}
 
 		private void OnConnectToEnvironment2(object sender, EventArgs e)
@@ -67,8 +86,8 @@ namespace Greg.Xrm.EnvironmentComparer
 			base.UpdateConnection(newService, detail, actionName, parameter);
 
 			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
+			this.messenger.Send<ResetEntityList>();
 		}
-
 
 		private void MyPluginControl_Load(object sender, EventArgs e)
 		{
@@ -211,6 +230,41 @@ namespace Greg.Xrm.EnvironmentComparer
 				Message = "Executing generating Excel file, please wait...",
 				Work = (w, e1) => {
 					this.presenter.DownloadComparisonResultAsExcelFile(fileName, this.resultSummaryView.CompareResult);
+				}
+			});
+		}
+
+
+		private void OnLoadEntitiesClick(object sender, EventArgs e)
+		{
+			ExecuteMethod(LoadEntities);
+		}
+
+		private void LoadEntities()
+		{
+			this.WorkAsync(new WorkAsyncInfo
+			{
+				Message = "Loading entities, please wait...",
+				Work = (bw, e1) => {
+					var request = new RetrieveAllEntitiesRequest
+					{
+						EntityFilters = EntityFilters.Attributes
+					};
+
+					var response = (RetrieveAllEntitiesResponse)this.Service.Execute(request);
+					e1.Result = response.EntityMetadata;
+				},
+				PostWorkCallBack = e1 => {
+					if (e1.Error != null)
+					{
+
+						return;
+					}
+
+					if (e1.Result is EntityMetadata[] entityMetadataList)
+					{
+						this.messenger.Send(new EntityListRetrieved(entityMetadataList));
+					}
 				}
 			});
 		}

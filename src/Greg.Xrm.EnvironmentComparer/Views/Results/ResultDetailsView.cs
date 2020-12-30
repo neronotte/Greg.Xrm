@@ -7,7 +7,7 @@ using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
 	public partial class ResultDetailsView : DockContent
 	{

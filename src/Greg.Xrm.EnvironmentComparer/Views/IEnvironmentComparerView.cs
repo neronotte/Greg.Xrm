@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public interface IEnvironmentComparerView
 	{

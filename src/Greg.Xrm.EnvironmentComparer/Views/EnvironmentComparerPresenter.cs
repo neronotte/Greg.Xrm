@@ -3,28 +3,32 @@ using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.IO;
 using System.ServiceModel;
 using System.Text;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public class EnvironmentComparerPresenter
 	{
 		private readonly ILog log;
 		private readonly IEnvironmentComparerView view;
+		private readonly EnvironmentComparerViewModel viewModel;
 		private ConnectionDetail env1;
 		private ConnectionDetail env2;
 		private IOrganizationService crm1;
 		private IOrganizationService crm2;
 		private ICompareEngine engine;
 		private EngineMemento memento;
+		private EntityMetadata[] entityMetadataList;
 
-		public EnvironmentComparerPresenter(ILog log, IEnvironmentComparerView view)
+		public EnvironmentComparerPresenter(ILog log, IEnvironmentComparerView view, EnvironmentComparerViewModel viewModel)
 		{
-			this.log = log ?? throw new System.ArgumentNullException(nameof(log));
-			this.view = view ?? throw new System.ArgumentNullException(nameof(view));
+			this.log = log ?? throw new ArgumentNullException(nameof(log));
+			this.view = view ?? throw new ArgumentNullException(nameof(view));
+			this.viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
 		}
 
 
@@ -38,14 +42,16 @@ namespace Greg.Xrm.EnvironmentComparer
 				this.crm2 = env2?.GetCrmServiceClient();
 
 				this.view.SetConnectionNames(env1?.ConnectionName, env2?.ConnectionName);
+				this.viewModel.CanLoadEntities = true;
 				this.view.CanOpenConfig((this.env1 != null && this.env2 != null));
 				this.view.CanExecuteComparison(false);
 				this.view.ShowMemento(null);
 				this.view.ShowComparisonResult(null);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				this.view.SetConnectionNames(env1?.ConnectionName, env2?.ConnectionName);
+				this.viewModel.CanLoadEntities = true;
 				this.view.CanOpenConfig(false);
 				this.view.CanExecuteComparison(false);
 				this.view.ShowMemento(null);
@@ -71,7 +77,7 @@ namespace Greg.Xrm.EnvironmentComparer
 
 				this.engine = Compare
 					.FromMemento(mementoFileName, out EngineMemento engineMemento)
-					.GetEngine( this.crm1, this.crm2, this.log );
+					.GetEngine(this.crm1, this.crm2, this.log);
 
 				this.memento = engineMemento;
 				this.log.Debug("Engine created successfully from file " + mementoFileName);
@@ -102,6 +108,15 @@ namespace Greg.Xrm.EnvironmentComparer
 			}
 		}
 
+		public void LoadEntities()
+		{
+			throw new NotImplementedException();
+		}
+
+
+
+
+
 		internal void ExecuteComparison()
 		{
 			if (this.memento == null)
@@ -109,7 +124,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			if (this.engine == null)
 				throw new InvalidOperationException("Comparison cannot be performed without engine!");
 
-			using(log.Track("Executing comparison"))
+			using (log.Track("Executing comparison"))
 			{
 				try
 				{
@@ -126,20 +141,27 @@ namespace Greg.Xrm.EnvironmentComparer
 			}
 		}
 
+		internal void SetEntities(EntityMetadata[] newEntityMetadataList)
+		{
+			this.entityMetadataList = newEntityMetadataList;
+		}
+
 		internal void DownloadComparisonResultAsExcelFile(string outputPath, CompareResult compareResult)
 		{
-			using(log.Track("Exporting comparison result on excel file " + outputPath))
-			try
+			using (log.Track("Exporting comparison result on excel file " + outputPath))
 			{
+				try
+				{
 					var reportBuilder = new ReportBuilder(new DirectoryInfo(outputPath));
 					reportBuilder.GenerateReport(compareResult, this.env1.ConnectionName, this.env2.ConnectionName);
 
 
 				}
-			catch(Exception ex)
-			{
+				catch (Exception ex)
+				{
 					log.Error("Error during export: " + ex.Message, ex);
-			}
+				}
+			}		
 		}
 	}
 }

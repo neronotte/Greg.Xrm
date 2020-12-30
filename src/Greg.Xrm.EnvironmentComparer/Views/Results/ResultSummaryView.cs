@@ -7,12 +7,14 @@ using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
 	public partial class ResultSummaryView : DockContent
 	{
 		private readonly Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected;
 		private CompareResult compareResult;
+
+		private readonly Color Green = Color.FromArgb(142, 209, 24);
 
 		public ResultSummaryView(Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected)
 		{
@@ -53,6 +55,7 @@ namespace Greg.Xrm.EnvironmentComparer
 
 			foreach (var kvp in this.compareResult)
 			{
+				var shouldExpand = false;
 				var node = this.resultTree.Nodes.Add($"{kvp.Key} ({kvp.Value.Count})" );
 				node.ImageKey = "entity";
 				node.SelectedImageKey = "entity";
@@ -68,7 +71,8 @@ namespace Greg.Xrm.EnvironmentComparer
 				}
 				else if (count == kvp.Value.Count)
 				{
-					childNode.NodeFont = new Font(resultTree.Font, FontStyle.Bold);
+					childNode.ForeColor = Green;
+					childNode.Parent.ForeColor = Green;
 				}
 
 				count = kvp.Value.Count(_ => _.Result == RecordComparisonResult.RightMissing);
@@ -83,6 +87,10 @@ namespace Greg.Xrm.EnvironmentComparer
 				{
 					childNode.NodeFont = new Font(resultTree.Font, FontStyle.Bold);
 				}
+				else
+				{
+					shouldExpand = true;
+				}
 
 				count = kvp.Value.Count(_ => _.Result == RecordComparisonResult.LeftMissing);
 				childNode = node.Nodes.Add($"Missing on ENV1: {count}/{kvp.Value.Count}");
@@ -95,6 +103,10 @@ namespace Greg.Xrm.EnvironmentComparer
 				else if (count == kvp.Value.Count)
 				{
 					childNode.NodeFont = new Font(resultTree.Font, FontStyle.Bold);
+				}
+				else
+				{
+					shouldExpand = true;
 				}
 
 				count = kvp.Value.Count(_ => _.Result == RecordComparisonResult.MatchingButDifferent);
@@ -109,10 +121,16 @@ namespace Greg.Xrm.EnvironmentComparer
 				{
 					childNode.NodeFont = new Font(resultTree.Font, FontStyle.Bold);
 				}
+				else
+				{
+					shouldExpand = true;
+				}
 
+				if (shouldExpand)
+				{
+					node.Expand();
+				}
 			}
-
-			this.resultTree.ExpandAll();
 
 			this.resultTree.EndUpdate();
 

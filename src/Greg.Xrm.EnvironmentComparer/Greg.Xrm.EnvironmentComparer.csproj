@@ -142,22 +142,27 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfiguratorView.cs">
+    <Compile Include="Model\Constants.cs" />
+    <Compile Include="Views\Configurator\AttributeMetadataDto.cs" />
+    <Compile Include="Views\Configurator\ConfiguratorView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ConfiguratorView.Designer.cs">
+    <Compile Include="Views\Configurator\ConfiguratorView.Designer.cs">
       <DependentUpon>ConfiguratorView.cs</DependentUpon>
     </Compile>
     <Compile Include="EnvironmentComparerPlugin.cs" />
-    <Compile Include="EnvironmentComparerPluginControl.cs">
+    <Compile Include="Views\EnvironmentComparerPluginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="EnvironmentComparerPluginControl.designer.cs">
+    <Compile Include="Views\EnvironmentComparerPluginControl.designer.cs">
       <DependentUpon>EnvironmentComparerPluginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="EnvironmentComparerPresenter.cs" />
-    <Compile Include="IEnvironmentComparerView.cs" />
+    <Compile Include="Views\EnvironmentComparerPresenter.cs" />
+    <Compile Include="Views\EnvironmentComparerViewModel.cs" />
+    <Compile Include="Views\IEnvironmentComparerView.cs" />
     <Compile Include="Logging\ILog.cs" />
+    <Compile Include="Messaging\EntityListRetrieved.cs" />
+    <Compile Include="Messaging\ResetEntityList.cs" />
     <Compile Include="Model\AsKey.cs" />
     <Compile Include="Model\Compare.cs" />
     <Compile Include="Model\CompareEngine.cs" />
@@ -165,6 +170,8 @@
     <Compile Include="Model\CompareResult.cs" />
     <Compile Include="Model\Comparison.cs" />
     <Compile Include="Model\ComparisonException.cs" />
+    <Compile Include="Model\KeyProviderByAttributeSet.cs" />
+    <Compile Include="Model\KeyProviderById.cs" />
     <Compile Include="Model\RecordComparisonResult.cs" />
     <Compile Include="Model\Difference.cs" />
     <Compile Include="Model\EntityComparer.cs" />
@@ -179,10 +186,12 @@
     <Compile Include="Model\Memento\EntityMemento.cs" />
     <Compile Include="Model\ReportBuilder.cs" />
     <Compile Include="Model\Skip.cs" />
-    <Compile Include="OutputView.cs">
+    <Compile Include="Model\SkipAttributes.cs" />
+    <Compile Include="Model\SkipNothing.cs" />
+    <Compile Include="Views\Output\OutputView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OutputView.Designer.cs">
+    <Compile Include="Views\Output\OutputView.Designer.cs">
       <DependentUpon>OutputView.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -191,50 +200,61 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="ResultDetailsView.cs">
+    <Compile Include="Views\Results\ResultDetailsView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ResultDetailsView.Designer.cs">
+    <Compile Include="Views\Results\ResultDetailsView.Designer.cs">
       <DependentUpon>ResultDetailsView.cs</DependentUpon>
     </Compile>
-    <Compile Include="ResultSummaryView.cs">
+    <Compile Include="Views\Results\ResultSummaryView.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ResultSummaryView.Designer.cs">
+    <Compile Include="Views\Results\ResultSummaryView.Designer.cs">
       <DependentUpon>ResultSummaryView.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Views\Configurator\ConfiguratorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorDialog.Designer.cs">
+      <DependentUpon>ConfiguratorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurator\EntityMetadataDto.cs" />
+    <Compile Include="Views\Configurator\IReadOnlyDictionary.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="ConfiguratorView.resx">
+    <EmbeddedResource Include="Views\Configurator\ConfiguratorView.resx">
       <DependentUpon>ConfiguratorView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="EnvironmentComparerPluginControl.resx">
+    <EmbeddedResource Include="Views\EnvironmentComparerPluginControl.resx">
       <DependentUpon>EnvironmentComparerPluginControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="OutputView.resx">
+    <EmbeddedResource Include="Views\Output\OutputView.resx">
       <DependentUpon>OutputView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResultDetailsView.resx">
+    <EmbeddedResource Include="Views\Results\ResultDetailsView.resx">
       <DependentUpon>ResultDetailsView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ResultSummaryView.resx">
+    <EmbeddedResource Include="Views\Results\ResultSummaryView.resx">
       <DependentUpon>ResultSummaryView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Configurator\ConfiguratorDialog.resx">
+      <DependentUpon>ConfiguratorDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\door_out.png" />
-    <None Include="Resources\folder.png" />
-    <None Include="Resources\page_white_excel.png" />
-    <None Include="Resources\control_play_blue.png" />
+    <EmbeddedResource Include="Resources\door_out.png" />
+    <EmbeddedResource Include="Resources\folder.png" />
+    <EmbeddedResource Include="Resources\page_white_excel.png" />
+    <EmbeddedResource Include="Resources\control_play_blue.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj">
@@ -242,6 +262,7 @@
       <Name>Greg.Xrm.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins

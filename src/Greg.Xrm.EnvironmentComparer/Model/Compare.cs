@@ -139,6 +139,17 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			{
 				return new CompareEngine(log, crm1, crm2, comparerList);
 			}
+
+
+			public ICompareFluentInterface ToMemento(out EngineMemento memento)
+			{
+				memento = new EngineMemento();
+				foreach (var comparer in this.comparerList)
+				{
+					memento.Entities.Add(comparer.ToEntityMemento());
+				}
+				return this;
+			}
 		}
 	}
 }

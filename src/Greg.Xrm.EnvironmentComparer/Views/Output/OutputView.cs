@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views.Output
 {
 	public partial class OutputView : DockContent, ILog
 	{
@@ -92,6 +92,7 @@ namespace Greg.Xrm.EnvironmentComparer
 			{
 				item.SubItems.Add(ex.ToString()).ForeColor = color;
 			}
+			item.EnsureVisible();
 		}
 	}
 }

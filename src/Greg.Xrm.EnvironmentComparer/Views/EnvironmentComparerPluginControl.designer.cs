@@ -1,5 +1,5 @@
 ﻿
-namespace Greg.Xrm.EnvironmentComparer
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	partial class EnvironmentComparerPluginControl
 	{
@@ -31,16 +31,17 @@ namespace Greg.Xrm.EnvironmentComparer
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EnvironmentComparerPluginControl));
 			this.tools = new System.Windows.Forms.ToolStrip();
-			this.tClose = new System.Windows.Forms.ToolStripButton();
+			this.tClose = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tEnv1Name = new System.Windows.Forms.ToolStripLabel();
 			this.tEnv2Name = new System.Windows.Forms.ToolStripLabel();
-			this.tConnectToEnv2 = new System.Windows.Forms.ToolStripButton();
+			this.tConnectToEnv2 = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tOpenMemento = new System.Windows.Forms.ToolStripButton();
-			this.tExecuteComparison = new System.Windows.Forms.ToolStripButton();
-			this.tDownloadExcelFile = new System.Windows.Forms.ToolStripButton();
+			this.tOpenMemento = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tExecuteComparison = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tDownloadExcelFile = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			this.tLoadEntities = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tools.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -54,6 +55,7 @@ namespace Greg.Xrm.EnvironmentComparer
             this.tEnv2Name,
             this.tConnectToEnv2,
             this.toolStripSeparator1,
+            this.tLoadEntities,
             this.tOpenMemento,
             this.tExecuteComparison,
             this.tDownloadExcelFile});
@@ -152,6 +154,17 @@ namespace Greg.Xrm.EnvironmentComparer
 			this.dockPanel.Size = new System.Drawing.Size(1175, 602);
 			this.dockPanel.TabIndex = 5;
 			// 
+			// tLoadEntities
+			// 
+			this.tLoadEntities.Enabled = false;
+			this.tLoadEntities.Image = ((System.Drawing.Image)(resources.GetObject("tLoadEntities.Image")));
+			this.tLoadEntities.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.tLoadEntities.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tLoadEntities.Name = "tLoadEntities";
+			this.tLoadEntities.Size = new System.Drawing.Size(94, 22);
+			this.tLoadEntities.Text = "Load entities";
+			this.tLoadEntities.Click += new System.EventHandler(this.OnLoadEntitiesClick);
+			// 
 			// EnvironmentComparerPluginControl
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -170,15 +183,16 @@ namespace Greg.Xrm.EnvironmentComparer
 
 		#endregion
 		private System.Windows.Forms.ToolStrip tools;
-		private System.Windows.Forms.ToolStripButton tClose;
+		private Greg.Xrm.Views.ToolStripBindableButton tClose;
 		private System.Windows.Forms.ToolStripSeparator tssSeparator1;
 		private System.Windows.Forms.ToolStripLabel tEnv1Name;
 		private System.Windows.Forms.ToolStripLabel tEnv2Name;
-		private System.Windows.Forms.ToolStripButton tConnectToEnv2;
+		private Greg.Xrm.Views.ToolStripBindableButton tConnectToEnv2;
 		private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripButton tOpenMemento;
-		private System.Windows.Forms.ToolStripButton tExecuteComparison;
-		private System.Windows.Forms.ToolStripButton tDownloadExcelFile;
+		private Greg.Xrm.Views.ToolStripBindableButton tOpenMemento;
+		private Greg.Xrm.Views.ToolStripBindableButton tExecuteComparison;
+		private Greg.Xrm.Views.ToolStripBindableButton tDownloadExcelFile;
+		private Greg.Xrm.Views.ToolStripBindableButton tLoadEntities;
 	}
 }

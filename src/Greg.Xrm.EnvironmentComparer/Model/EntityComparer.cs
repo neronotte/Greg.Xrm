@@ -1,75 +1,76 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.EnvironmentComparer.Model.Memento;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 
 namespace Greg.Xrm.EnvironmentComparer.Model
 {
 	public class EntityComparer
 	{
-		private static readonly string[] attributesToRemove = new[] { 
-			"ownerid", 
-			"createdby", 
-			"createdon", 
-			"modifiedby",
-			"modifiedon",
-			"owninguser",
-			"owningbusinessunit",
-			"importsequencenumber",
-			"modifiedonbehalfby",
-			"overriddencreatedon", 
-			"timezoneruleversionnumber"
-		};
+		
 		private readonly Action<QueryExpression> applyAdditionalFilters;
 		private readonly Comparer<Entity> comparer;
 
-		public EntityComparer(string entityName, IKeyProvider<Entity> keyProvider, bool onlyActiveRecords)
+		public EntityComparer(
+			string entityName, 
+			IKeyProvider<Entity> keyProvider, 
+			bool onlyActiveRecords)
+			: this(entityName, keyProvider, Skip.Nothing, onlyActiveRecords)
 		{
-			this.comparer = new Comparer<Entity>(keyProvider, new EntityEqualityComparer(), entityName);
-			this.EntityName = entityName;
-
-			if (onlyActiveRecords)
-			{
-				applyAdditionalFilters = q =>
-				{
-					q.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
-				};
-			}
-			else 
-			{
-				applyAdditionalFilters = q => { };
-			}
 		}
 
 
-		public EntityComparer(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria = null, bool onlyActiveRecords = false)
+		public EntityComparer(
+			string entityName, 
+			IKeyProvider<Entity> keyProvider, 
+			ISkipAttributeCriteria skipAttributeCriteria = null, 
+			bool onlyActiveRecords = false)
+			: this(entityName, keyProvider, GetDefaultFilter(onlyActiveRecords), skipAttributeCriteria)
 		{
-			this.comparer = new Comparer<Entity>(keyProvider, new EntityEqualityComparer(skipAttributeCriteria), entityName);
-			this.EntityName = entityName;
+			this.OnlyActiveRecords = onlyActiveRecords;
+		}
 
+
+		private static Action<QueryExpression> GetDefaultFilter(bool onlyActiveRecords)
+		{
 			if (onlyActiveRecords)
 			{
-				applyAdditionalFilters = q =>
+				return q =>
 				{
 					q.Criteria.AddCondition("statecode", ConditionOperator.Equal, 0);
 				};
 			}
 			else
 			{
-				applyAdditionalFilters = q => { };
+				return q => { };
 			}
 		}
 
-		public EntityComparer(string entityName, IKeyProvider<Entity> keyProvider, Action<QueryExpression> filterCriteria = null, ISkipAttributeCriteria skipAttributeCriteria = null)
+		public EntityComparer(
+			string entityName, 
+			IKeyProvider<Entity> keyProvider, 
+			Action<QueryExpression> filterCriteria = null, 
+			ISkipAttributeCriteria skipAttributeCriteria = null)
 		{
 			this.comparer = new Comparer<Entity>(keyProvider, new EntityEqualityComparer(skipAttributeCriteria), entityName);
 			this.EntityName = entityName;
+			this.KeyProvider = keyProvider;
 			this.applyAdditionalFilters = filterCriteria ?? (q => { });
+			this.SkipAttributeCriteria = skipAttributeCriteria;
 		}
 
+
+
+
+
 		public string EntityName { get; }
+		public ISkipAttributeCriteria SkipAttributeCriteria { get; }
+		public IKeyProvider<Entity> KeyProvider { get; }
+		public bool OnlyActiveRecords { get; }
 
 		public IReadOnlyCollection<Comparison<Entity>> Compare(List<Entity> list1, List<Entity> list2)
 		{
@@ -124,13 +125,37 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			{
 				foreach (var entity in result)
 				{
-					foreach (var attribute in attributesToRemove)
+					foreach (var attribute in Constants.AttributesToIgnore)
 					{
 						entity.Attributes.Remove(attribute);
 					}
 				}
 			}
 			return result;
+		}
+
+
+		public EntityMemento ToEntityMemento()
+		{
+			var entityMemento = new EntityMemento
+			{
+				EntityName = this.EntityName,
+				KeyUseGuid = this.KeyProvider == AsKey.UseGuid
+			};
+
+			if (this.KeyProvider is KeyProviderByAttributeSet kp)
+			{
+				entityMemento.KeyAttributeNames = kp.AttributeList.ToList();
+			}
+
+
+			if (this.SkipAttributeCriteria is SkipAttributes sa)
+			{
+				entityMemento.AttributesToSkip = sa.AttributesToSkip.ToList();
+			}
+
+			entityMemento.OnlyActive = this.OnlyActiveRecords;
+			return entityMemento;
 		}
 	}
 }

@@ -167,6 +167,12 @@
     <Compile Include="CrmComparer.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="Info\PluginConstants.cs" />
+    <Compile Include="Messaging\IMessageHandler.cs" />
+    <Compile Include="Messaging\IMessenger.cs" />
+    <Compile Include="Messaging\IRegistration.cs" />
+    <Compile Include="Messaging\MessageHandlerDelegate.cs" />
+    <Compile Include="Messaging\Messenger.cs" />
+    <Compile Include="Messaging\Registration.cs" />
     <Compile Include="Model\EntityWrapper.cs" />
     <Compile Include="Model\IEntityWrapperInternal.cs" />
     <Compile Include="Model\PluginViewModelBase.cs" />
