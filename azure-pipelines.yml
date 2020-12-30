@@ -86,10 +86,11 @@ steps:
     New-Item -Type dir ZipFiles
     New-Item -Type dir ZipFiles\SolutionManager
     New-Item -Type dir ZipFiles\EnvironmentComparer
+    New-Item -Type dir ZipFiles\Output
     Copy-Item src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*.* -Destination ZipFiles\SolutionManager
     Copy-Item src\Greg.Xrm.EnvironmentComparer\bin\Release\Plugins\*.* -Destination ZipFiles\EnvironmentComparer
-    Compress-Archive -Path ZipFiles\SolutionManager\* -DestinationPath ZipFiles\SolutionManager.zip
-    Compress-Archive -Path ZipFiles\EnvironmentComparer\* -DestinationPath ZipFiles\EnvironmentComparer.zip
+    Compress-Archive -Path ZipFiles\SolutionManager\* -DestinationPath ZipFiles\Output\SolutionManager.zip
+    Compress-Archive -Path ZipFiles\EnvironmentComparer\* -DestinationPath ZipFiles\Output\EnvironmentComparer.zip
   displayName: 'Create zip for GitHub'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
 
@@ -99,6 +100,6 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing NuGet package to pipeline'
   inputs:
-    pathtoPublish: 'ZipFiles/*.zip'
+    pathtoPublish: 'ZipFiles/Output'
     artifactName: 'Plugin Packages'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
