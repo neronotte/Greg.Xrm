@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+	<metadata>
+		<id>Greg.Xrm.SolutionManager</id>
+		<version>$version$</version>
+		<title>_n.SolutionManager</title>
+		<authors>_neronotte</authors>
+		<owners>_neronotte</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
+		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
+		<iconUrl>https://github.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>GUI to manage solution import process and see import results</description>
+		<releaseNotes>
+			A GUI to check the status of a solution import, and a simple UI to analyze import results.
+			v$version$: First version.
+
+			* For older releases go here: https://github.com/neronotte/Greg.Xrm/releases
+		</releaseNotes>
+		<copyright>Copyright 2020</copyright>
+		<tags>XrmToolBox Plugins Xrm _neronotte deploy SolutionManager</tags>
+		<dependencies>
+			<dependency id="XrmToolBox" version="1.2020.12.43" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\Greg.Xrm.Core.dll" target="lib\net462\plugins\Greg.Xrm.SolutionManager" />
+		<file src="bin\Release\Greg.Xrm.SolutionManager.dll" target="lib\net462\plugins\Greg.Xrm.SolutionManager" />
+	</files>
+</package>
