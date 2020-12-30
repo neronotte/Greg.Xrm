@@ -14,6 +14,5 @@ namespace Greg.Xrm.EnvironmentComparer
 	/// </remarks>
 	public class Settings
 	{
-		public string LastUsedOrganizationWebappUrl { get; set; }
 	}
 }
