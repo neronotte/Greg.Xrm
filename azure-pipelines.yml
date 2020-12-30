@@ -26,6 +26,13 @@ steps:
   displayName: 'Set Configuration Variable'
 
 
+- script: |
+    echo MyVars.BRANCH = $(MyVars.BRANCH)
+    echo MyVars.BuildNumber = $(MyVars.BuildNumber)
+    echo MyVars.configuration = $(MyVars.configuration)
+  displayName: 'Display environment variables'
+
+
 # Installo NuGet
 - task: NuGetToolInstaller@0
   inputs:
@@ -45,7 +52,7 @@ steps:
 - task: MSBuild@1
   inputs:
     solution: '**/*.sln'
-    configuration: $(MyVars.configuration)
+    configuration: Release
     msbuildArguments: '/p:Version=$(MyVars.BuildNumber)'
   displayName: 'Building Solution'
 
