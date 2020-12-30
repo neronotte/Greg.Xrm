@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+	<metadata>
+		<id>Greg.Xrm.EnvironmentComparer</id>
+		<version>$version$</version>
+		<title>_n.EnvironmentComparer</title>
+		<authors>_neronotte</authors>
+		<owners>_neronotte</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
+		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
+		<iconUrl>https://github.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Simplifies the deployment process by comparing entities between two environments</description>
+		<releaseNotes>
+			Allows users to compare data between 2 different DataVerse environments.
+			v$version$: First version.
+
+			* For older releases go here: https://github.com/neronotte/Greg.Xrm/releases
+		</releaseNotes>
+		<copyright>Copyright 2020</copyright>
+		<tags>XrmToolBox Plugins Xrm _neronotte deploy EnvironmentComparer</tags>
+		<dependencies>
+			<dependency id="XrmToolBox" version="1.2020.12.43" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\Greg.Xrm.Core.dll" target="lib\net462\plugins\Greg.Xrm.EnvironmentComparer" />
+		<file src="bin\Release\Greg.Xrm.EnvironmentComparer.dll" target="lib\net462\plugins\Greg.Xrm.EnvironmentComparer" />
+		<file src="bin\Release\EPPlus.dll" target="lib\net462\plugins\Greg.Xrm.EnvironmentComparer" />
+	</files>
+</package>

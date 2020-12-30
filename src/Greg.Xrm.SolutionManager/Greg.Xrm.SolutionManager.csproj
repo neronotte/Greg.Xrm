@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Greg.Xrm.SolutionManager.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
