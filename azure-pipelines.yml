@@ -79,6 +79,7 @@ steps:
     artifactName: 'NuGet Package'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
 
+
 # questo step viene eseguito solo nel caso di build da master
 # tramite script powershell creo un file .zip
 - powershell: |
@@ -98,6 +99,6 @@ steps:
 - task: PublishBuildArtifacts@1
   displayName: 'Publishing NuGet package to pipeline'
   inputs:
-    pathtoPublish: 'ZipFiles'
+    pathtoPublish: 'ZipFiles/*.zip'
     artifactName: 'Plugin Packages'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
