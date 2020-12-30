@@ -1,0 +1,96 @@
+pool:
+  vmImage: 'vs2017-win2016'
+  
+
+# definisco il nome della build come "nome branch" + "1" + "anno" + "mese" + revision (progressivo autoincrementale)
+name: $(SourceBranchName)+1.$(Date:yyyy.MM)$(Rev:.r)
+
+
+# primo step, mostro solo un messaggio informativo
+steps:
+- script: echo Start build pipelines!
+  displayName: 'Display welcome message'
+
+
+# con questo script powershell:
+# - Setta la variabile "MyVars.configuration": se la pipeline è lanciata sul branch "master", mette la configurazione di build in "release"
+# - Setta la variabile "MyVars.BuildNumber" prendendola dal name
+# - Setta la variabile "MyVars.BRANCH" con il nome del branch di partenza 
+- powershell: |
+    echo "##vso[task.setvariable variable=configuration;isOutput=true]$(IF($env:BRANCH -eq "refs/heads/master"){"Azure Pipelines"}else{"release"})"
+    echo "##vso[task.setvariable variable=BuildNumber;isOutput=true]$(($env:BuildNumber).Substring(($env:BuildNumber).LastIndexOf('+')+1))"
+  name: MyVars
+  env: 
+    BRANCH: $(Build.SourceBranch)
+    BuildNumber: $(Build.BuildNumber)
+  displayName: 'Set Configuration Variable'
+
+
+# Installo NuGet
+- task: NuGetToolInstaller@0
+  inputs:
+    versionSpec: '4.9.x' 
+  displayName: 'Install NuGet 4.9.x'
+
+# Restoro i pacchetti nuget su tutta la solution
+- task: NuGetCommand@2
+  displayName: 'Restoring NuGet packages'
+  inputs:
+    command: 'restore'
+    restoreSolution: '**/*.sln'
+    feedsToUse: 'select'
+
+
+# Lancio MSBUILD sulla solution settando la versione del compilato e la modalità di configurazione (release se viene da /master)
+- task: MSBuild@1
+  inputs:
+    solution: '**/*.sln'
+    configuration: $(MyVars.configuration)
+    msbuildArguments: '/p:Version=$(MyVars.BuildNumber)'
+  displayName: 'Building Solution'
+
+
+# questo step viene eseguito solo nel caso di build da master
+# crea un pacchetto nuget per ogni progetto in solution che contiene un file .nuspec
+# i pacchetti vengono spostati nella cartella {Artifacts}/NuGet
+- task: NuGetCommand@2
+  displayName: 'Creating NuGet package'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.nuspec'
+    packDestination: '$(Build.ArtifactStagingDirectory)/NuGet'
+    buildProperties: version=$(MyVars.BuildNumber)
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
+
+
+# questo step viene eseguito solo nel caso di build da master
+# "Pubblico" gli artefatti. Senza la pubblicazione, non li vedrei
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing NuGet package to pipeline'
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)/NuGet'
+    artifactName: 'NuGet Package'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
+
+# questo step viene eseguito solo nel caso di build da master
+# tramite script powershell creo un file .zip
+- powershell: |
+    New-Item -Type dir ZipFiles
+    New-Item -Type dir ZipFiles\SolutionManager
+    New-Item -Type dir ZipFiles\EnvironmentComparer
+    Copy-Item src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*.* -Destination ZipFiles\SolutionManager
+    Copy-Item src\Greg.Xrm.EnvironmentComparer\bin\Release\Plugins\*.* -Destination ZipFiles\EnvironmentComparer
+    Compress-Archive -Path ZipFiles\SolutionManager\* -DestinationPath ZipFiles\SolutionManager.zip
+    Compress-Archive -Path ZipFiles\EnvironmentComparer\* -DestinationPath ZipFiles\EnvironmentComparer.zip
+  displayName: 'Create zip for GitHub'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
+
+
+# questo step viene eseguito solo nel caso di build da master
+# "Pubblico" gli artefatti. Senza la pubblicazione, non li vedrei
+- task: PublishBuildArtifacts@1
+  displayName: 'Publishing NuGet package to pipeline'
+  inputs:
+    pathtoPublish: 'ZipFiles'
+    artifactName: 'Plugin Packages'
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
