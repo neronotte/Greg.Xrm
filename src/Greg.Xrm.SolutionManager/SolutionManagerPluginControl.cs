@@ -16,6 +16,7 @@ namespace Greg.Xrm.SolutionManager
 		private readonly IAsyncJobScheduler scheduler;
 		private readonly Views.SolutionProgress.SolutionProgressView solutionProgressView;
 		private readonly Views.DataTree.DataTreeView dataTreeView;
+		private readonly Views.Timeline.TimelineView timelineView;
 		private readonly PluginViewModel viewModel = new PluginViewModel();
 
 		public SolutionManagerPluginControl()
@@ -29,9 +30,11 @@ namespace Greg.Xrm.SolutionManager
 			this.dataTreeView = new Views.DataTree.DataTreeView(this.viewModel);
 			this.dataTreeView.Show(this.dockPanel, DockState.DockRight);
 
-			this.solutionProgressView = new Views.SolutionProgress.SolutionProgressView(this.scheduler, importJobRepository, this.viewModel);
-			this.solutionProgressView.Show(this.dockPanel, DockState.Document);
+			this.timelineView = new Views.Timeline.TimelineView();
+			this.timelineView.Show(this.dockPanel, DockState.DockBottom);
 
+			this.solutionProgressView = new Views.SolutionProgress.SolutionProgressView(this.scheduler, importJobRepository, this.viewModel, this.timelineView);
+			this.solutionProgressView.Show(this.dockPanel, DockState.Document);
 
 			this.tStartMonitoring.DataBindings.Add(nameof(this.tStartMonitoring.Enabled), this.viewModel, nameof(this.viewModel.CanStartMonitoring));
 			this.tStopMonitoring.DataBindings.Add(nameof(this.tStopMonitoring.Enabled), this.viewModel, nameof(this.viewModel.CanStopMonitoring));
@@ -56,40 +59,6 @@ namespace Greg.Xrm.SolutionManager
 		private void tsbClose_Click(object sender, EventArgs e)
 		{
 			CloseTool();
-		}
-
-		private void tsbSample_Click(object sender, EventArgs e)
-		{
-			// The ExecuteMethod method handles connecting to an
-			// organization if XrmToolBox is not yet connected
-			ExecuteMethod(GetAccounts);
-		}
-
-		private void GetAccounts()
-		{
-			WorkAsync(new WorkAsyncInfo
-			{
-				Message = "Getting accounts",
-				Work = (worker, args) =>
-				{
-					args.Result = Service.RetrieveMultiple(new QueryExpression("account")
-					{
-						TopCount = 50
-					});
-				},
-				PostWorkCallBack = (args) =>
-				{
-					if (args.Error != null)
-					{
-						MessageBox.Show(args.Error.ToString(), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					}
-					var result = args.Result as EntityCollection;
-					if (result != null)
-					{
-						MessageBox.Show($"Found {result.Entities.Count} accounts");
-					}
-				}
-			});
 		}
 
 		/// <summary>

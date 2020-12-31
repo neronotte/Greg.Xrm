@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.SolutionManager.Model;
+using Greg.Xrm.SolutionManager.Views.Timeline;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.ComponentModel;
@@ -16,14 +17,23 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 		private readonly IAsyncJobScheduler scheduler;
 		private readonly IImportJobRepository importJobRepository;
 		private readonly PluginViewModel viewModel;
+		private readonly TimelineView timeline;
+		private int iteration = 0;
 
-		public SolutionProgressView(IAsyncJobScheduler scheduler, IImportJobRepository importJobRepository, PluginViewModel viewModel)
+		private Guid lastImportJobId;
+
+		public SolutionProgressView(
+			IAsyncJobScheduler scheduler, 
+			IImportJobRepository importJobRepository, 
+			PluginViewModel viewModel,
+			TimelineView timeline)
 		{
 			InitializeComponent();
 
 			this.scheduler = scheduler ?? throw new System.ArgumentNullException(nameof(scheduler));
 			this.importJobRepository = importJobRepository ?? throw new System.ArgumentNullException(nameof(importJobRepository));
 			this.viewModel = viewModel;
+			this.timeline = timeline;
 		}
 
 		public IOrganizationService Service { get; set; }
@@ -64,6 +74,14 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 			}
 			if (obj.Result is ImportJob importJob)
 			{
+				if (this.lastImportJobId != importJob.Id)
+				{
+					this.timeline.Reset();
+					this.iteration = 0;
+				}
+				this.lastImportJobId = importJob.Id;
+
+
 				ShowImportJob(importJob);
 
 				// if someone requested to stop the monitoring, don't restart the timer.
@@ -87,6 +105,11 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 
 			var now = DateTime.Now;
 
+			var data = new TimelineData
+			{
+				Iteration = ++iteration
+			};
+
 			var sb = new StringBuilder();
 			sb.Append("Last check      : ").Append(now.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
 
@@ -103,20 +126,36 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 			if (!importJob.startedon.HasValue)
 			{
 				sb.AppendLine("NOT STARTED!");
+				data.Elapsed = TimeSpan.Zero;
+				data.Total = TimeSpan.Zero;
 			}
 			else if (importJob.startedon.HasValue && !importJob.completedon.HasValue)
 			{
 				var start = importJob.startedon.Value.ToLocalTime();
 				var progress = importJob.progress.GetValueOrDefault();
+				var elapsedTimespan = now - start;
+				var forecastTimespan = TimeSpan.Zero;
+				if (progress == 0)
+				{
+					sb.Append("Started on      : ").Append(start.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
+					sb.Append("Will complete on: ").Append("-").AppendLine();
+					sb.Append("Remaining       : ").Append("-").AppendLine();
+				}
+				else
+				{
 
-				var elapsed = ((now - start).TotalMilliseconds / progress) * 100;
-				var elapsedTimespan = TimeSpan.FromMilliseconds(elapsed);
+					var forecastMilliseconds = (elapsedTimespan.TotalMilliseconds / progress) * 100;
+					forecastTimespan = TimeSpan.FromMilliseconds(forecastMilliseconds);
 
-				var end = start.Add(elapsedTimespan);
+					var end = start.Add(forecastTimespan);
 
-				sb.Append("Started on      : ").Append(start.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
-				sb.Append("Will complete on: ").Append(end.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
-				sb.Append("Remaining       : ").Append(elapsedTimespan).AppendLine();
+					sb.Append("Started on      : ").Append(start.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
+					sb.Append("Will complete on: ").Append(end.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
+					sb.Append("Remaining       : ").Append(forecastTimespan).AppendLine();
+				}
+
+				data.Elapsed = elapsedTimespan;
+				data.Total = forecastTimespan;
 			}
 			else if (importJob.startedon.HasValue && importJob.completedon.HasValue)
 			{
@@ -125,6 +164,9 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 
 				var elapsedTimespan = importJob.completedon.Value - importJob.startedon.Value;
 				sb.Append("Elapsed         : ").Append(elapsedTimespan).AppendLine();
+
+				data.Elapsed = elapsedTimespan;
+				data.Total = elapsedTimespan;
 
 				try
 				{
@@ -145,6 +187,7 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 			}
 
 			this.txtOutput.Text = sb.ToString();
+			this.timeline.AddTimelineData(data);
 		}
 
 		private void OnTimerExpired(object sender, EventArgs e)
