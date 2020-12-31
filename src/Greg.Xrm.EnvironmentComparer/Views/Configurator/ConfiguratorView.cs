@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.Theming;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,31 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
 	public partial class ConfiguratorView : DockContent
 	{
+		private readonly IThemeProvider themeProvider;
 		private readonly IMessenger messenger;
 		private EngineMemento memento;
 
 		private IReadOnlyCollection<EntityMetadata> entityMetadataList;
 
-		public ConfiguratorView(IMessenger messenger)
+		public ConfiguratorView(IThemeProvider themeProvider, IMessenger messenger)
 		{
 			InitializeComponent();
 
 			this.tAdd.Enabled = false;
 			this.entityMetadataList = Array.Empty<EntityMetadata>();
-
-			this.messenger = messenger;
+			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
+			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 			this.messenger.Register<ResetEntityList>(OnResetEntityList);
 			this.messenger.Register<EntityListRetrieved>(OnEntityListRetrieved);
 			this.memento = new EngineMemento();
+			this.ApplyTheme();
+		}
+
+
+		private void ApplyTheme()
+		{
+			var theme = this.themeProvider.GetCurrentTheme();
+			theme.ApplyTo(this.treeView1);
 		}
 
 		private void OnResetEntityList(ResetEntityList obj)

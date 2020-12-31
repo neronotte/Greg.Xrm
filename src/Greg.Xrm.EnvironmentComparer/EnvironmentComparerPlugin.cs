@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Views;
 using Greg.Xrm.Info;
+using Greg.Xrm.Theming;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,10 @@ namespace Greg.Xrm.EnvironmentComparer
 		public override IXrmToolBoxPluginControl GetControl()
 		{
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-			return new EnvironmentComparerPluginControl();
+
+			var themeProvider = new ThemeProvider();
+
+			return new EnvironmentComparerPluginControl(themeProvider);
 		}
 
 		/// <summary>

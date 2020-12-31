@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.Theming;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -8,11 +9,24 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Output
 {
 	public partial class OutputView : DockContent, ILog
 	{
-		public OutputView()
+		private IThemeProvider themeProvider;
+
+		public OutputView(IThemeProvider themeProvider)
 		{
+			this.themeProvider = themeProvider;
 			InitializeComponent();
+
+			ApplyTheme();
+
+
 			base.CloseButtonVisible = false;
 			base.TabText = "Output";
+		}
+
+		private void ApplyTheme()
+		{
+			var theme = this.themeProvider.GetCurrentTheme();
+			theme.ApplyTo(this.listView1);
 		}
 
 		public void Debug(string message)

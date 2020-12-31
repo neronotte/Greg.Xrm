@@ -1,10 +1,12 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
+using Greg.Xrm.EnvironmentComparer.Views.Actions;
 using Greg.Xrm.EnvironmentComparer.Views.Configurator;
 using Greg.Xrm.EnvironmentComparer.Views.Output;
 using Greg.Xrm.EnvironmentComparer.Views.Results;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.Theming;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
@@ -27,16 +29,22 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private Settings mySettings;
 		private readonly ConfiguratorView configuratorView;
 		private readonly OutputView outputView;
-		private readonly ResultSummaryView resultSummaryView;
-		private readonly ResultDetailsView resultDetailsView;
+		private readonly ResultTreeView resultTreeView;
+		private readonly ActionsView actionsView;
+		private readonly ResultGridView resultGridView;
+		private readonly ResultRecordView resultRecordView;
 
 		private readonly EnvironmentComparerPresenter presenter;
 		private readonly IMessenger messenger;
 
 		private readonly EnvironmentComparerViewModel viewModel = new EnvironmentComparerViewModel();
+		private readonly IThemeProvider themeProvider;
 
-		public EnvironmentComparerPluginControl()
+		public EnvironmentComparerPluginControl(IThemeProvider themeProvider)
 		{
+			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
+
+
 			InitializeComponent();
 
 			this.messenger = new Messenger(this);
@@ -45,23 +53,38 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tConnectToEnv2.Text = ConnectToEnvironment2String;
 
 
-			this.outputView = new OutputView();
-			this.outputView.Show(this.dockPanel, DockState.DockBottom);
+			this.outputView = new OutputView(themeProvider);
+			this.outputView.Show(this.dockPanel, DockState.DockBottomAutoHide);
 
-			this.resultSummaryView = new ResultSummaryView(r => this.resultDetailsView.Results = r);
-			this.resultSummaryView.Show(this.dockPanel, DockState.DockLeft);
+			this.resultTreeView = new ResultTreeView(themeProvider, r => this.resultGridView.Results = r);
+			this.resultTreeView.Show(this.dockPanel, DockState.DockLeft);
 
-			this.resultDetailsView = new ResultDetailsView();
-			this.resultDetailsView.Show(this.dockPanel, DockState.Document);
-
-			this.configuratorView = new ConfiguratorView(this.messenger);
+			this.configuratorView = new ConfiguratorView(themeProvider, this.messenger);
 			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
+
+			this.actionsView = new ActionsView(themeProvider, this.messenger, this.outputView);
+			this.actionsView.Show(this.dockPanel, DockState.DockRightAutoHide);
+
+			this.resultGridView = new ResultGridView(themeProvider, this.messenger);
+			this.resultGridView.Show(this.dockPanel, DockState.Document);
+
+			this.resultRecordView = new ResultRecordView(themeProvider, this.messenger);
+			this.resultRecordView.Show(this.dockPanel, DockState.Document);
+
+			this.resultGridView.Show();
+			this.configuratorView.Show();
 
 
 			this.presenter = new EnvironmentComparerPresenter(this.outputView, this, this.viewModel);
 
 
 			this.tLoadEntities.DataBindings.Add(nameof(this.tLoadEntities.Enabled), this.viewModel, nameof(this.viewModel.CanLoadEntities));
+
+
+			this.messenger.Register<HighlightResultRecord>(m =>
+			{
+				this.resultRecordView.Show();
+			});
 		}
 
 
@@ -167,7 +190,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 				this.tConnectToEnv2.Visible = false;
 			}
 
-			this.resultDetailsView.SetEnvironmentNames(env1name, env2name);
+			this.resultGridView.SetEnvironmentNames(env1name, env2name);
+			this.resultRecordView.SetEnvironmentNames(env1name, env2name);
 		}
 
 		void IEnvironmentComparerView.ShowMemento(EngineMemento memento)
@@ -197,8 +221,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 				return;
 			}
 
-			this.resultSummaryView.CompareResult = result;
-			this.resultSummaryView.Show();
+			this.resultTreeView.CompareResult = result;
+			this.resultTreeView.Show();
 
 			this.tDownloadExcelFile.Enabled = result != null && result.Count > 0;
 		}
@@ -229,7 +253,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			{
 				Message = "Executing generating Excel file, please wait...",
 				Work = (w, e1) => {
-					this.presenter.DownloadComparisonResultAsExcelFile(fileName, this.resultSummaryView.CompareResult);
+					this.presenter.DownloadComparisonResultAsExcelFile(fileName, this.resultTreeView.CompareResult);
 				}
 			});
 		}

@@ -1,7 +1,7 @@
 ﻿
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
-	partial class ResultSummaryView
+	partial class ResultTreeView
 	{
 		/// <summary> 
 		/// Required designer variable.
@@ -30,7 +30,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultSummaryView));
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultTreeView));
 			this.resultTree = new System.Windows.Forms.TreeView();
 			this.images = new System.Windows.Forms.ImageList(this.components);
 			this.SuspendLayout();

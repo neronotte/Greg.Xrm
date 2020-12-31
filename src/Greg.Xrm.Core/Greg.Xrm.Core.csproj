@@ -178,6 +178,11 @@
     <Compile Include="Model\PluginViewModelBase.cs" />
     <Compile Include="Progress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Theming\ITheme.cs" />
+    <Compile Include="Theming\IThemeProvider.cs" />
+    <Compile Include="Theming\Theme.cs" />
+    <Compile Include="Theming\ThemeExtensions.cs" />
+    <Compile Include="Theming\ThemeProvider.cs" />
     <Compile Include="Views\ToolStripBindableButton.cs">
       <SubType>Component</SubType>
     </Compile>

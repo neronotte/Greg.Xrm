@@ -1,4 +1,6 @@
 # Greg.Xrm
+[![Build Status](https://neronotte.visualstudio.com/Greg.Xrm/_apis/build/status/neronotte.Greg.Xrm?branchName=master)](https://neronotte.visualstudio.com/Greg.Xrm/_build/latest?definitionId=2&branchName=master)
+
 A suite of [XrmToolBox](https://www.xrmtoolbox.com/) tools to overcome D365 feature gaps.
 
 ## _n.EnvironmentComparer
