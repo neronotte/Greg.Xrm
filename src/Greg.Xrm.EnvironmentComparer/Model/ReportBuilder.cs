@@ -15,10 +15,10 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 		public ReportBuilder(DirectoryInfo localFolder)
 		{
-			this.localFolder = localFolder ?? throw new System.ArgumentNullException(nameof(localFolder));
+			this.localFolder = localFolder ?? throw new ArgumentNullException(nameof(localFolder));
 		}
 
-		public void GenerateReport(Dictionary<string, IReadOnlyCollection<Comparison<Entity>>> compareResult, string crm1name, string crm2name)
+		public void GenerateReport(Dictionary<string, CompareResultForEntity> compareResult, string crm1name, string crm2name)
 		{
 			var fileName = $"Compare_{DateTime.Now.Ticks}.xlsx";
 			var fileFullName = Path.Combine(this.localFolder.FullName, fileName);
@@ -41,7 +41,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			Process.Start(fileFullName);
 		}
 
-		private void GenerateSummary(ExcelPackage wb, Dictionary<string, IReadOnlyCollection<Comparison<Entity>>> compareResult, string crm1name, string crm2name)
+		private void GenerateSummary(ExcelPackage wb, Dictionary<string, CompareResultForEntity> compareResult, string crm1name, string crm2name)
 		{
 			var ws = wb.Workbook.Worksheets.Add("Summary");
 

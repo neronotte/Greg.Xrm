@@ -13,6 +13,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 		void CanExecuteComparison(bool value);
 
-		void ShowComparisonResult(CompareResult result);
+		void ShowComparisonResult(CompareResultSet result);
 	}
 }

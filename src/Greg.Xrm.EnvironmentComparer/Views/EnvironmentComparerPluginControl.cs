@@ -212,7 +212,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tExecuteComparison.Enabled = value;
 		}
 
-		void IEnvironmentComparerView.ShowComparisonResult(CompareResult result)
+		void IEnvironmentComparerView.ShowComparisonResult(CompareResultSet result)
 		{
 			if (this.InvokeRequired)
 			{

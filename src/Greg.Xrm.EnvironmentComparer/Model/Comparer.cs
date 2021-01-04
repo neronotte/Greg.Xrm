@@ -78,10 +78,10 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			var areEqual = this.equalityComparer.Equals(item1, item2, out List<Difference> differentProperties);
 			if (areEqual)
 			{
-				return new Comparison<T>(key, item1, item2, RecordComparisonResult.Equals);
+				return Comparison<T>.Equals(key, item1, item2);
 			}
 
-			return new Comparison<T>(key, item1, item2, RecordComparisonResult.MatchingButDifferent, differentProperties);
+			return Comparison<T>.MatchingButDifferent(key, item1, item2, differentProperties);
 		}
 	}
 }

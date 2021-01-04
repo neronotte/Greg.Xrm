@@ -25,13 +25,13 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 		}
 
 
-		public CompareResult CompareAll()
+		public CompareResultSet CompareAll()
 		{
-			var result = new CompareResult();
+			var result = new CompareResultSet();
 			foreach (var comparer in this.comparerList)
 			{
 				var comparisonResult = Compare(comparer);
-				result[comparer.EntityName] = comparisonResult;
+				result[comparer.EntityName] = new CompareResultForEntity(comparer.EntityName, comparisonResult);
 			}
 			return result;
 		}

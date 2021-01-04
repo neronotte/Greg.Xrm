@@ -63,6 +63,16 @@ namespace Greg.Xrm.EnvironmentComparer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap accept {
+            get {
+                object obj = ResourceManager.GetObject("accept", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrow_left {
             get {
                 object obj = ResourceManager.GetObject("arrow_left", resourceCulture);
@@ -106,6 +116,16 @@ namespace Greg.Xrm.EnvironmentComparer.Properties {
         internal static System.Drawing.Bitmap control_play_blue {
             get {
                 object obj = ResourceManager.GetObject("control_play_blue", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap delete {
+            get {
+                object obj = ResourceManager.GetObject("delete", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
