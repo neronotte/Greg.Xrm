@@ -2,6 +2,6 @@
 {
 	public interface ICompareEngine
 	{
-		CompareResult CompareAll();
+		CompareResultSet CompareAll();
 	}
 }

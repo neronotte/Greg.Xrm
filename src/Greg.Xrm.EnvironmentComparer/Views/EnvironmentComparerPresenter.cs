@@ -146,7 +146,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.entityMetadataList = newEntityMetadataList;
 		}
 
-		internal void DownloadComparisonResultAsExcelFile(string outputPath, CompareResult compareResult)
+		internal void DownloadComparisonResultAsExcelFile(string outputPath, CompareResultSet compareResult)
 		{
 			using (log.Track("Exporting comparison result on excel file " + outputPath))
 			{

@@ -32,12 +32,17 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultTreeView));
 			this.resultTree = new System.Windows.Forms.TreeView();
+			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.mMarkOK = new System.Windows.Forms.ToolStripMenuItem();
+			this.mUnmarkOK = new System.Windows.Forms.ToolStripMenuItem();
 			this.images = new System.Windows.Forms.ImageList(this.components);
+			this.contextMenuStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// resultTree
 			// 
 			this.resultTree.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(40)))));
+			this.resultTree.ContextMenuStrip = this.contextMenuStrip1;
 			this.resultTree.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.resultTree.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.resultTree.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(203)))), ((int)(((byte)(203)))), ((int)(((byte)(203)))));
@@ -50,6 +55,30 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.resultTree.TabIndex = 0;
 			this.resultTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OnNodeSelected);
 			// 
+			// contextMenuStrip1
+			// 
+			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mMarkOK,
+            this.mUnmarkOK});
+			this.contextMenuStrip1.Name = "contextMenuStrip1";
+			this.contextMenuStrip1.Size = new System.Drawing.Size(181, 70);
+			// 
+			// mMarkOK
+			// 
+			this.mMarkOK.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.accept;
+			this.mMarkOK.Name = "mMarkOK";
+			this.mMarkOK.Size = new System.Drawing.Size(180, 22);
+			this.mMarkOK.Text = "Mark as good";
+			this.mMarkOK.Click += new System.EventHandler(this.OnMarkOkClick);
+			// 
+			// mUnmarkOK
+			// 
+			this.mUnmarkOK.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete;
+			this.mUnmarkOK.Name = "mUnmarkOK";
+			this.mUnmarkOK.Size = new System.Drawing.Size(180, 22);
+			this.mUnmarkOK.Text = "Unmark as good";
+			this.mUnmarkOK.Click += new System.EventHandler(this.OnUnmarkOkClick);
+			// 
 			// images
 			// 
 			this.images.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("images.ImageStream")));
@@ -60,14 +89,15 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.images.Images.SetKeyName(3, "missing_right");
 			this.images.Images.SetKeyName(4, "mismatch");
 			// 
-			// ResultSummaryView
+			// ResultTreeView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(657, 627);
 			this.Controls.Add(this.resultTree);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-			this.Name = "ResultSummaryView";
+			this.Name = "ResultTreeView";
+			this.contextMenuStrip1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -76,5 +106,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private System.Windows.Forms.TreeView resultTree;
 		private System.Windows.Forms.ImageList images;
+		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem mMarkOK;
+		private System.Windows.Forms.ToolStripMenuItem mUnmarkOK;
 	}
 }

@@ -151,6 +151,7 @@
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Messaging\CompareResultRecordSelected.cs" />
     <Compile Include="Messaging\SubmitActionMessage.cs" />
+    <Compile Include="Model\CompareResultForEntity.cs" />
     <Compile Include="Model\Constants.cs" />
     <Compile Include="Views\Actions\ActionsView.cs">
       <SubType>Form</SubType>
@@ -182,7 +183,7 @@
     <Compile Include="Model\Compare.cs" />
     <Compile Include="Model\CompareEngine.cs" />
     <Compile Include="Model\Comparer.cs" />
-    <Compile Include="Model\CompareResult.cs" />
+    <Compile Include="Model\CompareResultSet.cs" />
     <Compile Include="Model\Comparison.cs" />
     <Compile Include="Model\ComparisonException.cs" />
     <Compile Include="Model\KeyProviderByAttributeSet.cs" />
@@ -312,6 +313,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\picture_tick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
