@@ -40,9 +40,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.cmiCopyToEnv2 = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmiCopyToEnv1 = new System.Windows.Forms.ToolStripMenuItem();
-			this.cmiCompare = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmiCopyToEnv2 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiCopyToEnv1 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiCompare = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -155,8 +155,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
 		private System.Windows.Forms.ToolTip toolTip;
 		private System.Windows.Forms.ContextMenuStrip contextMenu;
-		private System.Windows.Forms.ToolStripMenuItem cmiCopyToEnv2;
-		private System.Windows.Forms.ToolStripMenuItem cmiCopyToEnv1;
-		private System.Windows.Forms.ToolStripMenuItem cmiCompare;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiCopyToEnv2;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiCopyToEnv1;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiCompare;
 	}
 }

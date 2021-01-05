@@ -21,7 +21,7 @@ using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentComparer.Views
 {
-	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase, IEnvironmentComparerView
+	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase
 	{
 		const string ConnectToEnvironment1String = "1. Connect to environment 1";
 		const string ConnectToEnvironment2String = "2. Connect to environment 2";
@@ -35,14 +35,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private readonly ResultGridView resultGridView;
 		private readonly ResultRecordView resultRecordView;
 
-		private readonly EnvironmentComparerPresenter presenter;
 		private readonly IMessenger messenger;
 
 		private readonly EnvironmentComparerViewModel viewModel;
 
 		public EnvironmentComparerPluginControl(IThemeProvider themeProvider)
 		{
-			if (themeProvider == null) throw new ArgumentNullException(nameof(themeProvider));
+			if (themeProvider == null) 
+				throw new ArgumentNullException(nameof(themeProvider));
 
 
 			InitializeComponent();
@@ -59,11 +59,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.viewModel = new EnvironmentComparerViewModel(this.outputView, this.messenger);
 			var scheduler = new AsyncJobScheduler(this, viewModel);
 
-
-			this.resultTreeView = new ResultTreeView(themeProvider, this.messenger, r => this.resultGridView.Results = r);
+			this.resultTreeView = new ResultTreeView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.resultTreeView.Show(this.dockPanel, DockState.DockLeft);
 
-			this.configuratorView = new ConfiguratorView(scheduler, themeProvider, this.messenger, this.outputView);
+			this.configuratorView = new ConfiguratorView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
 
 			this.actionsView = new ActionsView(themeProvider, this.messenger, this.outputView);
@@ -77,9 +76,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 			this.resultGridView.Show();
 			this.configuratorView.Show();
-
-
-			this.presenter = new EnvironmentComparerPresenter(this.outputView, this);
 
 
 			this.messenger.Register<HighlightResultRecord>(m =>
@@ -118,13 +114,13 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		{
 			this.viewModel.Env1 = this.ConnectionDetail;
 			this.viewModel.Env2 = this.AdditionalConnectionDetails.FirstOrDefault();
-			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
+			this.SetConnectionNames(this.viewModel.Env1?.ConnectionName, this.viewModel.Env2?.ConnectionName);
 			this.messenger.Send<ResetEntityList>();
 		}
 
 		private void MyPluginControl_Load(object sender, EventArgs e)
 		{
-			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
+			SetEnvironments();
 
 			// Loads or creates the settings for the plugin
 			if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
@@ -144,6 +140,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			CloseTool();
 		}
 
+
 		/// <summary>
 		/// This event occurs when the plugin is closed
 		/// </summary>
@@ -157,7 +154,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 
 
-		void IEnvironmentComparerView.SetConnectionNames(string env1name, string env2name)
+		void SetConnectionNames(string env1name, string env2name)
 		{
 			this.tEnv1Name.Text = string.IsNullOrWhiteSpace(env1name) ? ConnectToEnvironment1String : "ENV1: " + env1name;
 			this.tEnv2Name.Text = string.IsNullOrWhiteSpace(env2name) ? ConnectToEnvironment2String : "- ENV2: " + env2name;
@@ -180,42 +177,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 				this.tEnv2Name.Visible = true;
 				this.tConnectToEnv2.Visible = false;
 			}
-		}
-
-
-		//void IEnvironmentComparerView.ShowComparisonResult(CompareResultSet result)
-		//{
-		//	if (this.InvokeRequired)
-		//	{
-		//		Action d = () => ((IEnvironmentComparerView)this).ShowComparisonResult(result);
-		//		this.BeginInvoke(d);
-		//		return;
-		//	}
-
-		//	this.resultTreeView.CompareResult = result;
-		//	this.resultTreeView.Show();
-
-		//	this.tDownloadExcelFile.Enabled = result != null && result.Count > 0;
-		//}
-
-		private void OnDowloadExcelFileClicked(object sender, EventArgs e)
-		{
-			string fileName;
-			using (var dialog = new FolderBrowserDialog())
-			{
-				dialog.Description = "Output folder";
-
-				if (dialog.ShowDialog() != DialogResult.OK) return;
-				fileName = dialog.SelectedPath;
-			}
-
-			WorkAsync(new WorkAsyncInfo
-			{
-				Message = "Executing generating Excel file, please wait...",
-				Work = (w, e1) => {
-					this.presenter.DownloadComparisonResultAsExcelFile(fileName, this.resultTreeView.CompareResult);
-				}
-			});
 		}
 
 		private void LoadEntities()

@@ -37,7 +37,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tEnv2Name = new System.Windows.Forms.ToolStripLabel();
 			this.tConnectToEnv2 = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tDownloadExcelFile = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
 			this.tools.SuspendLayout();
 			this.SuspendLayout();
@@ -51,8 +50,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
             this.tEnv1Name,
             this.tEnv2Name,
             this.tConnectToEnv2,
-            this.toolStripSeparator1,
-            this.tDownloadExcelFile});
+            this.toolStripSeparator1});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
 			this.tools.Size = new System.Drawing.Size(1175, 25);
@@ -106,17 +104,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
-			// tDownloadExcelFile
-			// 
-			this.tDownloadExcelFile.Enabled = false;
-			this.tDownloadExcelFile.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.page_white_excel;
-			this.tDownloadExcelFile.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tDownloadExcelFile.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tDownloadExcelFile.Name = "tDownloadExcelFile";
-			this.tDownloadExcelFile.Size = new System.Drawing.Size(139, 22);
-			this.tDownloadExcelFile.Text = "Download Excel file...";
-			this.tDownloadExcelFile.Click += new System.EventHandler(this.OnDowloadExcelFileClicked);
-			// 
 			// dockPanel
 			// 
 			this.dockPanel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -151,6 +138,5 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private Greg.Xrm.Views.ToolStripBindableButton tConnectToEnv2;
 		private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private Greg.Xrm.Views.ToolStripBindableButton tDownloadExcelFile;
 	}
 }

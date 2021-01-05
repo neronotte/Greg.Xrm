@@ -21,8 +21,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private readonly ConfiguratorViewModel viewModel;
 
 		public ConfiguratorView(
+			IThemeProvider themeProvider,
 			IAsyncJobScheduler asyncJobScheduler,
-			IThemeProvider themeProvider, 
 			IMessenger messenger,
 			ILog log)
 		{

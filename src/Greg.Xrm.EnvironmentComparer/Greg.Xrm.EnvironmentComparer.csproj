@@ -149,6 +149,7 @@
     <Compile Include="Actions\ActionCopyEntity.cs" />
     <Compile Include="Actions\ActionQueue.cs" />
     <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Messaging\CompareResultGroupSelected.cs" />
     <Compile Include="Messaging\CompareResultRecordSelected.cs" />
     <Compile Include="Messaging\CompareResultSetAvailable.cs" />
     <Compile Include="Messaging\LoadEntitiesRequest.cs" />
@@ -176,9 +177,7 @@
     <Compile Include="Views\EnvironmentComparerPluginControl.designer.cs">
       <DependentUpon>EnvironmentComparerPluginControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\EnvironmentComparerPresenter.cs" />
     <Compile Include="Views\EnvironmentComparerViewModel.cs" />
-    <Compile Include="Views\IEnvironmentComparerView.cs" />
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Messaging\LoadEntitiesResponse.cs" />
     <Compile Include="Messaging\ResetEntityList.cs" />
@@ -225,6 +224,7 @@
     <Compile Include="Views\Results\ResultGridView.Designer.cs">
       <DependentUpon>ResultGridView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Results\ResultGridViewModel.cs" />
     <Compile Include="Views\Results\ResultRecordView.cs">
       <SubType>Form</SubType>
     </Compile>

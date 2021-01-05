@@ -20,14 +20,21 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private readonly IMessenger messenger;
 		private string env1 = "ENV1", env2 = "ENV2";
 
+		private readonly ResultGridViewModel viewModel;
+
 		public ResultGridView(IThemeProvider themeProvider, IMessenger messenger)
 		{
 			InitializeComponent();
-			
-			this.cmiCopyToEnv1.Enabled = false;
-			this.cmiCopyToEnv2.Enabled = false;
+
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
+
+			this.viewModel = new ResultGridViewModel(messenger);
+			
+			this.cmiCopyToEnv1.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCopyToEnv1Enabled);
+			this.cmiCopyToEnv2.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCopyToEnv2Enabled);
+			this.cmiCompare.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCompareEnabled);
+
 			this.ApplyTheme();
 
 
@@ -40,15 +47,25 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					this.cEnv1.Text = this.env1 + " values";
 					this.cmiCopyToEnv1.Text = "Copy to " + this.env1;
 				});
+
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
-				 .ChangesProperty(_ => _.ConnectionName2)
-				 .Execute(e =>
-				 {
-					 var env2name = e.GetNewValue<string>();
-					 this.env2 = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
-					 this.cEnv2.Text = this.env2 + " values";
-					 this.cmiCopyToEnv2.Text = "Copy to " + this.env2;
-				 });
+				.ChangesProperty(_ => _.ConnectionName2)
+				.Execute(e =>
+				{
+					var env2name = e.GetNewValue<string>();
+					this.env2 = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
+					this.cEnv2.Text = this.env2 + " values";
+					this.cmiCopyToEnv2.Text = "Copy to " + this.env2;
+				});
+
+			this.viewModel.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(this.viewModel.Results))
+				{
+					this.results = this.viewModel.Results;
+					this.OnResultsChanged();
+				}
+			};
 		}
 
 
@@ -58,17 +75,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 			this.listView1.BackColor = theme.PanelBackgroundColor;
 			this.listView1.Font = theme.PanelFont;
-		}
-
-
-		public IReadOnlyCollection<Model.Comparison<Entity>> Results
-		{
-			get => this.results;
-			set
-			{
-				this.results = value;
-				this.OnResultsChanged();
-			}
 		}
 
 		private void OnResultsChanged()
@@ -114,9 +120,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				subItem.Tag = result;
 			}
 
-
-
 			this.listView1.EndUpdate();
+			this.Show();
 		}
 
 
@@ -126,27 +131,18 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private void OnRecordSelectionChanged(object sender, EventArgs e)
 		{
-			this.cmiCopyToEnv1.Enabled = false;
-			this.cmiCopyToEnv2.Enabled = false;
-			this.cmiCompare.Enabled = this.listView1.SelectedItems.Count == 1;
-
-			if (this.listView1.SelectedItems.Count == 0) return;
-
-			var item = this.listView1.SelectedItems[0];
-			var result = (Model.Comparison<Entity>)item.Tag;
-			this.messenger.Send(new CompareResultRecordSelected(result));
-
-			this.cmiCopyToEnv1.Enabled = this.listView1.SelectedItems
+			var selectedResults = this.listView1.SelectedItems
 				.Cast<ListViewItem>()
 				.Select(x => x.Tag)
 				.Cast<Model.Comparison<Entity>>()
-				.All(x => x.Result == RecordComparisonResult.LeftMissing || x.Result == RecordComparisonResult.MatchingButDifferent);
-			
-			this.cmiCopyToEnv2.Enabled = this.listView1.SelectedItems
-				.Cast<ListViewItem>()
-				.Select(x => x.Tag)
-				.Cast<Model.Comparison<Entity>>()
-				.All(x => x.Result == RecordComparisonResult.RightMissing || x.Result == RecordComparisonResult.MatchingButDifferent); 
+				.ToArray();
+
+			this.viewModel.SelectedResults = selectedResults;
+
+			if (selectedResults.Length > 0)
+			{
+				this.messenger.Send(new CompareResultRecordSelected(selectedResults[0]));
+			}
 		}
 
 		private void OnResultKeyUp(object sender, KeyEventArgs e)

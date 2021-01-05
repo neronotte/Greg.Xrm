@@ -1,23 +1,31 @@
-﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+﻿using Greg.Xrm.Async;
+using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
 	public partial class ResultTreeView : DockContent
 	{
 		private readonly IThemeProvider themeProvider;
+		private readonly IAsyncJobScheduler scheduler;
 		private readonly IMessenger messenger;
-		private readonly Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected;
+		private readonly ILog log;
 		private CompareResultSet compareResult;
+		private string env2;
+		private string env1;
 
 		private readonly Color Green = Color.FromArgb(142, 209, 24);
 
@@ -28,20 +36,38 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 
 
-		public ResultTreeView(IThemeProvider themeProvider, IMessenger messenger, Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected)
+		public ResultTreeView(
+			IThemeProvider themeProvider, 
+			IAsyncJobScheduler scheduler,
+			IMessenger messenger, 
+			ILog log)
 		{
 			InitializeComponent();
 
 			base.TabText = "Result Summary";
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
+			this.scheduler = scheduler;
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-			this.onResultSelected = onResultSelected ?? throw new ArgumentNullException(nameof(onResultSelected));
+			this.log = log ?? throw new ArgumentNullException(nameof(log));
 			this.ApplyTheme();
 
 			this.messenger.Register<CompareResultSetAvailable>(m =>
 			{
 				this.CompareResult = m.CompareResultSet;
 			});
+
+			this.messenger.WhenObject<EnvironmentComparerViewModel>()
+				.ChangesProperty(_ => _.ConnectionName1)
+				.Execute(e =>
+				{
+					this.env1 = e.GetNewValue<string>();
+				});
+			this.messenger.WhenObject<EnvironmentComparerViewModel>()
+				 .ChangesProperty(_ => _.ConnectionName2)
+				 .Execute(e =>
+				 {
+					 this.env2 = e.GetNewValue<string>();
+				 });
 		}
 
 
@@ -69,11 +95,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				return;
 			}
 
+			this.tDownloadExcelFile.Enabled = this.CompareResult != null && this.CompareResult.Count > 0;
 
 			this.resultTree.BeginUpdate();
 			this.resultTree.Nodes.Clear();
 
-			if (this.compareResult == null || this.compareResult.Count == 0)
+			if (this.CompareResult == null || this.CompareResult.Count == 0)
 			{
 				this.resultTree.EndUpdate();
 				return;
@@ -212,7 +239,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			}
 
 
-			this.onResultSelected?.Invoke(comparisonResult);
+			this.messenger.Send(new CompareResultGroupSelected(comparisonResult));
 		}
 
 		private void OnMarkOkClick(object sender, EventArgs e)
@@ -240,6 +267,39 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			cr.Remove(AdditionalMetadataMarkedOk);
 			node.ForeColor = this.themeProvider.GetCurrentTheme().PanelForeColor;
 			node.Text = node.Name;
+		}
+
+
+
+		private void OnDownloadExcelFileClick(object sender, EventArgs e)
+		{
+			string fileName;
+			using (var dialog = new FolderBrowserDialog())
+			{
+				dialog.Description = "Output folder";
+
+				if (dialog.ShowDialog() != DialogResult.OK) return;
+				fileName = dialog.SelectedPath;
+			}
+
+			this.scheduler.Enqueue(new WorkAsyncInfo
+			{
+				Message = "Executing generating Excel file, please wait...",
+				Work = (w, e1) => {
+					using (log.Track("Exporting comparison result on excel file " + fileName))
+					{
+						try
+						{
+							var reportBuilder = new ReportBuilder(new DirectoryInfo(fileName));
+							reportBuilder.GenerateReport(compareResult, this.env1, this.env2);
+						}
+						catch (Exception ex)
+						{
+							log.Error("Error during export: " + ex.Message, ex);
+						}
+					}
+				}
+			});
 		}
 	}
 }
