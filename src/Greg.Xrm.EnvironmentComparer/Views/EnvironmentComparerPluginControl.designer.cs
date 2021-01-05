@@ -37,11 +37,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tEnv2Name = new System.Windows.Forms.ToolStripLabel();
 			this.tConnectToEnv2 = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tOpenMemento = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tExecuteComparison = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tDownloadExcelFile = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-			this.tLoadEntities = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tools.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -55,9 +52,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
             this.tEnv2Name,
             this.tConnectToEnv2,
             this.toolStripSeparator1,
-            this.tLoadEntities,
-            this.tOpenMemento,
-            this.tExecuteComparison,
             this.tDownloadExcelFile});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
@@ -112,28 +106,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
-			// tOpenMemento
-			// 
-			this.tOpenMemento.Enabled = false;
-			this.tOpenMemento.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.folder;
-			this.tOpenMemento.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tOpenMemento.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tOpenMemento.Name = "tOpenMemento";
-			this.tOpenMemento.Size = new System.Drawing.Size(140, 22);
-			this.tOpenMemento.Text = "Open configuration...";
-			this.tOpenMemento.Click += new System.EventHandler(this.OnOpenMemento);
-			// 
-			// tExecuteComparison
-			// 
-			this.tExecuteComparison.Enabled = false;
-			this.tExecuteComparison.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.control_play_blue;
-			this.tExecuteComparison.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tExecuteComparison.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tExecuteComparison.Name = "tExecuteComparison";
-			this.tExecuteComparison.Size = new System.Drawing.Size(134, 22);
-			this.tExecuteComparison.Text = "Execute comparison";
-			this.tExecuteComparison.Click += new System.EventHandler(this.OnExecuteComparisonClicked);
-			// 
 			// tDownloadExcelFile
 			// 
 			this.tDownloadExcelFile.Enabled = false;
@@ -153,17 +125,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.dockPanel.Name = "dockPanel";
 			this.dockPanel.Size = new System.Drawing.Size(1175, 602);
 			this.dockPanel.TabIndex = 5;
-			// 
-			// tLoadEntities
-			// 
-			this.tLoadEntities.Enabled = false;
-			this.tLoadEntities.Image = ((System.Drawing.Image)(resources.GetObject("tLoadEntities.Image")));
-			this.tLoadEntities.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-			this.tLoadEntities.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tLoadEntities.Name = "tLoadEntities";
-			this.tLoadEntities.Size = new System.Drawing.Size(94, 22);
-			this.tLoadEntities.Text = "Load entities";
-			this.tLoadEntities.Click += new System.EventHandler(this.OnLoadEntitiesClick);
 			// 
 			// EnvironmentComparerPluginControl
 			// 
@@ -190,9 +151,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private Greg.Xrm.Views.ToolStripBindableButton tConnectToEnv2;
 		private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private Greg.Xrm.Views.ToolStripBindableButton tOpenMemento;
-		private Greg.Xrm.Views.ToolStripBindableButton tExecuteComparison;
 		private Greg.Xrm.Views.ToolStripBindableButton tDownloadExcelFile;
-		private Greg.Xrm.Views.ToolStripBindableButton tLoadEntities;
 	}
 }

@@ -1,36 +1,77 @@
-﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+﻿using Greg.Xrm.Async;
+using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
-using Microsoft.Xrm.Sdk.Metadata;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
 	public partial class ConfiguratorView : DockContent
 	{
+		private readonly IAsyncJobScheduler asyncJobScheduler;
 		private readonly IThemeProvider themeProvider;
 		private readonly IMessenger messenger;
-		private EngineMemento memento;
+		private readonly ILog log;
+		//private readonly EnvironmentComparerViewModel parentViewModel;
+		private readonly ConfiguratorViewModel viewModel;
 
-		private IReadOnlyCollection<EntityMetadata> entityMetadataList;
-
-		public ConfiguratorView(IThemeProvider themeProvider, IMessenger messenger)
+		public ConfiguratorView(
+			IAsyncJobScheduler asyncJobScheduler,
+			IThemeProvider themeProvider, 
+			IMessenger messenger,
+			ILog log)
 		{
 			InitializeComponent();
 
 			this.tAdd.Enabled = false;
-			this.entityMetadataList = Array.Empty<EntityMetadata>();
+			this.viewModel = new ConfiguratorViewModel(log, messenger);
+			this.asyncJobScheduler = asyncJobScheduler ?? throw new ArgumentNullException(nameof(asyncJobScheduler));
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-			this.messenger.Register<ResetEntityList>(OnResetEntityList);
-			this.messenger.Register<EntityListRetrieved>(OnEntityListRetrieved);
-			this.memento = new EngineMemento();
+			this.log = log;
+
+			this.mLoadEntities.Bind(_ => _.Enabled, this.viewModel, _ => _.CanLoadEntities);
+			this.tLoadEntities.Bind(_ => _.Enabled, this.viewModel, _ => _.CanLoadEntities);
+
+			this.mOpen.Bind(_ => _.Enabled, this.viewModel, _ => _.CanOpenMemento);
+			this.mSave.Bind(_ => _.Enabled, this.viewModel, _ => _.CanSaveMemento);
+			this.mSaveAs.Bind(_ => _.Enabled, this.viewModel, _ => _.CanSaveAsMemento);
+
+			this.mAdd.Bind(_ => _.Enabled, this.viewModel, _ => _.CanAdd);
+			this.mEdit.Bind(_ => _.Enabled, this.viewModel, _ => _.CanEdit);
+			this.mEdit.Bind(_ => _.Text, this.viewModel, _ => _.EditLabel);
+			this.mRemove.Bind(_ => _.Enabled, this.viewModel, _ => _.CanRemove);
+			this.mRemove.Bind(_ => _.Text, this.viewModel, _ => _.RemoveLabel);
+			this.tAdd.Bind(_ => _.Enabled, this.viewModel, _ => _.CanAdd);
+			this.tEdit.Bind(_ => _.Enabled, this.viewModel, _ => _.CanEdit);
+			this.tEdit.Bind(_ => _.ToolTipText, this.viewModel, _ => _.EditLabel);
+			this.tRemove.Bind(_ => _.Enabled, this.viewModel, _ => _.CanRemove);
+			this.tRemove.Bind(_ => _.ToolTipText, this.viewModel, _ => _.RemoveLabel);
+
+			this.mExecute.Bind(_ => _.Enabled, this.viewModel, _ => _.CanExecuteComparison);
+			this.tExecute.Bind(_ => _.Enabled, this.viewModel, _ => _.CanExecuteComparison);
+
+			this.messenger.Register<ResetEntityList>(m => this.viewModel.EntityMetadataList = null);
+			this.messenger.Register<LoadEntitiesResponse>(m => this.viewModel.EntityMetadataList = m.Entities);
+
 			this.ApplyTheme();
+
+
+			this.viewModel.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(this.viewModel.Memento))
+				{
+					OnMementoChanged();
+				}
+			};
 		}
+
+
 
 
 		private void ApplyTheme()
@@ -39,38 +80,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			theme.ApplyTo(this.treeView1);
 		}
 
-		private void OnResetEntityList(ResetEntityList obj)
+		private void OnLoadEntitiesClick(object sender, EventArgs e)
 		{
-			this.EntityMetadataList = Array.Empty<EntityMetadata>();
-		}
-
-		private void OnEntityListRetrieved(EntityListRetrieved obj)
-		{
-			this.EntityMetadataList = obj.Entities;
-		}
-
-
-		public IReadOnlyCollection<EntityMetadata> EntityMetadataList
-		{
-			get => this.entityMetadataList;
-			set 
-			{
-				if (this.entityMetadataList == value) return;
-				this.entityMetadataList = value ?? Array.Empty<EntityMetadata>();
-
-				this.tAdd.Enabled = this.entityMetadataList.Count > 0;
-			}
-		}
-
-
-		public EngineMemento Memento
-		{
-			get => this.memento;
-			set 
-			{
-				this.memento = value ?? new EngineMemento();
-				this.OnMementoChanged();
-			}
+			this.messenger.Send<LoadEntitiesRequest>();
 		}
 
 		protected virtual void OnMementoChanged()
@@ -85,13 +97,13 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.treeView1.BeginUpdate();
 			this.treeView1.Nodes.Clear();
 
-			if (this.memento == null)
+			if (this.viewModel.Memento == null)
 			{
 				this.treeView1.EndUpdate();
 				return;
 			}
 
-			foreach (var entity in this.memento.Entities)
+			foreach (var entity in this.viewModel.Memento.Entities)
 			{
 				var key = entity.KeyUseGuid ? "GUID" : entity.KeyAttributeNames.Join(", ");
 				var skip = entity.AttributesToSkip?.Count > 0 ? entity.AttributesToSkip.Join(", ") : "-";
@@ -121,44 +133,45 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			}
 			this.treeView1.ExpandAll();
 			this.treeView1.EndUpdate();
+			this.Show();
 		}
 
 		private void OnAfterSelectTreeNode(object sender, TreeViewEventArgs e)
 		{
 			var node = e.Node;
-
 			if (node != null && node.Tag == null)
 			{
 				node = node.Parent;
 			}
 
-			this.tEdit.Enabled = node != null;
-			this.tEdit.Text = $"Edit {node.Text}".Trim();
-			this.tEdit.Tag = node;
-			this.tRemove.Enabled = node != null;
-			this.tRemove.Text = $"Remove {node.Text}".Trim();
-			this.tRemove.Tag = node;
+			this.viewModel.SelectedNode = node;
 		}
 
 		private void OnAddClick(object sender, EventArgs e)
 		{
-			if (this.EntityMetadataList.Count == 0) return;
+			if (this.viewModel.EntityMetadataList.Count == 0) return;
 
 
-			using (var dialog = new ConfiguratorDialog(this.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog(this.viewModel.EntityMetadataList))
 			{
 				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
 				var memento = dialog.Memento;
-				this.memento.Entities.Add(memento);
+
+				if (this.viewModel.Memento == null)
+				{
+					this.viewModel.Memento = new EngineMemento();
+				}
+
+				this.viewModel.Memento.Entities.Add(memento);
 				OnMementoChanged();
 			}
 		}
 
 		private void OnRemoveClick(object sender, EventArgs e)
 		{
-			var btn = (ToolStripButton)sender;
-			if (!(btn.Tag is TreeNode node))
+			var node = this.viewModel.SelectedNode;
+			if (node == null)
 			{
 				MessageBox.Show("No node selected!");
 				return;
@@ -169,15 +182,17 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 
 			var entityMemento = (EntityMemento)node.Tag;
-			this.Memento.Entities.Remove(entityMemento);
+			this.viewModel.Memento.Entities.Remove(entityMemento);
 			this.OnMementoChanged();
 			this.OnAfterSelectTreeNode(sender, new TreeViewEventArgs(null));
 		}
 
+
+
 		private void OnEditClick(object sender, EventArgs e)
 		{
-			var btn = (ToolStripButton)sender;
-			if (!(btn.Tag is TreeNode node))
+			var node = this.viewModel.SelectedNode;
+			if (node == null)
 			{
 				MessageBox.Show("No node selected!");
 				return;
@@ -185,16 +200,44 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			var entityMemento = (EntityMemento)node.Tag;
 
-			using (var dialog = new ConfiguratorDialog(this.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog(this.viewModel.EntityMetadataList))
 			{
 				dialog.Memento = entityMemento;
 
 				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
 				var memento = dialog.Memento;
-				this.memento.Entities.Add(memento);
+				this.viewModel.Memento.Entities.Remove(entityMemento);
+				this.viewModel.Memento.Entities.Add(memento);
 				OnMementoChanged();
 			}
+		}
+
+
+		private void OnOpenClick(object sender, EventArgs e)
+		{
+			this.viewModel.OpenMemento(this.log);
+		}
+
+		private void OnSaveAsClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnSaveClick(object sender, EventArgs e)
+		{
+
+		}
+
+		private void OnExecuteClick(object sender, EventArgs e)
+		{
+			this.asyncJobScheduler.Enqueue(new WorkAsyncInfo
+			{
+				Message = "Executing comparison, please wait...",
+				Work = (w, e1) => {
+					this.viewModel.ExecuteComparison();
+				}
+			});
 		}
 	}
 }

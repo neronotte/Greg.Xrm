@@ -2,6 +2,7 @@
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
 using Microsoft.Xrm.Sdk;
 using System;
@@ -28,6 +29,26 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 			this.ApplyTheme();
+
+
+			this.messenger.WhenObject<EnvironmentComparerViewModel>()
+				.ChangesProperty(_ => _.ConnectionName1)
+				.Execute(e =>
+				{
+					var env1name = e.GetNewValue<string>();
+					this.env1 = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
+					this.cEnv1.Text = this.env1 + " values";
+					this.cmiCopyToEnv1.Text = "Copy to " + this.env1;
+				});
+			this.messenger.WhenObject<EnvironmentComparerViewModel>()
+				 .ChangesProperty(_ => _.ConnectionName2)
+				 .Execute(e =>
+				 {
+					 var env2name = e.GetNewValue<string>();
+					 this.env2 = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
+					 this.cEnv2.Text = this.env2 + " values";
+					 this.cmiCopyToEnv2.Text = "Copy to " + this.env2;
+				 });
 		}
 
 
@@ -37,20 +58,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 			this.listView1.BackColor = theme.PanelBackgroundColor;
 			this.listView1.Font = theme.PanelFont;
-		}
-
-
-
-		public void SetEnvironmentNames(string env1name, string env2name)
-		{
-			this.env1 = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
-			this.env2 = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
-
-			this.cEnv1.Text =  this.env1 + " values";
-			this.cEnv2.Text =  this.env2 + " values";
-
-			this.cmiCopyToEnv1.Text = "Copy to " + this.env1;
-			this.cmiCopyToEnv2.Text = "Copy to " + this.env2;
 		}
 
 

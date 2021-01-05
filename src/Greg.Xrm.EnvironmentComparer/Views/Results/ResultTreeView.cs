@@ -1,4 +1,6 @@
-﻿using Greg.Xrm.EnvironmentComparer.Model;
+﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.EnvironmentComparer.Model;
+using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using Microsoft.Xrm.Sdk;
 using System;
@@ -13,6 +15,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 	public partial class ResultTreeView : DockContent
 	{
 		private readonly IThemeProvider themeProvider;
+		private readonly IMessenger messenger;
 		private readonly Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected;
 		private CompareResultSet compareResult;
 
@@ -25,14 +28,20 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 
 
-		public ResultTreeView(IThemeProvider themeProvider, Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected)
+		public ResultTreeView(IThemeProvider themeProvider, IMessenger messenger, Action<IReadOnlyCollection<Model.Comparison<Entity>>> onResultSelected)
 		{
 			InitializeComponent();
 
 			base.TabText = "Result Summary";
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
+			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 			this.onResultSelected = onResultSelected ?? throw new ArgumentNullException(nameof(onResultSelected));
 			this.ApplyTheme();
+
+			this.messenger.Register<CompareResultSetAvailable>(m =>
+			{
+				this.CompareResult = m.CompareResultSet;
+			});
 		}
 
 
@@ -170,6 +179,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			}
 
 			this.resultTree.EndUpdate();
+			this.Show();
 
 			this.OnNodeSelected(this.resultTree.Nodes.OfType<TreeNode>().FirstOrDefault());
 		}

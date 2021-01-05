@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 namespace Greg.Xrm.EnvironmentComparer.Messaging
 {
-	public class EntityListRetrieved
+	public class LoadEntitiesResponse
 	{
-		public EntityListRetrieved(IReadOnlyCollection<EntityMetadata> entities)
+		public LoadEntitiesResponse(IReadOnlyCollection<EntityMetadata> entities)
 		{
 			this.Entities = entities ?? Array.Empty<EntityMetadata>();
 		}

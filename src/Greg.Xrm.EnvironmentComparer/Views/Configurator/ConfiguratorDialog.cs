@@ -43,7 +43,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			get => this.memento;
 			set
 			{
-				this.memento = value ?? new EntityMemento();
+				this.memento = (EntityMemento)value?.Clone() ?? new EntityMemento();
 				this.OnMementoChanged();
 			}
 		}

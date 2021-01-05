@@ -174,8 +174,14 @@
     <Compile Include="Messaging\Messenger.cs" />
     <Compile Include="Messaging\Registration.cs" />
     <Compile Include="Model\EntityWrapper.cs" />
+    <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\IChangeManagerFluent.cs" />
     <Compile Include="Model\IEntityWrapperInternal.cs" />
+    <Compile Include="Model\IMessengerPropertyChangedFluentInterface.cs" />
+    <Compile Include="Model\IMessengerPropertyChangedFluentInterfaceExecuteMethod.cs" />
+    <Compile Include="Model\NotifyPropertyChangedMessage.cs" />
     <Compile Include="Model\PluginViewModelBase.cs" />
+    <Compile Include="Model\ViewModel.cs" />
     <Compile Include="Progress.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Theming\ITheme.cs" />
@@ -187,6 +193,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Views\ToolStripBindableLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\ToolStripBindableMenuItem.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

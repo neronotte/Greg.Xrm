@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Greg.Xrm.EnvironmentComparer.Model.Memento
@@ -10,6 +11,10 @@ namespace Greg.Xrm.EnvironmentComparer.Model.Memento
 			this.Entities = new List<EntityMemento>();
 		}
 		public List<EntityMemento> Entities { get; set; }
+
+
+		[JsonIgnore]
+		public string FileName { get; set; }
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{

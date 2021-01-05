@@ -150,6 +150,8 @@
     <Compile Include="Actions\ActionQueue.cs" />
     <Compile Include="Actions\IAction.cs" />
     <Compile Include="Messaging\CompareResultRecordSelected.cs" />
+    <Compile Include="Messaging\CompareResultSetAvailable.cs" />
+    <Compile Include="Messaging\LoadEntitiesRequest.cs" />
     <Compile Include="Messaging\SubmitActionMessage.cs" />
     <Compile Include="Model\CompareResultForEntity.cs" />
     <Compile Include="Model\Constants.cs" />
@@ -167,6 +169,7 @@
       <DependentUpon>ConfiguratorView.cs</DependentUpon>
     </Compile>
     <Compile Include="EnvironmentComparerPlugin.cs" />
+    <Compile Include="Views\Configurator\ConfiguratorViewModel.cs" />
     <Compile Include="Views\EnvironmentComparerPluginControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -177,7 +180,7 @@
     <Compile Include="Views\EnvironmentComparerViewModel.cs" />
     <Compile Include="Views\IEnvironmentComparerView.cs" />
     <Compile Include="Logging\ILog.cs" />
-    <Compile Include="Messaging\EntityListRetrieved.cs" />
+    <Compile Include="Messaging\LoadEntitiesResponse.cs" />
     <Compile Include="Messaging\ResetEntityList.cs" />
     <Compile Include="Model\AsKey.cs" />
     <Compile Include="Model\Compare.cs" />
@@ -319,6 +322,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_delete.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_edit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

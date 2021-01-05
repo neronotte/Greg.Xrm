@@ -1,10 +1,15 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Greg.Xrm.Model;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
+using Label = Microsoft.Xrm.Sdk.Label;
 
 namespace Greg.Xrm
 {
@@ -753,6 +758,69 @@ namespace Greg.Xrm
 					hash = hash * 29 + member().GetHashCode();
 				return hash;
 			}
+		}
+
+
+		/// <summary>
+		/// Via reflection, returns the name of the property wrapped in the expression function passed as parameter
+		/// </summary>
+		/// <typeparam name="TProperty"></typeparam>
+		/// <param name="propertyLambda"></param>
+		/// <returns></returns>
+		public static string GetMemberName<TProperty>(this Expression<Func<TProperty>> propertyLambda)
+		{
+			if (!(propertyLambda.Body is MemberExpression member))
+				throw new ArgumentException(string.Format(
+					"Expression '{0}' refers to a method, not a property.",
+					propertyLambda.ToString()));
+
+			var propInfo = member.Member as PropertyInfo;
+			if (propInfo == null)
+				throw new ArgumentException(string.Format(
+					"Expression '{0}' refers to a field, not a property.",
+					propertyLambda.ToString()));
+
+			return propInfo.Name;
+		}
+		
+		
+		/// <summary>
+		 /// Via reflection, returns the name of the property wrapped in the expression function passed as parameter
+		 /// </summary>
+		 /// <typeparam name="TObject"></typeparam>
+		 /// <typeparam name="TProperty"></typeparam>
+		 /// <param name="propertyLambda"></param>
+		 /// <returns></returns>
+		public static string GetMemberName<TObject, TProperty>(this Expression<Func<TObject, TProperty>> propertyLambda)
+		{
+			if (!(propertyLambda.Body is MemberExpression member))
+				throw new ArgumentException(string.Format(
+					"Expression '{0}' refers to a method, not a property.",
+					propertyLambda.ToString()));
+
+			var propInfo = member.Member as PropertyInfo;
+			if (propInfo == null)
+				throw new ArgumentException(string.Format(
+					"Expression '{0}' refers to a field, not a property.",
+					propertyLambda.ToString()));
+
+			return propInfo.Name;
+		}
+
+
+		public static void Bind<TComponent, TViewModel, TProperty>(
+			this TComponent component, 
+			Expression<Func<TComponent, TProperty>> componentProperty, 
+			TViewModel viewModel, 
+			Expression<Func<TViewModel, TProperty>> viewModelProperty)
+			where TComponent : IBindableComponent
+			where TViewModel : ViewModel
+		{
+			component.DataBindings.Add(
+				componentProperty.GetMemberName(), 
+				viewModel, 
+				viewModelProperty.GetMemberName());
+
 		}
 	}
 }
