@@ -218,6 +218,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Results\Extensions.cs" />
     <Compile Include="Views\Results\ResultGridView.cs">
       <SubType>Form</SubType>
     </Compile>

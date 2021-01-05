@@ -6,8 +6,10 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 using System.Text;
 using System.Windows.Forms;
@@ -162,7 +164,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 
 
-		public void OpenMemento(ILog log)
+		public void OpenMemento()
 		{
 			if (!this.CanOpenMemento) return;
 
@@ -185,11 +187,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				this.Memento = engineMemento;
 				this.CompareResultSet = null;
 
-				log.Debug("Engine created successfully from file " + mementoFileName);
+				this.log.Debug("Engine created successfully from file " + mementoFileName);
 			}
 			catch (ArgumentException ex)
 			{
-				log.Error(ex.Message);
+				this.log.Error(ex.Message);
 			}
 			catch (ExtendedValidationException ex)
 			{
@@ -201,11 +203,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 					sb.Append(" - ").AppendLine(item.ErrorMessage);
 				}
 
-				log.Error(sb.ToString());
+				this.log.Error(sb.ToString());
 			}
 			catch (Exception ex)
 			{
-				log.Error("Error creating engine from JSON config: " + ex.Message, ex);
+				this.log.Error("Error creating engine from JSON config: " + ex.Message, ex);
 			}
 		}
 
@@ -242,6 +244,67 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 					log.Error("Error while comparing environments: " + ex.Message, ex);
 				}
 			}
+		}
+
+		public void SaveAsMemento()
+		{
+			var memento = this.Memento;
+			if (memento == null) return;
+
+
+			string mementoFileName;
+			using (var dialog = new SaveFileDialog())
+			{
+				dialog.Title = "Save as...";
+				dialog.Filter = "JSON (*.json)|*.json";
+				dialog.FileName = memento.FileName;
+
+				if (dialog.ShowDialog() != DialogResult.OK) return;
+				mementoFileName = dialog.FileName;
+			}
+
+			Save(memento, mementoFileName);
+		}
+
+		public void SaveMemento()
+		{
+			var memento = this.Memento;
+			if (memento == null) return;
+
+			if (string.IsNullOrWhiteSpace(memento.FileName))
+			{
+				SaveAsMemento();
+				return;
+			}
+
+			Save(memento, memento.FileName);
+		}
+
+
+
+
+		private void Save(EngineMemento memento, string fileName)
+		{
+			if (memento == null) return;
+			if (string.IsNullOrWhiteSpace(fileName)) return;
+			
+
+
+			try
+			{
+				var mementoString = JsonConvert.SerializeObject(memento, Formatting.Indented);
+				this.log.Info("Serialized memento: " + mementoString);
+
+				File.WriteAllText(fileName, mementoString);
+
+				memento.FileName = fileName;
+			}
+#pragma warning disable CA1031 // Do not catch general exception types
+			catch (Exception ex)
+			{
+				log.Error($"{ex.GetType().Name} saving memento: {ex.Message}" + ex.Message, ex);
+			}
+#pragma warning restore CA1031 // Do not catch general exception types
 		}
 	}
 }

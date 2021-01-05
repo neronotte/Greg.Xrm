@@ -1,10 +1,8 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
@@ -41,14 +39,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		public bool IsCopyToEnv1Enabled
 		{
-			get => this.SelectedResults?
-				.All(x => x.Result == RecordComparisonResult.LeftMissing || x.Result == RecordComparisonResult.MatchingButDifferent) ?? false;
+			get => this.SelectedResults.AreAllLeftMissingOrDifferent();
 		}
 
 		public bool IsCopyToEnv2Enabled
 		{
-			get => this.SelectedResults?
-				.All(x => x.Result == RecordComparisonResult.RightMissing || x.Result == RecordComparisonResult.MatchingButDifferent) ?? false;
+			get => this.SelectedResults.AreAllRightMissingOrDifferent();
 		}
 	}
 }

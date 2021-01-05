@@ -207,8 +207,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
 				var memento = dialog.Memento;
-				this.viewModel.Memento.Entities.Remove(entityMemento);
-				this.viewModel.Memento.Entities.Add(memento);
+				var index = this.viewModel.Memento.Entities.IndexOf(entityMemento);
+				this.viewModel.Memento.Entities.RemoveAt(index);
+				this.viewModel.Memento.Entities.Insert(index, memento);
 				OnMementoChanged();
 			}
 		}
@@ -216,18 +217,20 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 		private void OnOpenClick(object sender, EventArgs e)
 		{
-			this.viewModel.OpenMemento(this.log);
+			this.viewModel.OpenMemento();
 		}
 
 		private void OnSaveAsClick(object sender, EventArgs e)
 		{
-
+			this.viewModel.SaveAsMemento();
 		}
 
 		private void OnSaveClick(object sender, EventArgs e)
 		{
-
+			this.viewModel.SaveMemento();
 		}
+
+		
 
 		private void OnExecuteClick(object sender, EventArgs e)
 		{
