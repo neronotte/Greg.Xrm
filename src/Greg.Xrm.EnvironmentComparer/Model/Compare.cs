@@ -53,6 +53,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			if (memento == null)
 				throw new ArgumentException("Cannot deserialize memento from file " + mementoFileName);
 
+			memento.FileName = mementoFileName;
 			return FromMemento(memento);
 		}
 

@@ -3,26 +3,12 @@ using System.Runtime.CompilerServices;
 
 namespace Greg.Xrm.Model
 {
-	public abstract class PluginViewModelBase : INotifyPropertyChanged
+	public abstract class PluginViewModelBase : ViewModel
 	{
-		private bool allowRequests;
 		public bool AllowRequests
 		{
-			get => this.allowRequests;
-			set 
-			{
-				this.allowRequests = value;
-				this.OnPropertyChanged();
-			}
+			get => Get<bool>();
+			set => Set(value);
 		}
-
-
-		protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
-		{
-			this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-		}
-
-
-		public event PropertyChangedEventHandler PropertyChanged;
 	}
 }

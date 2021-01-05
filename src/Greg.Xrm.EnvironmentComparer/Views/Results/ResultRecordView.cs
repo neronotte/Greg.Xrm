@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
 using ScintillaNET;
 using System;
@@ -33,8 +34,27 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger;
 
-			this.messenger.Register<Messaging.CompareResultRecordSelected>(OnResultRecordSelected);
-			this.SetEnvironmentNames(null, null);
+			this.messenger.Register<CompareResultRecordSelected>(OnResultRecordSelected);
+
+			this.messenger.WhenObject<EnvironmentComparerViewModel>()
+				.ChangesProperty(_ => _.ConnectionName1)
+				.Execute(e =>
+				{
+					var env1name = e.GetNewValue<string>();
+					this.lblEnv1.Text = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
+				}); 
+			this.messenger.WhenObject<EnvironmentComparerViewModel>()
+				 .ChangesProperty(_ => _.ConnectionName2)
+				 .Execute(e =>
+				 {
+					 var env2name = e.GetNewValue<string>();
+					 this.lblEnv2.Text = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
+				 });
+
+
+			this.lblEnv1.Text = "ENV1";
+			this.lblEnv2.Text = "ENV2";
+
 			this.ApplyTheme();
 		}
 
@@ -47,13 +67,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 			this.txtValue2.Styles[Style.Default].Font = theme.PanelFont.Name;
 			this.txtValue2.Styles[Style.Default].Size = (int)theme.PanelFont.Size;
-		}
-
-
-		public void SetEnvironmentNames(string env1name, string env2name)
-		{
-			this.lblEnv1.Text = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
-			this.lblEnv2.Text = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
 		}
 
 

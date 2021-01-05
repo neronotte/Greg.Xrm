@@ -5,72 +5,45 @@ namespace Greg.Xrm.SolutionManager.Model
 {
 	public class PluginViewModel : PluginViewModelBase
 	{
-		private bool canStartMonitoring, canStopMonitoring, stopMonitoringRequested;
+		private bool stopMonitoringRequested;
 		private XDocument currentImportJobData;
 
 		public PluginViewModel()
 		{
-			this.canStartMonitoring = true;
-			this.canStopMonitoring = false;
+			this.WhenChanges(() => CanStartMonitoring).ChangesAlso(() => CanStopMonitoring);
 		}
 
 
 		public bool CanStartMonitoring
 		{
-			get => this.canStartMonitoring;
-			set
-			{
-				if (value == this.canStartMonitoring) return;
-
-				this.canStartMonitoring = value;
-				this.OnPropertyChanged();
-
-				this.CanStopMonitoring = !value;
-			}
+			get => Get<bool>();
+			set => Set(value);
 		}
 
 
 		public bool CanStopMonitoring
 		{
-			get => this.canStopMonitoring;
-			set
-			{
-				if (value == this.canStopMonitoring) return;
-
-				this.canStopMonitoring = value;
-				this.OnPropertyChanged();
-				this.CanStartMonitoring = !value;
-			}
+			get => !CanStartMonitoring;
 		}
 
 		public bool StopMonitoringRequested
 		{
-			get => this.stopMonitoringRequested;
+			get => Get<bool>();
 			set
 			{
-				if (value == this.stopMonitoringRequested) return;
-
-				this.stopMonitoringRequested = value;
-				this.OnPropertyChanged();
+				Set(value);
 
 				if (value == true)
 				{
-					this.canStopMonitoring = false;
-					this.OnPropertyChanged(nameof(CanStopMonitoring));
+					this.CanStartMonitoring = true;
 				}
 			}
 		}
 
 		public XDocument CurrentImportJobData
 		{
-			get => this.currentImportJobData;
-			set
-			{
-				if (value == this.currentImportJobData) return;
-
-				this.currentImportJobData = value;
-				this.OnPropertyChanged();
-			}
+			get => Get<XDocument>();
+			set => Set(value);
 		}
 	}
 }

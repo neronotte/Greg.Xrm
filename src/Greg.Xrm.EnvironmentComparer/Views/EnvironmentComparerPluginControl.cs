@@ -1,4 +1,5 @@
-﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+﻿using Greg.Xrm.Async;
+using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
 using Greg.Xrm.EnvironmentComparer.Views.Actions;
@@ -20,7 +21,7 @@ using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentComparer.Views
 {
-	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase, IEnvironmentComparerView
+	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase
 	{
 		const string ConnectToEnvironment1String = "1. Connect to environment 1";
 		const string ConnectToEnvironment2String = "2. Connect to environment 2";
@@ -34,15 +35,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private readonly ResultGridView resultGridView;
 		private readonly ResultRecordView resultRecordView;
 
-		private readonly EnvironmentComparerPresenter presenter;
 		private readonly IMessenger messenger;
 
-		private readonly EnvironmentComparerViewModel viewModel = new EnvironmentComparerViewModel();
-		private readonly IThemeProvider themeProvider;
+		private readonly EnvironmentComparerViewModel viewModel;
 
 		public EnvironmentComparerPluginControl(IThemeProvider themeProvider)
 		{
-			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
+			if (themeProvider == null) 
+				throw new ArgumentNullException(nameof(themeProvider));
 
 
 			InitializeComponent();
@@ -56,10 +56,13 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.outputView = new OutputView(themeProvider);
 			this.outputView.Show(this.dockPanel, DockState.DockBottomAutoHide);
 
-			this.resultTreeView = new ResultTreeView(themeProvider, r => this.resultGridView.Results = r);
+			this.viewModel = new EnvironmentComparerViewModel(this.outputView, this.messenger);
+			var scheduler = new AsyncJobScheduler(this, viewModel);
+
+			this.resultTreeView = new ResultTreeView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.resultTreeView.Show(this.dockPanel, DockState.DockLeft);
 
-			this.configuratorView = new ConfiguratorView(themeProvider, this.messenger);
+			this.configuratorView = new ConfiguratorView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
 
 			this.actionsView = new ActionsView(themeProvider, this.messenger, this.outputView);
@@ -75,30 +78,21 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.configuratorView.Show();
 
 
-			this.presenter = new EnvironmentComparerPresenter(this.outputView, this, this.viewModel);
-
-
-			this.tLoadEntities.DataBindings.Add(nameof(this.tLoadEntities.Enabled), this.viewModel, nameof(this.viewModel.CanLoadEntities));
-
-
 			this.messenger.Register<HighlightResultRecord>(m =>
 			{
 				this.resultRecordView.Show();
+			});
+			this.messenger.Register<LoadEntitiesRequest>(m =>
+			{
+				ExecuteMethod(LoadEntities);
 			});
 		}
 
 
 		protected override void ConnectionDetailsUpdated(NotifyCollectionChangedEventArgs e)
 		{
-			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
-			this.messenger.Send<ResetEntityList>();
+			SetEnvironments();
 		}
-
-		private void OnConnectToEnvironment2(object sender, EventArgs e)
-		{
-			AddAdditionalOrganization();
-		}
-
 
 
 		/// <summary>
@@ -107,14 +101,26 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		public override void UpdateConnection(IOrganizationService newService, ConnectionDetail detail, string actionName, object parameter)
 		{
 			base.UpdateConnection(newService, detail, actionName, parameter);
+			SetEnvironments();
+		}
 
-			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
+		private void OnConnectToEnvironment2(object sender, EventArgs e)
+		{
+			AddAdditionalOrganization();
+		}
+
+
+		private void SetEnvironments()
+		{
+			this.viewModel.Env1 = this.ConnectionDetail;
+			this.viewModel.Env2 = this.AdditionalConnectionDetails.FirstOrDefault();
+			this.SetConnectionNames(this.viewModel.Env1?.ConnectionName, this.viewModel.Env2?.ConnectionName);
 			this.messenger.Send<ResetEntityList>();
 		}
 
 		private void MyPluginControl_Load(object sender, EventArgs e)
 		{
-			this.presenter.SetEnvironments(this.ConnectionDetail, this.AdditionalConnectionDetails.FirstOrDefault());
+			SetEnvironments();
 
 			// Loads or creates the settings for the plugin
 			if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
@@ -134,6 +140,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			CloseTool();
 		}
 
+
 		/// <summary>
 		/// This event occurs when the plugin is closed
 		/// </summary>
@@ -145,28 +152,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			SettingsManager.Instance.Save(GetType(), mySettings);
 		}
 
-		private void OnOpenMemento(object sender, EventArgs e)
-		{
-			string fileName;
-			using(var dialog = new OpenFileDialog())
-			{
-				dialog.Filter = "JSON (*.json)|*.json";
-				dialog.Title = "Open JSON configuration";
-
-				if (dialog.ShowDialog() != DialogResult.OK) return;
-				fileName = dialog.FileName;
-			}
-
-			this.presenter.OpenMemento(fileName);
-		}
 
 
-		void IEnvironmentComparerView.CanOpenConfig(bool value)
-		{
-			this.tOpenMemento.Enabled = value;
-		}
-
-		void IEnvironmentComparerView.SetConnectionNames(string env1name, string env2name)
+		void SetConnectionNames(string env1name, string env2name)
 		{
 			this.tEnv1Name.Text = string.IsNullOrWhiteSpace(env1name) ? ConnectToEnvironment1String : "ENV1: " + env1name;
 			this.tEnv2Name.Text = string.IsNullOrWhiteSpace(env2name) ? ConnectToEnvironment2String : "- ENV2: " + env2name;
@@ -189,79 +177,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 				this.tEnv2Name.Visible = true;
 				this.tConnectToEnv2.Visible = false;
 			}
-
-			this.resultGridView.SetEnvironmentNames(env1name, env2name);
-			this.resultRecordView.SetEnvironmentNames(env1name, env2name);
-		}
-
-		void IEnvironmentComparerView.ShowMemento(EngineMemento memento)
-		{
-			if (this.InvokeRequired)
-			{
-				Action d = () => ((IEnvironmentComparerView)this).ShowMemento(memento);
-				this.BeginInvoke(d);
-				return;
-			}
-
-			this.configuratorView.Memento = memento;
-			this.configuratorView.Show();
-		}
-
-		void IEnvironmentComparerView.CanExecuteComparison(bool value)
-		{
-			this.tExecuteComparison.Enabled = value;
-		}
-
-		void IEnvironmentComparerView.ShowComparisonResult(CompareResultSet result)
-		{
-			if (this.InvokeRequired)
-			{
-				Action d = () => ((IEnvironmentComparerView)this).ShowComparisonResult(result);
-				this.BeginInvoke(d);
-				return;
-			}
-
-			this.resultTreeView.CompareResult = result;
-			this.resultTreeView.Show();
-
-			this.tDownloadExcelFile.Enabled = result != null && result.Count > 0;
-		}
-
-		private void OnExecuteComparisonClicked(object sender, EventArgs e)
-		{
-			WorkAsync(new WorkAsyncInfo
-			{
-				Message = "Executing comparison, please wait...",
-				Work = (w, e1) => {
-					this.presenter.ExecuteComparison();
-				}
-			});	
-		}
-
-		private void OnDowloadExcelFileClicked(object sender, EventArgs e)
-		{
-			string fileName;
-			using (var dialog = new FolderBrowserDialog())
-			{
-				dialog.Description = "Output folder";
-
-				if (dialog.ShowDialog() != DialogResult.OK) return;
-				fileName = dialog.SelectedPath;
-			}
-
-			WorkAsync(new WorkAsyncInfo
-			{
-				Message = "Executing generating Excel file, please wait...",
-				Work = (w, e1) => {
-					this.presenter.DownloadComparisonResultAsExcelFile(fileName, this.resultTreeView.CompareResult);
-				}
-			});
-		}
-
-
-		private void OnLoadEntitiesClick(object sender, EventArgs e)
-		{
-			ExecuteMethod(LoadEntities);
 		}
 
 		private void LoadEntities()
@@ -281,13 +196,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 				PostWorkCallBack = e1 => {
 					if (e1.Error != null)
 					{
-
 						return;
 					}
 
 					if (e1.Result is EntityMetadata[] entityMetadataList)
 					{
-						this.messenger.Send(new EntityListRetrieved(entityMetadataList));
+						this.messenger.Send(new LoadEntitiesResponse(entityMetadataList));
 					}
 				}
 			});

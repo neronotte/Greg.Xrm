@@ -1,10 +1,12 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Greg.Xrm.EnvironmentComparer.Model.Memento
 {
-	public class EntityMemento : IValidatableObject
+	public class EntityMemento : IValidatableObject, ICloneable
 	{
 		public EntityMemento()
 		{
@@ -25,6 +27,18 @@ namespace Greg.Xrm.EnvironmentComparer.Model.Memento
 
 		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public List<string> AttributesToSkip { get; set; }
+
+		public object Clone()
+		{
+			return new EntityMemento
+			{
+				EntityName = this.EntityName,
+				KeyUseGuid = this.KeyUseGuid,
+				KeyAttributeNames = this.KeyAttributeNames.ToList(),
+				OnlyActive = this.OnlyActive,
+				AttributesToSkip = this.AttributesToSkip.ToList(),
+			};
+		}
 
 		public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
 		{
