@@ -91,8 +91,8 @@ steps:
     New-Item -Type dir ZipFiles\SolutionManager
     New-Item -Type dir ZipFiles\EnvironmentComparer
     New-Item -Type dir ZipFiles\Output
-    Copy-Item src\Greg.Xrm.SolutionManager\bin\Release\Plugins\*.* -Destination ZipFiles\SolutionManager
-    Copy-Item src\Greg.Xrm.EnvironmentComparer\bin\Release\Plugins\*.* -Destination ZipFiles\EnvironmentComparer
+    Copy-Item src\Greg.Xrm.SolutionManager\bin\Release\XrmToolBox\Plugins\*.* -Destination ZipFiles\SolutionManager
+    Copy-Item src\Greg.Xrm.EnvironmentComparer\bin\Release\XrmToolBox\Plugins\*.* -Destination ZipFiles\EnvironmentComparer
     Compress-Archive -Path ZipFiles\SolutionManager\* -DestinationPath ZipFiles\Output\SolutionManager.zip
     Compress-Archive -Path ZipFiles\EnvironmentComparer\* -DestinationPath ZipFiles\Output\EnvironmentComparer.zip
   displayName: 'Create zip for GitHub'
