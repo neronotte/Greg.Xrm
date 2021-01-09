@@ -163,6 +163,7 @@
     <Compile Include="CloneSettings.cs" />
     <Compile Include="CrmComparer.cs" />
     <Compile Include="Extensions.cs" />
+    <Compile Include="GitHubPluginConstants.cs" />
     <Compile Include="Info\PluginConstants.cs" />
     <Compile Include="Messaging\IMessageHandler.cs" />
     <Compile Include="Messaging\IMessenger.cs" />
