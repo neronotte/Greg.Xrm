@@ -38,6 +38,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.WhenChanges(() => this.Crm2)
 				.ChangesAlso(() => CanApplyActions);
 
+			this.Actions.ListChanged += this.Actions_ListChanged;
+
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				.ChangesProperty(_ => _.Crm1)
 				.Execute(e =>
@@ -53,6 +55,25 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 				});
 		}
 
+		private void Actions_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+		{
+			const string StaticTitle = "Actions";
+
+			if (this.Actions.Count == 0)
+			{
+				this.Title = StaticTitle;
+			}
+			else
+			{
+				this.Title = $"{StaticTitle} ({Actions.Count})";
+			}
+		}
+
+		public string Title
+		{
+			get => this.Get<string>();
+			private set => this.Set(value);
+		}
 
 		public ActionQueue Actions { get; }
 
@@ -130,7 +151,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 					var result = new ApplyActionsResult();
 
 					var index = 0;
-					foreach (var action in actionList)
+					foreach(var action in actionList)
 					{
 						index++;
 						var percent = (index * 100) / actionList.Count;

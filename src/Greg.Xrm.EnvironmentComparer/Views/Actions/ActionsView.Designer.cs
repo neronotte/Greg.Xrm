@@ -31,13 +31,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ActionsView));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.chlActionList = new System.Windows.Forms.CheckedListBox();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tClear = new System.Windows.Forms.ToolStripButton();
 			this.tApplyAll = new System.Windows.Forms.ToolStripButton();
 			this.tApplyChecked = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tCheckAll = new System.Windows.Forms.ToolStripButton();
 			this.tUncheckAll = new System.Windows.Forms.ToolStripButton();
+			this.chlActionList = new System.Windows.Forms.CheckedListBox();
+			this.tRemove = new System.Windows.Forms.ToolStripButton();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -45,6 +46,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			// 
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tClear,
+            this.tRemove,
             this.tApplyAll,
             this.tApplyChecked,
             this.toolStripSeparator1,
@@ -55,20 +57,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.toolStrip1.Size = new System.Drawing.Size(447, 25);
 			this.toolStrip1.TabIndex = 2;
 			this.toolStrip1.Text = "toolStrip1";
-			// 
-			// chlActionList
-			// 
-			this.chlActionList.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.chlActionList.FormattingEnabled = true;
-			this.chlActionList.Location = new System.Drawing.Point(0, 25);
-			this.chlActionList.Name = "chlActionList";
-			this.chlActionList.Size = new System.Drawing.Size(447, 433);
-			this.chlActionList.TabIndex = 3;
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// tClear
 			// 
@@ -100,6 +88,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.tApplyChecked.Text = "Apply checked";
 			this.tApplyChecked.Click += new System.EventHandler(this.OnApplyCheckedClick);
 			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
 			// tCheckAll
 			// 
 			this.tCheckAll.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.picture_tick;
@@ -114,9 +107,27 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.tUncheckAll.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.picture_empty;
 			this.tUncheckAll.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tUncheckAll.Name = "tUncheckAll";
-			this.tUncheckAll.Size = new System.Drawing.Size(86, 22);
+			this.tUncheckAll.Size = new System.Drawing.Size(86, 20);
 			this.tUncheckAll.Text = "Deselect all";
 			this.tUncheckAll.Click += new System.EventHandler(this.OnUnselectAllClick);
+			// 
+			// chlActionList
+			// 
+			this.chlActionList.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.chlActionList.FormattingEnabled = true;
+			this.chlActionList.Location = new System.Drawing.Point(0, 25);
+			this.chlActionList.Name = "chlActionList";
+			this.chlActionList.Size = new System.Drawing.Size(447, 433);
+			this.chlActionList.TabIndex = 3;
+			// 
+			// tRemove
+			// 
+			this.tRemove.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete;
+			this.tRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tRemove.Name = "tRemove";
+			this.tRemove.Size = new System.Drawing.Size(70, 22);
+			this.tRemove.Text = "Remove";
+			this.tRemove.Click += new System.EventHandler(this.OnRemoveClick);
 			// 
 			// ActionsView
 			// 
@@ -148,5 +159,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripButton tCheckAll;
 		private System.Windows.Forms.ToolStripButton tUncheckAll;
+		private System.Windows.Forms.ToolStripButton tRemove;
 	}
 }

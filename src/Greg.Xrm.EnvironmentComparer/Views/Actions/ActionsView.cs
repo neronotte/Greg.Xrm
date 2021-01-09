@@ -23,6 +23,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.log = log;
 			this.viewModel = new ActionsViewModel(log, messenger, scheduler);
 
+			this.Bind(_ => _.Text, this.viewModel, _ => _.Title);
+			this.Bind(_ => _.TabText, this.viewModel, _ => _.Title);
+
 			this.ApplyTheme();
 
 			this.chlActionList.DataSource = viewModel.Actions;
@@ -97,6 +100,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 				var index = this.chlActionList.Items.IndexOf(item);
 				this.chlActionList.SetItemChecked(index, selected);
 			}
+		}
+
+		private void OnRemoveClick(object sender, EventArgs e)
+		{
+			var action = (IAction)this.chlActionList.SelectedItem;
+			if (action == null) return;
+
+			this.viewModel.Actions.Remove(action);
 		}
 	}
 }

@@ -20,21 +20,5 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 			this.Add(action);
 			return true;
 		}
-
-		public IAction Dequeue()
-		{
-			if (this.Count == 0) return null;
-
-
-			var action = this[0];
-			this.RemoveAt(0);
-			return action;
-		}
-
-		public IAction Peek()
-		{
-			if (this.Count == 0) return null;
-			return this[0];
-		}
 	}
 }
