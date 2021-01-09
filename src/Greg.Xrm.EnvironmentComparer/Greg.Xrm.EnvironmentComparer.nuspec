@@ -25,8 +25,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\Release\Greg.Xrm.Core.dll" target="lib\net462\plugins\Greg.Xrm.EnvironmentComparer" />
-		<file src="bin\Release\Greg.Xrm.EnvironmentComparer.dll" target="lib\net462\plugins\Greg.Xrm.EnvironmentComparer" />
-		<file src="bin\Release\EPPlus.dll" target="lib\net462\plugins\Greg.Xrm.EnvironmentComparer" />
+		<file src="bin\Release\XrmToolBox\Plugins\Greg.Xrm.EnvironmentComparer.dll" target="lib\net462\Plugins" />
 	</files>
 </package>
