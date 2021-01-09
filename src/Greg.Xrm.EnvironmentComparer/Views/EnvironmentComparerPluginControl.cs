@@ -53,7 +53,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tConnectToEnv2.Text = ConnectToEnvironment2String;
 
 
-			this.outputView = new OutputView(themeProvider);
+			this.outputView = new OutputView(themeProvider, messenger);
 			this.outputView.Show(this.dockPanel, DockState.DockBottomAutoHide);
 
 			this.viewModel = new EnvironmentComparerViewModel(this.outputView, this.messenger);
@@ -65,7 +65,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.configuratorView = new ConfiguratorView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
 
-			this.actionsView = new ActionsView(themeProvider, this.messenger, this.outputView);
+			this.actionsView = new ActionsView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.actionsView.Show(this.dockPanel, DockState.DockRightAutoHide);
 
 			this.resultGridView = new ResultGridView(themeProvider, this.messenger);

@@ -1,52 +1,40 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.ComponentModel;
 
 namespace Greg.Xrm.EnvironmentComparer.Actions
 {
-	public class ActionQueue : IEnumerable<IAction>
+	public class ActionQueue : BindingList<IAction>
 	{
-		private readonly Queue<IAction> actionQueue = new Queue<IAction>();
+
+		public ActionQueue()
+		{
+		}
 
 		public bool TryEnqueue(IAction action, out string errorMessage)
 		{
 			errorMessage = null;
-			if (this.actionQueue.Contains(action))
+			if (this.Contains(action))
 			{
 				errorMessage = "Action already present in the queue!";
 				return false;
 			}
-			this.actionQueue.Enqueue(action);
+			this.Add(action);
 			return true;
 		}
 
 		public IAction Dequeue()
 		{
-			return this.actionQueue.Dequeue();
+			if (this.Count == 0) return null;
+
+
+			var action = this[0];
+			this.RemoveAt(0);
+			return action;
 		}
 
 		public IAction Peek()
 		{
-			return this.actionQueue.Peek();
-		}
-
-		public void Clear()
-		{
-			this.actionQueue.Clear();
-		}
-
-		public IEnumerator<IAction> GetEnumerator()
-		{
-			return this.actionQueue.GetEnumerator();
-		}
-
-		IEnumerator IEnumerable.GetEnumerator()
-		{
-			return GetEnumerator();
-		}
-
-		public int Count
-		{
-			get => this.actionQueue.Count;
+			if (this.Count == 0) return null;
+			return this[0];
 		}
 	}
 }
