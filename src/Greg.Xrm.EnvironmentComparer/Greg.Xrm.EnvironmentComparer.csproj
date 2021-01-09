@@ -156,12 +156,15 @@
     <Compile Include="Messaging\SubmitActionMessage.cs" />
     <Compile Include="Model\CompareResultForEntity.cs" />
     <Compile Include="Model\Constants.cs" />
+    <Compile Include="Views\Actions\ApplyActionResult.cs" />
+    <Compile Include="Views\Actions\ApplyActionsResult.cs" />
     <Compile Include="Views\Actions\ActionsView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Actions\ActionsView.Designer.cs">
       <DependentUpon>ActionsView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Actions\ActionsViewModel.cs" />
     <Compile Include="Views\Configurator\AttributeMetadataDto.cs" />
     <Compile Include="Views\Configurator\ConfiguratorView.cs">
       <SubType>Form</SubType>
@@ -218,6 +221,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Output\ShowOutputView.cs" />
     <Compile Include="Views\Results\Extensions.cs" />
     <Compile Include="Views\Results\ResultGridView.cs">
       <SubType>Form</SubType>
@@ -338,6 +342,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -11,7 +11,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		public ResultGridViewModel(IMessenger messenger)
 		{
 			this.WhenChanges(() => SelectedResults)
-				.ChangesAlso(() => IsCompareEnabled);
+				.ChangesAlso(() => IsCompareEnabled)
+				.ChangesAlso(() => IsCopyToEnv1Enabled)
+				.ChangesAlso(() => IsCopyToEnv2Enabled);
 
 			messenger.Register<CompareResultGroupSelected>(m =>
 			{

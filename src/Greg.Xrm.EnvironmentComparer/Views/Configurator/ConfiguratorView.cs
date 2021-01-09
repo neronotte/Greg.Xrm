@@ -2,6 +2,7 @@
 using Greg.Xrm.EnvironmentComparer.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model.Memento;
+using Greg.Xrm.EnvironmentComparer.Views.Actions;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
@@ -38,8 +39,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mLoadEntities.Bind(_ => _.Enabled, this.viewModel, _ => _.CanLoadEntities);
 			this.tLoadEntities.Bind(_ => _.Enabled, this.viewModel, _ => _.CanLoadEntities);
 
+			this.mNew.Bind(_ => _.Enabled, this.viewModel, _ => _.CanNewMemento);
+			this.tNew.Bind(_ => _.Enabled, this.viewModel, _ => _.CanNewMemento);
 			this.mOpen.Bind(_ => _.Enabled, this.viewModel, _ => _.CanOpenMemento);
+			this.tOpen.Bind(_ => _.Enabled, this.viewModel, _ => _.CanOpenMemento);
 			this.mSave.Bind(_ => _.Enabled, this.viewModel, _ => _.CanSaveMemento);
+			this.tSave.Bind(_ => _.Enabled, this.viewModel, _ => _.CanSaveAsMemento);
 			this.mSaveAs.Bind(_ => _.Enabled, this.viewModel, _ => _.CanSaveAsMemento);
 
 			this.mAdd.Bind(_ => _.Enabled, this.viewModel, _ => _.CanAdd);
@@ -58,6 +63,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			this.messenger.Register<ResetEntityList>(m => this.viewModel.EntityMetadataList = null);
 			this.messenger.Register<LoadEntitiesResponse>(m => this.viewModel.EntityMetadataList = m.Entities);
+
+			// If one or more actions have been applied successfully, reexecute the comparison
+			this.messenger.Register<ApplyActionsResult>(m =>
+			{
+				if (m.SucceededCount == 0) return;
+
+				this.OnExecuteClick(this.tExecute, EventArgs.Empty);
+			});
 
 			this.ApplyTheme();
 
@@ -230,7 +243,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.viewModel.SaveMemento();
 		}
 
-		
+
+		private void OnNewClick(object sender, EventArgs e)
+		{
+			this.viewModel.NewMemento();
+		}
+
 
 		private void OnExecuteClick(object sender, EventArgs e)
 		{

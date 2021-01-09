@@ -188,7 +188,7 @@ namespace Greg.Xrm.Model
 			OnPropertyChanged(propertyName, value);
 		}
 
-		private void OnPropertyChanged(string propertyName, object newValue)
+		protected void OnPropertyChanged(string propertyName, object newValue)
 		{
 			this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 

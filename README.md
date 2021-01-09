@@ -31,3 +31,10 @@ It provides the following capabilities
 
 - Possibilità di copiare record da un'ambiente ad un'altro. Possibilmente con comandi via commandline. Da mettere in un tool dedicato o dentro EnvironmentComparer
 - Possibilità di monitorare il processo di uninstall delle solution.
+
+## Releases
+
+You can download the tool using the [Release page](https://github.com/neronotte/Greg.Xrm/releases) or NuGet:
+
+- [_n.EnvironmentComparer](https://www.nuget.org/packages/Greg.Xrm.EnvironmentComparer)
+- [_n.SolutionManager](https://www.nuget.org/packages/Greg.Xrm.SolutionManager)

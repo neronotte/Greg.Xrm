@@ -39,9 +39,9 @@ namespace Greg.Xrm
 			/// <param name="propertyName">The name of the property to clone</param>
 			/// <param name="otherForbiddenAttributes">Forbidden attributes</param>
 			/// <returns></returns>
-			public static bool IsForbidden(Entity original, string propertyName, string[] otherForbiddenAttributes)
+			public static bool IsForbidden(Entity original, string propertyName, string[] otherForbiddenAttributes = null)
 			{
-				if (otherForbiddenAttributes == null) otherForbiddenAttributes = new string[0];
+				if (otherForbiddenAttributes == null) otherForbiddenAttributes = Array.Empty<string>();
 				if (string.Equals(propertyName, original.LogicalName + "id", StringComparison.OrdinalIgnoreCase)) return true;
 				if (ForbiddenAttributes.Any(x => string.Equals(x, propertyName, StringComparison.OrdinalIgnoreCase))) return true;
 				if (otherForbiddenAttributes.Any(x => string.Equals(x, propertyName, StringComparison.OrdinalIgnoreCase))) return true;

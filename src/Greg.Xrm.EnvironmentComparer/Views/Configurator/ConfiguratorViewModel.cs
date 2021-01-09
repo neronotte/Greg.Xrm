@@ -47,9 +47,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			this.WhenChanges(() => Crm1)
 				.ChangesAlso(() => CanLoadEntities)
+				.ChangesAlso(() => CanNewMemento)
 				.ChangesAlso(() => CanOpenMemento);
 
 			this.WhenChanges(() => Crm2)
+				.ChangesAlso(() => CanNewMemento)
 				.ChangesAlso(() => CanOpenMemento);
 
 			messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -126,6 +128,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			get => $"Remove {SelectedNode?.Text}".Trim();
 		}
 
+
+		public bool CanNewMemento
+		{
+			get => this.Crm1 != null && this.Crm2 != null;
+		}
 
 		public bool CanOpenMemento
 		{
@@ -213,38 +220,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 
 
-		public bool CanExecuteComparison
+
+		public void NewMemento()
 		{
-			get => this.Engine != null && this.Memento != null && Memento.Entities.Count > 0;
+			this.Memento = new EngineMemento();
 		}
 
-
-		public void ExecuteComparison()
-		{
-			if (this.Memento == null)
-				throw new InvalidOperationException("Comparison cannot be performed without memento!");
-			if (this.Memento.Entities.Count == 0)
-				throw new InvalidOperationException("Comparison cannot be performed without memento!");
-			if (this.Engine == null)
-				throw new InvalidOperationException("Comparison cannot be performed without engine!");
-
-			using (log.Track("Executing comparison"))
-			{
-				try
-				{
-					var result = this.Engine.CompareAll();
-
-					log.Info("Compare completed");
-
-					this.CompareResultSet = result;
-					this.messenger.Send(new CompareResultSetAvailable(result));
-				}
-				catch (FaultException<OrganizationServiceFault> ex)
-				{
-					log.Error("Error while comparing environments: " + ex.Message, ex);
-				}
-			}
-		}
 
 		public void SaveAsMemento()
 		{
@@ -305,6 +286,43 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				log.Error($"{ex.GetType().Name} saving memento: {ex.Message}" + ex.Message, ex);
 			}
 #pragma warning restore CA1031 // Do not catch general exception types
+		}
+
+
+
+
+
+		public bool CanExecuteComparison
+		{
+			get => this.Engine != null && this.Memento != null && Memento.Entities.Count > 0;
+		}
+
+
+		public void ExecuteComparison()
+		{
+			if (this.Memento == null)
+				throw new InvalidOperationException("Comparison cannot be performed without memento!");
+			if (this.Memento.Entities.Count == 0)
+				throw new InvalidOperationException("Comparison cannot be performed without memento!");
+			if (this.Engine == null)
+				throw new InvalidOperationException("Comparison cannot be performed without engine!");
+
+			using (log.Track("Executing comparison"))
+			{
+				try
+				{
+					var result = this.Engine.CompareAll();
+
+					log.Info("Compare completed");
+
+					this.CompareResultSet = result;
+					this.messenger.Send(new CompareResultSetAvailable(result));
+				}
+				catch (FaultException<OrganizationServiceFault> ex)
+				{
+					log.Error("Error while comparing environments: " + ex.Message, ex);
+				}
+			}
 		}
 	}
 }

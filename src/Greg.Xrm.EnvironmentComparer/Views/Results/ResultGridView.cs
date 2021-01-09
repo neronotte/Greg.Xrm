@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using static Greg.Xrm.Extensions;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
@@ -163,33 +164,53 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private void OnCopyToEnv2Click(object sender, EventArgs e)
 		{
-			CopySelectedRowTo(this.env2, 1);
+			CopySelectedRowTo(2);
 		}
 
 		private void OnCopyToEnv1Click(object sender, EventArgs e)
 		{
-			CopySelectedRowTo(this.env1, 2);
+			CopySelectedRowTo(1);
 		}
 
-		private void CopySelectedRowTo(string envName, int from)
+		private void CopySelectedRowTo(int index)
 		{
 			if (this.listView1.SelectedItems.Count == 0) return;
 
+			var envName = index == 1 ? this.env1 : this.env2;
+
 			var actionList = new List<IAction>();
-			foreach (ListViewItem item in this.listView1.SelectedItems)
+			foreach (var result in this.listView1.SelectedItems
+				.Cast<ListViewItem>()
+				.Select(_ => _.Tag)
+				.OfType<Model.Comparison<Entity>>())
 			{
-				var result = item.Tag as Model.Comparison<Entity>;
-				if (result == null) return;
+				var entity = index == 2 ? result.Item1 : result.Item2;
 
-				var entity = from == 1 ? result.Item1 : result.Item2;
-
-				var action = new ActionCopyEntity
+				// in case of matching but different, we need to pick the ID of the matching record
+				if (result.Result == RecordComparisonResult.MatchingButDifferent)
 				{
-					EntityKey = result.Key,
-					EnvironmentName = envName,
-					EntityName = entity.LogicalName,
-					Entity = entity
-				};
+					var matchingEntity = index == 1 ? result.Item1 : result.Item2;
+
+					var entityIdAttributeName = entity.LogicalName + "id";
+
+					entity = entity.Clone();
+					entity.Attributes.Remove(entityIdAttributeName);
+					entity.Id = matchingEntity.Id;
+
+					// set null the attributes that are in the matching entity but not in this one, in order to clear their values
+					foreach (var matchingEntityAttribute in matchingEntity.Attributes.Keys)
+					{
+						if (CloneSettings.IsForbidden(entity, matchingEntityAttribute)) continue;
+
+						if (!entity.Contains(matchingEntityAttribute))
+						{
+							entity[matchingEntityAttribute] = null;
+						}
+					}
+				}
+
+
+				var action = new ActionCopyEntity(entity, result.Key, index, envName);
 				actionList.Add(action);
 			}
 			this.messenger.Send(new SubmitActionMessage(actionList));

@@ -32,16 +32,22 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ConfiguratorView));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.tNew = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tOpen = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tSave = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.tLoadEntities = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tAdd = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tEdit = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tRemove = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.tExecute = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.treeView1 = new System.Windows.Forms.TreeView();
 			this.images = new System.Windows.Forms.ImageList(this.components);
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.mNew = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.mOpen = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.mSave = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.mSaveAs = new Greg.Xrm.Views.ToolStripBindableMenuItem();
@@ -53,8 +59,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mRemove = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mExecute = new Greg.Xrm.Views.ToolStripBindableMenuItem();
-			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-			this.tExecute = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStrip1.SuspendLayout();
 			this.menuStrip1.SuspendLayout();
 			this.SuspendLayout();
@@ -62,6 +66,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			// toolStrip1
 			// 
 			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tNew,
+            this.tOpen,
+            this.tSave,
             this.toolStripSeparator2,
             this.tLoadEntities,
             this.toolStripSeparator1,
@@ -75,6 +82,39 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.toolStrip1.Size = new System.Drawing.Size(565, 25);
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "tools";
+			// 
+			// tNew
+			// 
+			this.tNew.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tNew.Enabled = false;
+			this.tNew.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.page_white;
+			this.tNew.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tNew.Name = "tNew";
+			this.tNew.Size = new System.Drawing.Size(23, 22);
+			this.tNew.Text = "New";
+			this.tNew.Click += new System.EventHandler(this.OnNewClick);
+			// 
+			// tOpen
+			// 
+			this.tOpen.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tOpen.Enabled = false;
+			this.tOpen.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.folder;
+			this.tOpen.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tOpen.Name = "tOpen";
+			this.tOpen.Size = new System.Drawing.Size(23, 22);
+			this.tOpen.Text = "Open";
+			this.tOpen.Click += new System.EventHandler(this.OnOpenClick);
+			// 
+			// tSave
+			// 
+			this.tSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tSave.Enabled = false;
+			this.tSave.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.disk;
+			this.tSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tSave.Name = "tSave";
+			this.tSave.Size = new System.Drawing.Size(23, 22);
+			this.tSave.Text = "Save";
+			this.tSave.Click += new System.EventHandler(this.OnSaveClick);
 			// 
 			// toolStripSeparator2
 			// 
@@ -131,6 +171,22 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.tRemove.Text = "Remove";
 			this.tRemove.Click += new System.EventHandler(this.OnRemoveClick);
 			// 
+			// toolStripSeparator3
+			// 
+			this.toolStripSeparator3.Name = "toolStripSeparator3";
+			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tExecute
+			// 
+			this.tExecute.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tExecute.Enabled = false;
+			this.tExecute.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.compare;
+			this.tExecute.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tExecute.Name = "tExecute";
+			this.tExecute.Size = new System.Drawing.Size(23, 22);
+			this.tExecute.Text = "Execute comparison";
+			this.tExecute.Click += new System.EventHandler(this.OnExecuteClick);
+			// 
 			// treeView1
 			// 
 			this.treeView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(46)))), ((int)(((byte)(40)))));
@@ -170,12 +226,21 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			// fileToolStripMenuItem
 			// 
 			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mNew,
             this.mOpen,
             this.mSave,
             this.mSaveAs});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
 			this.fileToolStripMenuItem.Text = "File";
+			// 
+			// mNew
+			// 
+			this.mNew.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.page_white;
+			this.mNew.Name = "mNew";
+			this.mNew.Size = new System.Drawing.Size(121, 22);
+			this.mNew.Text = "New";
+			this.mNew.Click += new System.EventHandler(this.OnNewClick);
 			// 
 			// mOpen
 			// 
@@ -270,22 +335,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mExecute.Text = "Execute comparison";
 			this.mExecute.Click += new System.EventHandler(this.OnExecuteClick);
 			// 
-			// toolStripSeparator3
-			// 
-			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-			// 
-			// tExecute
-			// 
-			this.tExecute.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tExecute.Enabled = false;
-			this.tExecute.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.compare;
-			this.tExecute.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tExecute.Name = "tExecute";
-			this.tExecute.Size = new System.Drawing.Size(23, 22);
-			this.tExecute.Text = "Execute comparison";
-			this.tExecute.Click += new System.EventHandler(this.OnExecuteClick);
-			// 
 			// ConfiguratorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,5 +383,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private Greg.Xrm.Views.ToolStripBindableButton tLoadEntities;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private Greg.Xrm.Views.ToolStripBindableButton tExecute;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem mNew;
+		private Greg.Xrm.Views.ToolStripBindableButton tNew;
+		private Greg.Xrm.Views.ToolStripBindableButton tOpen;
+		private Greg.Xrm.Views.ToolStripBindableButton tSave;
 	}
 }

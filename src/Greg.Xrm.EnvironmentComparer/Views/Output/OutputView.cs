@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
 using System.Diagnostics;
@@ -11,7 +12,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Output
 	{
 		private IThemeProvider themeProvider;
 
-		public OutputView(IThemeProvider themeProvider)
+		public OutputView(IThemeProvider themeProvider, IMessenger messenger)
 		{
 			this.themeProvider = themeProvider;
 			InitializeComponent();
@@ -21,6 +22,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Output
 
 			base.CloseButtonVisible = false;
 			base.TabText = "Output";
+
+			messenger.Register<ShowOutputView>(m =>
+			{
+				this.Show();
+			});
 		}
 
 		private void ApplyTheme()
@@ -91,7 +97,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Output
 		{
 			if (this.InvokeRequired)
 			{
-				Action d = () => Log(level, message, ex,color);
+				Action d = () => Log(level, message, ex, color);
 				this.Invoke(d);
 
 				return;
