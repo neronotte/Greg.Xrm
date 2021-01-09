@@ -86,7 +86,6 @@ namespace Greg.Xrm.SolutionManager
 			}
 
 			this.solutionProgressView.Service = newService;
-			this.solutionProgressView.StartAsyncMonitor();
 		}
 
 		private void OnStartMonitoringClick(object sender, EventArgs e)

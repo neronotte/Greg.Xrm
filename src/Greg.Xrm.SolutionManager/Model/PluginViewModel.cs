@@ -5,11 +5,9 @@ namespace Greg.Xrm.SolutionManager.Model
 {
 	public class PluginViewModel : PluginViewModelBase
 	{
-		private bool stopMonitoringRequested;
-		private XDocument currentImportJobData;
-
 		public PluginViewModel()
 		{
+			this.CanStartMonitoring = true;
 			this.WhenChanges(() => CanStartMonitoring).ChangesAlso(() => CanStopMonitoring);
 		}
 
