@@ -7,6 +7,7 @@ namespace Greg.Xrm.SolutionManager.Model
 	{
 		public PluginViewModel()
 		{
+			this.CanStartMonitoring = true;
 			this.WhenChanges(() => CanStartMonitoring).ChangesAlso(() => CanStopMonitoring);
 		}
 
