@@ -1,7 +1,5 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Model;
-using Greg.Xrm.EnvironmentComparer.Model.Memento;
 using Greg.Xrm.EnvironmentComparer.Views.Actions;
 using Greg.Xrm.EnvironmentComparer.Views.Configurator;
 using Greg.Xrm.EnvironmentComparer.Views.Output;
@@ -15,13 +13,14 @@ using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
+using XrmToolBox.Extensibility.Args;
+using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentComparer.Views
 {
-	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase
+	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase, IGitHubPlugin, IStatusBarMessenger
 	{
 		const string ConnectToEnvironment1String = "1. Connect to environment 1";
 		const string ConnectToEnvironment2String = "2. Connect to environment 2";
@@ -38,6 +37,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private readonly IMessenger messenger;
 
 		private readonly EnvironmentComparerViewModel viewModel;
+
 
 		public EnvironmentComparerPluginControl(IThemeProvider themeProvider)
 		{
@@ -86,7 +86,27 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			{
 				ExecuteMethod(LoadEntities);
 			});
+
+			this.messenger.Register<StatusBarMessageEventArgs>(m =>
+			{
+				this.SendMessageToStatusBar?.Invoke(this, m);
+			});
 		}
+
+
+		#region IGitHubPlugin implementation
+
+		public string RepositoryName => GitHubPluginConstants.RepositoryName;
+
+		public string UserName => GitHubPluginConstants.UserName;
+
+		#endregion
+
+		#region IStatusBarMessenger implementation
+
+		public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
+
+		#endregion
 
 
 		protected override void ConnectionDetailsUpdated(NotifyCollectionChangedEventArgs e)

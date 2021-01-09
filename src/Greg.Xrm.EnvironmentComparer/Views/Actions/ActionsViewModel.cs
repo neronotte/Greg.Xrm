@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
+using XrmToolBox.Extensibility.Args;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 {
@@ -132,6 +133,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 					foreach (var action in actionList)
 					{
 						index++;
+						var percent = (index * 100) / actionList.Count;
+
+						this.messenger.Send(new StatusBarMessageEventArgs(percent, $"Processing action {index}/{actionList.Count}"));
+
+
 						using (log.Track($"Executing action {index}/{actionList.Count}: {action}"))
 						{
 							try
@@ -200,6 +206,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 
 					MessageBox.Show(message, "Apply actions", MessageBoxButtons.OK, icon);
 					this.messenger.Send(result);
+					this.messenger.Send(new StatusBarMessageEventArgs(string.Empty));
 				}
 			});
 		}
