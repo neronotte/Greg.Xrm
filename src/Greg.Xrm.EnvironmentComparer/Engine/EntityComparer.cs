@@ -1,5 +1,6 @@
-﻿using Greg.Xrm.EnvironmentComparer.Logging;
-using Greg.Xrm.EnvironmentComparer.Model.Memento;
+﻿using Greg.Xrm.EnvironmentComparer.Engine.Config;
+using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+using Greg.Xrm.EnvironmentComparer.Logging;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -7,13 +8,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
 	public class EntityComparer
 	{
 		
 		private readonly Action<QueryExpression> applyAdditionalFilters;
-		private readonly Comparer<Entity> comparer;
+		private readonly GenericCollectionComparer<Entity> comparer;
 
 		public EntityComparer(
 			string entityName, 
@@ -56,7 +57,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			Action<QueryExpression> filterCriteria = null, 
 			ISkipAttributeCriteria skipAttributeCriteria = null)
 		{
-			this.comparer = new Comparer<Entity>(keyProvider, new EntityEqualityComparer(skipAttributeCriteria), entityName);
+			this.comparer = new GenericCollectionComparer<Entity>(keyProvider, new EntityEqualityComparer(skipAttributeCriteria), entityName);
 			this.EntityName = entityName;
 			this.KeyProvider = keyProvider;
 			this.applyAdditionalFilters = filterCriteria ?? (q => { });
@@ -72,7 +73,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 		public IKeyProvider<Entity> KeyProvider { get; }
 		public bool OnlyActiveRecords { get; }
 
-		public IReadOnlyCollection<Comparison<Entity>> Compare(List<Entity> list1, List<Entity> list2)
+		public IReadOnlyCollection<ObjectComparison<Entity>> Compare(List<Entity> list1, List<Entity> list2)
 		{
 			return this.comparer.Compare(list1, list2);
 		}

@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Async;
+using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
@@ -120,7 +121,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					node.Text = node.Name + "*";
 				}
 
-				var subGroupList = kvp.Value.Where(_ => _.Result == RecordComparisonResult.Equals).ToList();
+				var subGroupList = kvp.Value.Where(_ => _.Result == ObjectComparisonResult.Equals).ToList();
 				var count = subGroupList.Count;
 				var childNode = node.Nodes.Add($"Matching: {count}/{kvp.Value.Count}");
 				childNode.Name = childNode.Text;
@@ -139,7 +140,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				}
 
 
-				subGroupList = kvp.Value.Where(_ => _.Result == RecordComparisonResult.RightMissing).ToList();
+				subGroupList = kvp.Value.Where(_ => _.Result == ObjectComparisonResult.RightMissing).ToList();
 				count = subGroupList.Count;
 				childNode = node.Nodes.Add($"Missing on ENV2: {count}/{kvp.Value.Count}");
 				childNode.Name = childNode.Text;
@@ -159,7 +160,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					shouldExpand = true;
 				}
 
-				subGroupList = kvp.Value.Where(_ => _.Result == RecordComparisonResult.LeftMissing).ToList();
+				subGroupList = kvp.Value.Where(_ => _.Result == ObjectComparisonResult.LeftMissing).ToList();
 				count = subGroupList.Count;
 				childNode = node.Nodes.Add($"Missing on ENV1: {count}/{kvp.Value.Count}");
 				childNode.Name = childNode.Text;
@@ -179,7 +180,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					shouldExpand = true;
 				}
 
-				subGroupList = kvp.Value.Where(_ => _.Result == RecordComparisonResult.MatchingButDifferent).ToList();
+				subGroupList = kvp.Value.Where(_ => _.Result == ObjectComparisonResult.MatchingButDifferent).ToList();
 				count = subGroupList.Count;
 				childNode = node.Nodes.Add($"With differences: {count}/{kvp.Value.Count}");
 				childNode.Name = childNode.Text;
@@ -232,8 +233,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			if (node == this.lastSelectedNode) return;
 			this.lastSelectedNode = node;
 
-			IReadOnlyCollection<Model.Comparison<Entity>> comparisonResult = Array.Empty<Model.Comparison<Entity>>();
-			if (node.Tag is IReadOnlyCollection<Model.Comparison<Entity>> collection)
+			IReadOnlyCollection<ObjectComparison<Entity>> comparisonResult = Array.Empty<ObjectComparison<Entity>>();
+			if (node.Tag is IReadOnlyCollection<ObjectComparison<Entity>> collection)
 			{
 				comparisonResult = collection;
 			}

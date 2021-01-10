@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Greg.Xrm.EnvironmentComparer.Engine;
+using Microsoft.Xrm.Sdk;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -63,53 +64,53 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 
 				ws.Cells[row, ++col].Value = comparison.Key;
-				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == RecordComparisonResult.RightMissing);
+				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == ObjectComparisonResult.RightMissing);
 				ws.Cells[row, col].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 				if (ws.Cells[row, col].GetValue<int>() > 0)
 				{
-					var color = GetColor(RecordComparisonResult.RightMissing);
+					var color = GetColor(ObjectComparisonResult.RightMissing);
 
 					ws.Cells[row, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
 					ws.Cells[row, col].Style.Fill.BackgroundColor.SetColor(color);
 				}
 
 
-				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == RecordComparisonResult.LeftMissing);
+				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == ObjectComparisonResult.LeftMissing);
 				ws.Cells[row, col].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 				if (ws.Cells[row, col].GetValue<int>() > 0)
 				{
-					var color = GetColor(RecordComparisonResult.LeftMissing);
+					var color = GetColor(ObjectComparisonResult.LeftMissing);
 
 					ws.Cells[row, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
 					ws.Cells[row, col].Style.Fill.BackgroundColor.SetColor(color);
 				}
 
 
-				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == RecordComparisonResult.MatchingButDifferent);
+				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == ObjectComparisonResult.MatchingButDifferent);
 				ws.Cells[row, col].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 				if (ws.Cells[row, col].GetValue<int>() > 0)
 				{
-					var color = GetColor(RecordComparisonResult.MatchingButDifferent);
+					var color = GetColor(ObjectComparisonResult.MatchingButDifferent);
 
 					ws.Cells[row, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
 					ws.Cells[row, col].Style.Fill.BackgroundColor.SetColor(color);
 				}
 
 
-				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == RecordComparisonResult.Equals);
+				ws.Cells[row, ++col].Value = comparison.Value.Count(_ => _.Result == ObjectComparisonResult.Equals);
 				ws.Cells[row, col].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 				if (ws.Cells[row, col].GetValue<int>() > 0)
 				{
-					var color = GetColor(RecordComparisonResult.Equals);
+					var color = GetColor(ObjectComparisonResult.Equals);
 
 					ws.Cells[row, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
 					ws.Cells[row, col].Style.Fill.BackgroundColor.SetColor(color);
 				}
 
 
-				if (comparison.Value.All(x => x.Result == RecordComparisonResult.Equals))
+				if (comparison.Value.All(x => x.Result == ObjectComparisonResult.Equals))
 				{
-					var color = GetColor(RecordComparisonResult.Equals);
+					var color = GetColor(ObjectComparisonResult.Equals);
 
 					ws.Cells[row, 1, row, col].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
 					ws.Cells[row, 1, row, col].Style.Fill.BackgroundColor.SetColor(color);
@@ -128,11 +129,11 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			ws.View.ShowGridLines = false;
 		}
 
-		private void GenerateSheet(ExcelPackage wb, string entityName, IReadOnlyCollection<Comparison<Entity>> resultList, string crm1name, string crm2name)
+		private void GenerateSheet(ExcelPackage wb, string entityName, IReadOnlyCollection<ObjectComparison<Entity>> resultList, string crm1name, string crm2name)
 		{
 			var ws = wb.Workbook.Worksheets.Add(entityName);
 
-			if (resultList.All(x => x.Result == RecordComparisonResult.Equals))
+			if (resultList.All(x => x.Result == ObjectComparisonResult.Equals))
 			{
 				ws.TabColor = Color.Green;
 			}
@@ -187,20 +188,20 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			ws.Column(5).Width = 50;
 		}
 
-		private Color GetColor(RecordComparisonResult result)
+		private Color GetColor(ObjectComparisonResult result)
 		{
 			switch(result)
 			{
-				case RecordComparisonResult.Equals:
+				case ObjectComparisonResult.Equals:
 					return Color.FromArgb(198, 239, 206);
 
-				case RecordComparisonResult.MatchingButDifferent:
+				case ObjectComparisonResult.MatchingButDifferent:
 					return Color.FromArgb(255, 199, 206);
 
-				case RecordComparisonResult.LeftMissing:
+				case ObjectComparisonResult.LeftMissing:
 					return Color.FromArgb(248, 203, 173);
 
-				case RecordComparisonResult.RightMissing:
+				case ObjectComparisonResult.RightMissing:
 					return Color.FromArgb(189, 215, 238);
 
 				default:

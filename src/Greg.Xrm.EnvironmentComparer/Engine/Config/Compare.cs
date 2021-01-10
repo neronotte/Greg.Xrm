@@ -1,5 +1,5 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Logging;
-using Greg.Xrm.EnvironmentComparer.Model.Memento;
+using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json;
@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 {
 	public static class Compare
 	{
@@ -44,7 +44,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 		public static ICompareFluentInterface FromMemento(string mementoFileName, out EngineMemento memento)
 		{
-			if (string.IsNullOrWhiteSpace(mementoFileName)) 
+			if (string.IsNullOrWhiteSpace(mementoFileName))
 				throw new ArgumentNullException(nameof(mementoFileName));
 
 

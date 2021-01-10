@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
 	[Serializable]
 	public class ExtendedValidationException : Exception
@@ -11,7 +12,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 		public object Item { get; }
 		public List<ValidationResult> Errors { get; }
 
-		public ExtendedValidationException(string objectName, object item, List<ValidationResult> errors) : base("Validation error on object "+ objectName)
+		public ExtendedValidationException(string objectName, object item, List<ValidationResult> errors) : base("Validation error on object " + objectName)
 		{
 			if (string.IsNullOrEmpty(objectName))
 			{
@@ -33,6 +34,10 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 		}
 
 		public ExtendedValidationException()
+		{
+		}
+
+		protected ExtendedValidationException(SerializationInfo serializationInfo, StreamingContext streamingContext)
 		{
 		}
 	}

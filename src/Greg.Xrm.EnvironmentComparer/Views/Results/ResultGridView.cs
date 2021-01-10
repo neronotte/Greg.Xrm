@@ -1,6 +1,5 @@
-﻿using Greg.Xrm.EnvironmentComparer.Actions;
+﻿using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
@@ -10,18 +9,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using static Greg.Xrm.Extensions;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
 	public partial class ResultGridView : DockContent
 	{
-		private IReadOnlyCollection<Model.Comparison<Entity>> results;
+		private IReadOnlyCollection<ObjectComparison<Entity>> results;
 		private readonly IThemeProvider themeProvider;
 		private readonly IMessenger messenger;
-		private string env1 = "ENV1", env2 = "ENV2";
 
 		private readonly ResultGridViewModel viewModel;
+
+
 
 		public ResultGridView(IThemeProvider themeProvider, IMessenger messenger)
 		{
@@ -44,9 +43,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				.Execute(e =>
 				{
 					var env1name = e.GetNewValue<string>();
-					this.env1 = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
-					this.cEnv1.Text = this.env1 + " values";
-					this.cmiCopyToEnv1.Text = "Copy to " + this.env1;
+					var env1 = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
+					this.cEnv1.Text = env1 + " values";
+					this.lLegend2.Text = "Missing on " + env1;
+					this.cmiCopyToEnv1.Text = "Copy to " + env1;
 				});
 
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -54,9 +54,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				.Execute(e =>
 				{
 					var env2name = e.GetNewValue<string>();
-					this.env2 = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
-					this.cEnv2.Text = this.env2 + " values";
-					this.cmiCopyToEnv2.Text = "Copy to " + this.env2;
+					var env2 = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
+					this.cEnv2.Text = env2 + " values";
+					this.lLegend3.Text = "Missing on " + env2;
+					this.cmiCopyToEnv2.Text = "Copy to " + env2;
 				});
 
 			this.viewModel.PropertyChanged += (s, e) =>
@@ -67,6 +68,22 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					this.OnResultsChanged();
 				}
 			};
+			this.viewModel.ResultUpdated += (s, e) =>
+			{
+				var item = this.listView1.Items.Cast<ListViewItem>().FirstOrDefault(_ => _.Tag == e.Result);
+				if (item == null)
+					return;
+
+				if (e.Result.IsActioned())
+				{
+					item.BackColor = Constants.BackColorForActioned;
+				}
+				else
+				{
+					item.BackColor = e.Result.Result.GetColor();
+				}
+
+			};
 		}
 
 
@@ -76,6 +93,21 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 			this.listView1.BackColor = theme.PanelBackgroundColor;
 			this.listView1.Font = theme.PanelFont;
+
+			this.lLegend1.BackColor = Constants.BackColorForEquals;
+			this.lLegend1.Font = theme.PanelFont;
+
+			this.lLegend2.BackColor = Constants.BackColorForLeftMissing;
+			this.lLegend2.Font = theme.PanelFont;
+
+			this.lLegend3.BackColor = Constants.BackColorForRightMissing;
+			this.lLegend3.Font = theme.PanelFont;
+
+			this.lLegend4.BackColor = Constants.BackColorForMatchingButDifferent;
+			this.lLegend4.Font = theme.PanelFont;
+
+			this.lLegend5.BackColor = Constants.BackColorForActioned;
+			this.lLegend5.Font = theme.PanelFont;
 		}
 
 		private void OnResultsChanged()
@@ -100,24 +132,25 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			{
 				var color = result.Result.GetColor();
 
+				if (result.IsActioned())
+				{
+					color = Constants.BackColorForActioned;
+				}
+
 				var item = this.listView1.Items.Add(result.Key);
 				item.BackColor = color;
 				item.Tag = result;
 
 				var subItem = item.SubItems.Add(result.Result.ToString());
-				subItem.BackColor = color;
 				subItem.Tag = result;
 
 				subItem = item.SubItems.Add(result.DifferentProperties.OrderBy(_ => _.FieldName).Select(_ => _.FieldName).Join(" | "));
-				subItem.BackColor = color;
 				subItem.Tag = result;
 
 				subItem = item.SubItems.Add(result.DifferentProperties.OrderBy(_ => _.FieldName).Select(_ => _.FormattedValue1).Join(" | "));
-				subItem.BackColor = color;
 				subItem.Tag = result;
 
 				subItem = item.SubItems.Add(result.DifferentProperties.OrderBy(_ => _.FieldName).Select(_ => _.FormattedValue2).Join(" | "));
-				subItem.BackColor = color;
 				subItem.Tag = result;
 			}
 
@@ -135,7 +168,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			var selectedResults = this.listView1.SelectedItems
 				.Cast<ListViewItem>()
 				.Select(x => x.Tag)
-				.Cast<Model.Comparison<Entity>>()
+				.Cast<ObjectComparison<Entity>>()
 				.ToArray();
 
 			this.viewModel.SelectedResults = selectedResults;
@@ -164,56 +197,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private void OnCopyToEnv2Click(object sender, EventArgs e)
 		{
-			CopySelectedRowTo(2);
+			this.viewModel.CopySelectedRowTo(2);
 		}
 
 		private void OnCopyToEnv1Click(object sender, EventArgs e)
 		{
-			CopySelectedRowTo(1);
-		}
-
-		private void CopySelectedRowTo(int index)
-		{
-			if (this.listView1.SelectedItems.Count == 0) return;
-
-			var envName = index == 1 ? this.env1 : this.env2;
-
-			var actionList = new List<IAction>();
-			foreach (var result in this.listView1.SelectedItems
-				.Cast<ListViewItem>()
-				.Select(_ => _.Tag)
-				.OfType<Model.Comparison<Entity>>())
-			{
-				var entity = index == 2 ? result.Item1 : result.Item2;
-
-				// in case of matching but different, we need to pick the ID of the matching record
-				if (result.Result == RecordComparisonResult.MatchingButDifferent)
-				{
-					var matchingEntity = index == 1 ? result.Item1 : result.Item2;
-
-					var entityIdAttributeName = entity.LogicalName + "id";
-
-					entity = entity.Clone();
-					entity.Attributes.Remove(entityIdAttributeName);
-					entity.Id = matchingEntity.Id;
-
-					// set null the attributes that are in the matching entity but not in this one, in order to clear their values
-					foreach (var matchingEntityAttribute in matchingEntity.Attributes.Keys)
-					{
-						if (CloneSettings.IsForbidden(entity, matchingEntityAttribute)) continue;
-
-						if (!entity.Contains(matchingEntityAttribute))
-						{
-							entity[matchingEntityAttribute] = null;
-						}
-					}
-				}
-
-
-				var action = new ActionCopyEntity(entity, result.Key, index, envName);
-				actionList.Add(action);
-			}
-			this.messenger.Send(new SubmitActionMessage(actionList));
+			this.viewModel.CopySelectedRowTo(1);
 		}
 	}
 }

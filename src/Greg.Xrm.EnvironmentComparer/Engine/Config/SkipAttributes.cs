@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 {
 	public class SkipAttributes : ISkipAttributeCriteria
 	{

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
 	[Serializable]
 	public class ComparisonException : Exception

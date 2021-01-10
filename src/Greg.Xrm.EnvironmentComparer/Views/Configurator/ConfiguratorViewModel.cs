@@ -1,7 +1,8 @@
-﻿using Greg.Xrm.EnvironmentComparer.Logging;
+﻿using Greg.Xrm.EnvironmentComparer.Engine;
+using Greg.Xrm.EnvironmentComparer.Engine.Config;
+using Greg.Xrm.EnvironmentComparer.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Model;
-using Greg.Xrm.EnvironmentComparer.Model.Memento;
+using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
@@ -212,10 +213,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 				this.log.Error(sb.ToString());
 			}
+#pragma warning disable CA1031 // Do not catch general exception types
 			catch (Exception ex)
 			{
 				this.log.Error("Error creating engine from JSON config: " + ex.Message, ex);
 			}
+#pragma warning restore CA1031 // Do not catch general exception types
 		}
 
 

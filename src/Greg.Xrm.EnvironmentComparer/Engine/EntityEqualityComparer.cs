@@ -1,7 +1,8 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Greg.Xrm.EnvironmentComparer.Engine.Config;
+using Microsoft.Xrm.Sdk;
 using System.Collections.Generic;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
 	public class EntityEqualityComparer : IExtendedEqualityComparer<Entity>
 	{
@@ -29,7 +30,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 			foreach (var attributeName in x.Attributes.Keys)
 			{
-				if (attributeName.Equals(keyPropertyName, System.StringComparison.OrdinalIgnoreCase)) 
+				if (attributeName.Equals(keyPropertyName, System.StringComparison.OrdinalIgnoreCase))
 					continue;
 				if (this.skipAttributeCriteria.ShouldSkip(attributeName))
 					continue;
@@ -39,7 +40,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 					differentProperties.Add(Difference.Create(attributeName, x, null));
 					continue;
 				}
-					
+
 
 				var xValue = x[attributeName];
 				var yValue = y[attributeName];

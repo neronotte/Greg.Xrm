@@ -29,7 +29,10 @@ It provides the following capabilities
 
 # Wishlist
 
-- Possibilità di copiare record da un'ambiente ad un'altro. Possibilmente con comandi via commandline. Da mettere in un tool dedicato o dentro EnvironmentComparer
+- Introduzione di un help in linea
+- Possibilità di eseguire confronti parziali (solo su un subset di entità della lista)
+- Possibilità di visualizzare il json di configurazione e modificarlo a mano (con validazione)
+- Possibilità di cambiare le connessioni (CRM1 e CRM2 direttamente dentro il tool)
 - Possibilità di monitorare il processo di uninstall delle solution.
 
 ## Releases

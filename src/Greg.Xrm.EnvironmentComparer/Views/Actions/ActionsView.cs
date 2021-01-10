@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Actions;
 using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
@@ -13,15 +14,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 	public partial class ActionsView : DockContent
 	{
 		private readonly IThemeProvider themeProvider;
-		private readonly ILog log;
 		private readonly ActionsViewModel viewModel;
 
 		public ActionsView(IThemeProvider themeProvider, IAsyncJobScheduler scheduler, IMessenger messenger, ILog log)
 		{
 			InitializeComponent();
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
-			this.log = log;
 			this.viewModel = new ActionsViewModel(log, messenger, scheduler);
+
+			this.Bind(_ => _.Text, this.viewModel, _ => _.Title);
+			this.Bind(_ => _.TabText, this.viewModel, _ => _.Title);
 
 			this.ApplyTheme();
 
@@ -43,9 +45,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			var result = MessageBox.Show("Do you really want to clear all the listed actions?", "Clear", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 			if (result != DialogResult.Yes) return;
 
-			this.log.Debug("Clearing action list");
-			this.viewModel.Actions.Clear();
-			this.log.Debug("Action list cleared");
+			this.viewModel.ClearActions();
 		}
 
 		private void OnApplyAllClick(object sender, EventArgs e)
@@ -97,6 +97,15 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 				var index = this.chlActionList.Items.IndexOf(item);
 				this.chlActionList.SetItemChecked(index, selected);
 			}
+		}
+
+		private void OnRemoveClick(object sender, EventArgs e)
+		{
+			var action = (IAction)this.chlActionList.SelectedItem;
+			if (action == null) return;
+
+			this.viewModel.RemoveAction(action);
+			
 		}
 	}
 }

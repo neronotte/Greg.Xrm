@@ -65,14 +65,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.configuratorView = new ConfiguratorView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.configuratorView.Show(this.dockPanel, DockState.DockLeft);
 
-			this.actionsView = new ActionsView(themeProvider, scheduler, this.messenger, this.outputView);
-			this.actionsView.Show(this.dockPanel, DockState.DockRightAutoHide);
-
 			this.resultGridView = new ResultGridView(themeProvider, this.messenger);
 			this.resultGridView.Show(this.dockPanel, DockState.Document);
 
 			this.resultRecordView = new ResultRecordView(themeProvider, this.messenger);
 			this.resultRecordView.Show(this.dockPanel, DockState.Document);
+
+			this.actionsView = new ActionsView(themeProvider, scheduler, this.messenger, this.outputView);
+			this.actionsView.Show(this.dockPanel, DockState.Document);
 
 			this.resultGridView.Show();
 			this.configuratorView.Show();

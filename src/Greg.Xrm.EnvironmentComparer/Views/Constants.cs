@@ -1,48 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using Greg.Xrm.EnvironmentComparer.Engine;
 using System.Drawing;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public static class Constants
 	{
-		public static IReadOnlyCollection<string> AttributesToIgnore { get; } = new[] {
-			"ownerid",
-			"createdby",
-			"createdonbehalfby",
-			"createdon",
-			"modifiedby",
-			"modifiedon",
-			"owninguser",
-			"owningbusinessunit",
-			"importsequencenumber",
-			"modifiedonbehalfby",
-			"overriddencreatedon",
-			"timezoneruleversionnumber",
-			"utcconversiontimezonecode",
-			"versionnumber"
-		};
-
 
 		public static Color BackColorForEquals { get; } = Color.FromArgb(198, 239, 206);
 		public static Color BackColorForLeftMissing { get; } = Color.FromArgb(248, 203, 173);
 		public static Color BackColorForRightMissing { get; } = Color.FromArgb(189, 215, 238);
 		public static Color BackColorForMatchingButDifferent { get; } = Color.FromArgb(255, 199, 206);
 		public static Color BackColorDefault { get; } = Color.FromArgb(255, 235, 156);
+		public static Color BackColorForActioned { get; } = Color.FromArgb(219, 219, 219);
 
-		public static Color GetColor(this RecordComparisonResult result)
+		public static Color GetColor(this ObjectComparisonResult result)
 		{
 			switch (result)
 			{
-				case RecordComparisonResult.Equals:
+				case ObjectComparisonResult.Equals:
 					return BackColorForEquals;
 
-				case RecordComparisonResult.MatchingButDifferent:
+				case ObjectComparisonResult.MatchingButDifferent:
 					return BackColorForMatchingButDifferent;
 
-				case RecordComparisonResult.LeftMissing:
+				case ObjectComparisonResult.LeftMissing:
 					return BackColorForLeftMissing;
 
-				case RecordComparisonResult.RightMissing:
+				case ObjectComparisonResult.RightMissing:
 					return BackColorForRightMissing;
 
 				default:
@@ -50,20 +34,20 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 			}
 		}
-		public static string GetMessage(this RecordComparisonResult result)
+		public static string GetMessage(this ObjectComparisonResult result)
 		{
 			switch (result)
 			{
-				case RecordComparisonResult.Equals:
+				case ObjectComparisonResult.Equals:
 					return "The record is present in both environments, and the values of the attributes match";
 
-				case RecordComparisonResult.MatchingButDifferent:
+				case ObjectComparisonResult.MatchingButDifferent:
 					return "The record is present in both environments, but the values of some attribute doesn't matches. Review unmatching attributes below.";
 
-				case RecordComparisonResult.LeftMissing:
+				case ObjectComparisonResult.LeftMissing:
 					return "The record is present only on {0}";
 
-				case RecordComparisonResult.RightMissing:
+				case ObjectComparisonResult.RightMissing:
 					return "The record is present only on {1}";
 
 				default:

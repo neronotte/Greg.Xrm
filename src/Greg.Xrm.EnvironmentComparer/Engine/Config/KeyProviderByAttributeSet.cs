@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 {
 	public class KeyProviderByAttributeSet : IKeyProvider<Entity>
 	{

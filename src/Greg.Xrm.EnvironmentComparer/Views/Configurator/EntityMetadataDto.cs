@@ -18,7 +18,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.attributeList = entity.Attributes
 				.Where(x => !x.IsLogical.GetValueOrDefault())
 				.Where(x => x.AttributeOf == null)
-				.Where(x => !Constants.AttributesToIgnore.Contains(x.LogicalName))
+				.Where(x => !Engine.Constants.AttributesToIgnore.Contains(x.LogicalName))
 				.Select(x => new AttributeMetadataDto(x))
 				.OrderBy(x => x.Name)
 				.ToList();

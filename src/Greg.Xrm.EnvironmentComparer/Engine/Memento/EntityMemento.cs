@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
-namespace Greg.Xrm.EnvironmentComparer.Model.Memento
+namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 {
 	public class EntityMemento : IValidatableObject, ICloneable
 	{
