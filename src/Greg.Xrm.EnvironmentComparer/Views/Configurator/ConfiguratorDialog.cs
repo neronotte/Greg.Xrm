@@ -1,4 +1,4 @@
-﻿using Greg.Xrm.EnvironmentComparer.Model.Memento;
+﻿using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Generic;

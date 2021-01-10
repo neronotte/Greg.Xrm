@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Greg.Xrm.EnvironmentComparer.Model.Memento
+namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 {
 	public class EngineMemento : IValidatableObject
 	{

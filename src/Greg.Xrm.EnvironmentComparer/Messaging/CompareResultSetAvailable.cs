@@ -1,4 +1,4 @@
-﻿using Greg.Xrm.EnvironmentComparer.Model;
+﻿using Greg.Xrm.EnvironmentComparer.Engine;
 
 namespace Greg.Xrm.EnvironmentComparer.Messaging
 {

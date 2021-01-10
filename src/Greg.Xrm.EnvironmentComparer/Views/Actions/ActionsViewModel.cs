@@ -38,7 +38,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.WhenChanges(() => this.Crm2)
 				.ChangesAlso(() => CanApplyActions);
 
-			this.Actions.ListChanged += this.Actions_ListChanged;
+			this.Actions.ListChanged += (s,e) => OnListChanged();
+			this.OnListChanged();
 
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				.ChangesProperty(_ => _.Crm1)
@@ -55,7 +56,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 				});
 		}
 
-		private void Actions_ListChanged(object sender, System.ComponentModel.ListChangedEventArgs e)
+		private void OnListChanged()
 		{
 			const string StaticTitle = "Actions";
 
@@ -230,6 +231,31 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 					this.messenger.Send(new StatusBarMessageEventArgs(string.Empty));
 				}
 			});
+		}
+
+
+		public void ClearActions()
+		{
+			using (this.log.Track("Clearing action list"))
+			{
+				var actionList = this.Actions.ToArray();
+				this.Actions.Clear();
+
+				foreach (var action in actionList)
+				{
+					this.messenger.Send(new ActionRemoved(action));
+				}
+			}
+		}
+
+		internal void RemoveAction(IAction action)
+		{
+			using (this.log.Track($"Removing action {action}"))
+			{
+				var isRemoved = this.Actions.Remove(action);
+				if (isRemoved)
+					this.messenger.Send(new ActionRemoved(action));
+			}
 		}
 	}
 }

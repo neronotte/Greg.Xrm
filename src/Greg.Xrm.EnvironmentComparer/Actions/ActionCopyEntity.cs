@@ -1,4 +1,5 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Greg.Xrm.EnvironmentComparer.Engine;
+using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using System;
 
@@ -6,13 +7,8 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 {
 	public class ActionCopyEntity : IAction
 	{
-		public ActionCopyEntity(Entity entity, string entityKey, int targetEnvironmentIndex, string targetEnvironmentName)
+		public ActionCopyEntity(ObjectComparison<Entity> result, Entity entity, int targetEnvironmentIndex, string targetEnvironmentName)
 		{
-			if (string.IsNullOrWhiteSpace(entityKey))
-			{
-				throw new System.ArgumentNullException(nameof(entityKey), $"'{nameof(entityKey)}' cannot be null or whitespace");
-			}
-
 			if (targetEnvironmentIndex != 1 && targetEnvironmentIndex != 2)
 			{
 				throw new ArgumentOutOfRangeException(nameof(targetEnvironmentIndex), "Target environment index must be 1 or 2");
@@ -20,11 +16,12 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 
 			if (string.IsNullOrWhiteSpace(targetEnvironmentName))
 			{
-				throw new System.ArgumentNullException(nameof(targetEnvironmentName), $"'{nameof(targetEnvironmentName)}' cannot be null or whitespace");
+				throw new ArgumentNullException(nameof(targetEnvironmentName), $"'{nameof(targetEnvironmentName)}' cannot be null or whitespace");
 			}
 
-			this.Entity = entity ?? throw new System.ArgumentNullException(nameof(entity));
-			this.EntityKey = entityKey;
+			this.Result = result;
+			this.Entity = entity ?? throw new ArgumentNullException(nameof(entity));
+			this.EntityKey = result.Key;
 			this.TargetEnvironmentIndex = targetEnvironmentIndex;
 			this.TargetEnvironmentName = targetEnvironmentName;
 		}
@@ -49,6 +46,11 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		/// Gets the index of the environment where the entity will be copied into (1 or 2)
 		/// </summary>
 		public int TargetEnvironmentIndex { get; }
+
+		/// <summary>
+		/// Gets the comparison result that has been actioned
+		/// </summary>
+		public ObjectComparison<Entity> Result { get; }
 
 		/// <summary>
 		/// The entity to copy

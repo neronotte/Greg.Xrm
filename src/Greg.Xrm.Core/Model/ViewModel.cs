@@ -128,12 +128,11 @@ namespace Greg.Xrm.Model
 		{
 			if (propertyLambda == null)
 				throw new ArgumentNullException(nameof(propertyLambda), "The property name cannot be null");
-			if (overrideCallback == null)
-				throw new ArgumentNullException(nameof(overrideCallback), "The callback cannot be null");
+
+			var callback = overrideCallback ?? throw new ArgumentNullException(nameof(overrideCallback), "The callback cannot be null");
 
 			var property = GetPropertyInfo(propertyLambda);
-
-			this.defaultValueSetterDict[property.Name] = overrideCallback;
+			this.defaultValueSetterDict[property.Name] = callback;
 		}
 
 

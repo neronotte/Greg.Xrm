@@ -3,7 +3,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
 	internal class CompareEngine : ICompareEngine
 	{
@@ -14,8 +14,8 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 		public CompareEngine(
 			ILog log,
-			IOrganizationService crm1, 
-			IOrganizationService crm2, 
+			IOrganizationService crm1,
+			IOrganizationService crm2,
 			IReadOnlyCollection<EntityComparer> comparerList)
 		{
 			this.log = log ?? throw new ArgumentNullException(nameof(log));
@@ -36,7 +36,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			return result;
 		}
 
-		private IReadOnlyCollection<Comparison<Entity>> Compare(EntityComparer comparer)
+		private IReadOnlyCollection<ObjectComparison<Entity>> Compare(EntityComparer comparer)
 		{
 			var list1 = comparer.GetEntitiesFrom(this.crm1, this.log, "CRM1");
 			var list2 = comparer.GetEntitiesFrom(this.crm2, this.log, "CRM2");

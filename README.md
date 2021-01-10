@@ -33,7 +33,6 @@ It provides the following capabilities
 - Possibilità di eseguire confronti parziali (solo su un subset di entità della lista)
 - Possibilità di visualizzare il json di configurazione e modificarlo a mano (con validazione)
 - Possibilità di cambiare le connessioni (CRM1 e CRM2 direttamente dentro il tool)
-- Evitare di introdurre in coda action diverse per lo stesso record
 - Possibilità di monitorare il processo di uninstall delle solution.
 
 ## Releases

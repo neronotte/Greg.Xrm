@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
 	public interface IExtendedEqualityComparer<T>
 	{

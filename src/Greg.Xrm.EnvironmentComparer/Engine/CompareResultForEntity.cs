@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Greg.Xrm.EnvironmentComparer.Model
+namespace Greg.Xrm.EnvironmentComparer.Engine
 {
-	public class CompareResultForEntity : IReadOnlyCollection<Comparison<Entity>>
+	public class CompareResultForEntity : IReadOnlyCollection<ObjectComparison<Entity>>
 	{
-		private readonly List<Comparison<Entity>> recordComparisonList = new List<Comparison<Entity>>();
+		private readonly List<ObjectComparison<Entity>> recordComparisonList = new List<ObjectComparison<Entity>>();
 		private readonly Dictionary<string, string> additionalDataDict = new Dictionary<string, string>();
 
-		public CompareResultForEntity(string entityName, IReadOnlyCollection<Comparison<Entity>> innerCollection)
+		public CompareResultForEntity(string entityName, IReadOnlyCollection<ObjectComparison<Entity>> innerCollection)
 		{
 			this.EntityName = entityName;
 			this.recordComparisonList.AddRange(innerCollection);
@@ -21,7 +21,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 		public string EntityName { get; }
 
 
-		public Comparison<Entity> this[int index]
+		public ObjectComparison<Entity> this[int index]
 		{
 			get => this.recordComparisonList[index];
 		}
@@ -29,7 +29,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 		public string this[string additionalDataKey]
 		{
-			get 
+			get
 			{
 				if (this.additionalDataDict.TryGetValue(additionalDataKey, out string value)) return value;
 				return null;
@@ -60,7 +60,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 		public int Count => this.recordComparisonList.Count;
 
-		public IEnumerator<Comparison<Entity>> GetEnumerator()
+		public IEnumerator<ObjectComparison<Entity>> GetEnumerator()
 		{
 			return this.recordComparisonList.GetEnumerator();
 		}
