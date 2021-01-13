@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Greg.Xrm.SolutionManager": {
+      "commandName": "Executable",
+      "executablePath": "$(TargetDir)XrmToolBox.exe",
+      "commandLineArgs": "/overridepath:XrmToolBox"
+    }
+  }
+}
