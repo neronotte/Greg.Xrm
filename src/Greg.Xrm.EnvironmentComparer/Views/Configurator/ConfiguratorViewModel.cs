@@ -43,17 +43,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				.ChangesAlso(() => CanSaveAsMemento)
 				.ChangesAlso(() => CanExecuteComparison);
 
-			this.WhenChanges(() => Engine)
-				.ChangesAlso(() => CanExecuteComparison);
-
 			this.WhenChanges(() => Crm1)
 				.ChangesAlso(() => CanLoadEntities)
 				.ChangesAlso(() => CanNewMemento)
-				.ChangesAlso(() => CanOpenMemento);
+				.ChangesAlso(() => CanOpenMemento)
+				.ChangesAlso(() => CanExecuteComparison);
 
 			this.WhenChanges(() => Crm2)
 				.ChangesAlso(() => CanNewMemento)
-				.ChangesAlso(() => CanOpenMemento);
+				.ChangesAlso(() => CanOpenMemento)
+				.ChangesAlso(() => CanExecuteComparison);
 
 			messenger.WhenObject<EnvironmentComparerViewModel>()
 				.ChangesProperty(_ => _.Crm1)
@@ -157,17 +156,15 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		}
 
 
-		public ICompareEngine Engine
-		{
-			get => this.Get<ICompareEngine>();
-			set => this.Set(value);
-		}
-
-
 		public CompareResultSet CompareResultSet
 		{
 			get => Get<CompareResultSet>();
 			private set => Set(value);
+		}
+
+		public void RefreshMemento()
+		{
+			this.OnPropertyChanged(nameof(this.Memento), this.Memento);
 		}
 
 
@@ -188,9 +185,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			try
 			{
-				this.Engine = Compare
-							.FromMemento(mementoFileName, out EngineMemento engineMemento)
-							.GetEngine(this.Crm1, this.Crm2, this.log);
+				Compare.FromMemento(mementoFileName, out EngineMemento engineMemento);
 
 				this.Memento = engineMemento;
 				this.CompareResultSet = null;
@@ -220,9 +215,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			}
 #pragma warning restore CA1031 // Do not catch general exception types
 		}
-
-
-
 
 		public void NewMemento()
 		{
@@ -297,7 +289,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 		public bool CanExecuteComparison
 		{
-			get => this.Engine != null && this.Memento != null && Memento.Entities.Count > 0;
+			get => this.Memento != null && this.Crm1 != null && this.Crm2 != null;
 		}
 
 
@@ -305,16 +297,24 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		{
 			if (this.Memento == null)
 				throw new InvalidOperationException("Comparison cannot be performed without memento!");
+			
 			if (this.Memento.Entities.Count == 0)
-				throw new InvalidOperationException("Comparison cannot be performed without memento!");
-			if (this.Engine == null)
-				throw new InvalidOperationException("Comparison cannot be performed without engine!");
+			{
+				MessageBox.Show("Please configure at least one entity to perform the comparison", "Compare", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
 
 			using (log.Track("Executing comparison"))
 			{
 				try
 				{
-					var result = this.Engine.CompareAll();
+					var engine = Compare
+						.FromMemento(this.Memento)
+						.GetEngine(this.Crm1, this.Crm2, this.log);
+
+
+
+					var result = engine.CompareAll();
 
 					log.Info("Compare completed");
 

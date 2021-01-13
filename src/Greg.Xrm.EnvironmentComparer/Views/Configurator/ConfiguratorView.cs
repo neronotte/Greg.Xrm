@@ -174,7 +174,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				}
 
 				this.viewModel.Memento.Entities.Add(memento);
-				OnMementoChanged();
+				this.viewModel.RefreshMemento();
 			}
 		}
 
@@ -193,7 +193,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			var entityMemento = (EntityMemento)node.Tag;
 			this.viewModel.Memento.Entities.Remove(entityMemento);
-			this.OnMementoChanged();
+			this.viewModel.RefreshMemento();
 			this.OnAfterSelectTreeNode(sender, new TreeViewEventArgs(null));
 		}
 
@@ -220,7 +220,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				var index = this.viewModel.Memento.Entities.IndexOf(entityMemento);
 				this.viewModel.Memento.Entities.RemoveAt(index);
 				this.viewModel.Memento.Entities.Insert(index, memento);
-				OnMementoChanged();
+				this.viewModel.RefreshMemento();
 			}
 		}
 
