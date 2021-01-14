@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Engine;
+using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Model;
@@ -45,7 +46,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		{
 			InitializeComponent();
 
-			base.TabText = "Result Summary";
+			this.RegisterHelp(messenger, Topics.ResultTree);
+
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.scheduler = scheduler;
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
@@ -294,10 +296,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 							var reportBuilder = new ReportBuilder(new DirectoryInfo(fileName));
 							reportBuilder.GenerateReport(compareResult, this.env1, this.env2);
 						}
+#pragma warning disable CA1031 // Do not catch general exception types
 						catch (Exception ex)
 						{
 							log.Error("Error during export: " + ex.Message, ex);
 						}
+#pragma warning restore CA1031 // Do not catch general exception types
 					}
 				}
 			});

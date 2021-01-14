@@ -80,9 +80,13 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Output
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1007, 269);
+			this.CloseButton = false;
+			this.CloseButtonVisible = false;
 			this.Controls.Add(this.listView1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "OutputView";
+			this.TabText = "Output";
+			this.Text = "Output";
 			this.ResumeLayout(false);
 
 		}

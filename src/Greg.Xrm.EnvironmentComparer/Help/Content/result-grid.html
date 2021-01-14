@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Comparison Result Details - Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+	</style>
+</head>
+<body>
+    <small><a href="/home">Home</a></small>
+    <h2>Comparison result details</h2>
+    <p>The <b>comparison result details</b> grid shows the result of the comparison for a specific entity.</p>
+    <p>You can pick the result set to be displayed in the <b>comparison result details</b> grid from the <b><a href="/result-tree">Result Summary</a></b> view.</p>
+
+    <h3>Result conventions</h3>
+    <p>The color of each line of the grid matches a specific type of result</p>
+    <ul>
+        <li><b>Green</b>: represents a record that is present in both environments, with matching fields. During a deploy, there is nothing to do with such kind of records.</li>
+        <li><b>Orange</b>: represents a record that is present in ENV2 but not in ENV1. During a deploy, probably it should be removed.</li>
+        <li><b>Azure</b>: represents a record that is present in ENV1 but not in ENV2. During a deploy, probably it shoud be added to ENV2.</li>
+        <li><b>Red</b>: represents a record that is present in both environments, but has differences in one or more fields.</li>
+    </ul>
+
+    <h3>Grid columns</h3>
+    <ul>
+        <li><b>Key</b>: contains the comparison key for the record.</li>
+        <li><b>Result</b>: a string representation of the comparison result</li>
+        <li><b>Columns</b>: in case of a record that is present in both environment with different values, contains the list of columns containing "mismatching values", separated by pipe |.</li>
+        <li><b>ENV1 values</b>: in case of a record that is present in both environment with different values, contains the list of the "mismatching values" from ENV1, separated by pipe |.</li>
+        <li><b>ENV2 values</b>: in case of a record that is present in both environment with different values, contains the list of the "mismatching values" from ENV1, separated by pipe |.</li>
+    </ul>
+
+    <h3>Available actions on result records</h3>
+    <p>
+        Right-clicking on one or more rows of the <b>comparison result details</b> grid, a context menu shows the list of possible actions that can be applied to the selected records. <br/>
+        Actions are:
+    </p>
+    <ul>
+        <li><b>Copy to ENV2</b>: aligns both environments to the values of ENV1. Applicable only on <b>Azure</b> and <b>Red</b> rows.</li>
+        <li><b>Copy to ENV1</b>: aligns both environments to the values of ENV2. Applicable only on <b>Orange</b> and <b>Red</b> rows.</li>
+        <li><b>Delete from ENV1</b>: deletes the record from ENV1. Applicable only on <b>Azure</b> and <b>Red</b> rows.</li>
+        <li><b>Delete from ENV2</b>: deletes the record from ENV2. Applicable only on <b>Orange</b> and <b>Red</b> rows.</li>
+        <li><b>Compare</b>: opens the <b><a href="/result-record">Record info</a></b> panel that allows to easily compare each single mismatching attribute value. Applicable only if the user selected one single record.</li>
+    </ul>
+    <p>
+        You cannot apply more than one action for each record.<br/> 
+        When an action has been defined for a specific record, the record background is set to <b>Grey</b>, and the action description is shown in the <b><a href="/actions">Actions panel</a></b>.
+    </p>
+    <p>
+        When selecting more than one record, actions are available only if applicable for all the selected records.
+    </p>
+</body>
+</html>

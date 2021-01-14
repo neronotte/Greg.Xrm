@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Actions;
+using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Logging;
-using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
@@ -19,6 +19,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 		public ActionsView(IThemeProvider themeProvider, IAsyncJobScheduler scheduler, IMessenger messenger, ILog log)
 		{
 			InitializeComponent();
+
+			this.RegisterHelp(messenger, Topics.Actions);
+
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.viewModel = new ActionsViewModel(log, messenger, scheduler);
 

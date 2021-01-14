@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Actions - Help</title>
+    <style type="text/css">
+        body {
+            font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+            font-size: .7em;
+            line-height: 1.6em;
+        }
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+    </style>
+</head>
+<body>
+    <small><a href="/home">Home</a></small>
+    <h2>Actions</h2>
+    <p>
+        The <b>actions</b> panel summarizes the list of actions that the user decided to apply after the comparison to streamline the deployment phase.<br/>
+        Actions are displayed (and applied) in the same order as they are defined.
+    </p>
+    <p>User can choose to:</p>
+    <ul>
+        <li><b>Clear the action list</b>: all the actions are removed from the action list.</li>
+        <li><b>Remove a specific action from the list</b>: removes the selected action from the list.</li>
+        <li><b>Apply all the actions</b>: all the actions are applied in the same order they are defined.</li>
+        <li><b>Apply only the "checked" actions</b>: all the actions that are checked in the list are applied, in the same order they are defined.</li>
+        <li><b>Select all the actions</b>: all the actions are automatically checked.</li>
+        <li><b>Deselect all the actions</b>: all the checks on the actions are automatically removed.</li>
+    </ul>
+    <p>
+        A confirmation prompt is displayed to the user before executing any specific operation.
+    </p>
+    <p>
+        If an action fails, a log is tracked in the <b><a href="/output">Output view</a></b>, and the system moves forward with the next one.
+    </p>
+    <p>
+        All the actions that have successfully been applied are automatically removed from the list.<br/>
+        At the end of the process, a new comparison is triggered in order to display the results of the applied actions.
+    </p>
+</body>
+</html>

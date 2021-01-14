@@ -121,6 +121,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.Controls.Add(this.toolStrip1);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ResultTreeView";
+			this.TabText = "Result Summary";
+			this.Text = "Result Summary";
 			this.contextMenuStrip1.ResumeLayout(false);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();

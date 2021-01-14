@@ -40,6 +40,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.cmiCopyToEnv2 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.cmiCopyToEnv1 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.cmiDeleteFromEnv1 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiDeleteFromEnv2 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
 			this.cmiCompare = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
@@ -106,16 +110,20 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.cmiCopyToEnv2,
             this.cmiCopyToEnv1,
+            this.toolStripMenuItem1,
+            this.cmiDeleteFromEnv1,
+            this.cmiDeleteFromEnv2,
+            this.toolStripMenuItem2,
             this.cmiCompare});
 			this.contextMenu.Name = "contextMenuStrip1";
-			this.contextMenu.Size = new System.Drawing.Size(148, 70);
+			this.contextMenu.Size = new System.Drawing.Size(181, 148);
 			// 
 			// cmiCopyToEnv2
 			// 
 			this.cmiCopyToEnv2.Enabled = false;
 			this.cmiCopyToEnv2.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_right;
 			this.cmiCopyToEnv2.Name = "cmiCopyToEnv2";
-			this.cmiCopyToEnv2.Size = new System.Drawing.Size(147, 22);
+			this.cmiCopyToEnv2.Size = new System.Drawing.Size(180, 22);
 			this.cmiCopyToEnv2.Text = "Copy to ENV2";
 			this.cmiCopyToEnv2.Click += new System.EventHandler(this.OnCopyToEnv2Click);
 			// 
@@ -124,16 +132,44 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cmiCopyToEnv1.Enabled = false;
 			this.cmiCopyToEnv1.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_left;
 			this.cmiCopyToEnv1.Name = "cmiCopyToEnv1";
-			this.cmiCopyToEnv1.Size = new System.Drawing.Size(147, 22);
+			this.cmiCopyToEnv1.Size = new System.Drawing.Size(180, 22);
 			this.cmiCopyToEnv1.Text = "Copy to ENV1";
 			this.cmiCopyToEnv1.Click += new System.EventHandler(this.OnCopyToEnv1Click);
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+			// 
+			// cmiDeleteFromEnv1
+			// 
+			this.cmiDeleteFromEnv1.Enabled = false;
+			this.cmiDeleteFromEnv1.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete_left;
+			this.cmiDeleteFromEnv1.Name = "cmiDeleteFromEnv1";
+			this.cmiDeleteFromEnv1.Size = new System.Drawing.Size(180, 22);
+			this.cmiDeleteFromEnv1.Text = "Delete from ENV1";
+			this.cmiDeleteFromEnv1.Click += new System.EventHandler(this.OnDeleteFromEnv1Click);
+			// 
+			// cmiDeleteFromEnv2
+			// 
+			this.cmiDeleteFromEnv2.Enabled = false;
+			this.cmiDeleteFromEnv2.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete_right;
+			this.cmiDeleteFromEnv2.Name = "cmiDeleteFromEnv2";
+			this.cmiDeleteFromEnv2.Size = new System.Drawing.Size(180, 22);
+			this.cmiDeleteFromEnv2.Text = "Delete from ENV2";
+			this.cmiDeleteFromEnv2.Click += new System.EventHandler(this.OnDeleteFromEnv2Click);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
 			// 
 			// cmiCompare
 			// 
 			this.cmiCompare.Enabled = false;
 			this.cmiCompare.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.compare;
 			this.cmiCompare.Name = "cmiCompare";
-			this.cmiCompare.Size = new System.Drawing.Size(147, 22);
+			this.cmiCompare.Size = new System.Drawing.Size(180, 22);
 			this.cmiCompare.Text = "Compare...";
 			this.cmiCompare.Click += new System.EventHandler(this.OnCompareClick);
 			// 
@@ -207,6 +243,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "ResultGridView";
 			this.TabText = "Comparison Result Details";
+			this.Text = "Comparison Result Details";
 			this.contextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -230,5 +267,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private System.Windows.Forms.Label lLegend3;
 		private System.Windows.Forms.Label lLegend4;
 		private System.Windows.Forms.Label lLegend5;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiDeleteFromEnv1;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiDeleteFromEnv2;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
 	}
 }

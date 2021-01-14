@@ -1,7 +1,9 @@
 ﻿using Greg.Xrm.Async;
+using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Views.Actions;
 using Greg.Xrm.EnvironmentComparer.Views.Configurator;
+using Greg.Xrm.EnvironmentComparer.Views.Help;
 using Greg.Xrm.EnvironmentComparer.Views.Output;
 using Greg.Xrm.EnvironmentComparer.Views.Results;
 using Greg.Xrm.Messaging;
@@ -73,6 +75,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 			this.actionsView = new ActionsView(themeProvider, scheduler, this.messenger, this.outputView);
 			this.actionsView.Show(this.dockPanel, DockState.Document);
+
+			var helpContentIndexProvider = new HelpContentIndexProvider();
+			var helpContentIndex = helpContentIndexProvider.GetIndex();
+			var helpRepository = new HelpRepository(helpContentIndex);
+			var helpView = new HelpView(this.messenger, this.outputView, helpRepository);
+			helpView.Show(this.dockPanel, DockState.DockRightAutoHide);
 
 			this.resultGridView.Show();
 			this.configuratorView.Show();

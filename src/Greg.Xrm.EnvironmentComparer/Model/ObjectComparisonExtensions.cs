@@ -48,6 +48,12 @@ namespace Greg.Xrm.EnvironmentComparer
 			return x.Result == ObjectComparisonResult.RightMissing
 				|| x.Result == ObjectComparisonResult.MatchingButDifferent;
 		}
+		public static bool IsLeftOrRightMissingOrDifferent<T>(this ObjectComparison<T> x)
+			where T : class
+		{
+			return x.Result == ObjectComparisonResult.RightMissing
+				|| x.Result == ObjectComparisonResult.MatchingButDifferent;
+		}
 
 		public static bool AreAllLeftMissingOrDifferentAndNotActioned<T>(this IEnumerable<ObjectComparison<T>> items)
 			where T : class

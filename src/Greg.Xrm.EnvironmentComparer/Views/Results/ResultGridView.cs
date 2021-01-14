@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine;
+using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
@@ -26,6 +27,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		{
 			InitializeComponent();
 
+			this.RegisterHelp(messenger, Topics.ResultGrid);
+
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
@@ -33,6 +36,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			
 			this.cmiCopyToEnv1.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCopyToEnv1Enabled);
 			this.cmiCopyToEnv2.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCopyToEnv2Enabled);
+			this.cmiDeleteFromEnv1.Bind(_ => _.Enabled, this.viewModel, _ => _.IsDeleteFromEnv1Enabled);
+			this.cmiDeleteFromEnv2.Bind(_ => _.Enabled, this.viewModel, _ => _.IsDeleteFromEnv2Enabled);
 			this.cmiCompare.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCompareEnabled);
 
 			this.ApplyTheme();
@@ -203,6 +208,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private void OnCopyToEnv1Click(object sender, EventArgs e)
 		{
 			this.viewModel.CopySelectedRowTo(1);
+		}
+
+		private void OnDeleteFromEnv1Click(object sender, EventArgs e)
+		{
+			this.viewModel.DeleteSelectedRowFrom(1);
+		}
+
+		private void OnDeleteFromEnv2Click(object sender, EventArgs e)
+		{
+			this.viewModel.DeleteSelectedRowFrom(2);
 		}
 	}
 }

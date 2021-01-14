@@ -14,7 +14,6 @@
 		<description>Simplifies the deployment process by comparing entities between two environments</description>
 		<releaseNotes>
 			Allows users to compare data between 2 different DataVerse environments.
-			v$version$: First version.
 
 			* For older releases go here: https://github.com/neronotte/Greg.Xrm/releases
 		</releaseNotes>

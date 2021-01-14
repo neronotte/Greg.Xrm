@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Result Summary - Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+	</style>
+</head>
+<body>
+    <small><a href="/home">Home</a></small>
+    <h2>Result summary</h2>
+    <p>The <b>Result Summary view</b> is automatically filled and displayed when a comparison process completes.</p>
+    <p>A treeview is displayed showing <b>a node for each compared entity</b>, with 4 subnodes, each one corrisponding to one of the 4 possible cluster of results:</p>
+    <ul>
+        <li><b>Matching</b>: represents a record that is present in both environments, with matching fields. During a deploy, there is nothing to do with such kind of records.</li>
+        <li><b>Missing on ENV1</b>: represents a record that is present in ENV2 but not in ENV1. During a deploy, probably it should be removed.</li>
+        <li><b>Missing on ENV2</b>: represents a record that is present in ENV1 but not in ENV2. During a deploy, probably it shoud be added to ENV2.</li>
+        <li><b>With differences</b>: represents a record that is present in both environments, but has differences in one or more fields.</li>
+    </ul>
+    <p>
+        For each entity, the total number of analyzed records is displayed after the entity name.<br/>
+        In the subnodes, the total number of records of the cluster is displayed after the cluster name, compared with the total number of records in all clusters.
+    </p>
+    <p>
+        Text color is used to improve the readability of the results:
+    </p>
+    <ul>
+        <li><b>Green</b> is used to identify having all matching records. Those nodes are by default displayed without additional info.</li>
+        <li><b>Dark gray</b> is used to identify empty clusters.</li>
+        <li><b>Light gray</b> is used to identify clusters containing at least one record.</li>
+    </ul>
+    <p>
+        Comparison results can be also <b>exported in Excel</b> for further analysis.
+    </p>
+</body>
+</html>
