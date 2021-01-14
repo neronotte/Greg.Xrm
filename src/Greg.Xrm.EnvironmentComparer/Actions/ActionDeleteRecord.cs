@@ -1,31 +1,29 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine;
 using Microsoft.Xrm.Sdk;
-using Microsoft.Xrm.Sdk.Messages;
 using System;
 
 namespace Greg.Xrm.EnvironmentComparer.Actions
 {
-	public class ActionCopyEntity : IAction
+	public class ActionDeleteRecord :IAction
 	{
-		public ActionCopyEntity(ObjectComparison<Entity> result, Entity entity, int targetEnvironmentIndex, string targetEnvironmentName)
+		public ActionDeleteRecord(ObjectComparison<Entity> result, Entity entity, int sourceEnvironmentIndex, string sourceEnvironmentName)
 		{
-			if (targetEnvironmentIndex != 1 && targetEnvironmentIndex != 2)
+			if (sourceEnvironmentIndex != 1 && sourceEnvironmentIndex != 2)
 			{
-				throw new ArgumentOutOfRangeException(nameof(targetEnvironmentIndex), "Target environment index must be 1 or 2");
+				throw new ArgumentOutOfRangeException(nameof(sourceEnvironmentIndex), "Target environment index must be 1 or 2");
 			}
 
-			if (string.IsNullOrWhiteSpace(targetEnvironmentName))
+			if (string.IsNullOrWhiteSpace(sourceEnvironmentName))
 			{
-				throw new ArgumentNullException(nameof(targetEnvironmentName), $"'{nameof(targetEnvironmentName)}' cannot be null or whitespace");
+				throw new ArgumentNullException(nameof(sourceEnvironmentName), $"'{nameof(sourceEnvironmentName)}' cannot be null or whitespace");
 			}
 
 			this.Result = result;
 			this.Entity = entity ?? throw new ArgumentNullException(nameof(entity));
 			this.EntityKey = result.Key;
-			this.TargetEnvironmentIndex = targetEnvironmentIndex;
-			this.TargetEnvironmentName = targetEnvironmentName;
+			this.SourceEnvironmentIndex = sourceEnvironmentIndex;
+			this.SourceEnvironmentName = sourceEnvironmentName;
 		}
-
 
 		/// <summary>
 		/// Gets the logical name of the entity
@@ -38,25 +36,22 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		public string EntityKey { get; }
 
 		/// <summary>
-		/// Gets the name of the environment where the entity will be copied into
-		/// </summary>
-		public string TargetEnvironmentName { get; }
-
-		/// <summary>
-		/// Gets the index of the environment where the entity will be copied into (1 or 2)
-		/// </summary>
-		public int TargetEnvironmentIndex { get; }
-
-		/// <summary>
-		/// Gets the comparison result that has been actioned
-		/// </summary>
-		public ObjectComparison<Entity> Result { get; }
-
-		/// <summary>
-		/// The entity to copy
+		/// The entity to delete
 		/// </summary>
 		public Entity Entity { get; }
 
+		/// <summary>
+		/// Gets the name of the environment where the entity is present
+		/// </summary>
+		public string SourceEnvironmentName { get; }
+
+		/// <summary>
+		/// Gets the index of the environment where the entity is present (1 or 2)
+		/// </summary>
+		public int SourceEnvironmentIndex { get; }
+
+
+		public ObjectComparison<Entity> Result { get; }
 
 
 
@@ -69,11 +64,11 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		{
 			if (other == null) return false;
 			if (ReferenceEquals(this, other)) return true;
-			if (!(other is ActionCopyEntity o1)) return false;
+			if (!(other is ActionDeleteRecord o1)) return false;
 
 			return this.EntityName.Equals(o1.EntityName) &&
 				this.EntityKey.Equals(o1.EntityKey) &&
-				this.TargetEnvironmentIndex.Equals(o1.TargetEnvironmentIndex);
+				this.SourceEnvironmentIndex.Equals(o1.SourceEnvironmentIndex);
 		}
 
 
@@ -102,7 +97,7 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 			return this.CalculateHashCode(
 				() => EntityName,
 				() => EntityKey,
-				() => TargetEnvironmentIndex
+				() => SourceEnvironmentIndex
 			);
 		}
 
@@ -113,9 +108,8 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		/// <returns>A string representation of the current action.</returns>
 		public override string ToString()
 		{
-			return $"Copy the <{EntityName}> record with key <{EntityKey}> on <{TargetEnvironmentName}>";
+			return $"Delete the <{EntityName}> record with key <{EntityKey}> from <{SourceEnvironmentName}>";
 		}
-
 
 
 		/// <summary>
@@ -125,13 +119,10 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		/// <param name="crm2">The second (right) crm instance</param>
 		public void ApplyTo(IOrganizationService crm1, IOrganizationService crm2)
 		{
-			var crm = this.TargetEnvironmentIndex == 1 ? crm1 : crm2;
+			var crm = this.SourceEnvironmentIndex == 1 ? crm1 : crm2;
 
-			var request = new UpsertRequest
-			{
-				Target = this.Entity
-			};
-			crm.Execute(request);
+			var entityRef = this.Entity.ToEntityReference();
+			crm.Delete(entityRef);
 		}
 	}
 }

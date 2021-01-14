@@ -1,4 +1,6 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+using Greg.Xrm.EnvironmentComparer.Help;
+using Greg.Xrm.Messaging;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private readonly IReadOnlyCollection<EntityMetadata> entityMetadataList;
 		private readonly EntityMetadataDto[] dtoList;
 
-		public ConfiguratorDialog(IReadOnlyCollection<EntityMetadata> entityMetadataList)
+		public ConfiguratorDialog(IMessenger messenger, IReadOnlyCollection<EntityMetadata> entityMetadataList)
 		{
 			InitializeComponent();
+
+			this.RegisterHelp(messenger, Topics.ConfiguratorDialog);
 
 			this.Memento = null;
 

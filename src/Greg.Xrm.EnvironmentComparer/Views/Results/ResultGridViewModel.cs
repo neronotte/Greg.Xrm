@@ -5,6 +5,7 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using static Greg.Xrm.Extensions;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
@@ -22,7 +23,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.WhenChanges(() => SelectedResults)
 				.ChangesAlso(() => IsCompareEnabled)
 				.ChangesAlso(() => IsCopyToEnv1Enabled)
-				.ChangesAlso(() => IsCopyToEnv2Enabled);
+				.ChangesAlso(() => IsCopyToEnv2Enabled)
+				.ChangesAlso(() => IsDeleteFromEnv1Enabled)
+				.ChangesAlso(() => IsDeleteFromEnv2Enabled);
 
 			messenger.Register<CompareResultGroupSelected>(m =>
 			{
@@ -93,6 +96,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			get => this.SelectedResults.AreAllRightMissingOrDifferentAndNotActioned();
 		}
 
+		public bool IsDeleteFromEnv1Enabled
+		{
+			get => this.SelectedResults.AreAllRightMissingOrDifferentAndNotActioned();
+		}
+
+		public bool IsDeleteFromEnv2Enabled
+		{
+			get => this.SelectedResults.AreAllLeftMissingOrDifferentAndNotActioned();
+		}
+
 
 
 
@@ -131,7 +144,32 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				}
 
 
-				var action = new ActionCopyEntity(result, entity, index, envName);
+				var action = new ActionCopyRecord(result, entity, index, envName);
+				actionList.Add(action);
+
+				result.SetActioned();
+				OnResultUpdated(result);
+			}
+			this.messenger.Send(new SubmitActionMessage(actionList));
+		}
+
+
+		public void DeleteSelectedRowFrom(int index)
+		{
+			if (this.SelectedResults.Count == 0) return;
+
+			var envName = index == 1 ? this.env1 : this.env2;
+
+			var confirm = MessageBox.Show($"Do you really want do delete the selected record from {envName}?", "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (confirm != DialogResult.Yes) return;
+
+
+			var actionList = new List<IAction>();
+			foreach (var result in this.SelectedResults)
+			{
+				var entity = index == 1 ? result.Item1 : result.Item2;
+
+				var action = new ActionDeleteRecord(result, entity, index, envName);
 				actionList.Add(action);
 
 				result.SetActioned();

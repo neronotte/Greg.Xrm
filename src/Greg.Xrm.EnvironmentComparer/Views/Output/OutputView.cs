@@ -1,4 +1,5 @@
-﻿using Greg.Xrm.EnvironmentComparer.Logging;
+﻿using Greg.Xrm.EnvironmentComparer.Help;
+using Greg.Xrm.EnvironmentComparer.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
@@ -10,18 +11,17 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Output
 {
 	public partial class OutputView : DockContent, ILog
 	{
-		private IThemeProvider themeProvider;
+		private readonly IThemeProvider themeProvider;
 
 		public OutputView(IThemeProvider themeProvider, IMessenger messenger)
 		{
 			this.themeProvider = themeProvider;
+			
 			InitializeComponent();
 
+			this.RegisterHelp(messenger, Topics.Output);
+
 			ApplyTheme();
-
-
-			base.CloseButtonVisible = false;
-			base.TabText = "Output";
 
 			messenger.Register<ShowOutputView>(m =>
 			{

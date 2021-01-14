@@ -1,0 +1,68 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Configurator - Help</title>
+    <style type="text/css">
+        body {
+            font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+            font-size: .7em;
+            line-height: 1.6em;
+        }
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+    </style>
+</head>
+<body>
+    <small><a href="/home">Home</a></small>
+    <h2>Configurator</h2>
+    <p>
+        The configurator tool allows to define the entities to compare.<br/>
+        Once defined the configuration can be saved to be reopened lately.
+    </p>
+    <h3>Prerequisites</h3>
+    <p>
+        To setup one or more entity configurations you should be connected to ENV1 
+        and metadata from that environmnent should be loaded. To load table metadata 
+        you can click on the <b>Actions > Load tables</b> button.
+    </p>
+    <h3>Menu items</h3>
+    <ul>
+        <li><b>File</b>
+            <ul>
+                <li><b>New</b>: create a new comparison configuration</li>
+                <li><b>Open...</b>: open a previously saved comparison configuration</li>
+                <li><b>Save</b>: saves the current comparison configuration as a json file</li>
+                <li><b>Save as...</b>: saves the current comparison configuration as a new json file</li>
+            </ul>
+        </li>
+        <li><b>Actions</b>
+            <ul>
+                <li><b>Load tables</b>: loads table metadata from environment 1. It is mandatory to add or modify a table comparison configuration</li>
+                <li><b>Add table...</b>: opens the <b><a href="/configurator-dialog">"configure table" dialog</a></b> that allows to configure how to compare a specific table</li>
+                <li><b>Edit...</b>: opens the "configure table" dialog that allows to change the selected table comparison configuration</li>
+                <li><b>Remove</b>: removes the selected table comparison configuration</li>
+            </ul>
+        </li>
+        <li><b>Compare</b>
+            <ul>
+                <li><b>Execute comparison</b>: executes the comparison between the tables specified in the comparison</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

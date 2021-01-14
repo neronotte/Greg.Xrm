@@ -283,22 +283,22 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mLoadEntities.Enabled = false;
 			this.mLoadEntities.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_refresh;
 			this.mLoadEntities.Name = "mLoadEntities";
-			this.mLoadEntities.Size = new System.Drawing.Size(141, 22);
-			this.mLoadEntities.Text = "Load entities";
+			this.mLoadEntities.Size = new System.Drawing.Size(180, 22);
+			this.mLoadEntities.Text = "Load tables";
 			this.mLoadEntities.Click += new System.EventHandler(this.OnLoadEntitiesClick);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
 			// 
 			// mAdd
 			// 
 			this.mAdd.Enabled = false;
 			this.mAdd.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_add;
 			this.mAdd.Name = "mAdd";
-			this.mAdd.Size = new System.Drawing.Size(141, 22);
-			this.mAdd.Text = "Add entity";
+			this.mAdd.Size = new System.Drawing.Size(180, 22);
+			this.mAdd.Text = "Add table...";
 			this.mAdd.Click += new System.EventHandler(this.OnAddClick);
 			// 
 			// mEdit
@@ -306,8 +306,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mEdit.Enabled = false;
 			this.mEdit.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_edit;
 			this.mEdit.Name = "mEdit";
-			this.mEdit.Size = new System.Drawing.Size(141, 22);
-			this.mEdit.Text = "Edit";
+			this.mEdit.Size = new System.Drawing.Size(180, 22);
+			this.mEdit.Text = "Edit...";
 			this.mEdit.Click += new System.EventHandler(this.OnEditClick);
 			// 
 			// mRemove
@@ -315,7 +315,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mRemove.Enabled = false;
 			this.mRemove.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_delete;
 			this.mRemove.Name = "mRemove";
-			this.mRemove.Size = new System.Drawing.Size(141, 22);
+			this.mRemove.Size = new System.Drawing.Size(180, 22);
 			this.mRemove.Text = "Remove";
 			this.mRemove.Click += new System.EventHandler(this.OnRemoveClick);
 			// 

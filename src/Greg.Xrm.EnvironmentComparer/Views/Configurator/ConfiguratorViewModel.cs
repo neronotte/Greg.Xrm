@@ -115,7 +115,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 		public string EditLabel
 		{
-			get => $"Edit {SelectedNode?.Text}".Trim();
+			get => $"Edit {SelectedNode?.Text}".Trim() + "...";
 		}
 
 		public bool CanRemove

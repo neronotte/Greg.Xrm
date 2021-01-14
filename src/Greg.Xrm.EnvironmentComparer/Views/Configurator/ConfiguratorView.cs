@@ -9,6 +9,7 @@ using System;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
+using Greg.Xrm.EnvironmentComparer.Help;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -26,6 +27,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			ILog log)
 		{
 			InitializeComponent();
+
+			this.RegisterHelp(messenger, Topics.Configurator);
 
 			this.tAdd.Enabled = false;
 			this.viewModel = new ConfiguratorViewModel(log, messenger);
@@ -162,7 +165,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			if (this.viewModel.EntityMetadataList.Count == 0) return;
 
 
-			using (var dialog = new ConfiguratorDialog(this.viewModel.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog(this.messenger, this.viewModel.EntityMetadataList))
 			{
 				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
@@ -210,7 +213,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			var entityMemento = (EntityMemento)node.Tag;
 
-			using (var dialog = new ConfiguratorDialog(this.viewModel.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog(this.messenger, this.viewModel.EntityMetadataList))
 			{
 				dialog.Memento = entityMemento;
 

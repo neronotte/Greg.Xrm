@@ -1,6 +1,6 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine;
+using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
@@ -18,6 +18,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		public ResultRecordView(IThemeProvider themeProvider, IMessenger messenger)
 		{
 			InitializeComponent();
+
+			this.RegisterHelp(messenger, Topics.ResultRecord);
 
 			this.txtValue1.Lexer = Lexer.Json;
 			this.txtValue1.Margins[0].Width = 16;
