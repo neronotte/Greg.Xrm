@@ -17,10 +17,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.messenger = messenger;
 
 			this.WhenChanges(() => Env1)
-				.ChangesAlso(() => ConnectionName1);
+				.ChangesAlso(() => ConnectionName1)
+				.ChangesAlso(() => AreEqual);
 
 			this.WhenChanges(() => Env2)
-				.ChangesAlso(() => ConnectionName2);
+				.ChangesAlso(() => ConnectionName2)
+				.ChangesAlso(() => AreEqual);
 
 			this.WhenChanges(() => Crm1).NotifyOthers(messenger);
 			this.WhenChanges(() => Crm2).NotifyOthers(messenger);
@@ -41,6 +43,19 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		public IOrganizationService Crm1 { get => Get<IOrganizationService>(); }
 		public string ConnectionName1 { get => this.Env1?.ConnectionName; }
 
+		/// <summary>
+		/// Indicates whether the two connections match the same environment
+		/// </summary>
+		public bool AreEqual
+		{
+			get
+			{
+				if (this.Env1 == null) return false;
+				if (this.Env2 == null) return false;
+
+				return this.Env1.CompareTo(this.Env2) == 0;
+			}
+		}
 
 
 		public ConnectionDetail Env2

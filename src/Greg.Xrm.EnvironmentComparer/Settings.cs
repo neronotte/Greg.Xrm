@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Greg.Xrm.EnvironmentComparer
+﻿namespace Greg.Xrm.EnvironmentComparer
 {
 	/// <summary>
 	/// This class can help you to store settings for your plugin
@@ -14,5 +8,6 @@ namespace Greg.Xrm.EnvironmentComparer
 	/// </remarks>
 	public class Settings
 	{
+		public string LastOpenedFileName { get; set; }
 	}
 }

@@ -34,11 +34,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tClose = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tEnv1Name = new System.Windows.Forms.ToolStripLabel();
-			this.tEnv2Name = new System.Windows.Forms.ToolStripLabel();
 			this.tConnectToEnv2 = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			this.tEquals = new Greg.Xrm.Views.ToolStripBindableLabel();
 			this.tHelp = new System.Windows.Forms.ToolStripLabel();
+			this.dockPanel = new WeifenLuo.WinFormsUI.Docking.DockPanel();
 			this.tools.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -49,9 +49,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views
             this.tClose,
             this.tssSeparator1,
             this.tEnv1Name,
-            this.tEnv2Name,
             this.tConnectToEnv2,
             this.toolStripSeparator1,
+            this.tEquals,
             this.tHelp});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
@@ -81,14 +81,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tEnv1Name.Size = new System.Drawing.Size(155, 22);
 			this.tEnv1Name.Text = "1. Connect to environment 1";
 			// 
-			// tEnv2Name
-			// 
-			this.tEnv2Name.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tEnv2Name.Name = "tEnv2Name";
-			this.tEnv2Name.Size = new System.Drawing.Size(87, 22);
-			this.tEnv2Name.Text = "[not initialized]";
-			this.tEnv2Name.Visible = false;
-			// 
 			// tConnectToEnv2
 			// 
 			this.tConnectToEnv2.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -98,13 +90,28 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.tConnectToEnv2.Name = "tConnectToEnv2";
 			this.tConnectToEnv2.Size = new System.Drawing.Size(163, 22);
 			this.tConnectToEnv2.Text = "2. Connect to environment 2";
-			this.tConnectToEnv2.Visible = false;
 			this.tConnectToEnv2.Click += new System.EventHandler(this.OnConnectToEnvironment2);
 			// 
 			// toolStripSeparator1
 			// 
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tEquals
+			// 
+			this.tEquals.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tEquals.ForeColor = System.Drawing.Color.Red;
+			this.tEquals.Name = "tEquals";
+			this.tEquals.Size = new System.Drawing.Size(259, 22);
+			this.tEquals.Text = "The two connections are equal! Are you sure?";
+			// 
+			// tHelp
+			// 
+			this.tHelp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tHelp.ForeColor = System.Drawing.Color.DarkGray;
+			this.tHelp.Name = "tHelp";
+			this.tHelp.Size = new System.Drawing.Size(161, 22);
+			this.tHelp.Text = "Press F1 in any panel for help";
 			// 
 			// dockPanel
 			// 
@@ -114,14 +121,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.dockPanel.Name = "dockPanel";
 			this.dockPanel.Size = new System.Drawing.Size(1175, 602);
 			this.dockPanel.TabIndex = 5;
-			// 
-			// tHelp
-			// 
-			this.tHelp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tHelp.ForeColor = System.Drawing.Color.DarkGray;
-			this.tHelp.Name = "tHelp";
-			this.tHelp.Size = new System.Drawing.Size(161, 22);
-			this.tHelp.Text = "Press F1 in any panel for help";
 			// 
 			// EnvironmentComparerPluginControl
 			// 
@@ -144,10 +143,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private Greg.Xrm.Views.ToolStripBindableButton tClose;
 		private System.Windows.Forms.ToolStripSeparator tssSeparator1;
 		private System.Windows.Forms.ToolStripLabel tEnv1Name;
-		private System.Windows.Forms.ToolStripLabel tEnv2Name;
 		private Greg.Xrm.Views.ToolStripBindableButton tConnectToEnv2;
 		private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripLabel tHelp;
+		private Greg.Xrm.Views.ToolStripBindableLabel tEquals;
 	}
 }

@@ -31,18 +31,41 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 			foreach (var comparer in this.comparerList)
 			{
 				var comparisonResult = Compare(comparer);
-				result[comparer.EntityName] = new CompareResultForEntity(comparer.EntityName, comparisonResult);
+				result[comparer.EntityName] = comparisonResult;
 			}
 			return result;
 		}
 
-		private IReadOnlyCollection<ObjectComparison<Entity>> Compare(EntityComparer comparer)
+		private CompareResultForEntity Compare(EntityComparer comparer)
 		{
-			var list1 = comparer.GetEntitiesFrom(this.crm1, this.log, "CRM1");
-			var list2 = comparer.GetEntitiesFrom(this.crm2, this.log, "CRM2");
+			List<Entity> list1, list2;
+			bool isEntityValidForCrm1, isEntityValidForCrm2;
+			try
+			{
+				list1 = comparer.GetEntitiesFrom(this.crm1, this.log, "CRM1");
+				isEntityValidForCrm1 = true;
+			}
+			catch(EntityNotFoundException)
+			{
+				list1 = new List<Entity>();
+				isEntityValidForCrm1 = false;
+			}
 
-			var compareResult = comparer.Compare(list1, list2);
-			return compareResult;
+			try
+			{
+				list2 = comparer.GetEntitiesFrom(this.crm2, this.log, "CRM2");
+				isEntityValidForCrm2 = true;
+			}
+			catch (EntityNotFoundException)
+			{
+				list2 = new List<Entity>();
+				isEntityValidForCrm2 = false;
+			}
+
+			var resultByObjectList = comparer.Compare(list1, list2);
+
+			var r = new CompareResultForEntity(comparer.EntityName, isEntityValidForCrm1, isEntityValidForCrm2, resultByObjectList);
+			return r;
 		}
 	}
 }

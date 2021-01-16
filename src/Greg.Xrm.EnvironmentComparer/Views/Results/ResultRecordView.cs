@@ -45,6 +45,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				{
 					var env1name = e.GetNewValue<string>();
 					this.lblEnv1.Text = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
+					this.OnResultRecordSelected(null);
 				}); 
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				 .ChangesProperty(_ => _.ConnectionName2)
@@ -52,6 +53,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				 {
 					 var env2name = e.GetNewValue<string>();
 					 this.lblEnv2.Text = (string.IsNullOrWhiteSpace(env2name) ? "ENV2" : env2name);
+					 this.OnResultRecordSelected(null);
 				 });
 
 
@@ -93,7 +95,23 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private void OnResultRecordSelected(CompareResultRecordSelected obj)
 		{
-			var record = obj.Result;
+			var record = obj?.Result;
+
+			if (record == null)
+			{
+				this.pnlMessage.BackColor = this.BackColor;
+				this.lblMessage.Text = "Please select a result...";
+
+				this.label1.Visible = false;
+				this.cmbAttributes.Visible = false;
+				this.lblEnv1.Visible = false;
+				this.lblEnv2.Visible = false;
+				this.txtValue1.Visible = false;
+				this.txtValue2.Visible = false;
+
+				return;
+			}
+
 
 			this.pnlMessage.BackColor = record.Result.GetColor();
 			this.lblMessage.Text = string.Format(record.Result.GetMessage(), this.lblEnv1.Text, this.lblEnv2.Text);

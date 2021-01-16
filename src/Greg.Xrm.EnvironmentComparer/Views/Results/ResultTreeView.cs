@@ -39,9 +39,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 
 		public ResultTreeView(
-			IThemeProvider themeProvider, 
+			IThemeProvider themeProvider,
 			IAsyncJobScheduler scheduler,
-			IMessenger messenger, 
+			IMessenger messenger,
 			ILog log)
 		{
 			InitializeComponent();
@@ -64,12 +64,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				.Execute(e =>
 				{
 					this.env1 = e.GetNewValue<string>();
+					this.CompareResult = null;
 				});
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				 .ChangesProperty(_ => _.ConnectionName2)
 				 .Execute(e =>
 				 {
 					 this.env2 = e.GetNewValue<string>();
+					 this.CompareResult = null;
 				 });
 		}
 
@@ -83,7 +85,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		public CompareResultSet CompareResult
 		{
 			get => this.compareResult;
-			set {
+			set
+			{
 				this.compareResult = value;
 				this.OnCompareResultChanged();
 			}
@@ -112,10 +115,34 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			foreach (var kvp in this.compareResult)
 			{
 				var shouldExpand = false;
-				var node = this.resultTree.Nodes.Add($"{kvp.Key} ({kvp.Value.Count})" );
+				var node = this.resultTree.Nodes.Add($"{kvp.Key} ({kvp.Value.Count})");
 				node.Name = node.Text;
 				node.ImageKey = "entity";
 				node.SelectedImageKey = "entity";
+
+
+				if (!kvp.Value.IsEntityValidForCrm1 || !kvp.Value.IsEntityValidForCrm2)
+				{
+					string missingEnv;
+					if (!kvp.Value.IsEntityValidForCrm1 && !kvp.Value.IsEntityValidForCrm2)
+					{
+						missingEnv = "both environments";
+					}
+					else if (!kvp.Value.IsEntityValidForCrm1)
+					{
+						missingEnv = this.env1;
+					}
+					else
+					{
+						missingEnv = this.env2;
+					}
+
+
+					node.ForeColor = Color.Red;
+					node.ToolTipText = $"Entity not present on {missingEnv}";
+					continue;
+				}
+
 				node.Tag = kvp.Value;
 				if (kvp.Value.Contains(AdditionalMetadataMarkedOk))
 				{
@@ -288,7 +315,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Executing generating Excel file, please wait...",
-				Work = (w, e1) => {
+				Work = (w, e1) =>
+				{
 					using (log.Track("Exporting comparison result on excel file " + fileName))
 					{
 						try

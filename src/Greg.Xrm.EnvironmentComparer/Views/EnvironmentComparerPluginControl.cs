@@ -15,6 +15,7 @@ using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Args;
@@ -85,6 +86,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.resultGridView.Show();
 			this.configuratorView.Show();
 
+			this.tEquals.Bind(_ => _.Visible, this.viewModel, _ => _.AreEqual);
+
 
 			this.messenger.Register<HighlightResultRecord>(m =>
 			{
@@ -122,7 +125,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			SetEnvironments();
 		}
 
-
 		/// <summary>
 		/// This event occurs when the connection has been updated in XrmToolBox
 		/// </summary>
@@ -134,6 +136,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 		private void OnConnectToEnvironment2(object sender, EventArgs e)
 		{
+			if (this.viewModel.Env2 != null)
+			{
+				var answer = MessageBox.Show("Do you really want to change the connection to ENV2?", ConnectToEnvironment2String, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (answer != DialogResult.Yes) return;
+
+				this.RemoveAdditionalOrganization(this.viewModel.Env2);
+				this.viewModel.Env2 = null;
+				this.messenger.Send<ResetEntityList>();
+			}
+
 			AddAdditionalOrganization();
 		}
 
@@ -149,18 +161,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private void MyPluginControl_Load(object sender, EventArgs e)
 		{
 			SetEnvironments();
-
-			// Loads or creates the settings for the plugin
-			if (!SettingsManager.Instance.TryLoad(GetType(), out mySettings))
-			{
-				mySettings = new Settings();
-
-				LogWarning("Settings not found => a new settings file has been created!");
-			}
-			else
-			{
-				LogInfo("Settings found and loaded");
-			}
 		}
 
 		private void OnCloseToolClicked(object sender, EventArgs e)
@@ -169,42 +169,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		}
 
 
-		/// <summary>
-		/// This event occurs when the plugin is closed
-		/// </summary>
-		/// <param name="sender"></param>
-		/// <param name="e"></param>
-		private void MyPluginControl_OnCloseTool(object sender, EventArgs e)
-		{
-			// Before leaving, save the settings
-			SettingsManager.Instance.Save(GetType(), mySettings);
-		}
-
-
 
 		void SetConnectionNames(string env1name, string env2name)
 		{
 			this.tEnv1Name.Text = string.IsNullOrWhiteSpace(env1name) ? ConnectToEnvironment1String : "ENV1: " + env1name;
-			this.tEnv2Name.Text = string.IsNullOrWhiteSpace(env2name) ? ConnectToEnvironment2String : "- ENV2: " + env2name;
-
-			if (string.IsNullOrWhiteSpace(env1name))
-			{
-				this.tEnv1Name.Visible = true;
-				this.tEnv2Name.Visible = false;
-				this.tConnectToEnv2.Visible = false;
-			}
-			else if (string.IsNullOrWhiteSpace(env2name))
-			{
-				this.tEnv1Name.Visible = true;
-				this.tEnv2Name.Visible = false;
-				this.tConnectToEnv2.Visible = true;
-			}
-			else
-			{
-				this.tEnv1Name.Visible = true;
-				this.tEnv2Name.Visible = true;
-				this.tConnectToEnv2.Visible = false;
-			}
+			this.tConnectToEnv2.Text = string.IsNullOrWhiteSpace(env2name) ? ConnectToEnvironment2String : "- ENV2: " + env2name + " (click to change)";
 		}
 
 		private void LoadEntities()

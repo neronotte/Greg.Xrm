@@ -17,7 +17,7 @@ namespace Greg.Xrm.EnvironmentComparer
 	// To generate Base64 string for Images below, you can use https://www.base64-image.de/
 	[Export(typeof(IXrmToolBoxPlugin)),
 		ExportMetadata("Name", "_n.EnvironmentComparer"),
-		ExportMetadata("Description", "Compares entities between two environments"),
+		ExportMetadata("Description", "Simplifies table comparison between two environments"),
 		ExportMetadata("BackgroundColor", PluginConstants.BackgroundColor), // Use a HTML color name
 		ExportMetadata("PrimaryFontColor", PluginConstants.PrimaryFontColor), // Or an hexadecimal code
 		ExportMetadata("SecondaryFontColor", PluginConstants.SecondaryFontColor),
