@@ -108,6 +108,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.resultTree.Location = new System.Drawing.Point(0, 25);
 			this.resultTree.Name = "resultTree";
 			this.resultTree.SelectedImageIndex = 0;
+			this.resultTree.ShowNodeToolTips = true;
 			this.resultTree.Size = new System.Drawing.Size(657, 602);
 			this.resultTree.TabIndex = 2;
 			this.resultTree.NodeMouseClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.OnNodeSelected);

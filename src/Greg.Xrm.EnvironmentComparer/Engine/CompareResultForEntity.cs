@@ -10,15 +10,21 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 		private readonly List<ObjectComparison<Entity>> recordComparisonList = new List<ObjectComparison<Entity>>();
 		private readonly Dictionary<string, string> additionalDataDict = new Dictionary<string, string>();
 
-		public CompareResultForEntity(string entityName, IReadOnlyCollection<ObjectComparison<Entity>> innerCollection)
+		public CompareResultForEntity(string entityName, bool isEntityValidForCrm1, bool isEntityValidForCrm2, IReadOnlyCollection<ObjectComparison<Entity>> innerCollection)
 		{
 			this.EntityName = entityName;
+			this.IsEntityValidForCrm1 = isEntityValidForCrm1;
+			this.IsEntityValidForCrm2 = isEntityValidForCrm2;
 			this.recordComparisonList.AddRange(innerCollection);
 		}
 
 
 
 		public string EntityName { get; }
+
+		public bool IsEntityValidForCrm1 { get; }
+
+		public bool IsEntityValidForCrm2 { get; }
 
 
 		public ObjectComparison<Entity> this[int index]

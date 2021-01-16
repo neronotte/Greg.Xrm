@@ -14,6 +14,7 @@ using System.IO;
 using System.ServiceModel;
 using System.Text;
 using System.Windows.Forms;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -45,13 +46,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			this.WhenChanges(() => Crm1)
 				.ChangesAlso(() => CanLoadEntities)
-				.ChangesAlso(() => CanNewMemento)
-				.ChangesAlso(() => CanOpenMemento)
 				.ChangesAlso(() => CanExecuteComparison);
 
 			this.WhenChanges(() => Crm2)
-				.ChangesAlso(() => CanNewMemento)
-				.ChangesAlso(() => CanOpenMemento)
 				.ChangesAlso(() => CanExecuteComparison);
 
 			messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -59,7 +56,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				.Execute(m =>
 				{
 					this.Crm1 = m.GetNewValue<IOrganizationService>();
-					this.Memento = null;
 				});
 
 			messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -67,10 +63,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				.Execute(m =>
 				{
 					this.Crm2 = m.GetNewValue<IOrganizationService>();
-					this.Memento = null;
 				});
-		}
 
+		}
 
 		public IOrganizationService Crm1
 		{
@@ -131,12 +126,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 		public bool CanNewMemento
 		{
-			get => this.Crm1 != null && this.Crm2 != null;
+			get => true;
 		}
 
 		public bool CanOpenMemento
 		{
-			get => this.Crm1 != null && this.Crm2 != null;
+			get => true;
 		}
 
 		public bool CanSaveMemento
@@ -168,6 +163,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		}
 
 
+		public void Initialize()
+		{
+			if (SettingsManager.Instance.TryLoad(typeof(EnvironmentComparerPluginControl), out Settings settings))
+			{
+				TryOpenFile(settings.LastOpenedFileName);
+			}
+		}
+
 
 		public void OpenMemento()
 		{
@@ -183,6 +186,26 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				mementoFileName = dialog.FileName;
 			}
 
+			if (TryOpenFile(mementoFileName))
+			{
+				if (!SettingsManager.Instance.TryLoad(typeof(EnvironmentComparerPluginControl), out Settings settings))
+				{
+					settings = new Settings();
+				}
+				settings.LastOpenedFileName = mementoFileName;
+				SettingsManager.Instance.Save(typeof(EnvironmentComparerPluginControl), settings);
+			}
+		}
+
+		private bool TryOpenFile(string mementoFileName)
+		{
+			if (string.IsNullOrWhiteSpace(mementoFileName)) return false;
+			if (!File.Exists(mementoFileName))
+			{
+				log.Error("The specified file does not exists: " + mementoFileName);
+				return false;
+			}
+
 			try
 			{
 				Compare.FromMemento(mementoFileName, out EngineMemento engineMemento);
@@ -191,6 +214,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				this.CompareResultSet = null;
 
 				this.log.Debug("Engine created successfully from file " + mementoFileName);
+				return true;
 			}
 			catch (ArgumentException ex)
 			{
@@ -214,6 +238,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				this.log.Error("Error creating engine from JSON config: " + ex.Message, ex);
 			}
 #pragma warning restore CA1031 // Do not catch general exception types
+			return false;
 		}
 
 		public void NewMemento()

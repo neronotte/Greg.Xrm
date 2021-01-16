@@ -4,6 +4,7 @@ using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 using static Greg.Xrm.Extensions;
@@ -47,6 +48,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				.Execute(e =>
 				{
 					this.env1 = e.GetNewValue<string>();
+					this.Results = Array.Empty<ObjectComparison<Entity>>();
 				});
 
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -54,6 +56,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				.Execute(e =>
 				{
 					this.env2 = e.GetNewValue<string>();
+					this.Results = Array.Empty<ObjectComparison<Entity>>();
 				});
 		}
 

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
 using Greg.Xrm.EnvironmentComparer.Help;
+using Greg.Xrm.Model;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -72,6 +73,21 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				this.OnExecuteClick(this.tExecute, EventArgs.Empty);
 			});
 
+
+			messenger.WhenObject<EnvironmentComparerViewModel>()
+				.ChangesProperty(_ => _.Crm1)
+				.Execute(m =>
+				{
+					this.Show();
+				});
+
+			messenger.WhenObject<EnvironmentComparerViewModel>()
+				.ChangesProperty(_ => _.Crm2)
+				.Execute(m =>
+				{
+					this.Show();
+				});
+
 			this.ApplyTheme();
 
 
@@ -82,6 +98,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 					OnMementoChanged();
 				}
 			};
+
+			this.viewModel.Initialize();
 		}
 
 

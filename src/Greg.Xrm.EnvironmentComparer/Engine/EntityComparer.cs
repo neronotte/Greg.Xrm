@@ -118,6 +118,12 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 				catch(FaultException<OrganizationServiceFault> ex)
 				{
 					log.Error($"Error while querying entity {this.EntityName} on {label}: {ex.Message}", ex);
+
+					if (ex.Message.Contains(Constants.WasNotFoundInTheMetadataCache))
+					{
+						throw new EntityNotFoundException(this.EntityName);
+					}
+
 					return result;
 				}
 			}

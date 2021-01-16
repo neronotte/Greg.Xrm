@@ -154,8 +154,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.lblMessage.AutoSize = true;
 			this.lblMessage.Location = new System.Drawing.Point(13, 10);
 			this.lblMessage.Name = "lblMessage";
-			this.lblMessage.Size = new System.Drawing.Size(0, 13);
+			this.lblMessage.Size = new System.Drawing.Size(116, 13);
 			this.lblMessage.TabIndex = 0;
+			this.lblMessage.Text = "Please select a result...";
 			// 
 			// ResultRecordView
 			// 

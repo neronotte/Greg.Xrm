@@ -45,10 +45,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 					return "The record is present in both environments, but the values of some attribute doesn't matches. Review unmatching attributes below.";
 
 				case ObjectComparisonResult.LeftMissing:
-					return "The record is present only on {0}";
+					return "The record is present only on {1} (missing on {0})";
 
 				case ObjectComparisonResult.RightMissing:
-					return "The record is present only on {1}";
+					return "The record is present only on {0} (missing on {1})";
 
 				default:
 					return string.Empty;
