@@ -86,11 +86,14 @@ steps:
     New-Item -Type dir ZipFiles
     New-Item -Type dir ZipFiles\SolutionManager
     New-Item -Type dir ZipFiles\EnvironmentComparer
+    New-Item -Type dir ZipFiles\EnvironmentSolutionsComparer
     New-Item -Type dir ZipFiles\Output
     Copy-Item src\Greg.Xrm.SolutionManager\bin\Release\net462\XrmToolBox\Plugins\*.* -Destination ZipFiles\SolutionManager
     Copy-Item src\Greg.Xrm.EnvironmentComparer\bin\Release\net462\XrmToolBox\Plugins\*.* -Destination ZipFiles\EnvironmentComparer
+    Copy-Item src\Greg.Xrm.EnvironmentSolutionsComparer\bin\Release\net462\XrmToolBox\Plugins\*.* -Destination ZipFiles\EnvironmentSolutionsComparer
     Compress-Archive -Path ZipFiles\SolutionManager\* -DestinationPath ZipFiles\Output\SolutionManager.zip
     Compress-Archive -Path ZipFiles\EnvironmentComparer\* -DestinationPath ZipFiles\Output\EnvironmentComparer.zip
+    Compress-Archive -Path ZipFiles\EnvironmentSolutionsComparer\* -DestinationPath ZipFiles\Output\EnvironmentSolutionsComparer.zip
   displayName: 'Create zip for GitHub'
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))  
 
