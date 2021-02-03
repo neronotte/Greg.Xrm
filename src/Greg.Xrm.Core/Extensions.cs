@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Model;
+using Greg.Xrm.Views;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -750,6 +751,15 @@ namespace Greg.Xrm
 		/// <returns></returns>
 		public static int CalculateHashCode(this object obj, params Func<object>[] memberThunks)
 		{
+			if (obj is null)
+			{
+				throw new ArgumentNullException(nameof(obj));
+			}
+
+			if (memberThunks is null)
+			{
+				throw new ArgumentNullException(nameof(memberThunks));
+			}
 			// Overflow is okay; just wrap around
 			unchecked
 			{
@@ -808,19 +818,20 @@ namespace Greg.Xrm
 		}
 
 
-		public static void Bind<TComponent, TViewModel, TProperty>(
-			this TComponent component, 
-			Expression<Func<TComponent, TProperty>> componentProperty, 
-			TViewModel viewModel, 
-			Expression<Func<TViewModel, TProperty>> viewModelProperty)
-			where TComponent : IBindableComponent
-			where TViewModel : ViewModel
+		public static string GetLocalized(this Microsoft.Xrm.Sdk.Label label, int? localeId = null)
 		{
-			component.DataBindings.Add(
-				componentProperty.GetMemberName(), 
-				viewModel, 
-				viewModelProperty.GetMemberName());
+			if (!localeId.HasValue)
+			{
+				return label?.UserLocalizedLabel?.Label
+					?? label?.LocalizedLabels?.FirstOrDefault()?.Label
+					?? string.Empty;
+			}
 
+			return label?.LocalizedLabels.Where(x => x.LanguageCode == localeId.Value).Select(x => x.Label).FirstOrDefault()
+				?? label?.UserLocalizedLabel?.Label
+				?? label?.LocalizedLabels?.FirstOrDefault()?.Label ??
+				string.Empty;
 		}
+
 	}
 }

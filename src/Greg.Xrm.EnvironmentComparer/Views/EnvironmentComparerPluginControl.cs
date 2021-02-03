@@ -29,7 +29,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		const string ConnectToEnvironment2String = "2. Connect to environment 2";
 
 
-		private Settings mySettings;
 		private readonly ConfiguratorView configuratorView;
 		private readonly OutputView outputView;
 		private readonly ResultTreeView resultTreeView;
@@ -59,7 +58,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.outputView = new OutputView(themeProvider, messenger);
 			this.outputView.Show(this.dockPanel, DockState.DockBottomAutoHide);
 
-			this.viewModel = new EnvironmentComparerViewModel(this.outputView, this.messenger);
+			this.viewModel = new EnvironmentComparerViewModel(this.messenger);
 			var scheduler = new AsyncJobScheduler(this, viewModel);
 
 			this.resultTreeView = new ResultTreeView(themeProvider, scheduler, this.messenger, this.outputView);

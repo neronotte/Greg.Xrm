@@ -31,6 +31,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="System.ValueTuple" Version="4.5.0" />
     <PackageReference Include="XrmToolBoxPackage" Version="1.2020.12.43" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Logging\OutputView.cs">
+      <SubType>Form</SubType>
+    </Compile>
   </ItemGroup>
 </Project>

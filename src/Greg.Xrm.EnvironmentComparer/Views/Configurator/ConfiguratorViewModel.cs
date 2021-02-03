@@ -1,6 +1,5 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Engine.Config;
-using Greg.Xrm.EnvironmentComparer.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Greg.Xrm.Messaging;
@@ -15,6 +14,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
+using Greg.Xrm.Logging;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {

@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Actions;
 using Greg.Xrm.EnvironmentComparer.Help;
-using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;

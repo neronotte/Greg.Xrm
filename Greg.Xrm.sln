@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greg.Xrm.EnvironmentComparer", "src\Greg.Xrm.EnvironmentComparer\Greg.Xrm.EnvironmentComparer.csproj", "{B141DF81-3EC3-436E-9296-DE77112728FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greg.Xrm.EnvironmentComparer", "src\Greg.Xrm.EnvironmentComparer\Greg.Xrm.EnvironmentComparer.csproj", "{B141DF81-3EC3-436E-9296-DE77112728FD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greg.Xrm.Core", "src\Greg.Xrm.Core\Greg.Xrm.Core.csproj", "{9C7332E0-72E6-4417-BA22-0A5E6E031F55}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greg.Xrm.Core", "src\Greg.Xrm.Core\Greg.Xrm.Core.csproj", "{9C7332E0-72E6-4417-BA22-0A5E6E031F55}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greg.Xrm.SolutionManager", "src\Greg.Xrm.SolutionManager\Greg.Xrm.SolutionManager.csproj", "{D6BD388B-5612-45F6-A128-B79D98A96D0C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greg.Xrm.SolutionManager", "src\Greg.Xrm.SolutionManager\Greg.Xrm.SolutionManager.csproj", "{D6BD388B-5612-45F6-A128-B79D98A96D0C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{3420A34D-81CD-4211-B5B9-DD8AC539CE57}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		src\Greg.Xrm.Version.props = src\Greg.Xrm.Version.props
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greg.Xrm.DataModelWikiEditor", "src\Greg.Xrm.DataModelWikiEditor\Greg.Xrm.DataModelWikiEditor.csproj", "{C94A181E-353A-48DA-BBFF-CCDF0DEC2AD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Greg.Xrm.EnvironmentSolutionsComparer", "src\Greg.Xrm.EnvironmentSolutionsComparer\Greg.Xrm.EnvironmentSolutionsComparer.csproj", "{41C40781-B61B-4DBB-8BBF-01D0562D389B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +38,14 @@ Global
 		{D6BD388B-5612-45F6-A128-B79D98A96D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D6BD388B-5612-45F6-A128-B79D98A96D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D6BD388B-5612-45F6-A128-B79D98A96D0C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C94A181E-353A-48DA-BBFF-CCDF0DEC2AD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C94A181E-353A-48DA-BBFF-CCDF0DEC2AD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C94A181E-353A-48DA-BBFF-CCDF0DEC2AD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C94A181E-353A-48DA-BBFF-CCDF0DEC2AD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{41C40781-B61B-4DBB-8BBF-01D0562D389B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{41C40781-B61B-4DBB-8BBF-01D0562D389B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{41C40781-B61B-4DBB-8BBF-01D0562D389B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{41C40781-B61B-4DBB-8BBF-01D0562D389B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

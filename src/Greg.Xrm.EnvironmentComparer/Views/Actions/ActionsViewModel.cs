@@ -1,8 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Actions;
-using Greg.Xrm.EnvironmentComparer.Logging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Views.Output;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;

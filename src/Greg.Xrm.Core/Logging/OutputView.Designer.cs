@@ -1,5 +1,5 @@
 ﻿
-namespace Greg.Xrm.EnvironmentComparer.Views.Output
+namespace Greg.Xrm.Logging
 {
 	partial class OutputView
 	{

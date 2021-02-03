@@ -1,4 +1,4 @@
-﻿using Greg.Xrm.EnvironmentComparer.Logging;
+﻿using Greg.Xrm.Logging;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
