@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Greg.Xrm.EnvironmentComparer.Logging
+namespace Greg.Xrm.Logging
 {
 	public interface ILog
 	{

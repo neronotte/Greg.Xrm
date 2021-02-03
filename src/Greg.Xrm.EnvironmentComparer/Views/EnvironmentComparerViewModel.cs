@@ -1,5 +1,4 @@
-﻿using Greg.Xrm.EnvironmentComparer.Logging;
-using Greg.Xrm.Messaging;
+﻿using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
@@ -8,14 +7,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 {
 	public class EnvironmentComparerViewModel : PluginViewModelBase
 	{
-		private readonly ILog log;
-		private readonly IMessenger messenger;
-
-		public EnvironmentComparerViewModel(ILog log, IMessenger messenger)
+		public EnvironmentComparerViewModel(IMessenger messenger)
 		{
-			this.log = log;
-			this.messenger = messenger;
-
 			this.WhenChanges(() => Env1)
 				.ChangesAlso(() => ConnectionName1)
 				.ChangesAlso(() => AreEqual);

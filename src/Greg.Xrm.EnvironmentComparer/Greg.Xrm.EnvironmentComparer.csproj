@@ -42,7 +42,7 @@
     <None Remove="Help\Content\result-tree.html" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.5.1" />
+    <PackageReference Include="EPPlus" Version="5.5.2" />
     <PackageReference Include="ILMerge" Version="3.0.41" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />

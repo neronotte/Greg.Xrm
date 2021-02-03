@@ -26,6 +26,14 @@ It provides the following capabilities
 - search by CTRL+F / F3
 - enriched output log view via treeview
 
+## _n.DataModelWikiEditor
+**Data Model Wiki Editor** mai purpose is to generate markdown documentation
+for a set of entities in a given DataVerse environment.
+
+Inputs:
+- A target folder, that can contain
+   - a json configuration file (if none, it will be created)
+   - an excel configuration file (if none, it will be created)
 
 # Wishlist
 

@@ -1,5 +1,5 @@
-﻿using Greg.Xrm.EnvironmentComparer.Logging;
-using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+﻿using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+using Greg.Xrm.Logging;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using Newtonsoft.Json;
