@@ -12,10 +12,7 @@
     <RootNamespace>Greg.Xrm.DataModelWikiEditor</RootNamespace>
     <AssemblyName>Greg.Xrm.DataModelWikiEditor</AssemblyName>
     <TargetFramework>net462</TargetFramework>
-	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
     <FileAlignment>512</FileAlignment>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
