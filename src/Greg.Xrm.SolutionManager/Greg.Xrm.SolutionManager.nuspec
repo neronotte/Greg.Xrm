@@ -25,6 +25,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\Release\net462\XrmToolBox\Plugins\Greg.Xrm.SolutionManager.dll" target="lib\net462\Plugins" />
+		<file src="bin\Release\XrmToolBox\Plugins\Greg.Xrm.SolutionManager.dll" target="lib\net462\Plugins" />
 	</files>
 </package>
