@@ -19,8 +19,14 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 			differentProperties = new List<Difference>();
 
 			if (x == null && y == null) return true;
-			if (x == null) return false;
-			if (y == null) return false;
+			if (x == null)
+			{
+				x = new Entity(y.LogicalName); // if null, I create a fake entity to highlight differences
+			}
+			if (y == null)
+			{
+				y = new Entity(x.LogicalName); // if null, I create a fake entity to highlight differences
+			}
 			if (!x.LogicalName.Equals(y.LogicalName)) return false;
 
 			var keyPropertyName = x.LogicalName + "id";

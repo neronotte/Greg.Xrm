@@ -116,12 +116,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.pnlMessage.BackColor = record.Result.GetColor();
 			this.lblMessage.Text = string.Format(record.Result.GetMessage(), this.lblEnv1.Text, this.lblEnv2.Text);
 
-			this.label1.Visible = record.Result == ObjectComparisonResult.MatchingButDifferent;
-			this.cmbAttributes.Visible = record.Result == ObjectComparisonResult.MatchingButDifferent;
-			this.lblEnv1.Visible = record.Result == ObjectComparisonResult.MatchingButDifferent;
-			this.lblEnv2.Visible = record.Result == ObjectComparisonResult.MatchingButDifferent;
-			this.txtValue1.Visible = record.Result == ObjectComparisonResult.MatchingButDifferent;
-			this.txtValue2.Visible = record.Result == ObjectComparisonResult.MatchingButDifferent;
+			this.label1.Visible = record.Result != ObjectComparisonResult.Equals;
+			this.cmbAttributes.Visible = record.Result != ObjectComparisonResult.Equals;
+			this.lblEnv1.Visible = record.Result != ObjectComparisonResult.Equals;
+			this.lblEnv2.Visible = record.Result != ObjectComparisonResult.Equals;
+			this.txtValue1.Visible = record.Result != ObjectComparisonResult.Equals;
+			this.txtValue2.Visible = record.Result != ObjectComparisonResult.Equals;
 
 			this.cmbAttributes.Items.Clear();
 			foreach(var property in record.DifferentProperties)

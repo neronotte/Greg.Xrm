@@ -66,7 +66,9 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 				ObjectComparison<T> comparison;
 				if (!dict2.TryGetValue(kvp.Key, out T item2))
 				{
-					comparison = ObjectComparison<T>.OnlyItem1(kvp.Key, item1);
+					this.equalityComparer.Equals(item1, null, out List<Difference> differentProperties);
+
+					comparison = ObjectComparison<T>.OnlyItem1(kvp.Key, item1, differentProperties);
 				}
 				else
 				{
@@ -82,8 +84,9 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 				if (dict1.ContainsKey(kvp.Key))
 					continue;
 
+				this.equalityComparer.Equals(null, item2, out List<Difference> differentProperties);
 
-				var comparison = ObjectComparison<T>.OnlyItem2(kvp.Key, item2);
+				var comparison = ObjectComparison<T>.OnlyItem2(kvp.Key, item2, differentProperties);
 				resultList.Add(comparison);
 			}
 
