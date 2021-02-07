@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentSolutionsComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
+using System;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -25,6 +26,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Environments
 
 			this.tAddEnvironment.Bind(_ => _.Enabled, this.viewModel, _ => _.CanAddEnvironment);
 			this.tRemoveEnvironment.Bind(_ => _.Enabled, this.viewModel, _ => _.CanRemoveEnvironment);
+			this.mRemoveEnvironment.Bind(_ => _.Enabled, this.viewModel, _ => _.CanRemoveEnvironment);
 
 
 			this.environmentList.BindCollection(this.viewModel.EnvironmentList, i =>
@@ -36,15 +38,9 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Environments
 				};
 			});
 
-
 			this.tAddEnvironment.Click += (s, e) => this.messenger.Send<AddNewConnectionMessage>();
-			this.tRemoveEnvironment.Click += (s, e) =>
-			{
-				if (this.environmentList.SelectedItems.Count == 0) return;
-
-				var model = (ConnectionModel)this.environmentList.SelectedItems[0].Tag;
-				this.messenger.Send(new RemoveConnectionMessage(model.Detail));
-			};
+			this.tRemoveEnvironment.Click += (s, e) => RemoveEnvironment();
+			this.mRemoveEnvironment.Click += (s, e) => RemoveEnvironment();
 
 			this.environmentList.SelectedIndexChanged += (s, e) =>
 			{
@@ -57,6 +53,22 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Environments
 				this.viewModel.SelectedModel = selectedModel;
 			};
 		}
+
+		private void RemoveEnvironment()
+		{
+			if (this.environmentList.SelectedItems.Count == 0) return;
+
+			var model = (ConnectionModel)this.environmentList.SelectedItems[0].Tag;
+
+			var result = MessageBox.Show($"Do you really want to remove environment <{model.Detail.ConnectionName}>", "Remove environment", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result != DialogResult.Yes) return;
+
+			this.messenger.Send(new RemoveConnectionMessage(model.Detail));
+		}
+
+
+
+
 		private void ApplyTheme()
 		{
 			var theme = this.themeProvider.GetCurrentTheme();

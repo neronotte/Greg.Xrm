@@ -127,9 +127,21 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			var model = obj.Model;
 			this.Grid.Environments.Remove(model);
 
+			var rowsToRemove = new List<SolutionRow>();
+
 			foreach (var row in this.Grid.Rows)
 			{
 				row[model.Detail.ConnectionName] = null;
+
+				if (row.IsEmpty)
+				{
+					rowsToRemove.Add(row);
+				}
+			}
+
+			foreach (var row in rowsToRemove)
+			{
+				this.Grid.Rows.Remove(row);
 			}
 
 			this.RefreshGrid?.Invoke(this, EventArgs.Empty);

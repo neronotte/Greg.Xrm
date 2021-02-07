@@ -80,7 +80,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			var helpContentIndex = helpContentIndexProvider.GetIndex();
 			var helpRepository = new HelpRepository(helpContentIndex);
 			var helpView = new HelpView(this.messenger, this.outputView, helpRepository);
-			helpView.Show(this.dockPanel, DockState.DockRightAutoHide);
+			helpView.Show(this.dockPanel, DockState.DockRight);
+			helpView.Hide(); // trick used because the DockState.AutoHide doesn't works well with browser control: the WebBrowser control "Dispose" method throws an exception if the form has not been loaded
 
 			this.resultGridView.Show();
 			this.configuratorView.Show();

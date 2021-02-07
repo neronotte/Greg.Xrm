@@ -10,7 +10,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 
 		#region Static factory
 
-		public static ObjectComparison<T> OnlyItem1(string key, T item1)
+		public static ObjectComparison<T> OnlyItem1(string key, T item1, IReadOnlyCollection<Difference> differentProperties = null)
 		{
 			if (string.IsNullOrWhiteSpace(key))
 				throw new ArgumentNullException(nameof(key));
@@ -18,18 +18,18 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 				throw new ArgumentNullException(nameof(item1));
 
 
-			return new ObjectComparison<T>(key, item1, null, ObjectComparisonResult.RightMissing);
+			return new ObjectComparison<T>(key, item1, null, ObjectComparisonResult.RightMissing, differentProperties);
 		}
 
 
-		public static ObjectComparison<T> OnlyItem2(string key, T item2)
+		public static ObjectComparison<T> OnlyItem2(string key, T item2, IReadOnlyCollection<Difference> differentProperties = null)
 		{
 			if (string.IsNullOrWhiteSpace(key))
 				throw new ArgumentNullException(nameof(key));
 			if (item2 == default(T))
 				throw new ArgumentNullException(nameof(item2));
 
-			return new ObjectComparison<T>(key, null, item2, ObjectComparisonResult.LeftMissing);
+			return new ObjectComparison<T>(key, null, item2, ObjectComparisonResult.LeftMissing, differentProperties);
 		}
 
 

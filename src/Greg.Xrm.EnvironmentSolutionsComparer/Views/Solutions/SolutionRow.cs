@@ -35,17 +35,21 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		public bool AllSameVersion
 		{
-			get {
+			get 
+			{
 				return this.solutionDict.Values.Select(_ => _.version).Distinct().Count() <= 1;
 			}
 		}
 
 		public bool IsAnyInvisible
 		{
-			get {
+			get 
+			{
 				return this.solutionDict.Values.Any(_ => !_.isvisible);
 			}
 		}
+
+		public bool IsEmpty { get => this.solutionDict.Count == 0; }
 
 		public IEnumerator<Solution> GetEnumerator()
 		{
