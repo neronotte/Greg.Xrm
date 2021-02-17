@@ -51,6 +51,15 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 			this.tShowOnlyVisible.Bind(_ => _.Text, this.viewModel, _ => _.ShowOnlyVisibleSolutionsText);
 			this.tShowOnlyVisible.Click += (s, e) => this.viewModel.ShowOnlyVisibleSolutions = !this.viewModel.ShowOnlyVisibleSolutions;
+
+
+			this.listView.SelectedIndexChanged += (s, e) =>
+			{
+				if (this.listView.SelectedItems.Count == 0) return;
+
+				var item = (SolutionRow)this.listView.SelectedItems[0].Tag;
+				messenger.Send(new SolutionSelectedMessage(item));
+			};
 		}
 
 		private void OnRefreshGrid(object sender, EventArgs e)
@@ -79,6 +88,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				var item = this.listView.Items.Add(gridRow.SolutionUniqueName);
 				item.UseItemStyleForSubItems = false;
 				item.SubItems.Add(gridRow.SolutionPublisher);
+				item.Tag = gridRow;
 
 				foreach (var env in grid.Environments)
 				{
