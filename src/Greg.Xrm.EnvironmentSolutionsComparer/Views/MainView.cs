@@ -23,6 +23,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 		private readonly OutputView outputView;
 		private readonly EnvironmentListView environmentListView;
 		private readonly SolutionsView solutionsView;
+		private readonly SolutionComponentsView solutionComponentsView;
 
 		public MainView(IThemeProvider themeProvider)
 		{
@@ -42,6 +43,12 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 
 			this.solutionsView = new SolutionsView(this.outputView, themeProvider, messenger, scheduler);
 			this.solutionsView.Show(this.dockPanel, DockState.Document);
+
+			this.solutionComponentsView = new SolutionComponentsView(this.outputView, themeProvider, messenger, scheduler);
+			this.solutionComponentsView.Show(this.dockPanel, DockState.Document);
+
+			this.solutionsView.Show();
+
 
 			messenger.Register<AddNewConnectionMessage>(m => this.AddAdditionalOrganization());
 			messenger.Register<RemoveConnectionMessage>(m => this.RemoveAdditionalOrganization(m.Detail));

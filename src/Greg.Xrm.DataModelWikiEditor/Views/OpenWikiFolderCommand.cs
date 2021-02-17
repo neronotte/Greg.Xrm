@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.Views;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace Greg.Xrm.DataModelWikiEditor.Views
@@ -35,7 +36,10 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 				settings.LastUsedFolder = dialog.SelectedPath;
 				settings.Save();
 			}
-			
+
+			var directory = new DirectoryInfo(settings.LastUsedFolder);
+
+			//var configFile = directory.GetFiles("config.json").FirstOrDefault();
 		}
 	}
 }
