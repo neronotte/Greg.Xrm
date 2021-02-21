@@ -26,7 +26,7 @@ namespace Greg.Xrm.SolutionManager
 	{
 		public override IXrmToolBoxPluginControl GetControl()
 		{
-			return new SolutionManagerPluginControl();
+			return new SolutionManagerPluginControl().SetIcon();
 		}
 
 		/// <summary>

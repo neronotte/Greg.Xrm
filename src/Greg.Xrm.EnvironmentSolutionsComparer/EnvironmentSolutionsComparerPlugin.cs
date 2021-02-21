@@ -31,7 +31,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer
 		{
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 			var themeProvider = new ThemeProvider();
-			return new MainView(themeProvider);
+			return new MainView(themeProvider).SetIcon();
 		}
 
 		/// <summary>

@@ -63,7 +63,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			var col = new OLVColumn
 			{
 				Text = "Component name",
-				Width = 400,
+				Width = 500,
 				AspectGetter = _ => ((SolutionComponentNode)_).Label + ((_ is SolutionComponentComposite node) ? $" ({node.Count})" : string.Empty)
 			};
 			this.tree.Columns.Add(col);
@@ -72,7 +72,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			{
 				Text = "Object Id",
 				Width = 200,
-				AspectGetter = _ => (_ is SolutionComponentLeaf model) ? model.ObjectId.ToString() : string.Empty
+				AspectGetter = _ => (_ is SolutionComponentLeaf model) ? model.ObjectId.ToString() : string.Empty,
 			};
 			this.tree.Columns.Add(col);
 
@@ -83,7 +83,26 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				{
 					Text = connection.Detail.ConnectionName,
 					Width = 150,
-					AspectGetter = _ => (_ is SolutionComponentLeaf model) && model.Environments.Contains(connection) ? "YEP" : string.Empty
+					TextAlign = System.Windows.Forms.HorizontalAlignment.Center,
+					AspectGetter = _ => {
+						if (_ is SolutionComponentLeaf leaf)
+						{
+							return leaf.Environments.Contains(connection) ? "YEP" : string.Empty;
+						}
+
+						if (_ is SolutionComponentComposite composite)
+						{
+							var count = composite.OfType<SolutionComponentLeaf>().Count(x => x.Environments.Contains(connection));
+							var total = composite.Count;
+							var percent = (count * 100d / total);
+							var percentString = percent.ToString("0.##");
+
+
+							return $"{count}/{total} ({percentString}%)";
+						}
+
+						return string.Empty;
+					}
 				};
 				this.tree.Columns.Add(col);
 			}

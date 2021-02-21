@@ -84,5 +84,26 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		{
 			this.Label = entity.GetAttributeValue<string>("name");
 		}
+
+		internal void SetLabelFromDisplayString(Entity entity)
+		{
+			this.Label = entity.GetAttributeValue<string>("displaystringkey");
+		}
+
+		internal void SetLabelFromSavedQuery(Entity entity)
+		{
+			var name = entity.GetAttributeValue<string>("name");
+			var typecode = entity.GetAttributeValue<string>("returnedtypecode");
+			this.Label = $"{typecode}: {name}";
+		}
+
+		internal void SetLabelFromRibbonCustomization(Entity entity)
+		{
+			this.Label = entity.GetAttributeValue<string>("entity");
+			if (string.IsNullOrWhiteSpace(Label))
+			{
+				this.Label = "Application ribbon";
+			}
+		}
 	}
 }
