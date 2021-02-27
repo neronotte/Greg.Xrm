@@ -26,6 +26,12 @@ namespace Greg.Xrm.Views
 		}
 
 		protected abstract void ExecuteInternal(object arg);
+
+
+		public virtual void RefreshCanExecute()
+		{
+			this.OnPropertyChanged(nameof(CanExecute), CanExecute);
+		}
 	}
 
 

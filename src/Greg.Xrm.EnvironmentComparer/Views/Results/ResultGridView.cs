@@ -33,11 +33,13 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
 			this.viewModel = new ResultGridViewModel(messenger);
-			
-			this.cmiCopyToEnv1.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCopyToEnv1Enabled);
-			this.cmiCopyToEnv2.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCopyToEnv2Enabled);
-			this.cmiDeleteFromEnv1.Bind(_ => _.Enabled, this.viewModel, _ => _.IsDeleteFromEnv1Enabled);
-			this.cmiDeleteFromEnv2.Bind(_ => _.Enabled, this.viewModel, _ => _.IsDeleteFromEnv2Enabled);
+
+			this.cmiCopyToEnv1.BindCommand(() => this.viewModel.CopyToEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
+			this.cmiCopyToEnv2.BindCommand(() => this.viewModel.CopyToEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
+
+			this.cmiDeleteFromEnv1.BindCommand(() => this.viewModel.DeleteFromEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
+			this.cmiDeleteFromEnv2.BindCommand(() => this.viewModel.DeleteFromEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
+
 			this.cmiCompare.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCompareEnabled);
 
 			this.ApplyTheme();
@@ -52,6 +54,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					this.cEnv1.Text = env1 + " values";
 					this.lLegend2.Text = "Missing on " + env1;
 					this.cmiCopyToEnv1.Text = "Copy to " + env1;
+					this.cmiDeleteFromEnv1.Text = "Delete from " + env1;
 				});
 
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -63,6 +66,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					this.cEnv2.Text = env2 + " values";
 					this.lLegend3.Text = "Missing on " + env2;
 					this.cmiCopyToEnv2.Text = "Copy to " + env2;
+					this.cmiDeleteFromEnv2.Text = "Delete from " + env2;
 				});
 
 			this.viewModel.PropertyChanged += (s, e) =>
@@ -73,7 +77,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					this.OnResultsChanged();
 				}
 			};
-			this.viewModel.ResultUpdated += (s, e) =>
+			this.messenger.Register<ResultUpdatedMessage>(e =>
 			{
 				var item = this.listView1.Items.Cast<ListViewItem>().FirstOrDefault(_ => _.Tag == e.Result);
 				if (item == null)
@@ -87,8 +91,46 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				{
 					item.BackColor = e.Result.Result.GetColor();
 				}
+			});
 
-			};
+			this.messenger.Register<ChangeSelectionMessage>(m =>
+			{
+				if (this.listView1.Items.Count == 0) return;
+				if (this.listView1.SelectedIndices.Count == 0)
+				{
+					if (m.IndexIncrement >= 0)
+					{
+						this.listView1.SelectedIndices.Add(0);
+					}
+					else
+					{
+						this.listView1.SelectedIndices.Add(this.listView1.Items.Count -1);
+					}
+					return;
+				}
+
+				if (m.IndexIncrement >= 0)
+				{
+					var lastSelectedIndex = this.listView1.SelectedIndices.OfType<int>().OrderBy(_ => _).Max();
+
+					var newSelectedIndex = (lastSelectedIndex + m.IndexIncrement) % this.listView1.Items.Count;
+					this.listView1.SelectedIndices.Clear();
+					this.listView1.SelectedIndices.Add(newSelectedIndex);
+				}
+				else
+				{
+					var lastSelectedIndex = this.listView1.SelectedIndices.OfType<int>().OrderBy(_ => _).Min();
+
+					var newSelectedIndex = (lastSelectedIndex + m.IndexIncrement);
+					if (newSelectedIndex < 0)
+					{
+						newSelectedIndex = this.listView1.Items.Count - newSelectedIndex;
+					}
+
+					this.listView1.SelectedIndices.Clear();
+					this.listView1.SelectedIndices.Add(newSelectedIndex);
+				}
+			});
 		}
 
 
@@ -198,26 +240,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			{
 				this.messenger.Send<HighlightResultRecord>();
 			}
-		}
-
-		private void OnCopyToEnv2Click(object sender, EventArgs e)
-		{
-			this.viewModel.CopySelectedRowTo(2);
-		}
-
-		private void OnCopyToEnv1Click(object sender, EventArgs e)
-		{
-			this.viewModel.CopySelectedRowTo(1);
-		}
-
-		private void OnDeleteFromEnv1Click(object sender, EventArgs e)
-		{
-			this.viewModel.DeleteSelectedRowFrom(1);
-		}
-
-		private void OnDeleteFromEnv2Click(object sender, EventArgs e)
-		{
-			this.viewModel.DeleteSelectedRowFrom(2);
 		}
 	}
 }

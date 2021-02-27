@@ -32,11 +32,15 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultTreeView));
 			this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
-			this.mMarkOK = new System.Windows.Forms.ToolStripMenuItem();
-			this.mUnmarkOK = new System.Windows.Forms.ToolStripMenuItem();
+			this.cmiMarkOK = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiUnmarkOK = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiCopyToEnv2 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiCopyToEnv1 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiDeleteFromEnv1 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.cmiDeleteFromEnv2 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.images = new System.Windows.Forms.ImageList(this.components);
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
-			this.tDownloadExcelFile = new System.Windows.Forms.ToolStripButton();
+			this.tDownloadExcelFile = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.resultTree = new System.Windows.Forms.TreeView();
 			this.contextMenuStrip1.SuspendLayout();
 			this.toolStrip1.SuspendLayout();
@@ -45,26 +49,62 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			// contextMenuStrip1
 			// 
 			this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mMarkOK,
-            this.mUnmarkOK});
+            this.cmiMarkOK,
+            this.cmiUnmarkOK,
+            this.cmiCopyToEnv2,
+            this.cmiCopyToEnv1,
+            this.cmiDeleteFromEnv1,
+            this.cmiDeleteFromEnv2});
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
-			this.contextMenuStrip1.Size = new System.Drawing.Size(162, 48);
+			this.contextMenuStrip1.Size = new System.Drawing.Size(181, 158);
 			// 
 			// mMarkOK
 			// 
-			this.mMarkOK.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.accept;
-			this.mMarkOK.Name = "mMarkOK";
-			this.mMarkOK.Size = new System.Drawing.Size(161, 22);
-			this.mMarkOK.Text = "Mark as good";
-			this.mMarkOK.Click += new System.EventHandler(this.OnMarkOkClick);
+			this.cmiMarkOK.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.accept;
+			this.cmiMarkOK.Name = "mMarkOK";
+			this.cmiMarkOK.Size = new System.Drawing.Size(180, 22);
+			this.cmiMarkOK.Text = "Mark as good";
+			this.cmiMarkOK.Click += new System.EventHandler(this.OnMarkOkClick);
 			// 
 			// mUnmarkOK
 			// 
-			this.mUnmarkOK.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete;
-			this.mUnmarkOK.Name = "mUnmarkOK";
-			this.mUnmarkOK.Size = new System.Drawing.Size(161, 22);
-			this.mUnmarkOK.Text = "Unmark as good";
-			this.mUnmarkOK.Click += new System.EventHandler(this.OnUnmarkOkClick);
+			this.cmiUnmarkOK.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete;
+			this.cmiUnmarkOK.Name = "mUnmarkOK";
+			this.cmiUnmarkOK.Size = new System.Drawing.Size(180, 22);
+			this.cmiUnmarkOK.Text = "Unmark as good";
+			this.cmiUnmarkOK.Click += new System.EventHandler(this.OnUnmarkOkClick);
+			// 
+			// cmiCopyToEnv2
+			// 
+			this.cmiCopyToEnv2.Enabled = false;
+			this.cmiCopyToEnv2.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_right;
+			this.cmiCopyToEnv2.Name = "cmiCopyToEnv2";
+			this.cmiCopyToEnv2.Size = new System.Drawing.Size(180, 22);
+			this.cmiCopyToEnv2.Text = "Copy to ENV2";
+			// 
+			// cmiCopyToEnv1
+			// 
+			this.cmiCopyToEnv1.Enabled = false;
+			this.cmiCopyToEnv1.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_left;
+			this.cmiCopyToEnv1.Name = "cmiCopyToEnv1";
+			this.cmiCopyToEnv1.Size = new System.Drawing.Size(180, 22);
+			this.cmiCopyToEnv1.Text = "Copy to ENV1";
+			// 
+			// cmiDeleteFromEnv1
+			// 
+			this.cmiDeleteFromEnv1.Enabled = false;
+			this.cmiDeleteFromEnv1.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete_left;
+			this.cmiDeleteFromEnv1.Name = "cmiDeleteFromEnv1";
+			this.cmiDeleteFromEnv1.Size = new System.Drawing.Size(180, 22);
+			this.cmiDeleteFromEnv1.Text = "Delete from ENV1";
+			// 
+			// cmiDeleteFromEnv2
+			// 
+			this.cmiDeleteFromEnv2.Enabled = false;
+			this.cmiDeleteFromEnv2.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.delete_right;
+			this.cmiDeleteFromEnv2.Name = "cmiDeleteFromEnv2";
+			this.cmiDeleteFromEnv2.Size = new System.Drawing.Size(180, 22);
+			this.cmiDeleteFromEnv2.Text = "Delete from ENV2";
 			// 
 			// images
 			// 
@@ -94,7 +134,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.tDownloadExcelFile.Name = "tDownloadExcelFile";
 			this.tDownloadExcelFile.Size = new System.Drawing.Size(139, 22);
 			this.tDownloadExcelFile.Text = "Download Excel file...";
-			this.tDownloadExcelFile.Click += new System.EventHandler(this.OnDownloadExcelFileClick);
 			// 
 			// resultTree
 			// 
@@ -135,10 +174,14 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		#endregion
 		private System.Windows.Forms.ImageList images;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
-		private System.Windows.Forms.ToolStripMenuItem mMarkOK;
-		private System.Windows.Forms.ToolStripMenuItem mUnmarkOK;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiMarkOK;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiUnmarkOK;
 		private System.Windows.Forms.ToolStrip toolStrip1;
 		private System.Windows.Forms.TreeView resultTree;
-		private System.Windows.Forms.ToolStripButton tDownloadExcelFile;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem tDownloadExcelFile;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiCopyToEnv2;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiCopyToEnv1;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiDeleteFromEnv1;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem cmiDeleteFromEnv2;
 	}
 }

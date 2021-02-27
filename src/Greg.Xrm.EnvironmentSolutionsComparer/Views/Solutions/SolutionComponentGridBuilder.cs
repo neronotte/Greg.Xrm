@@ -35,12 +35,15 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			}
 
 			FillCustomControls(grid, connections);
+			FillDisplayStrings(grid, connections);
 			FillEmailTemplates(grid, connections);
 			FillEntities(grid, connections);
 			FillFieldSecurityProfiles(grid, connections);
 			FillPluginAssemblies(grid, connections);
+			FillRibbonCustomizations(grid, connections);
 			FillRoles(grid, connections);
 			FillSdkMessageProcessingSteps(grid, connections);
+			FillSavedQuery(grid, connections);
 			FillSystemForms(grid, connections);
 			FillWebResources(grid, connections);
 			FillWorkflows(grid, connections);
@@ -69,6 +72,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			{
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.CustomControl);
 				if (group == null) return;
+
+				group.SetAnalyzed();
 
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
@@ -100,12 +105,53 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			}
 		}
 
+		private void FillDisplayStrings(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
+		{
+			using (this.log.Track("Fetching DisplayString definitions"))
+			{
+				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.DisplayString);
+				if (group == null) return;
+
+				group.SetAnalyzed();
+
+				var idList = group
+					.OfType<SolutionComponentLeaf>()
+					.Select(_ => _.ObjectId)
+					.ToList();
+
+				foreach (var env in connections)
+				{
+					if (idList.Count == 0) return;
+
+					var query = new QueryExpression("displaystring");
+					query.ColumnSet.AddColumns("displaystringkey");
+					query.Criteria.AddCondition("displaystringid", ConditionOperator.In, idList.Cast<object>().ToArray());
+					query.NoLock = true;
+
+					var result = env.Crm.RetrieveMultiple(query);
+
+					var entityList = result.Entities;
+
+					foreach (var entity in entityList)
+					{
+						var entityId = entity.Id;
+						idList.Remove(entityId);
+
+						var leaf = group.OfType<SolutionComponentLeaf>().First(_ => _.ObjectId == entityId);
+						leaf.SetLabelFromDisplayString(entity);
+					}
+				}
+			}
+		}
+
 		private void FillEmailTemplates(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
 		{
 			using (this.log.Track("Fetching email templates definitions"))
 			{
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.EmailTemplate);
 				if (group == null) return;
+
+				group.SetAnalyzed();
 
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
@@ -143,6 +189,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			{
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.Entity);
 				if (group == null) return;
+
+				group.SetAnalyzed();
 
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
@@ -190,6 +238,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.FieldSecurityProfile);
 				if (group == null) return;
 
+				group.SetAnalyzed();
+
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
 					.Select(_ => _.ObjectId)
@@ -227,6 +277,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.PluginAssembly);
 				if (group == null) return;
 
+				group.SetAnalyzed();
+
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
 					.Select(_ => _.ObjectId)
@@ -256,12 +308,54 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				}
 			}
 		}
+
+		private void FillRibbonCustomizations(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
+		{
+			using (this.log.Track("Fetching RibbonCustomizations definitions"))
+			{
+				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.RibbonCustomization);
+				if (group == null) return;
+
+				group.SetAnalyzed();
+
+				var idList = group
+					.OfType<SolutionComponentLeaf>()
+					.Select(_ => _.ObjectId)
+					.ToList();
+
+				foreach (var env in connections)
+				{
+					if (idList.Count == 0) return;
+
+					var query = new QueryExpression("ribboncustomization");
+					query.ColumnSet.AddColumns("entity");
+					query.Criteria.AddCondition("ribboncustomizationid", ConditionOperator.In, idList.Cast<object>().ToArray());
+					query.NoLock = true;
+
+					var result = env.Crm.RetrieveMultiple(query);
+
+					var entityList = result.Entities;
+
+					foreach (var entity in entityList)
+					{
+						var entityId = entity.Id;
+						idList.Remove(entityId);
+
+						var leaf = group.OfType<SolutionComponentLeaf>().First(_ => _.ObjectId == entityId);
+						leaf.SetLabelFromRibbonCustomization(entity);
+					}
+				}
+			}
+		}
+
 		private void FillRoles(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
 		{
 			using (this.log.Track("Fetching Roles definitions"))
 			{
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.Role);
 				if (group == null) return;
+
+				group.SetAnalyzed();
 
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
@@ -300,6 +394,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.SDKMessageProcessingStep);
 				if (group == null) return;
 
+				group.SetAnalyzed();
+
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
 					.Select(_ => _.ObjectId)
@@ -330,12 +426,53 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			}
 		}
 
+		private void FillSavedQuery(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
+		{
+			using (this.log.Track("Fetching SavedQuery definitions"))
+			{
+				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.SavedQuery);
+				if (group == null) return;
+
+				group.SetAnalyzed();
+
+				var idList = group
+					.OfType<SolutionComponentLeaf>()
+					.Select(_ => _.ObjectId)
+					.ToList();
+
+				foreach (var env in connections)
+				{
+					if (idList.Count == 0) return;
+
+					var query = new QueryExpression("savedquery");
+					query.ColumnSet.AddColumns("name", "returnedtypecode");
+					query.Criteria.AddCondition("savedqueryid", ConditionOperator.In, idList.Cast<object>().ToArray());
+					query.NoLock = true;
+
+					var result = env.Crm.RetrieveMultiple(query);
+
+					var entityList = result.Entities;
+
+					foreach (var entity in entityList)
+					{
+						var entityId = entity.Id;
+						idList.Remove(entityId);
+
+						var leaf = group.OfType<SolutionComponentLeaf>().First(_ => _.ObjectId == entityId);
+						leaf.SetLabelFromSavedQuery(entity);
+					}
+				}
+			}
+		}
+
 		private void FillSystemForms(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
 		{
 			using (this.log.Track("Fetching SystemForm definitions"))
 			{
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.SystemForm);
 				if (group == null) return;
+
+				group.SetAnalyzed();
 
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
@@ -374,6 +511,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.WebResource);
 				if (group == null) return;
 
+				group.SetAnalyzed();
+
 				var idList = group
 					.OfType<SolutionComponentLeaf>()
 					.Select(_ => _.ObjectId)
@@ -410,6 +549,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			{
 				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.Workflow);
 				if (group == null) return;
+
+				group.SetAnalyzed();
 
 				var idList = group
 					.OfType<SolutionComponentLeaf>()

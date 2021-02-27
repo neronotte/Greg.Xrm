@@ -25,7 +25,7 @@ namespace Greg.Xrm.DataModelWikiEditor
 		public override IXrmToolBoxPluginControl GetControl()
 		{
 			var settingsProvider = new SettingsProvider<Settings, DataModelWikiEditorPlugin>();
-			return new Views.MainView(settingsProvider);
+			return new Views.MainView(settingsProvider).SetIcon();
 		}
 
 		/// <summary>

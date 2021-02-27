@@ -36,5 +36,10 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.children.Add(child);
 			return child;
 		}
+
+		internal void SetAnalyzed()
+		{
+			this.Label = "*" + this.Label;
+		}
 	}
 }

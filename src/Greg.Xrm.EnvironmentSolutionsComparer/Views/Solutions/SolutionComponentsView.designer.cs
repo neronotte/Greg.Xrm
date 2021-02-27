@@ -10,9 +10,9 @@
 			this.tSolutionName = new Greg.Xrm.Views.ToolStripBindableLabel();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tCompareComponents = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tree = new BrightIdeasSoftware.TreeListView();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.tree = new BrightIdeasSoftware.TreeListView();
 			this.toolStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.tree)).BeginInit();
 			this.SuspendLayout();
@@ -51,21 +51,6 @@
 			this.tCompareComponents.Size = new System.Drawing.Size(192, 22);
 			this.tCompareComponents.Text = "Compare solution components";
 			// 
-			// tree
-			// 
-			this.tree.CellEditUseWholeCell = false;
-			this.tree.Cursor = System.Windows.Forms.Cursors.Default;
-			this.tree.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tree.HideSelection = false;
-			this.tree.Location = new System.Drawing.Point(0, 25);
-			this.tree.Name = "tree";
-			this.tree.ShowGroups = false;
-			this.tree.Size = new System.Drawing.Size(693, 424);
-			this.tree.TabIndex = 1;
-			this.tree.UseCompatibleStateImageBehavior = false;
-			this.tree.View = System.Windows.Forms.View.Details;
-			this.tree.VirtualMode = true;
-			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -78,6 +63,25 @@
 			this.toolStripLabel1.Name = "toolStripLabel1";
 			this.toolStripLabel1.Size = new System.Drawing.Size(243, 22);
 			this.toolStripLabel1.Text = "This is a preview feature... work in progress!";
+			// 
+			// tree
+			// 
+			this.tree.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+			this.tree.CellEditUseWholeCell = false;
+			this.tree.Cursor = System.Windows.Forms.Cursors.Default;
+			this.tree.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tree.FullRowSelect = true;
+			this.tree.GridLines = true;
+			this.tree.HideSelection = false;
+			this.tree.Location = new System.Drawing.Point(0, 25);
+			this.tree.Name = "tree";
+			this.tree.SelectAllOnControlA = false;
+			this.tree.ShowGroups = false;
+			this.tree.Size = new System.Drawing.Size(693, 424);
+			this.tree.TabIndex = 1;
+			this.tree.UseCompatibleStateImageBehavior = false;
+			this.tree.View = System.Windows.Forms.View.Details;
+			this.tree.VirtualMode = true;
 			// 
 			// SolutionComponentsView
 			// 

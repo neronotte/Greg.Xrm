@@ -35,7 +35,7 @@
     <PackageReference Include="ILMerge" Version="3.0.41" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2020.12.43" />
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2021.2.45" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj" />

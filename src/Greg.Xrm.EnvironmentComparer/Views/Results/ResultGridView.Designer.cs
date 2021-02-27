@@ -125,7 +125,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cmiCopyToEnv2.Name = "cmiCopyToEnv2";
 			this.cmiCopyToEnv2.Size = new System.Drawing.Size(180, 22);
 			this.cmiCopyToEnv2.Text = "Copy to ENV2";
-			this.cmiCopyToEnv2.Click += new System.EventHandler(this.OnCopyToEnv2Click);
 			// 
 			// cmiCopyToEnv1
 			// 
@@ -134,7 +133,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cmiCopyToEnv1.Name = "cmiCopyToEnv1";
 			this.cmiCopyToEnv1.Size = new System.Drawing.Size(180, 22);
 			this.cmiCopyToEnv1.Text = "Copy to ENV1";
-			this.cmiCopyToEnv1.Click += new System.EventHandler(this.OnCopyToEnv1Click);
 			// 
 			// toolStripMenuItem1
 			// 
@@ -148,7 +146,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cmiDeleteFromEnv1.Name = "cmiDeleteFromEnv1";
 			this.cmiDeleteFromEnv1.Size = new System.Drawing.Size(180, 22);
 			this.cmiDeleteFromEnv1.Text = "Delete from ENV1";
-			this.cmiDeleteFromEnv1.Click += new System.EventHandler(this.OnDeleteFromEnv1Click);
 			// 
 			// cmiDeleteFromEnv2
 			// 
@@ -157,7 +154,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cmiDeleteFromEnv2.Name = "cmiDeleteFromEnv2";
 			this.cmiDeleteFromEnv2.Size = new System.Drawing.Size(180, 22);
 			this.cmiDeleteFromEnv2.Text = "Delete from ENV2";
-			this.cmiDeleteFromEnv2.Click += new System.EventHandler(this.OnDeleteFromEnv2Click);
 			// 
 			// toolStripMenuItem2
 			// 

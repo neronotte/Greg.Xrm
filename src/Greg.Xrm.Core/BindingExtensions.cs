@@ -7,6 +7,8 @@ using System.Windows.Forms;
 
 namespace Greg.Xrm
 {
+
+
 	public static class BindingExtensions
 	{
 		public static void Bind<TComponent, TViewModel, TProperty>(
@@ -32,7 +34,8 @@ namespace Greg.Xrm
 		public static void BindCommand<TComponent>(
 			this TComponent component,
 			Func<ICommand> commandAccessor,
-			Func<object> argumentAccessor = null)
+			Func<object> argumentAccessor = null,
+			CommandExecuteBehavior behavior = CommandExecuteBehavior.Enabled)
 			where TComponent : IBindableComponent
 		{
 			if (component == null) throw new ArgumentNullException(nameof(component));
@@ -45,10 +48,22 @@ namespace Greg.Xrm
 
 			var command = commandAccessor();
 
-			component.DataBindings.Add(
-				"Enabled",
-				command,
-				nameof(command.CanExecute));
+			if (behavior == CommandExecuteBehavior.Enabled || behavior == CommandExecuteBehavior.EnabledAndVisible)
+			{
+				component.DataBindings.Add(
+					"Enabled",
+					command,
+					nameof(command.CanExecute));
+			}
+			if (behavior == CommandExecuteBehavior.Visible || behavior == CommandExecuteBehavior.EnabledAndVisible)
+			{
+				component.DataBindings.Add(
+					"Visible",
+					command,
+					nameof(command.CanExecute));
+			}
+
+
 
 			if (component is ToolStripItem toolStripItem)
 			{

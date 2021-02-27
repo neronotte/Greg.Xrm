@@ -31,7 +31,7 @@ namespace Greg.Xrm.EnvironmentComparer
 
 			var themeProvider = new ThemeProvider();
 
-			return new EnvironmentComparerPluginControl(themeProvider);
+			return new EnvironmentComparerPluginControl(themeProvider).SetIcon();
 		}
 
 		/// <summary>
