@@ -3,36 +3,27 @@ using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
-using Greg.Xrm.EnvironmentComparer.Model;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
-using Microsoft.Xrm.Sdk;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
 	public partial class ResultTreeView : DockContent
 	{
 		private readonly IThemeProvider themeProvider;
-		private readonly IAsyncJobScheduler scheduler;
 		private readonly IMessenger messenger;
-		private readonly ILog log;
+		private readonly ResultTreeViewModel viewModel;
 		private CompareResultSet compareResult;
 		private string env2;
 		private string env1;
 
 		private readonly Color Green = Color.FromArgb(142, 209, 24);
-
-		private const string AdditionalMetadataIsOk = "isOk";
-		private const string AdditionalMetadataMarkedOk = "markedOk";
 
 
 
@@ -49,9 +40,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.RegisterHelp(messenger, Topics.ResultTree);
 
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
-			this.scheduler = scheduler;
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-			this.log = log ?? throw new ArgumentNullException(nameof(log));
+			this.viewModel = new ResultTreeViewModel(scheduler, messenger, log);
+
+
 			this.ApplyTheme();
 
 			this.messenger.Register<CompareResultSetAvailable>(m =>
@@ -59,19 +51,39 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				this.CompareResult = m.CompareResultSet;
 			});
 
+			this.cmiMarkOK.Bind(_ => _.Visible, this.viewModel, _ => _.IsMarkOKEnabled);
+			this.cmiUnmarkOK.Bind(_ => _.Visible, this.viewModel, _ => _.IsUnmrkOKEnabled);
+
+			this.cmiMarkOK.Bind(_ => _.Enabled, this.viewModel, _ => _.IsMarkOKEnabled);
+			this.cmiUnmarkOK.Bind(_ => _.Enabled, this.viewModel, _ => _.IsUnmrkOKEnabled);
+
+			this.tDownloadExcelFile.BindCommand(() => this.viewModel.DownloadExcelCommand);
+
+			this.cmiCopyToEnv1.BindCommand(() => this.viewModel.CopyToEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
+			this.cmiCopyToEnv2.BindCommand(() => this.viewModel.CopyToEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
+
+			this.cmiDeleteFromEnv1.BindCommand(() => this.viewModel.DeleteFromEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
+			this.cmiDeleteFromEnv2.BindCommand(() => this.viewModel.DeleteFromEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
+
+
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				.ChangesProperty(_ => _.ConnectionName1)
 				.Execute(e =>
 				{
 					this.env1 = e.GetNewValue<string>();
 					this.CompareResult = null;
+					this.cmiCopyToEnv1.Text = "Copy to " + env1;
+					this.cmiDeleteFromEnv1.Text = "Delete from " + env1;
 				});
+
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				 .ChangesProperty(_ => _.ConnectionName2)
 				 .Execute(e =>
 				 {
 					 this.env2 = e.GetNewValue<string>();
 					 this.CompareResult = null;
+					 this.cmiCopyToEnv2.Text = "Copy to " + env2;
+					 this.cmiDeleteFromEnv2.Text = "Delete from " + env2;
 				 });
 		}
 
@@ -144,7 +156,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				}
 
 				node.Tag = kvp.Value;
-				if (kvp.Value.Contains(AdditionalMetadataMarkedOk))
+				if (kvp.Value.Contains(ResultTreeViewModel.AdditionalMetadataMarkedOk))
 				{
 					node.ForeColor = Green;
 					node.Text = node.Name + "*";
@@ -165,7 +177,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				{
 					childNode.ForeColor = Green;
 					childNode.Parent.ForeColor = Green;
-					kvp.Value[AdditionalMetadataIsOk] = AdditionalMetadataIsOk;
+					kvp.Value[ResultTreeViewModel.AdditionalMetadataIsOk] = ResultTreeViewModel.AdditionalMetadataIsOk;
 				}
 
 
@@ -245,14 +257,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private void OnNodeSelected(object sender, TreeNodeMouseClickEventArgs e)
 		{
-			HandleMenuItemVisibility(e.Node);
 			OnNodeSelected(e.Node);
-		}
-
-		private void HandleMenuItemVisibility(TreeNode node)
-		{
-			this.mMarkOK.Visible = node.Tag is CompareResultForEntity r && !r.ContainsAny(AdditionalMetadataIsOk, AdditionalMetadataMarkedOk);
-			this.mUnmarkOK.Visible = node.Tag is CompareResultForEntity r1 && r1.Contains(AdditionalMetadataMarkedOk);
 		}
 
 		TreeNode lastSelectedNode = null;
@@ -262,14 +267,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			if (node == this.lastSelectedNode) return;
 			this.lastSelectedNode = node;
 
-			IReadOnlyCollection<ObjectComparison<Entity>> comparisonResult = Array.Empty<ObjectComparison<Entity>>();
-			if (node.Tag is IReadOnlyCollection<ObjectComparison<Entity>> collection)
-			{
-				comparisonResult = collection;
-			}
-
-
-			this.messenger.Send(new CompareResultGroupSelected(comparisonResult));
+			this.viewModel.SelectedNode = node;
 		}
 
 		private void OnMarkOkClick(object sender, EventArgs e)
@@ -277,9 +275,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			var node = this.resultTree.SelectedNode;
 			if (node == null) return;
 			if (!(node.Tag is CompareResultForEntity cr)) return;
-			if (cr.Contains(AdditionalMetadataMarkedOk)) return;
+			if (cr.Contains(ResultTreeViewModel.AdditionalMetadataMarkedOk)) return;
 
-			cr[AdditionalMetadataMarkedOk] = AdditionalMetadataMarkedOk;
+			cr[ResultTreeViewModel.AdditionalMetadataMarkedOk] = ResultTreeViewModel.AdditionalMetadataMarkedOk;
 			node.ForeColor = Green;
 			if (!node.Name.EndsWith("*"))
 			{
@@ -292,47 +290,11 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			var node = this.resultTree.SelectedNode;
 			if (node == null) return;
 			if (!(node.Tag is CompareResultForEntity cr)) return;
-			if (!cr.Contains(AdditionalMetadataMarkedOk)) return;
+			if (!cr.Contains(ResultTreeViewModel.AdditionalMetadataMarkedOk)) return;
 
-			cr.Remove(AdditionalMetadataMarkedOk);
+			cr.Remove(ResultTreeViewModel.AdditionalMetadataMarkedOk);
 			node.ForeColor = this.themeProvider.GetCurrentTheme().PanelForeColor;
 			node.Text = node.Name;
-		}
-
-
-
-		private void OnDownloadExcelFileClick(object sender, EventArgs e)
-		{
-			string fileName;
-			using (var dialog = new FolderBrowserDialog())
-			{
-				dialog.Description = "Output folder";
-
-				if (dialog.ShowDialog() != DialogResult.OK) return;
-				fileName = dialog.SelectedPath;
-			}
-
-			this.scheduler.Enqueue(new WorkAsyncInfo
-			{
-				Message = "Executing generating Excel file, please wait...",
-				Work = (w, e1) =>
-				{
-					using (log.Track("Exporting comparison result on excel file " + fileName))
-					{
-						try
-						{
-							var reportBuilder = new ReportBuilder(new DirectoryInfo(fileName));
-							reportBuilder.GenerateReport(compareResult, this.env1, this.env2);
-						}
-#pragma warning disable CA1031 // Do not catch general exception types
-						catch (Exception ex)
-						{
-							log.Error("Error during export: " + ex.Message, ex);
-						}
-#pragma warning restore CA1031 // Do not catch general exception types
-					}
-				}
-			});
 		}
 	}
 }
