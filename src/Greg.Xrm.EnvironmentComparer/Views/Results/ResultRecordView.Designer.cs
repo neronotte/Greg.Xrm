@@ -29,6 +29,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ResultRecordView));
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.txtValue1 = new ScintillaNET.Scintilla();
@@ -40,6 +41,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.lblEnv2 = new System.Windows.Forms.Label();
 			this.pnlMessage = new System.Windows.Forms.Panel();
 			this.lblMessage = new System.Windows.Forms.Label();
+			this.bMoveUp = new System.Windows.Forms.Button();
+			this.bMoveDown = new System.Windows.Forms.Button();
+			this.toolTip = new System.Windows.Forms.ToolTip(this.components);
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.pnlMessage.SuspendLayout();
@@ -142,6 +146,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			// pnlMessage
 			// 
 			this.tableLayoutPanel1.SetColumnSpan(this.pnlMessage, 2);
+			this.pnlMessage.Controls.Add(this.bMoveDown);
+			this.pnlMessage.Controls.Add(this.bMoveUp);
 			this.pnlMessage.Controls.Add(this.lblMessage);
 			this.pnlMessage.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.pnlMessage.Location = new System.Drawing.Point(3, 3);
@@ -157,6 +163,30 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.lblMessage.Size = new System.Drawing.Size(116, 13);
 			this.lblMessage.TabIndex = 0;
 			this.lblMessage.Text = "Please select a result...";
+			// 
+			// bMoveUp
+			// 
+			this.bMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.bMoveUp.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_up;
+			this.bMoveUp.Location = new System.Drawing.Point(938, 1);
+			this.bMoveUp.Name = "bMoveUp";
+			this.bMoveUp.Size = new System.Drawing.Size(32, 32);
+			this.bMoveUp.TabIndex = 1;
+			this.toolTip.SetToolTip(this.bMoveUp, "Move to previous record");
+			this.bMoveUp.UseVisualStyleBackColor = true;
+			this.bMoveUp.Click += new System.EventHandler(this.button1_Click);
+			// 
+			// bMoveDown
+			// 
+			this.bMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.bMoveDown.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.arrow_down;
+			this.bMoveDown.Location = new System.Drawing.Point(971, 1);
+			this.bMoveDown.Name = "bMoveDown";
+			this.bMoveDown.Size = new System.Drawing.Size(32, 32);
+			this.bMoveDown.TabIndex = 2;
+			this.toolTip.SetToolTip(this.bMoveDown, "Move to next record");
+			this.bMoveDown.UseVisualStyleBackColor = true;
+			this.bMoveDown.Click += new System.EventHandler(this.button2_Click);
 			// 
 			// ResultRecordView
 			// 
@@ -192,5 +222,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		private System.Windows.Forms.Label lblEnv2;
 		private System.Windows.Forms.Panel pnlMessage;
 		private System.Windows.Forms.Label lblMessage;
+		private System.Windows.Forms.Button bMoveDown;
+		private System.Windows.Forms.Button bMoveUp;
+		private System.Windows.Forms.ToolTip toolTip;
 	}
 }

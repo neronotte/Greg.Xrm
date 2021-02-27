@@ -92,6 +92,45 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					item.BackColor = e.Result.Result.GetColor();
 				}
 			});
+
+			this.messenger.Register<ChangeSelectionMessage>(m =>
+			{
+				if (this.listView1.Items.Count == 0) return;
+				if (this.listView1.SelectedIndices.Count == 0)
+				{
+					if (m.IndexIncrement >= 0)
+					{
+						this.listView1.SelectedIndices.Add(0);
+					}
+					else
+					{
+						this.listView1.SelectedIndices.Add(this.listView1.Items.Count -1);
+					}
+					return;
+				}
+
+				if (m.IndexIncrement >= 0)
+				{
+					var lastSelectedIndex = this.listView1.SelectedIndices.OfType<int>().OrderBy(_ => _).Max();
+
+					var newSelectedIndex = (lastSelectedIndex + m.IndexIncrement) % this.listView1.Items.Count;
+					this.listView1.SelectedIndices.Clear();
+					this.listView1.SelectedIndices.Add(newSelectedIndex);
+				}
+				else
+				{
+					var lastSelectedIndex = this.listView1.SelectedIndices.OfType<int>().OrderBy(_ => _).Min();
+
+					var newSelectedIndex = (lastSelectedIndex + m.IndexIncrement);
+					if (newSelectedIndex < 0)
+					{
+						newSelectedIndex = this.listView1.Items.Count - newSelectedIndex;
+					}
+
+					this.listView1.SelectedIndices.Clear();
+					this.listView1.SelectedIndices.Add(newSelectedIndex);
+				}
+			});
 		}
 
 

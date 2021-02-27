@@ -39,7 +39,7 @@
         <li><b>With differences</b>: represents a record that is present in both environments, but has differences in one or more fields.</li>
     </ul>
     <p>
-        For each entity, the total number of analyzed records is displayed after the entity name.<br/>
+        For each entity, the total number of analyzed records is displayed after the entity name.<br />
         In the subnodes, the total number of records of the cluster is displayed after the cluster name, compared with the total number of records in all clusters.
     </p>
     <p>
@@ -53,5 +53,27 @@
     <p>
         Comparison results can be also <b>exported in Excel</b> for further analysis.
     </p>
+
+    <h3>Available actions on result clusters</h3>
+    <p>
+        Right-clicking on a node of the <b>Result summary tree view</b>, a context menu shows the list of possible actions
+        that can be applied to the records related to the selected node. <br />
+        Actions are:
+    </p>
+    <ul>
+        <li><b>Mark as good</b>: Clears the current entity as "good" (green) even if it has differences.</li>
+        <li><b>Unmark as good</b>: Restores the node status.</li>
+    </ul>
+    <p>
+        Right-clicking on a subnode of the <b>Result summary tree view</b>, a context menu shows the list of possible actions
+        that can be applied to the records related to the selected node. <br />
+        Actions are:
+    </p>
+    <ul>
+        <li><b>Copy to ENV2</b>: aligns both environments to the values of ENV1. Applicable only on <b>Missing on ENV2</b> or <b>With differences</b> subnodes.</li>
+        <li><b>Copy to ENV1</b>: aligns both environments to the values of ENV2. Applicable only on <b>Missing on ENV1</b> or <b>With differences</b> subnodes.</li>
+        <li><b>Delete from ENV1</b>: deletes the record from ENV1. Applicable only on <b>Missing on ENV2</b> or <b>With differences</b> subnodes.</li>
+        <li><b>Delete from ENV2</b>: deletes the record from ENV2. Applicable only on <b>Missing on ENV1</b> or <b>With differences</b> subnodes.</li>
+    </ul>
 </body>
 </html>
