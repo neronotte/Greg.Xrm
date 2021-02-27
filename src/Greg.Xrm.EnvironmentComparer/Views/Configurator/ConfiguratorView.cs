@@ -19,6 +19,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private readonly IAsyncJobScheduler asyncJobScheduler;
 		private readonly IThemeProvider themeProvider;
 		private readonly IMessenger messenger;
+		private readonly ILog log;
 		private readonly ConfiguratorViewModel viewModel;
 
 		public ConfiguratorView(
@@ -36,7 +37,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.asyncJobScheduler = asyncJobScheduler ?? throw new ArgumentNullException(nameof(asyncJobScheduler));
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
-
+			this.log = log;
 			this.mLoadEntities.Bind(_ => _.Enabled, this.viewModel, _ => _.CanLoadEntities);
 			this.tLoadEntities.Bind(_ => _.Enabled, this.viewModel, _ => _.CanLoadEntities);
 
@@ -275,6 +276,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				Message = "Executing comparison, please wait...",
 				Work = (w, e1) => {
 					this.viewModel.ExecuteComparison();
+				},
+				PostWorkCallBack = e1 => {
+					if (e1.Error != null)
+					{
+						this.log.Error("Error while executing comparison: " + e1.Error.Message, e1.Error);
+						return;
+					}
+
+
+					log.Info("Compare completed");
 				}
 			});
 		}

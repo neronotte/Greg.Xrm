@@ -337,11 +337,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 						.FromMemento(this.Memento)
 						.GetEngine(this.Crm1, this.Crm2, this.log);
 
-
-
 					var result = engine.CompareAll();
-
-					log.Info("Compare completed");
 
 					this.CompareResultSet = result;
 					this.messenger.Send(new CompareResultSetAvailable(result));
