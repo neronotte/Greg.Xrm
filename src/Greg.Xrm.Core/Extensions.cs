@@ -818,7 +818,7 @@ namespace Greg.Xrm
 		}
 
 
-		public static string GetLocalized(this Microsoft.Xrm.Sdk.Label label, int? localeId = null)
+		public static string GetLocalized(this Label label, int? localeId = null)
 		{
 			if (!localeId.HasValue)
 			{
@@ -833,5 +833,17 @@ namespace Greg.Xrm
 				string.Empty;
 		}
 
+
+
+		/// <summary>
+		/// Converts the current object in a json string
+		/// </summary>
+		/// <param name="obj"></param>
+		/// <returns></returns>
+		public static string ToJsonString(this object obj)
+		{
+			if (obj == null) return string.Empty;
+			return Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
+		}
 	}
 }
