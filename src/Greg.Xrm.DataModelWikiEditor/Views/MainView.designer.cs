@@ -38,6 +38,7 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 			this.tEnvironmentName = new Greg.Xrm.Views.ToolStripBindableLabel();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tOpenFolder = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.dockPanel1 = new WeifenLuo.WinFormsUI.Docking.DockPanel();
 			this.toolStripMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -99,10 +100,19 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 			this.tOpenFolder.Size = new System.Drawing.Size(90, 22);
 			this.tOpenFolder.Text = "Open folder";
 			// 
+			// dockPanel1
+			// 
+			this.dockPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dockPanel1.Location = new System.Drawing.Point(0, 25);
+			this.dockPanel1.Name = "dockPanel1";
+			this.dockPanel1.Size = new System.Drawing.Size(1020, 559);
+			this.dockPanel1.TabIndex = 5;
+			// 
 			// MainView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.Controls.Add(this.dockPanel1);
 			this.Controls.Add(this.toolStripMenu);
 			this.Name = "MainView";
 			this.Size = new System.Drawing.Size(1020, 584);
@@ -122,5 +132,6 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 		private Greg.Xrm.Views.ToolStripBindableLabel tEnvironmentName;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private Greg.Xrm.Views.ToolStripBindableButton tOpenFolder;
+		private WeifenLuo.WinFormsUI.Docking.DockPanel dockPanel1;
 	}
 }

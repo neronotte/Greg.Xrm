@@ -14,7 +14,23 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				var componentTypeModel = this.FirstOrDefault(_ => _.ComponentTypeCode == componentType);
 				if (componentTypeModel == null)
 				{
-					componentTypeModel = new SolutionComponentComposite(solutionComponent.ComponentTypeName, componentType);
+					var name = solutionComponent.ComponentTypeName;
+					if (string.IsNullOrWhiteSpace(name))
+					{
+						try
+						{
+							var componentTypeEnum = (SolutionComponentType)componentType;
+							name = componentTypeEnum.ToString();
+						}
+#pragma warning disable CA1031 // Do not catch general exception types
+						catch // casting exception may be caused by a missing component type
+						{
+							name = "Component type: " + componentType;
+						} 
+#pragma warning restore CA1031 // Do not catch general exception types
+					}
+
+					componentTypeModel = new SolutionComponentComposite(name, componentType);
 					this.Add(componentTypeModel);
 				}
 
