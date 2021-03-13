@@ -53,6 +53,7 @@
 		ComplexControl = 64,
 		FieldSecurityProfile = 70,
 		FieldPermission = 71,
+		AppModule = 80,
 		PluginType = 90,
 		PluginAssembly = 91,
 		SDKMessageProcessingStep = 92,

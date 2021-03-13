@@ -5,7 +5,7 @@ using Microsoft.Xrm.Sdk;
 
 namespace Greg.Xrm.DataModelWikiEditor.Views
 {
-	public class MainViewModel : ViewModel
+	public class MainViewModel : PluginViewModelBase
 	{
 		public MainViewModel(ISettingsProvider<Settings> settingsProvider)
 		{

@@ -26,9 +26,15 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		public List<ConnectionModel> Environments { get; }
 
+		public override string ToString()
+		{
+			return Label;
+		}
+
+
 		internal void SetLabelFromEntityMetadata(EntityMetadata entityMetadata)
 		{
-			this.Label = $"{entityMetadata.DisplayName?.UserLocalizedLabel?.Label} ({entityMetadata.SchemaName})"
+			this.Label = $"{entityMetadata.DisplayName?.UserLocalizedLabel?.Label} ({entityMetadata.LogicalName})"
 				.Replace("()", string.Empty)
 				.Trim();
 		}
@@ -58,6 +64,11 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			//var description = entity.GetAttributeValue<string>("description");
 
 			this.Label = $"{objectTypeCode}, {type} form: {name}";
+		}
+
+		internal void SetLabel(string v)
+		{
+			this.Label = v;
 		}
 
 		internal void SetLabelFromEmailTemplate(Entity entity)
@@ -90,6 +101,11 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.Label = entity.GetAttributeValue<string>("displaystringkey");
 		}
 
+		internal void SetLabelFromAppModule(Entity entity)
+		{
+			this.Label = entity.GetAttributeValue<string>("name");
+		}
+
 		internal void SetLabelFromSavedQuery(Entity entity)
 		{
 			var name = entity.GetAttributeValue<string>("name");
@@ -104,6 +120,16 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			{
 				this.Label = "Application ribbon";
 			}
+		}
+
+		internal void SetLabelFromAttributeMetadata(EntityMetadata entityMetadata, AttributeMetadata attributeMetadata)
+		{
+			this.Label = $"{entityMetadata.LogicalName}.{attributeMetadata.LogicalName}: {attributeMetadata.AttributeTypeName?.Value} ({attributeMetadata.DisplayName?.UserLocalizedLabel?.Label})";
+		}
+
+		internal void SetLabelFromRelationship(RelationshipMetadataBase relationshipMetadata)
+		{
+			this.Label = relationshipMetadata.SchemaName;
 		}
 	}
 }

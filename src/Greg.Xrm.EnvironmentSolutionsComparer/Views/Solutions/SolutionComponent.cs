@@ -13,6 +13,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		public string ComponentTypeName => this.GetFormatted(nameof(componenttype));
 
+#pragma warning disable IDE1006 // Naming Styles
 		public OptionSetValue componenttype => this.Get<OptionSetValue>();
 
 		public EntityReference solutionid => this.Get<EntityReference>();
@@ -20,6 +21,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		public Guid objectid => this.Get<Guid>();
 
 		public bool ismetadata => this.Get<bool>();
+#pragma warning restore IDE1006 // Naming Styles
 
 
 		public override string ToString()
