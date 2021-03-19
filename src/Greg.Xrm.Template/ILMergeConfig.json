@@ -1,0 +1,13 @@
+﻿{
+	"General": {
+		"OutputFile": "$(TargetDir)XrmToolBox\\Plugins\\$(TargetFileName)",
+		"InputAssemblies": [
+			"Greg.Xrm.Core.dll"
+		]
+	},
+	"Advanced": {
+		"CopyAttributes": false,
+		"AttributeFile": "$(TargetDir)Greg.Xrm.Template.dll",
+		"DeleteCopiesOverwriteTarget": true
+	}
+}
