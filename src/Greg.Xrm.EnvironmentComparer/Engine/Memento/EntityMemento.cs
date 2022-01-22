@@ -17,6 +17,9 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 		public string EntityName { get; set; }
 
 		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public bool IsManyToMany { get; set; }
+
+		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public bool KeyUseGuid { get; set; }
 
 		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
@@ -33,6 +36,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 			return new EntityMemento
 			{
 				EntityName = this.EntityName,
+				IsManyToMany = this.IsManyToMany,
 				KeyUseGuid = this.KeyUseGuid,
 				KeyAttributeNames = this.KeyAttributeNames.ToList(),
 				OnlyActive = this.OnlyActive,

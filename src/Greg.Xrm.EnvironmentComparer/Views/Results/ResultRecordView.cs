@@ -168,12 +168,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.txtValue2.ReadOnly = true;
 		}
 
-		private void button1_Click(object sender, EventArgs e)
+		private void OnSelectPrevious(object sender, EventArgs e)
 		{
 			this.messenger.Send(new ChangeSelectionMessage(-1));
 		}
 
-		private void button2_Click(object sender, EventArgs e)
+		private void OnSelectNext(object sender, EventArgs e)
 		{
 			this.messenger.Send(new ChangeSelectionMessage(1));
 		}

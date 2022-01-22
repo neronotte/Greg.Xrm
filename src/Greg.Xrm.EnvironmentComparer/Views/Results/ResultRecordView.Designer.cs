@@ -174,7 +174,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.bMoveUp.TabIndex = 1;
 			this.toolTip.SetToolTip(this.bMoveUp, "Move to previous record");
 			this.bMoveUp.UseVisualStyleBackColor = true;
-			this.bMoveUp.Click += new System.EventHandler(this.button1_Click);
+			this.bMoveUp.Click += new System.EventHandler(this.OnSelectPrevious);
 			// 
 			// bMoveDown
 			// 
@@ -186,7 +186,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.bMoveDown.TabIndex = 2;
 			this.toolTip.SetToolTip(this.bMoveDown, "Move to next record");
 			this.bMoveDown.UseVisualStyleBackColor = true;
-			this.bMoveDown.Click += new System.EventHandler(this.button2_Click);
+			this.bMoveDown.Click += new System.EventHandler(this.OnSelectNext);
 			// 
 			// ResultRecordView
 			// 

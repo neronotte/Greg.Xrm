@@ -65,7 +65,7 @@ namespace Greg.Xrm.SolutionManager
 			}
 		}
 
-		private void tsbClose_Click(object sender, EventArgs e)
+		private void OnCloseToolRequested(object sender, EventArgs e)
 		{
 			CloseTool();
 		}

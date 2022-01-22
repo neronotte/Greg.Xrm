@@ -15,6 +15,7 @@ using System.Text;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 using Greg.Xrm.Logging;
+using System.Linq;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -337,10 +338,22 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 						.FromMemento(this.Memento)
 						.GetEngine(this.Crm1, this.Crm2, this.log);
 
-					var result = engine.CompareAll();
+					var resultSet = engine.CompareAll();
 
-					this.CompareResultSet = result;
-					this.messenger.Send(new CompareResultSetAvailable(result));
+					// add post-elaboration to enrich with metadata
+
+					foreach (var r in resultSet)
+					{
+						var mementoEntity = this.Memento.Entities.FirstOrDefault(_ => string.Equals(_.EntityName, r.Key));
+						foreach (var entity in r.Value)
+						{
+							entity.SetManyToMany(mementoEntity?.IsManyToMany);
+						}
+					}
+
+
+					this.CompareResultSet = resultSet;
+					this.messenger.Send(new CompareResultSetAvailable(resultSet));
 				}
 				catch (FaultException<OrganizationServiceFault> ex)
 				{
