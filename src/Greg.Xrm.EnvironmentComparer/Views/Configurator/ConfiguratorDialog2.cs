@@ -6,20 +6,21 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
-	public partial class ConfiguratorDialog : Form
+	public partial class ConfiguratorDialog2 : Form
 	{
 		private readonly IReadOnlyCollection<EntityMetadata> entityMetadataList;
 		private readonly EntityMetadataDto[] dtoList;
 
-		public ConfiguratorDialog(IMessenger messenger, IReadOnlyCollection<EntityMetadata> entityMetadataList)
+		public ConfiguratorDialog2(IMessenger messenger, IReadOnlyCollection<EntityMetadata> entityMetadataList)
 		{
 			InitializeComponent();
 
-			this.RegisterHelp(messenger, Topics.ConfiguratorDialog);
+			this.RegisterHelp(messenger, Topics.ConfiguratorDialog2);
 
 			this.Memento = null;
 
@@ -198,6 +199,44 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			this.DialogResult = DialogResult.OK;
 			Close();
+		}
+
+		private void OnKeySelectAll(object sender, EventArgs e)
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine("Selecting all attributes as a key means that a record is or not in a given environment.");
+			sb.AppendLine("You won't have any partial match. Are you sure?");
+
+			if (MessageBox.Show(sb.ToString(), "Select all as key", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+				return;
+
+			for (var i = 0; i < this.chlKey.Items.Count; i++)
+				this.chlKey.SetItemChecked(i, true);
+		}
+
+		private void OnKeyUnselectAll(object sender, EventArgs e)
+		{
+			for (var i = 0; i < this.chlKey.Items.Count; i++)
+				this.chlKey.SetItemChecked(i, false);
+		}
+
+		private void OnIgnoreSelectAll(object sender, EventArgs e)
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine("Marking all attributes \"to ignore\" means that you will match only record keys.");
+			sb.AppendLine("Are you sure?");
+
+			if (MessageBox.Show(sb.ToString(), "Select all to ignore", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+				return;
+
+			for (var i = 0; i < this.chlSkip.Items.Count; i++)
+				this.chlSkip.SetItemChecked(i, true);
+		}
+
+		private void OnIgnoreUnselectAll(object sender, EventArgs e)
+		{
+			for (var i = 0; i < this.chlSkip.Items.Count; i++)
+				this.chlSkip.SetItemChecked(i, false);
 		}
 	}
 }

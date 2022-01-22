@@ -79,7 +79,7 @@ namespace Greg.Xrm.SolutionManager
 			this.tsbClose.Name = "tsbClose";
 			this.tsbClose.Size = new System.Drawing.Size(23, 22);
 			this.tsbClose.Text = "Close this tool";
-			this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
+			this.tsbClose.Click += new System.EventHandler(this.OnCloseToolRequested);
 			// 
 			// tStartMonitoring
 			// 

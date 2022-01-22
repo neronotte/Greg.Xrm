@@ -26,6 +26,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 		public string Name => this.entity.LogicalName;
 
+		public bool IsManyToMany => this.entity.IsIntersect.GetValueOrDefault();
+
+		public string PrimaryIdAttribute => this.entity.PrimaryIdAttribute;
+
 		public int Count => this.attributeList.Count;
 
 		public IEnumerator<AttributeMetadataDto> GetEnumerator()

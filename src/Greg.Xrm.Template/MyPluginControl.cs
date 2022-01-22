@@ -2,13 +2,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
@@ -40,12 +33,12 @@ namespace Greg.Xrm.Template
 			}
 		}
 
-		private void tsbClose_Click(object sender, EventArgs e)
+		private void OnCloseToolRequested(object sender, EventArgs e)
 		{
 			CloseTool();
 		}
 
-		private void tsbSample_Click(object sender, EventArgs e)
+		private void OnSampleClick(object sender, EventArgs e)
 		{
 			// The ExecuteMethod method handles connecting to an
 			// organization if XrmToolBox is not yet connected

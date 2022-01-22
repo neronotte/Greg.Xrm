@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Actions;
 using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.Views;
@@ -16,13 +17,15 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 	{
 		private readonly IMessenger messenger;
 		private readonly Func<IReadOnlyCollection<ObjectComparison<Entity>>, bool> additionalCriteriaOnSelectedResults;
+		private readonly ILog log;
 		private string env1;
 		private string env2;
 
-		public DeleteRowCommand(IMessenger messenger, Func<IReadOnlyCollection<ObjectComparison<Entity>>, bool> additionalCriteriaOnSelectedResults)
+		public DeleteRowCommand(IMessenger messenger, Func<IReadOnlyCollection<ObjectComparison<Entity>>, bool> additionalCriteriaOnSelectedResults, ILog log)
 		{
 			this.messenger = messenger;
 			this.additionalCriteriaOnSelectedResults = additionalCriteriaOnSelectedResults;
+			this.log = log;
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				.ChangesProperty(_ => _.ConnectionName1)
 				.Execute(e =>
@@ -80,8 +83,18 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			{
 				var entity = index == 1 ? result.Item1 : result.Item2;
 
-				var action = new ActionDeleteRecord(result, entity, index, envName);
-				actionList.Add(action);
+				if (result.IsManyToMany())
+				{
+					//var action = new ActionDisassociateRecord(result, entity, index, envName);
+					//actionList.Add(action);
+					this.log.Error("Delete row on many to many relationship table is not supported!");
+					continue;
+				}
+				else
+				{
+					var action = new ActionDeleteRecord(result, entity, index, envName);
+					actionList.Add(action);
+				}
 
 				result.SetActioned();
 				this.messenger.Send(new ResultUpdatedMessage(result));

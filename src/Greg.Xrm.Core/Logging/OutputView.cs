@@ -1,8 +1,10 @@
 ﻿using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
@@ -12,6 +14,10 @@ namespace Greg.Xrm.Logging
 	public partial class OutputView : DockContent, ILog
 	{
 		private readonly IThemeProvider themeProvider;
+
+		private readonly List<LogEntry> logList = new List<LogEntry>();
+
+		private string currentLevelFilter = null;
 
 		public OutputView(IThemeProvider themeProvider, IMessenger messenger)
 		{
@@ -38,6 +44,16 @@ namespace Greg.Xrm.Logging
 			this.Log("DEBUG", message, null, Color.LightGray);
 		}
 
+		public void Info(string message)
+		{
+			this.Log("INFO", message, null, Color.RoyalBlue);
+		}
+
+		public void Warn(string message)
+		{
+			this.Log("WARN", message, null, Color.Orange);
+		}
+
 		public void Error(string message)
 		{
 			this.Log("ERROR", message, null, Color.Red);
@@ -51,11 +67,6 @@ namespace Greg.Xrm.Logging
 		public void Fatal(string message, Exception ex)
 		{
 			this.Log("FATAL", message, ex, Color.DarkRed);
-		}
-
-		public void Info(string message)
-		{
-			this.Log("INFO", message, null, Color.RoyalBlue);
 		}
 
 		public IDisposable Track(string message)
@@ -85,11 +96,6 @@ namespace Greg.Xrm.Logging
 			}
 		}
 
-		public void Warn(string message)
-		{
-			this.Log("WARN", message, null, Color.Orange);
-		}
-
 
 		private void Log(string level, string message, Exception ex, Color color)
 		{
@@ -102,16 +108,23 @@ namespace Greg.Xrm.Logging
 			}
 
 
-			var item = this.listView1.Items.Add(DateTime.Now.ToString("dd/MM/yyyy HH:mm:ss"));
-			item.ForeColor = color;
-			item.SubItems.Add(level).ForeColor = color;
-			item.SubItems.Add(message).ForeColor = color;
-			if (ex != null)
+			var logEntry = new LogEntry
 			{
-				var subItem = item.SubItems.Add(ex.ToString()) ;
-				subItem.ForeColor = color;
-				subItem.Tag = ex;
+				Timestamp = DateTime.Now,
+				ForeColor =color,
+				Level = level,
+				Message = message,
+				Exception = ex
+			};
+			this.logList.Add(logEntry);
+
+			if (!string.IsNullOrWhiteSpace(this.currentLevelFilter) && !this.currentLevelFilter.Contains(logEntry.Level))
+			{
+				return;
 			}
+
+			var item = logEntry.ToListViewItem();
+			this.listView1.Items.Add(item);
 			item.EnsureVisible();
 		}
 
@@ -144,6 +157,84 @@ namespace Greg.Xrm.Logging
 			var ex = subItem.Tag;
 
 			Clipboard.SetText(ex.ToJsonString());
+		}
+
+		private void OnFilterByLevel(object sender, EventArgs e)
+		{
+			var sourceButton = (ToolStripMenuItem)sender;
+
+			var levelToFilter = sourceButton.Tag?.ToString();
+
+			if (string.Equals(currentLevelFilter, levelToFilter, StringComparison.OrdinalIgnoreCase)) return;
+
+			if (string.IsNullOrWhiteSpace(levelToFilter))
+			{
+				this.tFilterByLevel.Text = "Filter by level";
+			}
+			else
+			{
+				var levelLabel = sourceButton.Text;
+				this.tFilterByLevel.Text = "Filter by level: " + levelLabel;
+			}
+
+			this.currentLevelFilter = levelToFilter;
+
+			this.listView1.BeginUpdate();
+
+			this.listView1.Items.Clear();
+			ListViewItem item = null;
+			foreach (var logEntry in logList)
+			{
+				if (!string.IsNullOrWhiteSpace(this.currentLevelFilter) && !this.currentLevelFilter.Contains(logEntry.Level))
+				{
+					continue;
+				}
+
+				item = logEntry.ToListViewItem();
+				this.listView1.Items.Add(item);
+			}
+
+			this.listView1.EndUpdate();
+			if (item != null)
+				item.EnsureVisible();
+		}
+
+		private void OnExportLogs(object sender, EventArgs e)
+		{
+			var logEntryToExportList= this.listView1.Items.Cast<ListViewItem>().Select(x => x.Tag).OfType<LogEntry>().ToList();
+			if (logEntryToExportList.Count == 0)
+			{
+				MessageBox.Show("Nothing to export!", "Export logs", MessageBoxButtons.OK, MessageBoxIcon.Information);
+				return;
+			}
+
+
+			using (var dialog = new SaveFileDialog())
+			{
+				dialog.Title = "Export logs";
+				dialog.Filter = "Text file (*.txt)|*.txt";
+
+				if (dialog.ShowDialog() != DialogResult.OK) return;
+
+
+				try
+				{
+					using (var writer = new StreamWriter(dialog.OpenFile()))
+					{
+						foreach (var logEntry in this.listView1.Items.Cast<ListViewItem>().Select(x => x.Tag).OfType<LogEntry>())
+						{
+							writer.WriteLine(logEntry.ToString());
+						}
+						writer.Flush();
+					}
+
+					Process.Start(dialog.FileName);
+				}
+				catch(Exception ex)
+				{
+					this.Error("Error exporting logs: " + ex.Message, ex);
+				}
+			}
 		}
 	}
 }

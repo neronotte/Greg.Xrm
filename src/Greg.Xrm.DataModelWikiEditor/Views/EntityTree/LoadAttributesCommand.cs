@@ -58,8 +58,8 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 				Message = "Retrieving attribute list",
 				Work = (w, e) => {
 					var query = new EntityQueryExpression();
-					query.Properties = new MetadataPropertiesExpression("Attributes");
 					query.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, nodeForEntity.LogicalName));
+					query.Properties = new MetadataPropertiesExpression("Attributes");
 
 					var request = new RetrieveMetadataChangesRequest
 					{

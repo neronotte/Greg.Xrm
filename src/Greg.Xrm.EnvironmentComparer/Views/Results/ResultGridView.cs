@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
@@ -23,7 +24,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 
 
-		public ResultGridView(IThemeProvider themeProvider, IMessenger messenger)
+		public ResultGridView(IThemeProvider themeProvider, IMessenger messenger, ILog log)
 		{
 			InitializeComponent();
 
@@ -32,7 +33,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.themeProvider = themeProvider ?? throw new ArgumentNullException(nameof(themeProvider));
 			this.messenger = messenger ?? throw new ArgumentNullException(nameof(messenger));
 
-			this.viewModel = new ResultGridViewModel(messenger);
+			this.viewModel = new ResultGridViewModel(messenger, log);
 
 			this.cmiCopyToEnv1.BindCommand(() => this.viewModel.CopyToEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
 			this.cmiCopyToEnv2.BindCommand(() => this.viewModel.CopyToEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);

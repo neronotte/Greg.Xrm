@@ -184,7 +184,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			if (this.viewModel.EntityMetadataList.Count == 0) return;
 
 
-			using (var dialog = new ConfiguratorDialog(this.messenger, this.viewModel.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog2(this.messenger, this.viewModel.EntityMetadataList))
 			{
 				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
@@ -232,7 +232,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			var entityMemento = (EntityMemento)node.Tag;
 
-			using (var dialog = new ConfiguratorDialog(this.messenger, this.viewModel.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog2(this.messenger, this.viewModel.EntityMetadataList))
 			{
 				dialog.Memento = entityMemento;
 

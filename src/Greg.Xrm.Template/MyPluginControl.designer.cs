@@ -57,7 +57,7 @@ namespace Greg.Xrm.Template
 			this.tsbClose.Name = "tsbClose";
 			this.tsbClose.Size = new System.Drawing.Size(28, 28);
 			this.tsbClose.Text = "Close this tool";
-			this.tsbClose.Click += new System.EventHandler(this.tsbClose_Click);
+			this.tsbClose.Click += new System.EventHandler(this.OnCloseToolRequested);
 			// 
 			// tssSeparator1
 			// 
@@ -70,7 +70,7 @@ namespace Greg.Xrm.Template
 			this.tsbSample.Name = "tsbSample";
 			this.tsbSample.Size = new System.Drawing.Size(28, 28);
 			this.tsbSample.Text = "Try me";
-			this.tsbSample.Click += new System.EventHandler(this.tsbSample_Click);
+			this.tsbSample.Click += new System.EventHandler(this.OnSampleClick);
 			// 
 			// MyPluginControl
 			// 

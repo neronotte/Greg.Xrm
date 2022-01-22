@@ -26,10 +26,10 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.messenger = messenger;
 
 			this.DownloadExcelCommand = new DownloadExcelCommand(scheduler, messenger, log);
-			this.CopyToEnv1Command = new CopyRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned());
-			this.CopyToEnv2Command = new CopyRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned());
-			this.DeleteFromEnv1Command = new DeleteRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned());
-			this.DeleteFromEnv2Command = new DeleteRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned());
+			this.CopyToEnv1Command = new CopyRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned(), log);
+			this.CopyToEnv2Command = new CopyRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
+			this.DeleteFromEnv1Command = new DeleteRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
+			this.DeleteFromEnv2Command = new DeleteRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned(), log);
 
 			this.WhenChanges(() => SelectedNode)
 				.ChangesAlso(() => IsMarkOKEnabled)

@@ -7,7 +7,22 @@ namespace Greg.Xrm.EnvironmentComparer
 	public static class ObjectComparisonExtensions
 	{
 		const string Actioned = "Actioned";
+		const string ManyToMany = "ManyToMany";
 
+
+		public static bool IsManyToMany<T>(this ObjectComparison<T> x)
+			where T : class
+		{
+			return x.Contains(ManyToMany) && x[ManyToMany].Equals("true", System.StringComparison.OrdinalIgnoreCase);
+		}
+
+
+		public static void SetManyToMany<T>(this ObjectComparison<T> x, bool? isManyToMany)
+			where T : class
+		{
+			if (x == null) return;
+			x[ManyToMany] = (isManyToMany ?? false).ToString();
+		}
 
 
 		public static bool IsActioned<T>(this ObjectComparison<T> x)
