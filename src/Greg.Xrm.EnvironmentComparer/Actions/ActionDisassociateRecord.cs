@@ -15,6 +15,11 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 			this.SourceEnvironmentName = sourceEnvironmentName;
 		}
 
+		/// <summary>
+		/// Gets the logical name of the entity
+		/// </summary>
+		public string EntityName => this.Entity.LogicalName;
+
 
 		public ObjectComparison<Entity> Result { get; }
 
