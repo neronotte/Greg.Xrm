@@ -2,6 +2,7 @@
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Greg.Xrm.EnvironmentComparer.Engine
 {
@@ -29,6 +30,26 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 		{
 			var result = new CompareResultSet();
 			foreach (var comparer in this.comparerList)
+			{
+				var comparisonResult = Compare(comparer);
+				result[comparer.EntityName] = comparisonResult;
+			}
+			return result;
+		}
+
+		public CompareResultSet CompareAll(CompareResultSet previousResults, IReadOnlyCollection<string> entitiesToCompare)
+		{
+			if (previousResults is null)
+			{
+				throw new ArgumentNullException(nameof(previousResults));
+			}
+			if (entitiesToCompare is null)
+			{
+				throw new ArgumentNullException(nameof(entitiesToCompare));
+			}
+
+			var result = previousResults.Clone();
+			foreach (var comparer in this.comparerList.Where(c => entitiesToCompare.Contains( c.EntityName )))
 			{
 				var comparisonResult = Compare(comparer);
 				result[comparer.EntityName] = comparisonResult;

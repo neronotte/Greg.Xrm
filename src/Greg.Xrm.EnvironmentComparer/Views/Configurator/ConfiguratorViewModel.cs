@@ -319,7 +319,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		}
 
 
-		public void ExecuteComparison()
+		public void ExecuteComparison(IReadOnlyCollection<string> entitiesToCompare = null)
 		{
 			if (this.Memento == null)
 				throw new InvalidOperationException("Comparison cannot be performed without memento!");
@@ -330,6 +330,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				return;
 			}
 
+
+			if (entitiesToCompare == null)
+			{
+				entitiesToCompare = this.Memento.Entities.Select(x => x.EntityName).ToList();
+			}
+
 			using (log.Track("Executing comparison"))
 			{
 				try
@@ -338,7 +344,15 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 						.FromMemento(this.Memento)
 						.GetEngine(this.Crm1, this.Crm2, this.log);
 
-					var resultSet = engine.CompareAll();
+					CompareResultSet resultSet;
+					if (this.CompareResultSet == null)
+					{
+						resultSet = engine.CompareAll();
+					}
+					else
+					{
+						resultSet = engine.CompareAll(this.CompareResultSet, entitiesToCompare);
+					}
 
 					// add post-elaboration to enrich with metadata
 

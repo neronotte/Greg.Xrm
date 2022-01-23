@@ -20,6 +20,12 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 
 
 
+		public CompareResultForEntity Clone()
+		{
+			return new CompareResultForEntity(this.EntityName, this.IsEntityValidForCrm1, this.IsEntityValidForCrm2, this.recordComparisonList);
+		}
+
+
 		public string EntityName { get; }
 
 		public bool IsEntityValidForCrm1 { get; }

@@ -10,9 +10,20 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 		{
 		}
 
-
 		protected CompareResultSet(SerializationInfo serializationInfo, StreamingContext streamingContext)
 		{
+		}
+
+		public CompareResultSet Clone()
+		{
+			var clone = new CompareResultSet();
+
+			foreach (var kvp in this)
+			{
+				clone[kvp.Key] = kvp.Value.Clone();
+			}
+
+			return clone;
 		}
 	}
 }

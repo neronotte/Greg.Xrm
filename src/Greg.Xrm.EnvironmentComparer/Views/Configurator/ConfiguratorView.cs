@@ -11,6 +11,8 @@ using XrmToolBox.Extensibility;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.Model;
 using Greg.Xrm.Logging;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -71,7 +73,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			{
 				if (m.SucceededCount == 0) return;
 
-				this.OnExecuteClick(this.tExecute, EventArgs.Empty);
+				var entitiesToRefresh = m.Select(_ => _.Action.EntityName).Distinct().ToList();
+
+				ExecuteComparison(entitiesToRefresh);
 			});
 
 
@@ -271,11 +275,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 		private void OnExecuteClick(object sender, EventArgs e)
 		{
+			ExecuteComparison();
+		}
+
+		private void ExecuteComparison( IReadOnlyCollection<string> entitiesToCompare = null)
+		{
 			this.asyncJobScheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Executing comparison, please wait...",
 				Work = (w, e1) => {
-					this.viewModel.ExecuteComparison();
+					this.viewModel.ExecuteComparison(entitiesToCompare);
 				},
 				PostWorkCallBack = e1 => {
 					if (e1.Error != null)

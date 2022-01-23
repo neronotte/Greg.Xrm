@@ -198,7 +198,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.treeView1.Location = new System.Drawing.Point(0, 49);
 			this.treeView1.Name = "treeView1";
 			this.treeView1.SelectedImageIndex = 0;
-			this.treeView1.Size = new System.Drawing.Size(565, 461);
+			this.treeView1.Size = new System.Drawing.Size(565, 612);
 			this.treeView1.TabIndex = 1;
 			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnAfterSelectTreeNode);
 			// 
@@ -283,21 +283,21 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mLoadEntities.Enabled = false;
 			this.mLoadEntities.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_refresh;
 			this.mLoadEntities.Name = "mLoadEntities";
-			this.mLoadEntities.Size = new System.Drawing.Size(180, 22);
+			this.mLoadEntities.Size = new System.Drawing.Size(134, 22);
 			this.mLoadEntities.Text = "Load tables";
 			this.mLoadEntities.Click += new System.EventHandler(this.OnLoadEntitiesClick);
 			// 
 			// toolStripMenuItem1
 			// 
 			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-			this.toolStripMenuItem1.Size = new System.Drawing.Size(177, 6);
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(131, 6);
 			// 
 			// mAdd
 			// 
 			this.mAdd.Enabled = false;
 			this.mAdd.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_add;
 			this.mAdd.Name = "mAdd";
-			this.mAdd.Size = new System.Drawing.Size(180, 22);
+			this.mAdd.Size = new System.Drawing.Size(134, 22);
 			this.mAdd.Text = "Add table...";
 			this.mAdd.Click += new System.EventHandler(this.OnAddClick);
 			// 
@@ -306,7 +306,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mEdit.Enabled = false;
 			this.mEdit.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_edit;
 			this.mEdit.Name = "mEdit";
-			this.mEdit.Size = new System.Drawing.Size(180, 22);
+			this.mEdit.Size = new System.Drawing.Size(134, 22);
 			this.mEdit.Text = "Edit...";
 			this.mEdit.Click += new System.EventHandler(this.OnEditClick);
 			// 
@@ -315,7 +315,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mRemove.Enabled = false;
 			this.mRemove.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.table_delete;
 			this.mRemove.Name = "mRemove";
-			this.mRemove.Size = new System.Drawing.Size(180, 22);
+			this.mRemove.Size = new System.Drawing.Size(134, 22);
 			this.mRemove.Text = "Remove";
 			this.mRemove.Click += new System.EventHandler(this.OnRemoveClick);
 			// 
@@ -339,7 +339,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(565, 510);
+			this.ClientSize = new System.Drawing.Size(565, 661);
 			this.Controls.Add(this.treeView1);
 			this.Controls.Add(this.toolStrip1);
 			this.Controls.Add(this.menuStrip1);
