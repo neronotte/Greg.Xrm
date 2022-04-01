@@ -42,11 +42,11 @@
     <None Remove="Help\Content\result-tree.html" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.5.4" />
+    <PackageReference Include="EPPlus" Version="5.8.7" />
     <PackageReference Include="ILMerge" Version="3.0.41" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2021.2.45" />
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.2.54" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj" />
@@ -83,6 +83,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Update="Views\Configurator\ConfiguratorDialog2.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -92,5 +97,11 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

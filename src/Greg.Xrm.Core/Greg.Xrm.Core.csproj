@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ValueTuple" Version="4.5.0" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2021.2.45" />
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.2.54" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Logging\OutputView.cs">
