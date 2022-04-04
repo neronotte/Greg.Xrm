@@ -1,4 +1,5 @@
-﻿using Greg.Xrm.Info;
+﻿using Greg.Xrm.ConstantsExtractor.Views;
+using Greg.Xrm.Info;
 using Greg.Xrm.Theming;
 using OfficeOpenXml;
 using System;
@@ -32,7 +33,7 @@ namespace Greg.Xrm.ConstantsExtractor
 
 			var themeProvider = new ThemeProvider();
 
-			return new ConstantsExtractorPluginControl(themeProvider).SetIcon();
+			return new MainView(themeProvider).SetIcon();
 		}
 
 		/// <summary>

@@ -101,108 +101,125 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		public void ExtractConstants()
 		{
-			this.GetEntities();
-			this.GetGlobalOptionSets();
-			this.GetEntityMetadataFromSolution();
-			this.CheckActivityEntities();
-			this.ParallelExtractData();
-			this.ExtractEntityCommonFieldMetadata();
+			using(Log.Track("Reading info from Dataverse"))
+			{
+				this.GetEntities();
+				this.GetGlobalOptionSets();
+				this.GetEntityMetadataFromSolution();
+				this.CheckActivityEntities();
+				this.ParallelExtractData();
+				this.ExtractEntityCommonFieldMetadata();
+			}
 		}
 
 		private void GetEntities()
 		{
-			this.EntitiesMetadata = ((RetrieveAllEntitiesResponse)this.Service.Execute(new RetrieveAllEntitiesRequest
+			using(Log.Track("Reading entities"))
 			{
-				EntityFilters = (EntityFilters.Entity | EntityFilters.Attributes | EntityFilters.Relationships)
-			})).EntityMetadata;
+				this.EntitiesMetadata = ((RetrieveAllEntitiesResponse)this.Service.Execute(new RetrieveAllEntitiesRequest
+				{
+					EntityFilters = (EntityFilters.Entity | EntityFilters.Attributes | EntityFilters.Relationships)
+				})).EntityMetadata;
 
-			this.AccountMetadata = this.EntitiesMetadata.Where(ent => ent.LogicalName == "account").FirstOrDefault();
+				this.AccountMetadata = this.EntitiesMetadata.Where(ent => ent.LogicalName == "account").FirstOrDefault();
+			}
 		}
 
 		private void GetGlobalOptionSets()
 		{
-			var optionSetsResponse = (RetrieveAllOptionSetsResponse)this.Service.Execute(new RetrieveAllOptionSetsRequest());
+			using(Log.Track("Reading global option sets"))
+			{
+				var optionSetsResponse = (RetrieveAllOptionSetsResponse)this.Service.Execute(new RetrieveAllOptionSetsRequest());
 
-			this.GlobalOptionSetsMetadata = optionSetsResponse.OptionSetMetadata
-				.Where(optMetadata => optMetadata is OptionSetMetadata metadata && metadata.Options.Count > 0)
-				.Select(opt => GetGlobalOptionSetsMetadataManager(opt))
-				.OrderBy(opt => opt.LogicalName)
-				.ToList();
+				this.GlobalOptionSetsMetadata = optionSetsResponse.OptionSetMetadata
+					.Where(optMetadata => optMetadata is OptionSetMetadata metadata && metadata.Options.Count > 0)
+					.Select(opt => GetGlobalOptionSetsMetadataManager(opt))
+					.OrderBy(opt => opt.LogicalName)
+					.ToList();
 
-			this.GlobalBooleanOptionSetsMetadata = optionSetsResponse.OptionSetMetadata
-				.Where(optMetadata => optMetadata is BooleanOptionSetMetadata)
-				.Select(opt => GetGlobalOptionSetsMetadataManager(opt))
-				.OrderBy(opt => opt.LogicalName)
-				.ToList();
+				this.GlobalBooleanOptionSetsMetadata = optionSetsResponse.OptionSetMetadata
+					.Where(optMetadata => optMetadata is BooleanOptionSetMetadata)
+					.Select(opt => GetGlobalOptionSetsMetadataManager(opt))
+					.OrderBy(opt => opt.LogicalName)
+					.ToList();
+			}
 		}
 
 		private void GetEntityMetadataFromSolution()
 		{
-			var query = new QueryExpression("solution");
-			query.Criteria.AddCondition(new ConditionExpression("uniquename", ConditionOperator.Equal, SolutionName));
-			var solution = this.Service.RetrieveMultiple(query).Entities.FirstOrDefault();
-
-			if (solution == null)
+			using (Log.Track("Getting entity metadata from solution"))
 			{
-				throw new ApplicationException("Invalid solution name: " + SolutionName);
+				var query = new QueryExpression("solution");
+				query.Criteria.AddCondition(new ConditionExpression("uniquename", ConditionOperator.Equal, SolutionName));
+				var solution = this.Service.RetrieveMultiple(query).Entities.FirstOrDefault();
+
+				if (solution == null)
+				{
+					throw new ApplicationException("Invalid solution name: " + SolutionName);
+				}
+
+				query = new QueryExpression("solutioncomponent");
+				query.ColumnSet.AllColumns = true;
+				query.Criteria.AddCondition(new ConditionExpression("solutionid", ConditionOperator.Equal, solution.Id));
+				query.Criteria.AddCondition(new ConditionExpression("componenttype", ConditionOperator.Equal, 1));
+
+				this.MetadataEntityGuidsFromSolution = this.Service.RetrieveMultiple(query).Entities
+					.Where(x => x.Contains("objectid"))
+					.Select(x => x.GetAttributeValue<Guid>("objectid"))
+					.ToList();
 			}
 
-			query = new QueryExpression("solutioncomponent");
-			query.ColumnSet.AllColumns = true;
-			query.Criteria.AddCondition(new ConditionExpression("solutionid", ConditionOperator.Equal, solution.Id));
-			query.Criteria.AddCondition(new ConditionExpression("componenttype", ConditionOperator.Equal, 1));
-
-			this.MetadataEntityGuidsFromSolution = this.Service.RetrieveMultiple(query).Entities
-				.Where(x => x.Contains("objectid"))
-				.Select(x => x.GetAttributeValue<Guid>("objectid"))
-				.ToList();
 		}
 
 		private void CheckActivityEntities()
 		{
-			var activityPointerMetadata = this.EntitiesMetadata.Where(ent => ent.LogicalName == "activitypointer").FirstOrDefault();
+			using(Log.Track("Checking for activity entities"))
+			{
+				var activityPointerMetadata = this.EntitiesMetadata.Where(ent => ent.LogicalName == "activitypointer").FirstOrDefault();
 
-			var list = this.EntitiesMetadata.Where(ent => this.MetadataEntityGuidsFromSolution.Contains(ent.MetadataId.Value)).ToList();
-			if (list.Where(ent => ent.IsActivity.Value).ToList().Count > 0 && list.Where(ent => ent.LogicalName == "activitypointer").FirstOrDefault() == null)
-				list.Add(activityPointerMetadata);
+				var list = this.EntitiesMetadata.Where(ent => this.MetadataEntityGuidsFromSolution.Contains(ent.MetadataId.Value)).ToList();
+				if (list.Where(ent => ent.IsActivity.Value).ToList().Count > 0 && list.Where(ent => ent.LogicalName == "activitypointer").FirstOrDefault() == null)
+					list.Add(activityPointerMetadata);
 
-			this.EntitiesMetadata = list.ToArray();
+				this.EntitiesMetadata = list.ToArray();
+			}
 		}
 
 		private void ParallelExtractData()
 		{
-			var entitiesMetadata = this.EntitiesMetadata;
-			var parallelOptions = new ParallelOptions
+			using(Log.Track("Transforming metadata"))
 			{
-				MaxDegreeOfParallelism = 1
-			};
-
-			var entityConcurrentData = new ConcurrentBag<EntityMetadataManager>();
-
-			void body(EntityMetadata entMetadata)
-			{
-				if (entMetadata.DisplayName.LocalizedLabels.Count <= 0)
-					return;
-
-				string label = entMetadata.DisplayName.LocalizedLabels.FirstOrDefault()?.Label;
-				var entityMetadataManager = new EntityMetadataManager(label, entMetadata.LogicalName, entMetadata.IsActivity.Value, EntityCommonFields.ToList());
-
-				Console.WriteLine(label);
-				foreach (AttributeMetadata attribute in entMetadata.Attributes)
+				var entitiesMetadata = this.EntitiesMetadata;
+				var parallelOptions = new ParallelOptions
 				{
-					if (attribute.DisplayName.LocalizedLabels.Count > 0)
+					MaxDegreeOfParallelism = 1
+				};
+
+				var entityConcurrentData = new ConcurrentBag<EntityMetadataManager>();
+
+				void body(EntityMetadata entMetadata)
+				{
+					if (entMetadata.DisplayName.LocalizedLabels.Count <= 0)
+						return;
+
+					string label = entMetadata.DisplayName.LocalizedLabels.FirstOrDefault()?.Label;
+					var entityMetadataManager = new EntityMetadataManager(label, entMetadata.LogicalName, entMetadata.IsActivity.Value, EntityCommonFields.ToList());
+
+					Console.WriteLine(label);
+					foreach (AttributeMetadata attribute in entMetadata.Attributes)
 					{
-						AttributeMetadataManager elementFromMetadata = GetAttributeElementFromMetadata(attribute, entMetadata.LogicalName);
-						entityMetadataManager.AddAttribute(elementFromMetadata);
+						if (attribute.DisplayName.LocalizedLabels.Count > 0)
+						{
+							AttributeMetadataManager elementFromMetadata = GetAttributeElementFromMetadata(attribute, entMetadata.LogicalName);
+							entityMetadataManager.AddAttribute(elementFromMetadata);
+						}
 					}
+					entityMetadataManager.OptionSetAttributes = entityMetadataManager.OptionSetAttributes.OrderBy(opt => opt.LogicalNameConstant).ToList();
+					entityConcurrentData.Add(entityMetadataManager);
 				}
-				entityMetadataManager.OptionSetAttributes = entityMetadataManager.OptionSetAttributes.OrderBy(opt => opt.LogicalNameConstant).ToList();
-				entityConcurrentData.Add(entityMetadataManager);
+				Parallel.ForEach(entitiesMetadata, parallelOptions, body);
+				this.EntityData = entityConcurrentData.OrderBy(data => data.EntityLogicalName).ToList();
 			}
-			Parallel.ForEach(entitiesMetadata, parallelOptions, body);
-
-
-			this.EntityData = entityConcurrentData.OrderBy(data => data.EntityLogicalName).ToList();
 		}
 
 		private void ExtractEntityCommonFieldMetadata()

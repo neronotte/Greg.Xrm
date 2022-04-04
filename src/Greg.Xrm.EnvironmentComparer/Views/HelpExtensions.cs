@@ -1,4 +1,4 @@
-﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+﻿using Greg.Xrm.Core.Help;
 using Greg.Xrm.Messaging;
 using System;
 using System.Windows.Forms;

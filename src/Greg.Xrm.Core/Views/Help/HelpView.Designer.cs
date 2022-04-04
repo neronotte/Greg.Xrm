@@ -1,5 +1,5 @@
 ﻿
-namespace Greg.Xrm.EnvironmentComparer.Views.Help
+namespace Greg.Xrm.Core.Views.Help
 {
 	partial class HelpView
 	{

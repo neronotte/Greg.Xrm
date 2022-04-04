@@ -14,16 +14,24 @@ using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
+using XrmToolBox.Extensibility.Interfaces;
 
-namespace Greg.Xrm.ConstantsExtractor
+namespace Greg.Xrm.ConstantsExtractor.Views
 {
-	public partial class ConstantsExtractorPluginControl : PluginControlBase
+	public partial class MainView : PluginControlBase, IGitHubPlugin
 	{
 		private readonly IMessenger messenger;
 		private readonly SettingsView settingsView;
 		private readonly OutputView outputView;
 
-		public ConstantsExtractorPluginControl(IThemeProvider themeProvider)
+		#region IGitHubPlugin implementation
+		public string RepositoryName => GitHubPluginConstants.RepositoryName;
+
+		public string UserName => GitHubPluginConstants.UserName;
+
+		#endregion
+
+		public MainView(IThemeProvider themeProvider)
 		{
 			if (themeProvider == null)
 				throw new ArgumentNullException(nameof(themeProvider));

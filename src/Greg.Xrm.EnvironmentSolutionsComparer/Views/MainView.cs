@@ -12,10 +12,11 @@ using System.Collections.Specialized;
 using System.Linq;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
+using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 {
-	public partial class MainView :  MultipleConnectionsPluginControlBase
+	public partial class MainView :  MultipleConnectionsPluginControlBase, IGitHubPlugin
 	{
 		const string AdditionalOrganization = "AdditionalOrganization";
 		private readonly MainViewModel viewModel;
@@ -24,6 +25,17 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 		private readonly EnvironmentListView environmentListView;
 		private readonly SolutionsView solutionsView;
 		private readonly SolutionComponentsView solutionComponentsView;
+
+
+
+		#region IGitHubPlugin implementation
+		public string RepositoryName => GitHubPluginConstants.RepositoryName;
+
+		public string UserName => GitHubPluginConstants.UserName;
+
+
+		#endregion 
+
 
 		public MainView(IThemeProvider themeProvider)
 		{

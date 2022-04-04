@@ -1,22 +1,21 @@
-﻿using Greg.Xrm.EnvironmentComparer.Help;
+﻿using Greg.Xrm.Core.Help;
 using Greg.Xrm.Logging;
-using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Messaging;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
-namespace Greg.Xrm.EnvironmentComparer.Views.Help
+namespace Greg.Xrm.Core.Views.Help
 {
 	public partial class HelpView : DockContent
 	{
 		private readonly HelpViewModel viewModel;
 		private readonly IMessenger messenger;
 
-		public HelpView(IMessenger messenger, ILog log, IHelpRepository helpRepository)
+		public HelpView(IMessenger messenger, ILog log, IHelpRepository helpRepository, string initialTopic)
 		{
 			InitializeComponent();
 
-			this.viewModel = new HelpViewModel(messenger, log, helpRepository);
+			this.viewModel = new HelpViewModel(messenger, log, helpRepository, initialTopic);
 			this.webBrowser1.Bind(_ => _.DocumentText, this.viewModel, _ => _.Content);
 
 

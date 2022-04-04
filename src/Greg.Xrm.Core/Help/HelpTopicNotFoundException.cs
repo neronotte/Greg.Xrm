@@ -1,4 +1,4 @@
-﻿namespace Greg.Xrm.EnvironmentComparer.Help
+﻿namespace Greg.Xrm.Core.Help
 {
 	[System.Serializable]
 	public class HelpTopicNotFoundException : System.Exception

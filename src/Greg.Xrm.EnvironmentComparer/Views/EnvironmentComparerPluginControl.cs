@@ -1,9 +1,10 @@
 ﻿using Greg.Xrm.Async;
+using Greg.Xrm.Core.Help;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Views.Actions;
 using Greg.Xrm.EnvironmentComparer.Views.Configurator;
-using Greg.Xrm.EnvironmentComparer.Views.Help;
 using Greg.Xrm.EnvironmentComparer.Views.Output;
 using Greg.Xrm.EnvironmentComparer.Views.Results;
 using Greg.Xrm.Messaging;
@@ -78,8 +79,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 			var helpContentIndexProvider = new HelpContentIndexProvider();
 			var helpContentIndex = helpContentIndexProvider.GetIndex();
-			var helpRepository = new HelpRepository(helpContentIndex);
-			var helpView = new HelpView(this.messenger, this.outputView, helpRepository);
+			var helpRepository = new HelpRepository(helpContentIndex, GetType().Assembly);
+			var helpView = new HelpView(this.messenger, this.outputView, helpRepository, Topics.Home);
 
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;

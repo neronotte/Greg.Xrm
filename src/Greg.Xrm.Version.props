@@ -6,6 +6,6 @@
     <FileVersion>$(Version)</FileVersion>
     <Authors>_neronotte</Authors>
     <Company>_neronotte</Company>
-    <Copyright>Copyright © _neronotte 2020</Copyright>
+    <Copyright>Copyright © _neronotte</Copyright>
   </PropertyGroup>
 </Project>

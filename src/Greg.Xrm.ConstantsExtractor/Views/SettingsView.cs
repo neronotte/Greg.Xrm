@@ -8,7 +8,7 @@ using System.Linq;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
 
-namespace Greg.Xrm.ConstantsExtractor
+namespace Greg.Xrm.ConstantsExtractor.Views
 {
 	public class SettingsView : DockContent
 	{
@@ -50,6 +50,8 @@ namespace Greg.Xrm.ConstantsExtractor
 
 			this.RefreshView();
 			this.messenger = messenger;
+
+			this.Icon = PluginExtensions.GetIcon();
 		}
 
 
@@ -119,7 +121,7 @@ namespace Greg.Xrm.ConstantsExtractor
 
 
 			// Loads or creates the settings for the plugin
-			if (!SettingsManager.Instance.TryLoad(typeof(ConstantsExtractorPluginControl), out Settings settings))
+			if (!SettingsManager.Instance.TryLoad(typeof(MainView), out Settings settings))
 			{
 				this.Settings = new Settings();
 			}
@@ -217,7 +219,7 @@ namespace Greg.Xrm.ConstantsExtractor
 			this.Settings.ExtractDescriptions = this.chkExtractDescriptions.Checked;
 			this.Settings.SolutionName = ((Solution)this.cmbSolutionList.SelectedItem).uniquename;
 
-			SettingsManager.Instance.Save(typeof(ConstantsExtractorPluginControl), this.Settings);
+			SettingsManager.Instance.Save(typeof(MainView), this.Settings);
 
 			this.messenger.Send(new Export(this.Settings));
 			this.Enabled = false;

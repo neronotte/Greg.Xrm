@@ -45,32 +45,32 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		public void WriteConstantsToFile()
 		{
-			log.Debug("Start writing C# files");
-
-			this.WriteGlobalOptionSetConstants();
-			this.WriteEntityConstantsClass();
-
-			log.Debug("Writing of C# files completed");
+			using (log.Track("Writing C# files"))
+			{
+				this.WriteGlobalOptionSetConstants();
+				this.WriteEntityConstantsClass();
+			}
 		}
 
 		public void WriteGlobalOptionSetConstants()
 		{
-			log.Debug("Writing C# global option set constants");
-
-			this.FileRows.Add($"namespace {this.CurrentNamespace}{Environment.NewLine}{{");
-			this.FileRows.Add($"\tpublic static class GlobalOptionSetConstants{Environment.NewLine}\t{{");
-			this.WriteGlobalElements(this.GlobalOptionSetsMetadata, "\t\t");
-
-			this.FileRows.Add($"\t}}{Environment.NewLine}}}");
-			this.WriteFile(this.FilePath + "/GlobalOptionSetConstants.cs");
-			this.FileRows = new List<string>
+			using (log.Track("Writing C# global option set constants"))
 			{
-				$"namespace {this.CurrentNamespace}{Environment.NewLine}{{",
-				$"\tpublic static class GlobalBooleanConstants{Environment.NewLine}\t{{"
-			};
-			this.WriteGlobalElements(this.GlobalBooleanOptionSetsMetadata, "\t\t");
-			this.FileRows.Add("\t}" + Environment.NewLine + "}");
-			this.WriteFile(this.FilePath + "/GlobalBooleanConstants.cs");
+				this.FileRows.Add($"namespace {this.CurrentNamespace}{Environment.NewLine}{{");
+				this.FileRows.Add($"\tpublic static class GlobalOptionSetConstants{Environment.NewLine}\t{{");
+				this.WriteGlobalElements(this.GlobalOptionSetsMetadata, "\t\t");
+
+				this.FileRows.Add($"\t}}{Environment.NewLine}}}");
+				this.WriteFile(this.FilePath + "/GlobalOptionSetConstants.cs");
+				this.FileRows = new List<string>
+				{
+					$"namespace {this.CurrentNamespace}{Environment.NewLine}{{",
+					$"\tpublic static class GlobalBooleanConstants{Environment.NewLine}\t{{"
+				};
+				this.WriteGlobalElements(this.GlobalBooleanOptionSetsMetadata, "\t\t");
+				this.FileRows.Add("\t}" + Environment.NewLine + "}");
+				this.WriteFile(this.FilePath + "/GlobalBooleanConstants.cs");
+			}
 		}
 
 		public void WriteEntityConstantsClass()
@@ -120,8 +120,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 				this.FileRows.Add("\tpublic sealed class " + entityConstants.EntityLogicalName + " : EntityGenericConstants" + Environment.NewLine + "\t{");
 			if (!(entityConstants.EntityLogicalName != "EntityGenericConstants"))
 				return;
-			this.FileRows.Add("\t\t/// " + entityConstants.EntityLogicalName);
+
 			this.FileRows.Add("\t\t/// <summary>");
+			this.FileRows.Add("\t\t/// " + entityConstants.EntityLogicalName);
 			this.FileRows.Add("\t\t/// </summary>");
 			this.FileRows.Add("\t\tpublic static string logicalName => \"" + entityConstants.EntityLogicalName + "\";" + Environment.NewLine);
 			this.FileRows.Add("\t\t/// <summary>");
