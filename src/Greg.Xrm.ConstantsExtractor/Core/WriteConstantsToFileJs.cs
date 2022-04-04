@@ -11,8 +11,6 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		public override string FilePath { get; set; }
 
-		public override List<string> FileRows { get; set; }
-
 		private string NameSpaceJsName { get; set; }
 
 		private string[] JsHeaderLines { get; set; }
@@ -25,7 +23,6 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		public WriteConstantsToFileJs(ILog log, ConstantExtractorManager manager)
 		{
-			this.FileRows = new List<string>();
 			this.FilePath = manager.FilePathJS;
 			this.NameSpaceJsName = manager.NameSpaceJs;
 			this.JsHeaderLines = manager.JsHeaderLines.Replace("\\n", "\n").Split('\n');
@@ -48,16 +45,16 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		{
 			using (log.Track("Writing JS global option set constants"))
 			{
-				this.JsHeaderLines.ToList<string>().ForEach(row => this.FileRows.Add(row));
-				this.FileRows.Add(Environment.NewLine);
-				this.FileRows.Add(this.NameSpaceJsName + ".GlobalPickListConstants = new function () {" + Environment.NewLine + "\tvar self = this;");
-				this.FileRows.Add("\tself.GlobalOptionSets = {");
+				this.JsHeaderLines.ToList<string>().ForEach(row => this.WriteLine(row));
+				this.WriteLine(Environment.NewLine);
+				this.WriteLine(this.NameSpaceJsName + ".GlobalPickListConstants = new function () {" + Environment.NewLine + "\tvar self = this;");
+				this.WriteLine("\tself.GlobalOptionSets = {");
 				this.WriteGlobalElements(this.GlobalOptionSetsMetadata, "\t\t");
-				this.FileRows.Add("\t};");
-				this.FileRows.Add(Environment.NewLine + "\tself.GlobalBooleans = {");
+				this.WriteLine("\t};");
+				this.WriteLine(Environment.NewLine + "\tself.GlobalBooleans = {");
 				this.WriteGlobalElements(this.GlobalBooleanOptionSetsMetadata, "\t\t");
-				this.FileRows.Add("\t};" + Environment.NewLine + "};");
-				this.WriteFile(this.FilePath + "/GlobalOptionSetsConstants.js");
+				this.WriteLine("\t};" + Environment.NewLine + "};");
+				this.CommitToFileAndRestart(this.FilePath + "/GlobalOptionSetsConstants.js");
 			}
 		}
 
@@ -70,27 +67,27 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		  GlobalOptionSetsMetadataManager optionSetMetadata,
 		  string tabulation)
 		{
-			this.FileRows.Add(Environment.NewLine + "\t\t/// " + optionSetMetadata.DisplayName + " constants.");
-			this.FileRows.Add("\t\t" + optionSetMetadata.LogicalName + "Values: {");
+			this.WriteLine(Environment.NewLine + "\t\t/// " + optionSetMetadata.DisplayName + " constants.");
+			this.WriteLine("\t\t" + optionSetMetadata.LogicalName + "Values: {");
 		}
 
 		public override void WriteEntityConstantClassHeader(EntityMetadataManager entityConstants)
 		{
-			((IEnumerable<string>)this.JsHeaderLines).ToList<string>().ForEach((Action<string>)(row => this.FileRows.Add(row)));
-			this.FileRows.Add(Environment.NewLine + this.NameSpaceJsName + "." + entityConstants.EntityLogicalName + " = {");
-			this.FileRows.Add("\t///" + entityConstants.EntityDisplayName + " constants.");
+			JsHeaderLines.ToList().ForEach(row => this.WriteLine(row));
+			this.WriteLine(Environment.NewLine + this.NameSpaceJsName + "." + entityConstants.EntityLogicalName + " = {");
+			this.WriteLine("\t///" + entityConstants.EntityDisplayName + " constants.");
 			if (!(entityConstants.EntityLogicalName != "EntityGenericConstants"))
 				return;
-			this.FileRows.Add("\tlogicalName: \"" + entityConstants.EntityLogicalName + "\",");
-			this.FileRows.Add("\tdisplayName: \"" + entityConstants.EntityDisplayName + "\",");
+			this.WriteLine("\tlogicalName: \"" + entityConstants.EntityLogicalName + "\",");
+			this.WriteLine("\tdisplayName: \"" + entityConstants.EntityDisplayName + "\",");
 		}
 
 		public override void WriteAttributes(
 		  EntityMetadataManager entityConstants,
 		  string lastAttribute)
 		{
-			foreach (AttributeMetadataManager attribute in entityConstants.Attributes)
-				this.WriteAttribute(attribute, lastAttribute, (uint)entityConstants.OptionSetAttributes.Count > 0U, (AttributeMetadataManager)entityConstants.StatusReasonAttribute);
+			foreach (var attribute in entityConstants.Attributes)
+				this.WriteAttribute(attribute, lastAttribute, (uint)entityConstants.OptionSetAttributes.Count > 0U, entityConstants.StatusReasonAttribute);
 		}
 
 		private void WriteAttribute(
@@ -99,11 +96,11 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		  bool optionSetValuesInList,
 		  AttributeMetadataManager statusReasonAttribute)
 		{
-			this.FileRows.Add("\t///" + attr.DisplayNameConstant);
+			this.WriteLine("\t///" + attr.DisplayNameConstant);
 			string str = "\t" + attr.LogicalNameConstant + ": \"" + attr.LogicalNameConstant + "\"";
 			if (attr.LogicalNameConstant != lastAttribute | optionSetValuesInList || statusReasonAttribute != null && attr != statusReasonAttribute)
 				str += ",";
-			this.FileRows.Add(str);
+			this.WriteLine(str);
 		}
 
 		public override void WriteRows(
@@ -120,18 +117,18 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			keyValuePairList.ForEach(action);
 			rows[rows.Count - 1] = rows.Last().Remove(rows.Last().Length - 1);
 			rows.Add(str ?? String.Empty);
-			rows.ForEach(pickListRow => this.FileRows.Add(tabulation + pickListRow));
+			rows.ForEach(pickListRow => this.WriteLine(tabulation + pickListRow));
 		}
 
 		public override void WriteAttributeHeader(AttributeMetadataManager attribute)
 		{
-			this.FileRows.Add(Environment.NewLine + "\t/// Values for field " + attribute.DisplayNameConstant);
-			this.FileRows.Add("\t" + attribute.LogicalNameConstant + "Values: {");
+			this.WriteLine(Environment.NewLine + "\t/// Values for field " + attribute.DisplayNameConstant);
+			this.WriteLine("\t" + attribute.LogicalNameConstant + "Values: {");
 		}
 
 		public override void WriteEndCode()
 		{
-			this.FileRows.Add("};");
+			this.WriteLine("};");
 		}
 	}
 }

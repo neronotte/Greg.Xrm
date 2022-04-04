@@ -18,11 +18,11 @@ namespace Greg.Xrm.ConstantsExtractor.Core
         public Dictionary<int, string> StatusValues { get; }
 
 
-		public override void WriteFieldInfo(List<string> fileRows)
+		public override IEnumerable<string> WriteFieldInfo()
         {
-            fileRows.Add("\t\t/// Values:");
+            yield return "\t\t/// Values:";
             foreach (KeyValuePair<int, string> statusValue in this.StatusValues)
-                fileRows.Add("\t\t" + string.Format("/// {0}: {1},", (object)statusValue.Value, (object)statusValue.Key));
+                yield return "\t\t" + string.Format("/// {0}: {1},", statusValue.Value, statusValue.Key);
         }
 	}
 }

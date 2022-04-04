@@ -10,9 +10,14 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 	{
 		public abstract string FilePath { get; set; }
 
-		public abstract List<string> FileRows { get; set; }
+		private List<string> FileRows { get; set; }
 
 		public abstract List<EntityMetadataManager> EntitiesData { get; set; }
+
+		protected WriteConstantsToFileBase()
+		{
+			this.FileRows = new List<string>();
+		}
 
 		public void WriteGlobalElements(List<GlobalOptionSetsMetadataManager> globalMetadata, string tabulation)
 		{
@@ -21,6 +26,11 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 				this.WriteGlobalOptionSetConstantClassHeader(optionSetMetadata, tabulation);
 				this.WriteRows(optionSetMetadata.PickListValues.ToList(), tabulation, new bool?(optionSetMetadata == globalMetadata.Last()));
 			}
+		}
+
+		protected void WriteLine(string text)
+		{
+			this.FileRows.Add(text);
 		}
 
 		public void WriteEntityConstants(ILog log, string fileType, string tabulation)
@@ -40,7 +50,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 					this.WriteCurrentEntityConstants(entityConstants, lastAttribute, tabulation);
 				}
 				this.WriteEndCode();
-				this.WriteFile(this.FilePath + "/" + entityConstants.EntityLogicalName + "." + fileType);
+				this.CommitToFileAndRestart(this.FilePath + "/" + entityConstants.EntityLogicalName + "." + fileType);
 			}
 		}
 
@@ -104,10 +114,12 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			this.WriteRows(((AttributeMetadataManagerForStatus)stateAttribute).StatusValues.ToList(), tabulation, new bool?());
 		}
 
-		public void WriteFile(string fileName)
+		public void CommitToFileAndRestart(string fileName)
 		{
 			using (var w = new StreamWriter(File.Create(fileName)))
 				this.FileRows.ForEach(row => w.WriteLine(row));
+
+			this.FileRows.Clear();
 		}
 
 		public virtual void WriteEntityConstantClassHeader(EntityMetadataManager entityConstants)

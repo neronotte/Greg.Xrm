@@ -29,8 +29,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		public string Description { get; }
 
 
-		public virtual void WriteFieldInfo(List<string> fileRows)
+		public virtual IEnumerable<string> WriteFieldInfo()
 		{
+			yield break;
 		}
 	}
 }

@@ -25,11 +25,11 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		public string GlobalOptionSetLogicalName { get; }
 
 
-		public override void WriteFieldInfo(List<string> fileRows)
+		public override IEnumerable<string> WriteFieldInfo()
 		{
-			fileRows.Add("\t\t/// Values:");
-			foreach (KeyValuePair<int, string> picklistValue in this.PicklistValues)
-				fileRows.Add("\t\t" + string.Format("/// {0}: {1},", (object)picklistValue.Value, (object)picklistValue.Key));
+			yield return ("\t\t/// Values:");
+			foreach (var picklistValue in this.PicklistValues)
+				yield return "\t\t" + string.Format("/// {0}: {1},", picklistValue.Value, picklistValue.Key);
 		}
 	}
 }

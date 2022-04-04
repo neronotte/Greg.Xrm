@@ -19,11 +19,11 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		public List<string> TargetEntities { get; }
 
 
-		public override void WriteFieldInfo(List<string> fileRows)
+		public override IEnumerable<string> WriteFieldInfo()
 		{
 			string relatedEntityNames = string.Empty;
 			this.TargetEntities.ForEach(ent => relatedEntityNames = relatedEntityNames + ent + ",");
-			fileRows.Add("\t\t/// Related entities: " + relatedEntityNames);
+			yield return ("\t\t/// Related entities: " + relatedEntityNames);
 		}
 	}
 }
