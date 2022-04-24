@@ -34,13 +34,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Help\Content\home.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\home.html">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="DockPanelSuite" Version="3.0.6" />
     <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.0.6" />
-    <PackageReference Include="EPPlus" Version="5.8.7" />
+    <PackageReference Include="EPPlus" Version="6.0.3" />
     <PackageReference Include="ILMerge" Version="3.0.41" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.2.54" />
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.4.55" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj" />
@@ -54,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>

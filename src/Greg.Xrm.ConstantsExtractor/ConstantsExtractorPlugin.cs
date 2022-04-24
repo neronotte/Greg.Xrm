@@ -8,7 +8,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.ConstantsExtractor
@@ -18,14 +17,12 @@ namespace Greg.Xrm.ConstantsExtractor
 	[Export(typeof(IXrmToolBoxPlugin)),
 		ExportMetadata("Name", "_n.ConstantsExtractor"),
 		ExportMetadata("Description", "Generates C# and JS constants file, to simplify the usage of late bound entitites."),
-		// Please specify the base64 content of a 32x32 pixels image
 		ExportMetadata("SmallImageBase64", PluginConstants.SmallImageBase64),
-		// Please specify the base64 content of a 80x80 pixels image
 		ExportMetadata("BigImageBase64", PluginConstants.BigImageBase64),
 		ExportMetadata("BackgroundColor", PluginConstants.BackgroundColor),
 		ExportMetadata("PrimaryFontColor", PluginConstants.PrimaryFontColor),
 		ExportMetadata("SecondaryFontColor", PluginConstants.SecondaryFontColor)]
-	public class ConstantsExtractorPlugin : PluginBase
+	public class ConstantsExtractorPlugin : GregPluginBase
 	{
 		public override IXrmToolBoxPluginControl GetControl()
 		{

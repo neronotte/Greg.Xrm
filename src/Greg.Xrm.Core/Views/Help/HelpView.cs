@@ -18,13 +18,18 @@ namespace Greg.Xrm.Core.Views.Help
 			this.viewModel = new HelpViewModel(messenger, log, helpRepository, initialTopic);
 			this.webBrowser1.Bind(_ => _.DocumentText, this.viewModel, _ => _.Content);
 
-
 			this.webBrowser1.Navigating += OnNavigating;
 
 			this.messenger = messenger;
 			this.messenger.Register<ShowHelp>(m => { 
 				this.VisibleState = DockState.DockRight;
 			});
+
+
+			this.Shown += (s, e) =>
+			{
+				this.viewModel.Initialize();
+			};
 		}
 
 

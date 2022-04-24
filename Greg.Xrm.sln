@@ -26,6 +26,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greg.Xrm.Template", "src\Gr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Greg.Xrm.ConstantsExtractor", "src\Greg.Xrm.ConstantsExtractor\Greg.Xrm.ConstantsExtractor.csproj", "{24B2B353-7154-4381-9D09-30C44FB89C77}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{59CC01D9-69E4-4CCD-88DE-E3A45704AEBE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +67,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{9C7332E0-72E6-4417-BA22-0A5E6E031F55} = {59CC01D9-69E4-4CCD-88DE-E3A45704AEBE}
 		{CA2E81BC-BCD6-44D1-931D-C84C8C63D751} = {18E60EB5-4EDF-46BD-AC78-940351BDC0FC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

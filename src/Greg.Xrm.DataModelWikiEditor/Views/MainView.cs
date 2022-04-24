@@ -11,7 +11,7 @@ using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.DataModelWikiEditor.Views
 {
-	public partial class MainView : PluginControlBase
+	public partial class MainView : GregPluginControlBase<DataModelWikiEditorPlugin>
 	{
 
 		private readonly MainViewModel viewModel;

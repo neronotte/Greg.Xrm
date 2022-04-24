@@ -1,5 +1,7 @@
-﻿using Greg.Xrm.ConstantsExtractor.Messaging;
+﻿using Greg.Xrm.ConstantsExtractor.Help;
+using Greg.Xrm.ConstantsExtractor.Messaging;
 using Greg.Xrm.ConstantsExtractor.Model;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
@@ -36,6 +38,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 		public SettingsView( IThemeProvider themeProvider, IMessenger messenger)
 		{
 			InitializeComponent();
+
+			this.RegisterHelp(messenger, Topics.Home);
 
 			themeProvider.GetCurrentTheme().ApplyTo(this.txtCsFolder);
 			themeProvider.GetCurrentTheme().ApplyTo(this.txtJsFolder);
@@ -252,7 +256,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// chkCs
 			// 
 			this.chkCs.AutoSize = true;
-			this.chkCs.Location = new System.Drawing.Point(13, 13);
+			this.chkCs.Location = new System.Drawing.Point(13, 86);
 			this.chkCs.Name = "chkCs";
 			this.chkCs.Size = new System.Drawing.Size(193, 17);
 			this.chkCs.TabIndex = 0;
@@ -263,7 +267,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// chkJs
 			// 
 			this.chkJs.AutoSize = true;
-			this.chkJs.Location = new System.Drawing.Point(12, 161);
+			this.chkJs.Location = new System.Drawing.Point(12, 234);
 			this.chkJs.Name = "chkJs";
 			this.chkJs.Size = new System.Drawing.Size(224, 17);
 			this.chkJs.TabIndex = 1;
@@ -274,7 +278,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// chkExtractTypes
 			// 
 			this.chkExtractTypes.AutoSize = true;
-			this.chkExtractTypes.Location = new System.Drawing.Point(12, 395);
+			this.chkExtractTypes.Location = new System.Drawing.Point(12, 468);
 			this.chkExtractTypes.Name = "chkExtractTypes";
 			this.chkExtractTypes.Size = new System.Drawing.Size(157, 17);
 			this.chkExtractTypes.TabIndex = 2;
@@ -284,7 +288,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// chkExtractDescriptions
 			// 
 			this.chkExtractDescriptions.AutoSize = true;
-			this.chkExtractDescriptions.Location = new System.Drawing.Point(12, 418);
+			this.chkExtractDescriptions.Location = new System.Drawing.Point(12, 491);
 			this.chkExtractDescriptions.Name = "chkExtractDescriptions";
 			this.chkExtractDescriptions.Size = new System.Drawing.Size(210, 17);
 			this.chkExtractDescriptions.TabIndex = 3;
@@ -296,7 +300,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			this.txtCsNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCsNamespace.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtCsNamespace.Location = new System.Drawing.Point(30, 58);
+			this.txtCsNamespace.Location = new System.Drawing.Point(30, 131);
 			this.txtCsNamespace.Name = "txtCsNamespace";
 			this.txtCsNamespace.Size = new System.Drawing.Size(322, 22);
 			this.txtCsNamespace.TabIndex = 4;
@@ -306,7 +310,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			this.txtJsNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtJsNamespace.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtJsNamespace.Location = new System.Drawing.Point(30, 206);
+			this.txtJsNamespace.Location = new System.Drawing.Point(30, 279);
 			this.txtJsNamespace.Name = "txtJsNamespace";
 			this.txtJsNamespace.Size = new System.Drawing.Size(322, 22);
 			this.txtJsNamespace.TabIndex = 5;
@@ -314,7 +318,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// lblJsNamespace
 			// 
 			this.lblJsNamespace.AutoSize = true;
-			this.lblJsNamespace.Location = new System.Drawing.Point(31, 189);
+			this.lblJsNamespace.Location = new System.Drawing.Point(31, 262);
 			this.lblJsNamespace.Name = "lblJsNamespace";
 			this.lblJsNamespace.Size = new System.Drawing.Size(79, 13);
 			this.lblJsNamespace.TabIndex = 6;
@@ -323,7 +327,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// lblCsNamespace
 			// 
 			this.lblCsNamespace.AutoSize = true;
-			this.lblCsNamespace.Location = new System.Drawing.Point(31, 41);
+			this.lblCsNamespace.Location = new System.Drawing.Point(31, 114);
 			this.lblCsNamespace.Name = "lblCsNamespace";
 			this.lblCsNamespace.Size = new System.Drawing.Size(81, 13);
 			this.lblCsNamespace.TabIndex = 7;
@@ -332,7 +336,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// label1
 			// 
 			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(30, 237);
+			this.label1.Location = new System.Drawing.Point(30, 310);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(81, 13);
 			this.label1.TabIndex = 9;
@@ -343,7 +347,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			this.txtJsHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtJsHeaders.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtJsHeaders.Location = new System.Drawing.Point(29, 254);
+			this.txtJsHeaders.Location = new System.Drawing.Point(29, 327);
 			this.txtJsHeaders.Multiline = true;
 			this.txtJsHeaders.Name = "txtJsHeaders";
 			this.txtJsHeaders.Size = new System.Drawing.Size(323, 57);
@@ -355,7 +359,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbSolutionList.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cmbSolutionList.FormattingEnabled = true;
-			this.cmbSolutionList.Location = new System.Drawing.Point(12, 478);
+			this.cmbSolutionList.Location = new System.Drawing.Point(12, 33);
 			this.cmbSolutionList.Name = "cmbSolutionList";
 			this.cmbSolutionList.Size = new System.Drawing.Size(340, 22);
 			this.cmbSolutionList.TabIndex = 10;
@@ -363,16 +367,16 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// lblSolutions
 			// 
 			this.lblSolutions.AutoSize = true;
-			this.lblSolutions.Location = new System.Drawing.Point(13, 462);
+			this.lblSolutions.Location = new System.Drawing.Point(13, 17);
 			this.lblSolutions.Name = "lblSolutions";
-			this.lblSolutions.Size = new System.Drawing.Size(272, 13);
+			this.lblSolutions.Size = new System.Drawing.Size(336, 13);
 			this.lblSolutions.TabIndex = 11;
-			this.lblSolutions.Text = "Select the solution that contains the entities to generate:";
+			this.lblSolutions.Text = "Select the solution that contains the entities to generate constants for:";
 			// 
 			// btnExport
 			// 
 			this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnExport.Location = new System.Drawing.Point(297, 526);
+			this.btnExport.Location = new System.Drawing.Point(297, 567);
 			this.btnExport.Name = "btnExport";
 			this.btnExport.Size = new System.Drawing.Size(75, 23);
 			this.btnExport.TabIndex = 12;
@@ -383,7 +387,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// label2
 			// 
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point(30, 89);
+			this.label2.Location = new System.Drawing.Point(30, 162);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(168, 13);
 			this.label2.TabIndex = 14;
@@ -396,7 +400,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			this.txtCsFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
 			this.txtCsFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.txtCsFolder.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtCsFolder.Location = new System.Drawing.Point(29, 106);
+			this.txtCsFolder.Location = new System.Drawing.Point(29, 179);
 			this.txtCsFolder.Name = "txtCsFolder";
 			this.txtCsFolder.Size = new System.Drawing.Size(323, 22);
 			this.txtCsFolder.TabIndex = 13;
@@ -404,7 +408,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point(30, 320);
+			this.label3.Location = new System.Drawing.Point(30, 393);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(168, 13);
 			this.label3.TabIndex = 16;
@@ -417,7 +421,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			this.txtJsFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
 			this.txtJsFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.txtJsFolder.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.txtJsFolder.Location = new System.Drawing.Point(29, 337);
+			this.txtJsFolder.Location = new System.Drawing.Point(29, 410);
 			this.txtJsFolder.Name = "txtJsFolder";
 			this.txtJsFolder.Size = new System.Drawing.Size(323, 22);
 			this.txtJsFolder.TabIndex = 15;
@@ -429,7 +433,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// SettingsView
 			// 
-			this.ClientSize = new System.Drawing.Size(384, 561);
+			this.ClientSize = new System.Drawing.Size(384, 602);
 			this.CloseButton = false;
 			this.CloseButtonVisible = false;
 			this.Controls.Add(this.label3);

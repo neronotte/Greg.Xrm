@@ -48,7 +48,7 @@ namespace Greg.Xrm.Core.Views.Help
 			this.CloseButton = false;
 			this.CloseButtonVisible = false;
 			this.Controls.Add(this.webBrowser1);
-			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.Icon = Properties.Resources.Icon;
 			this.Name = "HelpView";
 			this.TabText = "Help";
 			this.Text = "Help";

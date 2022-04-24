@@ -1,6 +1,9 @@
 ﻿using Greg.Xrm.ConstantsExtractor.Core;
+using Greg.Xrm.ConstantsExtractor.Help;
 using Greg.Xrm.ConstantsExtractor.Messaging;
 using Greg.Xrm.ConstantsExtractor.Model;
+using Greg.Xrm.Core.Help;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
@@ -14,22 +17,15 @@ using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
-using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.ConstantsExtractor.Views
 {
-	public partial class MainView : PluginControlBase, IGitHubPlugin
+	public partial class MainView : GregPluginControlBase<ConstantsExtractorPlugin>
 	{
 		private readonly IMessenger messenger;
 		private readonly SettingsView settingsView;
 		private readonly OutputView outputView;
 
-		#region IGitHubPlugin implementation
-		public string RepositoryName => GitHubPluginConstants.RepositoryName;
-
-		public string UserName => GitHubPluginConstants.UserName;
-
-		#endregion
 
 		public MainView(IThemeProvider themeProvider)
 		{
@@ -43,7 +39,14 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			
 			this.settingsView = new SettingsView(themeProvider, messenger);
 			this.settingsView.Show(this.dockPanel, DockState.DockLeft);
+			this.dockPanel.DockLeftPortion = 400;
 
+			var helpContentIndexProvider = new HelpContentIndexProvider();
+			var helpContentIndex = helpContentIndexProvider.GetIndex();
+			var helpRepository = new HelpRepository(helpContentIndex, GetType().Assembly);
+			var helpView = new HelpView(this.messenger, this.outputView, helpRepository, Topics.Home);
+			helpView.Show(this.dockPanel, DockState.DockRight);
+			helpView.DockState = DockState.DockRightAutoHide;
 
 			this.outputView = new OutputView(themeProvider, messenger);
 			this.outputView.Show(this.dockPanel, DockState.Document);

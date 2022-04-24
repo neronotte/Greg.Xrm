@@ -73,11 +73,15 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 				string str1 = elem.Value.RemoveDiacritics().Replace(" ", "").RemoveSpecialCharacters();
 				if (Regex.IsMatch(str1, "^\\d"))
 					str1 = str1.Insert(0, "_");
+
 				if (elements.Where(ele => ele.Value == elem.Value).ToList().Count > 1)
 					str1 = this.RecursiveGetValueFormatted(result, str1, 1);
-				string str2 = this.FormatValueForKeywords(str1);
+
+				string str2 = this.FormatValueForKeywords(str1, elem.Key);
+
 				result.Add(new KeyValuePair<int, string>(elem.Key, str2));
 			});
+
 			return result.OrderBy(coup => coup.Value).ToList();
 		}
 
@@ -150,9 +154,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		{
 		}
 
-		public virtual string FormatValueForKeywords(string value)
+		public virtual string FormatValueForKeywords(string label, int value)
 		{
-			return value;
+			return string.IsNullOrWhiteSpace(label) ? "Value_" + value : label;
 		}
 	}
 }

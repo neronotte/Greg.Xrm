@@ -42,11 +42,13 @@
     <None Remove="Help\Content\result-tree.html" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.8.7" />
+    <PackageReference Include="DockPanelSuite" Version="3.0.6" />
+    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.0.6" />
+    <PackageReference Include="EPPlus" Version="6.0.3" />
     <PackageReference Include="ILMerge" Version="3.0.41" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.2.54" />
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.4.55" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj" />
@@ -76,6 +78,9 @@
     <EmbeddedResource Include="Help\Content\actions.html">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">

@@ -1,4 +1,5 @@
-﻿using Greg.Xrm.EnvironmentComparer.Help;
+﻿using Greg.Xrm.Core.Views.Help;
+using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 

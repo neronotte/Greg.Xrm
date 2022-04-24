@@ -24,7 +24,7 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentComparer.Views
 {
-	public partial class EnvironmentComparerPluginControl : MultipleConnectionsPluginControlBase, IGitHubPlugin, IStatusBarMessenger
+	public partial class EnvironmentComparerPluginControl : GregMultipleConnectionsPluginControlBase<EnvironmentComparerPlugin>, IStatusBarMessenger
 	{
 		const string ConnectToEnvironment1String = "1. Connect to environment 1";
 		const string ConnectToEnvironment2String = "2. Connect to environment 2";
@@ -106,15 +106,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 				this.SendMessageToStatusBar?.Invoke(this, m);
 			});
 		}
-
-
-		#region IGitHubPlugin implementation
-
-		public string RepositoryName => GitHubPluginConstants.RepositoryName;
-
-		public string UserName => GitHubPluginConstants.UserName;
-
-		#endregion
 
 		#region IStatusBarMessenger implementation
 

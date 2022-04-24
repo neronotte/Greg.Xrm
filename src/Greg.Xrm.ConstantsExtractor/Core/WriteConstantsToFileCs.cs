@@ -170,18 +170,21 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		  string tabulation = "\t\t\t",
 		  bool? isLastAttribute = null)
 		{
-			List<string> rows = new List<string>();
-			this.FormatRowValues(elements).ForEach(couple => rows.Add($"\t{couple.Value} = {couple.Key},"));
-			rows[rows.Count - 1] = rows.Last<string>().Remove(rows.Last<string>().Length - 1);
+			var rows = this.FormatRowValues(elements).Select(couple => $"\t{couple.Value} = {couple.Key},").ToList();
+			rows[rows.Count - 1] = rows[rows.Count - 1].TrimEnd(',');
 			rows.Add("}");
 			rows.ForEach(pickListRow => this.WriteLine(tabulation + pickListRow));
 		}
 
-		public override string FormatValueForKeywords(string value)
+		public override string FormatValueForKeywords(string label, int value)
 		{
-			if (!CodeDomProvider.CreateProvider("C#").IsValidIdentifier(value))
-				value = "@" + value;
-			return value;
+			if (string.IsNullOrWhiteSpace(label))
+				return "Value_" + value;
+
+			if (!CodeDomProvider.CreateProvider("C#").IsValidIdentifier(label))
+				label = "@" + label;
+
+			return label;
 		}
 
 		public override void WriteEndCode()

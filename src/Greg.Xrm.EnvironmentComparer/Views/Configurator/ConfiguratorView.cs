@@ -13,6 +13,7 @@ using Greg.Xrm.Model;
 using Greg.Xrm.Logging;
 using System.Linq;
 using System.Collections.Generic;
+using Greg.Xrm.Core.Views.Help;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {

@@ -5,11 +5,10 @@ using Microsoft.Xrm.Sdk;
 using System;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
-using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.SolutionManager
 {
-	public partial class SolutionManagerPluginControl : PluginControlBase, IGitHubPlugin
+	public partial class SolutionManagerPluginControl : GregPluginControlBase<SolutionManagerPlugin>
 	{
 		private Settings mySettings;
 		private readonly IAsyncJobScheduler scheduler;
@@ -40,15 +39,6 @@ namespace Greg.Xrm.SolutionManager
 			this.tStoppingLabel.DataBindings.Add(nameof(this.tStoppingLabel.Visible), this.viewModel, nameof(this.viewModel.StopMonitoringRequested));
 		}
 
-
-
-		#region IGitHubPlugin implementation
-
-		public string RepositoryName => GitHubPluginConstants.RepositoryName;
-
-		public string UserName => GitHubPluginConstants.UserName;
-
-		#endregion
 
 		private void MyPluginControl_Load(object sender, EventArgs e)
 		{

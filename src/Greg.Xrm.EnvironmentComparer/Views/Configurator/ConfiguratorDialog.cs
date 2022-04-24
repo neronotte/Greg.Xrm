@@ -1,4 +1,5 @@
-﻿using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+﻿using Greg.Xrm.Core.Views.Help;
+using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.Messaging;
 using Microsoft.Xrm.Sdk.Metadata;
