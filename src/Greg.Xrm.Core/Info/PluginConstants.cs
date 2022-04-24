@@ -7,11 +7,5 @@
 		public const string BackgroundColor = "#000000";
 		public const string PrimaryFontColor = "#EEEEEE";
 		public const string SecondaryFontColor = "Gray";
-
-
-		public const string AssemblyCompany = "_neronotte";
-		public const string AssemblyCopyright = "Copyright © _neronotte 2020";
-		public const string AssemblyTrademark = "";
-		public const string AssemblyCulture = "";
 	}
 }

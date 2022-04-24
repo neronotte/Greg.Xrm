@@ -1,6 +1,4 @@
-﻿using Greg.Xrm.Model;
-using Greg.Xrm.Views;
-using Microsoft.Xrm.Sdk;
+﻿using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
@@ -9,7 +7,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
-using System.Windows.Forms;
 using Label = Microsoft.Xrm.Sdk.Label;
 
 namespace Greg.Xrm

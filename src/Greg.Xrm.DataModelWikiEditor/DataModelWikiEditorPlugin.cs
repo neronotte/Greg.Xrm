@@ -5,7 +5,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.DataModelWikiEditor
@@ -20,7 +19,7 @@ namespace Greg.Xrm.DataModelWikiEditor
 		ExportMetadata("SecondaryFontColor", PluginConstants.SecondaryFontColor),
 		ExportMetadata("SmallImageBase64", PluginConstants.SmallImageBase64), // null for "no logo" image or base64 image content 
 		ExportMetadata("BigImageBase64", PluginConstants.BigImageBase64)]
-	public class DataModelWikiEditorPlugin : PluginBase
+	public class DataModelWikiEditorPlugin : GregPluginBase
 	{
 		public override IXrmToolBoxPluginControl GetControl()
 		{

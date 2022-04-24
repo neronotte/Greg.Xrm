@@ -32,12 +32,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="EPPlus" Version="5.5.4" />
+    <PackageReference Include="DockPanelSuite" Version="3.0.6" />
+    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.0.6" />
+    <PackageReference Include="EPPlus" Version="6.0.3" />
     <PackageReference Include="ILMerge" Version="3.0.41" />
     <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
     <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
     <PackageReference Include="ObjectListView.Official" Version="2.9.1" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2021.2.45" />
+    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.4.55" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj" />

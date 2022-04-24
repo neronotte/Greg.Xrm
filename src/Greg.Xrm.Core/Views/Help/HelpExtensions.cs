@@ -1,9 +1,9 @@
-﻿using Greg.Xrm.EnvironmentComparer.Messaging;
+﻿using Greg.Xrm.Core.Help;
 using Greg.Xrm.Messaging;
 using System;
 using System.Windows.Forms;
 
-namespace Greg.Xrm.EnvironmentComparer.Views
+namespace Greg.Xrm.Core.Views.Help
 {
 	public static class HelpExtensions
 	{

@@ -1,23 +1,28 @@
-﻿using Greg.Xrm.EnvironmentComparer.Help;
+﻿using Greg.Xrm.Core.Help;
 using Greg.Xrm.Logging;
-using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using System;
 
-namespace Greg.Xrm.EnvironmentComparer.Views.Help
+namespace Greg.Xrm.Core.Views.Help
 {
 	public class HelpViewModel : ViewModel
 	{
 		private readonly ILog log;
 		private readonly IHelpRepository helpRepository;
+		private readonly string initialTopic;
 
-		public HelpViewModel(IMessenger messenger, ILog log, IHelpRepository helpRepository)
+		public HelpViewModel(IMessenger messenger, ILog log, IHelpRepository helpRepository, string initialTopic)
 		{
 			messenger.Register<ShowHelp>(OnHelpRequested);
 			this.log = log;
 			this.helpRepository = helpRepository;
-			this.OnHelpRequested(Topics.Home);
+			this.initialTopic = initialTopic;
+		}
+
+		public void Initialize()
+		{
+			this.OnHelpRequested(this.initialTopic);
 		}
 
 		private void OnHelpRequested(ShowHelp m)
@@ -46,6 +51,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Help
 				this.Content = ex.Message;
 			}
 		}
+
 
 		public string CurrentTopic
 		{

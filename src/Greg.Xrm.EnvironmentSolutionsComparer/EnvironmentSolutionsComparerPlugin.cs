@@ -8,7 +8,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer
@@ -25,7 +24,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer
 		ExportMetadata("BackgroundColor", PluginConstants.BackgroundColor),
 		ExportMetadata("PrimaryFontColor", PluginConstants.PrimaryFontColor),
 		ExportMetadata("SecondaryFontColor", PluginConstants.SecondaryFontColor)]
-	public class EnvironmentSolutionsComparerPlugin : PluginBase
+	public class EnvironmentSolutionsComparerPlugin : GregPluginBase
 	{
 		public override IXrmToolBoxPluginControl GetControl()
 		{

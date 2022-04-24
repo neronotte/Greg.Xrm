@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.Properties;
 using System;
+using System.Drawing;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm
@@ -16,6 +17,10 @@ namespace Greg.Xrm
 
 			pluginControl.PluginIcon = Resources.Icon;
 			return pluginControl;
+		}
+		public static Icon GetIcon()
+		{
+			return Resources.Icon;
 		}
 	}
 }

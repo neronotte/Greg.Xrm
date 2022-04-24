@@ -5,7 +5,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.SolutionManager
@@ -22,7 +21,7 @@ namespace Greg.Xrm.SolutionManager
 		ExportMetadata("BackgroundColor", PluginConstants.BackgroundColor),
 		ExportMetadata("PrimaryFontColor", PluginConstants.PrimaryFontColor),
 		ExportMetadata("SecondaryFontColor", PluginConstants.SecondaryFontColor)]
-	public class SolutionManagerPlugin : PluginBase
+	public class SolutionManagerPlugin : GregPluginBase
 	{
 		public override IXrmToolBoxPluginControl GetControl()
 		{

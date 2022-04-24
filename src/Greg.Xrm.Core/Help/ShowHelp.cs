@@ -1,4 +1,4 @@
-﻿namespace Greg.Xrm.EnvironmentComparer.Messaging
+﻿namespace Greg.Xrm.Core.Help
 {
 	public class ShowHelp
 	{

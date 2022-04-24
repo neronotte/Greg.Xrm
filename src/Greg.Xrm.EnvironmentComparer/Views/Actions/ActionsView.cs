@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Async;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.EnvironmentComparer.Actions;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.Logging;

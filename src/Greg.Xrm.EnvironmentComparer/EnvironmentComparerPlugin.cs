@@ -8,7 +8,6 @@ using System.ComponentModel.Composition;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentComparer
@@ -23,7 +22,7 @@ namespace Greg.Xrm.EnvironmentComparer
 		ExportMetadata("SecondaryFontColor", PluginConstants.SecondaryFontColor),
 		ExportMetadata("SmallImageBase64", PluginConstants.SmallImageBase64), // null for "no logo" image or base64 image content 
 		ExportMetadata("BigImageBase64", PluginConstants.BigImageBase64)]
-	public class EnvironmentComparerPlugin : PluginBase
+	public class EnvironmentComparerPlugin : GregPluginBase
 	{
 		public override IXrmToolBoxPluginControl GetControl()
 		{
@@ -41,7 +40,7 @@ namespace Greg.Xrm.EnvironmentComparer
 		{
 			// If you have external assemblies that you need to load, uncomment the following to 
 			// hook into the event that will fire when an Assembly fails to resolve
-			//AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
+			AppDomain.CurrentDomain.AssemblyResolve += new ResolveEventHandler(AssemblyResolveEventHandler);
 		}
 
 		/// <summary>

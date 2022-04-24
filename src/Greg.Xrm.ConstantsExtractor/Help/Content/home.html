@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a></small>
+	<h2>Summary</h2>
+	<p>
+		<b>_n.ConstantExtractors</b> can be used to generate C# and JS constants files describing the structure of Dataverse tables and columns.<br />
+		It can be really useful to simplify work with late bound entities: usage of constants prevents indiscriminated distribution of "magic strings" or "magic numbers" within the code.
+	</p>
+	<p>Kudos to <b><u>Gianluca Tocco</u></b> for the core engine!</p>
+
+	<p>Given a specific solution, the tool generates:</p>
+	<ul>
+		<li>A constants file for each Table contained in that solution</li>
+		<li>An <b>EntityGenericConstants</b> file, containing the base class for each table constants class</li>
+		<li>A <b>GlobalOptionSetConstants</b> file containing an enum for each global option set available in the environment</li>
+		<li>A <b>GlobalBooleanConstants</b> file containing an enum for each global boolean option set available in the environment</li>
+	</ul>
+	<p>Using the <b>Settings</b> view, you can specify</p>
+	<ul>
+		<li>The solution containing the entities put in output</li>
+
+		<li>If you want to generate C# constants or not</li>
+		<li>The namespace to be used for the C# constants classes</li>
+		<li>The path of the output folder that will contain the generated C# constant classes</li>
+
+		<li>If you want to generate JS constants or not</li>
+		<li>The namespace to be used for the JS constants objects</li>
+		<li>Optional header lines to be included in the JS constants objects files</li>
+		<li>The path of the output folder that will contain the generated JS constant object files</li>
+
+		<li>Whether or not to add the column type in the comments of the generated classes/object property comments</li>
+		<li>Whether or not to add the column description in the comments of the generated classes/object property comments</li>
+	</ul>
+	<p><b>Please note:</b> the tool doesn't prunes the output folder. Removed table classes/objects will remain and they need to be removed manually.</p>
+</body>
+</html>

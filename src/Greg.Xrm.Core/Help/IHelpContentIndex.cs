@@ -1,4 +1,4 @@
-﻿namespace Greg.Xrm.EnvironmentComparer.Help
+﻿namespace Greg.Xrm.Core.Help
 {
 	public interface IHelpContentIndex
 	{

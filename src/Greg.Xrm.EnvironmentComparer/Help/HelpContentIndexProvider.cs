@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Greg.Xrm.Core.Help;
+using System;
 using System.Collections.Generic;
 
 namespace Greg.Xrm.EnvironmentComparer.Help
@@ -9,7 +10,10 @@ namespace Greg.Xrm.EnvironmentComparer.Help
 
 		private static IHelpContentIndex CreateInstance()
 		{
-			return new HelpContentIndex
+			var resourcePath = typeof(HelpContentIndexProvider).Namespace + ".Content.";
+
+
+			return new HelpContentIndex(resourcePath)
 			{
 				{ Topics.Home, "home.html" },
 				{ Topics.Actions, "actions.html" },
@@ -27,27 +31,6 @@ namespace Greg.Xrm.EnvironmentComparer.Help
 		public IHelpContentIndex GetIndex()
 		{
 			return instance.Value;
-		}
-
-
-		private class HelpContentIndex : Dictionary<string, string>, IHelpContentIndex 
-		{
-			public bool TryGetResourceNameByTopic(string topic, out string resourceName)
-			{
-				if (string.IsNullOrWhiteSpace(topic))
-					throw new ArgumentNullException(nameof(topic));
-
-
-				topic = topic.ToLowerInvariant();
-
-				var result = this.TryGetValue(topic, out resourceName);
-				if (result == false) return false;
-
-				var resourceRoot = GetType().Namespace;
-
-				resourceName = resourceRoot + ".Content." + resourceName;
-				return true;
-			}
 		}
 	}
 }

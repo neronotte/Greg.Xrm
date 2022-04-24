@@ -11,11 +11,10 @@ using System;
 using System.Collections.Specialized;
 using System.Linq;
 using WeifenLuo.WinFormsUI.Docking;
-using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 {
-	public partial class MainView :  MultipleConnectionsPluginControlBase
+	public partial class MainView : GregMultipleConnectionsPluginControlBase<EnvironmentSolutionsComparerPlugin>
 	{
 		const string AdditionalOrganization = "AdditionalOrganization";
 		private readonly MainViewModel viewModel;
@@ -24,6 +23,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 		private readonly EnvironmentListView environmentListView;
 		private readonly SolutionsView solutionsView;
 		private readonly SolutionComponentsView solutionComponentsView;
+
 
 		public MainView(IThemeProvider themeProvider)
 		{

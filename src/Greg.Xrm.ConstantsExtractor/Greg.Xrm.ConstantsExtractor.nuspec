@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+	<metadata>
+		<id>Greg.Xrm.Template</id>
+		<version>$version$</version>
+		<title>_n.Template</title>
+		<authors>_neronotte</authors>
+		<owners>_neronotte</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
+		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
+		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Plugin template</description>
+		<releaseNotes>
+			Template for XrmToolBox plugin inheriting the common behavior of this solution
+		</releaseNotes>
+		<copyright>Copyright 2020</copyright>
+		<tags>XrmToolBox Plugins Xrm _neronotte Template</tags>
+		<dependencies>
+			<dependency id="XrmToolBox" version="1.2020.12.43" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="bin\Release\net462\XrmToolBox\Plugins\Greg.Xrm.ConstantsExtractor.dll" target="lib\net462\Plugins" />
+	</files>
+</package>
