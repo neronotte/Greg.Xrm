@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package >
 	<metadata>
-		<id>Greg.Xrm.Template</id>
+		<id>Greg.Xrm.ConstantsExtractor</id>
 		<version>$version$</version>
-		<title>_n.Template</title>
+		<title>_n.ConstantsExtractor</title>
 		<authors>_neronotte</authors>
 		<owners>_neronotte</owners>
 		<license type="expression">MIT</license>
@@ -11,12 +11,12 @@
 		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
 		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Plugin template</description>
+		<description>A simple tool that generates entity constants from Dataverse solutions, to simplify the usage of late bound entitites.</description>
 		<releaseNotes>
-			Template for XrmToolBox plugin inheriting the common behavior of this solution
+			Kudos to Gianluca Tocco.
 		</releaseNotes>
-		<copyright>Copyright 2020</copyright>
-		<tags>XrmToolBox Plugins Xrm _neronotte Template</tags>
+		<copyright>Copyright 2022</copyright>
+		<tags>XrmToolBox Plugins Xrm _neronotte ConstantsExtractor latebound</tags>
 		<dependencies>
 			<dependency id="XrmToolBox" version="1.2020.12.43" />
 		</dependencies>
