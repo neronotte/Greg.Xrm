@@ -7,7 +7,7 @@
 	},
 	"Advanced": {
 		"CopyAttributes": false,
-		"AttributeFile": "$(TargetDir)Greg.Xrm.Template.dll",
+		"AttributeFile": "$(TargetDir)Greg.Xrm.ConstantsExtractor.dll",
 		"DeleteCopiesOverwriteTarget": true
 	}
 }
