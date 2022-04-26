@@ -3,6 +3,8 @@
 		"OutputFile": "$(TargetDir)XrmToolBox\\Plugins\\$(TargetFileName)",
 		"InputAssemblies": [
 			"EPPlus.dll",
+			"EPPlus.Interfaces.dll",
+			"EPPlus.System.Drawing.dll",
 			"Greg.Xrm.Core.dll",
 			"Microsoft.IO.RecyclableMemoryStream.dll"
 		]
