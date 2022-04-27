@@ -2,7 +2,11 @@
 	"General": {
 		"OutputFile": "$(TargetDir)XrmToolBox\\Plugins\\$(TargetFileName)",
 		"InputAssemblies": [
-			"Greg.Xrm.Core.dll"
+			"EPPlus.dll",
+			"EPPlus.Interfaces.dll",
+			"EPPlus.System.Drawing.dll",
+			"Greg.Xrm.Core.dll",
+			"Microsoft.IO.RecyclableMemoryStream.dll"
 		]
 	},
 	"Advanced": {
