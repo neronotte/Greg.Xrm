@@ -21,6 +21,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.WhenChanges(() => Crm2).NotifyOthers(messenger);
 			this.WhenChanges(() => ConnectionName1).NotifyOthers(messenger);
 			this.WhenChanges(() => ConnectionName2).NotifyOthers(messenger);
+			this.WhenChanges(() => Env1).NotifyOthers(messenger);
+			this.WhenChanges(() => Env2).NotifyOthers(messenger);
+
 		}
 
 

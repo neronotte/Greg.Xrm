@@ -30,7 +30,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.CopyToEnv2Command = new CopyRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
 			this.DeleteFromEnv1Command = new DeleteRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
 			this.DeleteFromEnv2Command = new DeleteRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned(), log);
-
+		
 			this.WhenChanges(() => SelectedNode)
 				.ChangesAlso(() => IsMarkOKEnabled)
 				.ChangesAlso(() => IsUnmrkOKEnabled);
@@ -63,7 +63,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		public DeleteRowCommand DeleteFromEnv1Command { get; }
 
 		public DeleteRowCommand DeleteFromEnv2Command { get; }
-
 
 		public bool IsMarkOKEnabled
 		{
