@@ -60,6 +60,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 			this.tDownloadExcelFile.BindCommand(() => this.viewModel.DownloadExcelCommand);
 
+
 			this.cmiCopyToEnv1.BindCommand(() => this.viewModel.CopyToEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
 			this.cmiCopyToEnv2.BindCommand(() => this.viewModel.CopyToEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
 
@@ -297,5 +298,5 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			node.ForeColor = this.themeProvider.GetCurrentTheme().PanelForeColor;
 			node.Text = node.Name;
 		}
-	}
+    }
 }
