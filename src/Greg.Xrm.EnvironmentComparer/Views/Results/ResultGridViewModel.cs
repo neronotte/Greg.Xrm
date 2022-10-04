@@ -22,14 +22,17 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.CopyToEnv2Command = new CopyRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
 			this.DeleteFromEnv1Command = new DeleteRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
 			this.DeleteFromEnv2Command = new DeleteRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned(), log);
-
+			this.OpenRecord1Command = new OpenRecordCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
+			this.OpenRecord2Command = new OpenRecordCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned(), log);
 
 			this.WhenChanges(() => SelectedResults)
 				.ChangesAlso(() => IsCompareEnabled)
 				.Execute(_ => this.CopyToEnv1Command.SelectedResults = this.SelectedResults)
 				.Execute(_ => this.CopyToEnv2Command.SelectedResults = this.SelectedResults)
 				.Execute(_ => this.DeleteFromEnv1Command.SelectedResults = this.SelectedResults)
-				.Execute(_ => this.DeleteFromEnv2Command.SelectedResults = this.SelectedResults);
+				.Execute(_ => this.DeleteFromEnv2Command.SelectedResults = this.SelectedResults)
+				.Execute(_ => this.OpenRecord1Command.SelectedResults = this.SelectedResults)
+				.Execute(_ => this.OpenRecord2Command.SelectedResults = this.SelectedResults);
 
 			messenger.Register<CompareResultGroupSelected>(m =>
 			{
@@ -51,6 +54,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				this.CopyToEnv2Command.RefreshCanExecute();
 				this.DeleteFromEnv1Command.RefreshCanExecute();
 				this.DeleteFromEnv2Command.RefreshCanExecute();
+				this.OpenRecord1Command.RefreshCanExecute();
+				this.OpenRecord2Command.RefreshCanExecute();
 			});
 
 
@@ -77,6 +82,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			   
 		public DeleteRowCommand DeleteFromEnv2Command { get; }
 
+		public OpenRecordCommand OpenRecord1Command { get; }
+
+		public OpenRecordCommand OpenRecord2Command { get; }
 
 		public IReadOnlyCollection<ObjectComparison<Entity>> Results
 		{

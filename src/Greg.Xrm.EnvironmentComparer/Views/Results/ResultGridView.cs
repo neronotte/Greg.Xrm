@@ -42,6 +42,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.cmiDeleteFromEnv1.BindCommand(() => this.viewModel.DeleteFromEnv1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
 			this.cmiDeleteFromEnv2.BindCommand(() => this.viewModel.DeleteFromEnv2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
 
+			this.cmiOpenRecordEnv1.BindCommand(() => this.viewModel.OpenRecord1Command, () => 1, CommandExecuteBehavior.EnabledAndVisible);
+			this.cmiOpenRecordEnv2.BindCommand(() => this.viewModel.OpenRecord2Command, () => 2, CommandExecuteBehavior.EnabledAndVisible);
+
 			this.cmiCompare.Bind(_ => _.Enabled, this.viewModel, _ => _.IsCompareEnabled);
 
 			this.ApplyTheme();
