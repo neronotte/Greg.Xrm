@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "Greg.Xrm.EnvironmentSolutionsComparer": {
-      "commandName": "Executable",
-      "executablePath": "$(TargetDir)XrmToolBox.exe",
-      "commandLineArgs": "/overridepath:XrmToolBox"
-    }
-  }
-}

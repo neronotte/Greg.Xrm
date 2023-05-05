@@ -35,7 +35,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 		private readonly ResultTreeView resultTreeView;
 		private readonly ActionsView actionsView;
 		private readonly ResultGridView resultGridView;
-		private readonly ResultRecordView resultRecordView;
+		private readonly DockContent resultRecordView;
 
 		private readonly IMessenger messenger;
 
@@ -71,7 +71,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.resultGridView = new ResultGridView(themeProvider, this.messenger, this.outputView);
 			this.resultGridView.Show(this.dockPanel, DockState.Document);
 
-			this.resultRecordView = new ResultRecordView(themeProvider, this.messenger);
+			this.resultRecordView = new ResultRecordViewWithDiffPlex(themeProvider, this.messenger);
 			this.resultRecordView.Show(this.dockPanel, DockState.Document);
 
 			this.actionsView = new ActionsView(themeProvider, scheduler, this.messenger, this.outputView);

@@ -67,7 +67,6 @@
 			// tree
 			// 
 			this.tree.AlternateRowBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-			this.tree.CellEditUseWholeCell = false;
 			this.tree.Cursor = System.Windows.Forms.Cursors.Default;
 			this.tree.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tree.FullRowSelect = true;

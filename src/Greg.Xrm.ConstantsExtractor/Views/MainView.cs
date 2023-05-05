@@ -44,11 +44,14 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			var helpContentIndexProvider = new HelpContentIndexProvider();
 			var helpContentIndex = helpContentIndexProvider.GetIndex();
 			var helpRepository = new HelpRepository(helpContentIndex, GetType().Assembly);
+			
+			
+			this.outputView = new OutputView(themeProvider, messenger);
+
 			var helpView = new HelpView(this.messenger, this.outputView, helpRepository, Topics.Home);
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;
 
-			this.outputView = new OutputView(themeProvider, messenger);
 			this.outputView.Show(this.dockPanel, DockState.Document);
 
 			this.messenger.Register<Export>(OnExportRequested);

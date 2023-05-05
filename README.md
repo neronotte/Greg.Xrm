@@ -37,9 +37,9 @@ Inputs:
 
 # Wishlist
 
-- Possibilit‡ di eseguire confronti parziali (solo su un subset di entit‡ della lista)
-- Possibilit‡ di visualizzare il json di configurazione e modificarlo a mano (con validazione)
-- Possibilit‡ di monitorare il processo di uninstall delle solution.
+- Possibilit√† di eseguire confronti parziali (solo su un subset di entit√† della lista)
+- Possibilit√† di visualizzare il json di configurazione e modificarlo a mano (con validazione)
+- Possibilit√† di monitorare il processo di uninstall delle solution.
 
 ## Releases
 
@@ -47,3 +47,28 @@ You can download the tool using the [Release page](https://github.com/neronotte/
 
 - [_n.EnvironmentComparer](https://www.nuget.org/packages/Greg.Xrm.EnvironmentComparer)
 - [_n.SolutionManager](https://www.nuget.org/packages/Greg.Xrm.SolutionManager)
+
+
+
+
+# Instructions
+
+In ogni Progetto va aggiunto un file "finto" Properties\AssemblyInfo.Partial.cs
+che sar√† rigenerato ad ogni build.
+
+Vanno modificati i .csproj
+per aggiungere i seguenti step di compilazione
+```xml
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VersionNumber>1.0.0.0</VersionNumber>
+  </PropertyGroup>
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <Target Name="BeforeBuild">
+    <Message Text="Updating AssemblyInfo to Version $(VersionNumber)" />
+    <Message Text="Writing to AssemblyInfo files in $(SolutionRoot)" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.Partial.cs" AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)" />
+  </Target>
+```

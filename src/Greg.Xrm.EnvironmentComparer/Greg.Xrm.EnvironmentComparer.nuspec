@@ -20,10 +20,10 @@
 		<copyright>Copyright 2020</copyright>
 		<tags>XrmToolBox Plugins Xrm _neronotte deploy EnvironmentComparer</tags>
 		<dependencies>
-			<dependency id="XrmToolBox" version="1.2020.12.43" />
+			<dependency id="XrmToolBox" version="1.2022.10.58" />
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="bin\Release\net462\XrmToolBox\Plugins\Greg.Xrm.EnvironmentComparer.dll" target="lib\net462\Plugins" />
+		<file src="bin\Release\Plugins\Greg.Xrm.EnvironmentComparer.dll" target="lib\net462\Plugins" />
 	</files>
 </package>

@@ -1,9 +1,0 @@
-{
-  "profiles": {
-    "Greg.Xrm.DataModelWikiEditor": {
-      "commandName": "Executable",
-      "executablePath": "$(TargetDir)XrmToolBox.exe",
-      "commandLineArgs": "/overridepath:XrmToolBox"
-    }
-  }
-}

@@ -1,4 +1,4 @@
-﻿using Greg.Xrm.Properties;
+﻿using Greg.Xrm.Core.Properties;
 using System;
 using System.Drawing;
 using XrmToolBox.Extensibility;

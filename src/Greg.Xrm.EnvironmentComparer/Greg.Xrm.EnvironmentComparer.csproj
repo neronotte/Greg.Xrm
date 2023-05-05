@@ -1,18 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\Greg.Xrm.Version.props" />
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\ILRepack.2.0.18\build\ILRepack.props" Condition="Exists('..\..\packages\ILRepack.2.0.18\build\ILRepack.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{B141DF81-3EC3-436E-9296-DE77112728FD}</ProjectGuid>
+    <ProjectGuid>{8813C1C5-239E-4621-95FC-2284A394BF38}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Greg.Xrm.EnvironmentComparer</RootNamespace>
     <AssemblyName>Greg.Xrm.EnvironmentComparer</AssemblyName>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,81 +34,431 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Help\Content\actions.html" />
-    <None Remove="Help\Content\configurator-dialog.html" />
-    <None Remove="Help\Content\configurator.html" />
-    <None Remove="Help\Content\home.html" />
-    <None Remove="Help\Content\output.html" />
-    <None Remove="Help\Content\result-grid.html" />
-    <None Remove="Help\Content\result-record.html" />
-    <None Remove="Help\Content\result-tree.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="DockPanelSuite" Version="3.0.6" />
-    <PackageReference Include="DockPanelSuite.ThemeVS2015" Version="3.0.6" />
-    <PackageReference Include="EPPlus" Version="6.0.3" />
-    <PackageReference Include="ILMerge" Version="3.0.41" />
-    <PackageReference Include="ILMerge.MSBuild.Task" Version="1.0.7" />
-    <PackageReference Include="Microsoft.IdentityModel" Version="7.0.0" />
-    <PackageReference Include="XrmToolBoxPackage" Version="1.2022.4.55" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Help\Content\configurator-dialog.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\home.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\result-tree.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\result-record.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\result-grid.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\output.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\configurator.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Help\Content\actions.html">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="DiffPlex, Version=1.7.1.0, Culture=neutral, PublicKeyToken=1d35e91d1bd7bc0f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DiffPlex.1.7.1\lib\net40\DiffPlex.dll</HintPath>
+    </Reference>
+    <Reference Include="DiffPlex.Wpf, Version=1.3.2.0, Culture=neutral, PublicKeyToken=1d35e91d1bd7bc0f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DiffPlex.Wpf.1.3.2\lib\net46\DiffPlex.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus, Version=6.2.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.6.2.3\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="McTools.Xrm.Connection, Version=1.2022.10.54, Culture=neutral, PublicKeyToken=96037217801d9658, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MscrmTools.Xrm.Connection.1.2022.10.54\lib\net462\McTools.Xrm.Connection.dll</HintPath>
+    </Reference>
+    <Reference Include="McTools.Xrm.Connection.WinForms, Version=1.2022.10.54, Culture=neutral, PublicKeyToken=f1559f79cf894e27, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MscrmTools.Xrm.Connection.1.2022.10.54\lib\net462\McTools.Xrm.Connection.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.7.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.48\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.9\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Rest.ClientRuntime.2.3.24\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1722.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1722.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1722.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.48\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.34\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.Workflow.9.0.2.48\lib\net462\Microsoft.Xrm.Sdk.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.Connector, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.9.1.1.32\lib\net462\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.CrmConnectControl, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.WpfControls.9.1.1.32\lib\net462\Microsoft.Xrm.Tooling.CrmConnectControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.Ui.Styles, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.WpfControls.9.1.1.32\lib\net462\Microsoft.Xrm.Tooling.Ui.Styles.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.WebResourceUtility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.WpfControls.9.1.1.32\lib\net462\Microsoft.Xrm.Tooling.WebResourceUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Common, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Common.6.5.0\lib\netstandard2.0\NuGet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Configuration, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Configuration.6.5.0\lib\netstandard2.0\NuGet.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Frameworks, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Frameworks.6.5.0\lib\netstandard2.0\NuGet.Frameworks.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Packaging, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Packaging.6.5.0\lib\netstandard2.0\NuGet.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Protocol, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Protocol.6.5.0\lib\netstandard2.0\NuGet.Protocol.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Versioning, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Versioning.6.5.0\lib\netstandard2.0\NuGet.Versioning.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Cng.5.0.0\lib\net462\System.Security.Cryptography.Cng.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=7.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Pkcs.7.0.1\lib\net462\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=7.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.ProtectedData.7.0.1\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Text.Encodings.Web, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Encodings.Web.7.0.0\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Json.7.0.2\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ValueTuple.4.5.0\lib\net461\System.ValueTuple.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DockPanelSuite.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=3.0.6.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DockPanelSuite.ThemeVS2015.3.0.6\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
+    </Reference>
+    <Reference Include="XrmToolBox, Version=1.2022.10.58, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XrmToolBoxPackage.1.2022.10.58\lib\net462\XrmToolBox.exe</HintPath>
+    </Reference>
+    <Reference Include="XrmToolBox.Extensibility, Version=1.2022.10.58, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XrmToolBoxPackage.1.2022.10.58\lib\net462\XrmToolBox.Extensibility.dll</HintPath>
+    </Reference>
+    <Reference Include="XrmToolBox.PluginsStore, Version=1.2022.10.58, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XrmToolBoxPackage.1.2022.10.58\lib\net462\XrmToolBox.PluginsStore.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Properties\Resources.Designer.cs">
-      <DesignTime>True</DesignTime>
+    <Compile Include="Actions\ActionCopyRecord.cs" />
+    <Compile Include="Actions\ActionDeleteRecord.cs" />
+    <Compile Include="Actions\ActionDisassociateRecord.cs" />
+    <Compile Include="Actions\ActionQueue.cs" />
+    <Compile Include="Actions\IAction.cs" />
+    <Compile Include="Engine\CompareEngine.cs" />
+    <Compile Include="Engine\CompareResultForEntity.cs" />
+    <Compile Include="Engine\CompareResultSet.cs" />
+    <Compile Include="Engine\ComparisonException.cs" />
+    <Compile Include="Engine\Config\AsKey.cs" />
+    <Compile Include="Engine\Config\Compare.cs" />
+    <Compile Include="Engine\Config\ICompareFluentInterface.cs" />
+    <Compile Include="Engine\Config\IKeyProvider.cs" />
+    <Compile Include="Engine\Config\ISkipAttributeCriteria.cs" />
+    <Compile Include="Engine\Config\KeyProviderByAttributeSet.cs" />
+    <Compile Include="Engine\Config\KeyProviderById.cs" />
+    <Compile Include="Engine\Config\Skip.cs" />
+    <Compile Include="Engine\Config\SkipAttributes.cs" />
+    <Compile Include="Engine\Config\SkipNothing.cs" />
+    <Compile Include="Engine\Constants.cs" />
+    <Compile Include="Engine\Difference.cs" />
+    <Compile Include="Engine\EntityComparer.cs" />
+    <Compile Include="Engine\EntityEqualityComparer.cs" />
+    <Compile Include="Engine\EntityNotFoundException.cs" />
+    <Compile Include="Engine\ExtendedValidationException.cs" />
+    <Compile Include="Engine\GenericCollectionComparer.cs" />
+    <Compile Include="Engine\ICompareEngine.cs" />
+    <Compile Include="Engine\IExtendedEqualityComparer.cs" />
+    <Compile Include="Engine\Memento\EngineMemento.cs" />
+    <Compile Include="Engine\Memento\EntityMemento.cs" />
+    <Compile Include="Engine\ObjectComparison.cs" />
+    <Compile Include="Engine\ObjectComparisonResult.cs" />
+    <Compile Include="EnvironmentComparerPlugin.cs" />
+    <Compile Include="Help\HelpContentIndexProvider.cs" />
+    <Compile Include="Help\Topics.cs" />
+    <Compile Include="Messaging\ActionRemoved.cs" />
+    <Compile Include="Messaging\CompareResultGroupSelected.cs" />
+    <Compile Include="Messaging\CompareResultRecordSelected.cs" />
+    <Compile Include="Messaging\CompareResultSetAvailable.cs" />
+    <Compile Include="Messaging\LoadEntitiesRequest.cs" />
+    <Compile Include="Messaging\LoadEntitiesResponse.cs" />
+    <Compile Include="Messaging\ResetEntityList.cs" />
+    <Compile Include="Messaging\SubmitActionMessage.cs" />
+    <Compile Include="Model\ObjectComparisonExtensions.cs" />
+    <Compile Include="Model\ReportBuilder.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.Partial.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Update="Properties\Settings.Designer.cs">
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Update="Views\Configurator\ConfiguratorDialog2.cs">
+    <Compile Include="Settings.cs" />
+    <Compile Include="Views\Actions\ActionsView.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Views\Actions\ActionsView.Designer.cs">
+      <DependentUpon>ActionsView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Actions\ActionsViewModel.cs" />
+    <Compile Include="Views\Actions\ApplyActionResult.cs" />
+    <Compile Include="Views\Actions\ApplyActionsResult.cs" />
+    <Compile Include="Views\Configurator\AttributeMetadataDto.cs" />
+    <Compile Include="Views\Configurator\ConfiguratorDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorDialog.Designer.cs">
+      <DependentUpon>ConfiguratorDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorDialog2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorDialog2.Designer.cs">
+      <DependentUpon>ConfiguratorDialog2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorView.Designer.cs">
+      <DependentUpon>ConfiguratorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Configurator\ConfiguratorViewModel.cs" />
+    <Compile Include="Views\Configurator\EntityMetadataDto.cs" />
+    <Compile Include="Views\Configurator\IReadOnlyDictionary.cs" />
+    <Compile Include="Views\Constants.cs" />
+    <Compile Include="Views\EnvironmentComparerPluginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\EnvironmentComparerPluginControl.designer.cs">
+      <DependentUpon>EnvironmentComparerPluginControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnvironmentComparerViewModel.cs" />
+    <Compile Include="Views\Output\OutputView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Results\ChangeSelectionMessage.cs" />
+    <Compile Include="Views\Results\CopyRowCommand.cs" />
+    <Compile Include="Views\Results\DeleteRowCommand.cs" />
+    <Compile Include="Views\Results\DownloadExcelCommand.cs" />
+    <Compile Include="Views\Results\OpenRecordCommand.cs" />
+    <Compile Include="Views\Results\ResultGridView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Results\ResultGridView.Designer.cs">
+      <DependentUpon>ResultGridView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Results\ResultGridViewModel.cs" />
+    <Compile Include="Views\Results\ResultRecordView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Results\ResultRecordView.Designer.cs">
+      <DependentUpon>ResultRecordView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Results\ResultRecordViewWithDiffPlex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Results\ResultRecordViewWithDiffPlex.Designer.cs">
+      <DependentUpon>ResultRecordViewWithDiffPlex.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Results\ResultTreeView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Results\ResultTreeView.Designer.cs">
+      <DependentUpon>ResultTreeView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Results\ResultTreeViewModel.cs" />
+    <Compile Include="Views\Results\ResultUpdatedMessage.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Update="Properties\Resources.resx">
+    <None Include="app.config" />
+    <None Include="Greg.Xrm.EnvironmentComparer.nuspec" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DiffPlex.ico" />
+    <Content Include="Help\Content\actions.html" />
+    <Content Include="Help\Content\configurator-dialog.html" />
+    <Content Include="Help\Content\configurator.html" />
+    <Content Include="Help\Content\home.html" />
+    <Content Include="Help\Content\output.html" />
+    <Content Include="Help\Content\result-grid.html" />
+    <Content Include="Help\Content\result-record.html" />
+    <Content Include="Help\Content\result-tree.html" />
+    <Content Include="License.txt" />
+    <None Include="Resources\table_refresh.png" />
+    <None Include="Resources\table_edit.png" />
+    <None Include="Resources\table_delete.png" />
+    <None Include="Resources\table_add.png" />
+    <None Include="Resources\script_go.png" />
+    <None Include="Resources\picture_tick.png" />
+    <None Include="Resources\picture_empty.png" />
+    <None Include="Resources\page_white_excel.png" />
+    <None Include="Resources\page_white.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\door_out.png" />
+    <None Include="Resources\disk.png" />
+    <None Include="Resources\delete-right.png" />
+    <None Include="Resources\delete-left.png" />
+    <None Include="Resources\delete.png" />
+    <None Include="Resources\control_play_blue.png" />
+    <None Include="Resources\compare.png" />
+    <None Include="Resources\bin_empty.png" />
+    <None Include="Resources\arrow_up.png" />
+    <None Include="Resources\arrow_right.png" />
+    <None Include="Resources\arrow_left.png" />
+    <None Include="Resources\arrow_down.png" />
+    <None Include="Resources\accept.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Actions\ActionsView.resx">
+      <DependentUpon>ActionsView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Configurator\ConfiguratorDialog.resx">
+      <DependentUpon>ConfiguratorDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Configurator\ConfiguratorDialog2.resx">
+      <DependentUpon>ConfiguratorDialog2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Configurator\ConfiguratorView.resx">
+      <DependentUpon>ConfiguratorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\EnvironmentComparerPluginControl.resx">
+      <DependentUpon>EnvironmentComparerPluginControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Results\ResultGridView.resx">
+      <DependentUpon>ResultGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Results\ResultRecordView.resx">
+      <DependentUpon>ResultRecordView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Results\ResultRecordViewWithDiffPlex.resx">
+      <DependentUpon>ResultRecordViewWithDiffPlex.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Results\ResultTreeView.resx">
+      <DependentUpon>ResultTreeView.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Update="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
+    <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj">
+      <Project>{1b125f62-8e7a-4d30-9ca4-8523493293e6}</Project>
+      <Name>Greg.Xrm.Core</Name>
+    </ProjectReference>
   </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets')" />
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VersionNumber>1.0.0.0</VersionNumber>
+  </PropertyGroup>
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <Target Name="BeforeBuild">
+    <Message Text="Updating AssemblyInfo to Version $(VersionNumber)" />
+    <Message Text="Writing to AssemblyInfo files in $(SolutionRoot)" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.Partial.cs" AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\ILRepack.2.0.18\build\ILRepack.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\ILRepack.2.0.18\build\ILRepack.props'))" />
+    <Error Condition="!Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
+..\..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /target:library /out:"Plugins\Greg.Xrm.EnvironmentComparer.dll" Greg.Xrm.EnvironmentComparer.dll DiffPlex.dll DiffPlex.Wpf.dll EPPLus.dll EPPlus.Interfaces.dll EPPLus.System.Drawing.dll Greg.Xrm.Core.dll Microsoft.IO.RecyclableMemoryStream.dll		</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets" Condition="Exists('..\..\packages\MSBuildTasks.1.5.0.235\build\MSBuildTasks.targets')" />
 </Project>

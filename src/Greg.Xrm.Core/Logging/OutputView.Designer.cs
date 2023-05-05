@@ -64,7 +64,7 @@ namespace Greg.Xrm.Logging
 			// cmiCopyMessage
 			// 
 			this.cmiCopyMessage.Enabled = false;
-			this.cmiCopyMessage.Image = global::Greg.Xrm.Properties.Resources.page_copy;
+			this.cmiCopyMessage.Image = global::Greg.Xrm.Core.Properties.Resources.page_copy;
 			this.cmiCopyMessage.Name = "cmiCopyMessage";
 			this.cmiCopyMessage.Size = new System.Drawing.Size(224, 22);
 			this.cmiCopyMessage.Text = "Copy message to clipboard";
@@ -73,7 +73,7 @@ namespace Greg.Xrm.Logging
 			// cmiCopyException
 			// 
 			this.cmiCopyException.Enabled = false;
-			this.cmiCopyException.Image = global::Greg.Xrm.Properties.Resources.page_copy;
+			this.cmiCopyException.Image = global::Greg.Xrm.Core.Properties.Resources.page_copy;
 			this.cmiCopyException.Name = "cmiCopyException";
 			this.cmiCopyException.Size = new System.Drawing.Size(224, 22);
 			this.cmiCopyException.Text = "Copy exception to clipboard";
@@ -109,7 +109,7 @@ namespace Greg.Xrm.Logging
 			// 
 			// debygToolStripMenuItem
 			// 
-			this.debygToolStripMenuItem.Image = global::Greg.Xrm.Properties.Resources.bug;
+			this.debygToolStripMenuItem.Image = global::Greg.Xrm.Core.Properties.Resources.bug;
 			this.debygToolStripMenuItem.Name = "debygToolStripMenuItem";
 			this.debygToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.debygToolStripMenuItem.Tag = "DEBUG";
@@ -118,7 +118,7 @@ namespace Greg.Xrm.Logging
 			// 
 			// infoToolStripMenuItem
 			// 
-			this.infoToolStripMenuItem.Image = global::Greg.Xrm.Properties.Resources.information;
+			this.infoToolStripMenuItem.Image = global::Greg.Xrm.Core.Properties.Resources.information;
 			this.infoToolStripMenuItem.Name = "infoToolStripMenuItem";
 			this.infoToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.infoToolStripMenuItem.Tag = "INFO";
@@ -127,7 +127,7 @@ namespace Greg.Xrm.Logging
 			// 
 			// warnToolStripMenuItem
 			// 
-			this.warnToolStripMenuItem.Image = global::Greg.Xrm.Properties.Resources.error;
+			this.warnToolStripMenuItem.Image = global::Greg.Xrm.Core.Properties.Resources.error;
 			this.warnToolStripMenuItem.Name = "warnToolStripMenuItem";
 			this.warnToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.warnToolStripMenuItem.Tag = "WARN";
@@ -136,7 +136,7 @@ namespace Greg.Xrm.Logging
 			// 
 			// errorToolStripMenuItem
 			// 
-			this.errorToolStripMenuItem.Image = global::Greg.Xrm.Properties.Resources.exclamation;
+			this.errorToolStripMenuItem.Image = global::Greg.Xrm.Core.Properties.Resources.exclamation;
 			this.errorToolStripMenuItem.Name = "errorToolStripMenuItem";
 			this.errorToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
 			this.errorToolStripMenuItem.Tag = "ERROR;FATAL";
@@ -162,7 +162,7 @@ namespace Greg.Xrm.Logging
 			// 
 			// tExportLogs
 			// 
-			this.tExportLogs.Image = global::Greg.Xrm.Properties.Resources.page_white;
+			this.tExportLogs.Image = global::Greg.Xrm.Core.Properties.Resources.page_white;
 			this.tExportLogs.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tExportLogs.Name = "tExportLogs";
 			this.tExportLogs.Size = new System.Drawing.Size(61, 22);

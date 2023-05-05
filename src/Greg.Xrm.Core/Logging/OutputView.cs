@@ -75,7 +75,9 @@ namespace Greg.Xrm.Logging
 		}
 
 
+#pragma warning disable S3881 // "IDisposable" should be implemented correctly
 		class Tracker : IDisposable
+#pragma warning restore S3881 // "IDisposable" should be implemented correctly
 		{
 			private readonly ILog log;
 			private readonly string message;
@@ -195,8 +197,7 @@ namespace Greg.Xrm.Logging
 			}
 
 			this.listView1.EndUpdate();
-			if (item != null)
-				item.EnsureVisible();
+			item?.EnsureVisible();
 		}
 
 		private void OnExportLogs(object sender, EventArgs e)

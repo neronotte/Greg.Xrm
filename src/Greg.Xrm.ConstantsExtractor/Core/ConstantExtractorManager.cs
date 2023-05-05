@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Greg.Xrm.ConstantsExtractor.Core
 {
@@ -121,7 +122,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 					EntityFilters = (EntityFilters.Entity | EntityFilters.Attributes | EntityFilters.Relationships)
 				})).EntityMetadata;
 
-				this.AccountMetadata = this.EntitiesMetadata.Where(ent => ent.LogicalName == "account").FirstOrDefault();
+				this.AccountMetadata = this.EntitiesMetadata.FirstOrDefault(ent => ent.LogicalName == "account");
 			}
 		}
 
@@ -151,13 +152,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			{
 				var query = new QueryExpression("solution");
 				query.Criteria.AddCondition(new ConditionExpression("uniquename", ConditionOperator.Equal, SolutionName));
-				var solution = this.Service.RetrieveMultiple(query).Entities.FirstOrDefault();
-
-				if (solution == null)
-				{
-					throw new ApplicationException("Invalid solution name: " + SolutionName);
-				}
-
+				var solution = this.Service.RetrieveMultiple(query).Entities.FirstOrDefault() 
+					?? throw new InvalidOperationException("Invalid solution name: " + SolutionName);
+				
 				query = new QueryExpression("solutioncomponent");
 				query.ColumnSet.AllColumns = true;
 				query.Criteria.AddCondition(new ConditionExpression("solutionid", ConditionOperator.Equal, solution.Id));
@@ -175,10 +172,10 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		{
 			using(Log.Track("Checking for activity entities"))
 			{
-				var activityPointerMetadata = this.EntitiesMetadata.Where(ent => ent.LogicalName == "activitypointer").FirstOrDefault();
+				var activityPointerMetadata = this.EntitiesMetadata.FirstOrDefault(ent => ent.LogicalName == "activitypointer");
 
 				var list = this.EntitiesMetadata.Where(ent => this.MetadataEntityGuidsFromSolution.Contains(ent.MetadataId.Value)).ToList();
-				if (list.Where(ent => ent.IsActivity.Value).ToList().Count > 0 && list.Where(ent => ent.LogicalName == "activitypointer").FirstOrDefault() == null)
+				if (list.Where(ent => ent.IsActivity.Value).ToList().Count > 0 && list.FirstOrDefault(ent => ent.LogicalName == "activitypointer") == null)
 					list.Add(activityPointerMetadata);
 
 				this.EntitiesMetadata = list.ToArray();
@@ -224,7 +221,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		private void ExtractEntityCommonFieldMetadata()
 		{
-			this.ActivityPointerMetadata = this.EntityData.Where(ent => ent.EntityLogicalName == "activitypointer").FirstOrDefault();
+			this.ActivityPointerMetadata = this.EntityData.FirstOrDefault(ent => ent.EntityLogicalName == "activitypointer");
 			var list = this.AccountMetadata.Attributes.Where(attr => EntityCommonFields.Contains(attr.LogicalName)).ToList();
 			this.EntityCommonAttributes = new EntityMetadataManager("Entity Generic", "EntityGenericConstants", false, new List<string>());
 			void action(AttributeMetadata attr)
@@ -240,8 +237,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		private static GlobalOptionSetsMetadataManager GetGlobalOptionSetsMetadataManager(OptionSetMetadataBase opt)
 		{
 			string displayName = string.Empty;
-			if (opt.DisplayName.LocalizedLabels.FirstOrDefault() != null)
-				displayName = opt.DisplayName.LocalizedLabels.FirstOrDefault().Label;
+			var label = opt.DisplayName.LocalizedLabels.FirstOrDefault();
+			if (label != null)
+				displayName = label.Label;
 
 			return new GlobalOptionSetsMetadataManager(displayName, opt.Name, GetOptionsetValuesFromMetadata(opt));
 		}
@@ -318,8 +316,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			{
 				foreach (OptionMetadata option in options.Options)
 				{
-					int? value = option.Value;
-					option.Label.LocalizedLabels.ToList().ForEach(lab => optionsetValues.Add(value.Value, lab.Label));
+					var value = option.Value;
+					var label = option.Label.LocalizedLabels[0].Label;
+					optionsetValues[value.Value] = label;
 				}
 			}
 
@@ -344,13 +343,10 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		private static List<Tuple<int, int, string>> GetStatusReasonValuesFromMetadata(OptionSetMetadata optionSets)
 		{
 			var statusReasontValues = new List<Tuple<int, int, string>>();
-			foreach (StatusOptionMetadata option in optionSets.Options)
+			foreach (var option in optionSets.Options.OfType<StatusOptionMetadata>())
 			{
-				foreach (var lab in option.Label.LocalizedLabels.ToList())
-				{
-					var tuple = new Tuple<int, int, string>(option.Value.Value, option.State.Value, lab.Label);
-					statusReasontValues.Add(tuple);
-				}
+				var tuple = new Tuple<int, int, string>(option.Value.Value, option.State.Value, option.Label.LocalizedLabels[0].Label);
+				statusReasontValues.Add(tuple);
 			}
 			return statusReasontValues;
 		}
