@@ -1,75 +1,62 @@
 ﻿using Greg.Xrm.Logging;
-using Greg.Xrm.ModernThemeBuilder.Views.Messages;
-using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using XrmToolBox.Extensibility;
+using Greg.Xrm.Views;
 
 namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 {
-	/// <summary>
-	/// https://learn.microsoft.com/en-us/power-apps/maker/data-platform/create-edit-configure-settings
-	/// 
-	/// </summary>
-	public class SetAsCurrentThemeCommand : CommandBase
+	internal class ResetDefaultThemeCommand : CommandBase
 	{
 		private readonly MainViewModel viewModel;
 		private readonly ILog log;
 
-		public SetAsCurrentThemeCommand(MainViewModel viewModel, ILog log)
-        {
+		public ResetDefaultThemeCommand(MainViewModel viewModel, ILog log)
+		{
 			this.viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
 			this.log = log ?? throw new ArgumentNullException(nameof(log));
 
 
 			this.viewModel.PropertyChanged += OnViewModelPropertyChanged;
-			this.viewModel.Messenger.Register<SolutionComponentChanged>(msg => RefreshCanExecute());
+			this.viewModel.Messenger.Register<SolutionComponentChanged>(o => RefreshCanExecute());
 		}
 
 
-		public override void RefreshCanExecute()
-		{
-			this.CanExecute = this.viewModel.Crm != null
-				&& this.viewModel.CurrentSolution != null
-				&& this.viewModel.CurrentSolutionComponent != null
-				&& this.viewModel.CurrentTheme != this.viewModel.CurrentSolutionComponent.WebResource.name
-				&& !this.viewModel.CurrentSolutionComponent.IsDirty;
-		}
 
 		private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(MainViewModel.Crm) 
-				&& e.PropertyName != nameof(MainViewModel.CurrentSolution)
-				&& e.PropertyName != nameof(MainViewModel.CurrentSolutionComponent)
+			if (e.PropertyName != nameof(MainViewModel.Crm)
 				&& e.PropertyName != nameof(MainViewModel.CurrentTheme))
 				return;
 
-			RefreshCanExecute();
+			this.RefreshCanExecute();
 		}
+		public override void RefreshCanExecute()
+		{
+			this.CanExecute = this.viewModel.Crm != null && this.viewModel.CurrentTheme != null;
+		}
+
 
 
 		protected override void ExecuteInternal(object arg)
 		{
-			var webResourceName = this.viewModel.CurrentSolutionComponent.WebResource.name;
-
 			this.viewModel.Messenger.Send<ShowOutputView>();
 			this.viewModel.Scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Work = SetAsCurrentThemeWorkAsync,
 				PostWorkCallBack = SetAsCurrentThemeWorkCompleted,
-				Message = $"Setting {webResourceName} as current theme, please wait...",
+				Message = $"Reset default theme, please wait...",
 			});
 		}
 
 		private void SetAsCurrentThemeWorkAsync(BackgroundWorker worker, DoWorkEventArgs args)
 		{
 			var solution = this.viewModel.CurrentSolution;
-			var solutionComponent = this.viewModel.CurrentSolutionComponent;
 			var crm = this.viewModel.Crm;
 
 			var settingName = "OverrideAppHeaderColor";
@@ -98,18 +85,19 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 
 
 
-			this.log.Debug($"Setting {solutionComponent.WebResource.name} as current theme for solution {solution.uniquename}");
+			this.log.Debug($"Reset default theme");
 
 			var request = new OrganizationRequest("SaveSettingValue");
 			request["SettingName"] = "OverrideAppHeaderColor";
-			request["Value"] = solutionComponent.WebResource.name;
-			request["SolutionUniqueName"] = solution.uniquename;
+			request["Value"] = "-";
+			if (solution != null)
+			{
+				request["SolutionUniqueName"] = solution.uniquename;
+			}
 			crm.Execute(request);
 
 
-
-
-			this.log.Debug($"Publishing solution {solution.uniquename}");
+			this.log.Debug($"Publishing all");
 
 			var request2 = new PublishAllXmlRequest();
 			crm.Execute(request2);
@@ -126,7 +114,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 
 			this.log.Info($"Theme applied and published. {Environment.NewLine}Open your app to see the changes (you may need to hit F5).");
 			MessageBox.Show($"Theme applied and published. {Environment.NewLine}Open your app to see the changes (you may need to hit F5).", "Theme applied", MessageBoxButton.OK, MessageBoxImage.Information);
-			this.viewModel.CurrentTheme = this.viewModel.CurrentSolutionComponent.WebResource.name;
+			this.viewModel.CurrentTheme = null;
 		}
 	}
 }

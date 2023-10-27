@@ -4,12 +4,12 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.ModernThemeBuilder.Model;
 using Greg.Xrm.ModernThemeBuilder.Views.Commands;
+using Greg.Xrm.ModernThemeBuilder.Views.Messages;
 using Greg.Xrm.Views;
 using McTools.Xrm.Connection;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
-using NuGet.Configuration;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -29,9 +29,10 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 
 			this.LoadSolutionsCommand = new RelayCommand(LoadSolutions, CanLoadSolutions);
 			this.CreateNewSolutionCommand = new CreateNewSolutionCommand(this);
-			this.CreateNewThemeCommand = new CreateNewThemeCommand(this);
+			this.CreateNewThemeCommand = new CreateNewThemeCommand(this, log);
 			this.SaveThemeCommand = new SaveThemeCommand(this, log);
 			this.SetAsCurrentThemeCommand = new SetAsCurrentThemeCommand(this, log);
+			this.ResetDefaultThemeCommand = new ResetDefaultThemeCommand(this, log);
 
 			this.WhenChanges(() => Env)
 				.ChangesAlso(() => ConnectionName);
@@ -39,6 +40,9 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.WhenChanges(() => Crm)
 				.Refresh(this.LoadSolutionsCommand)
 				.Execute(OnLoadTheme);
+
+			this.WhenChanges(() => CurrentTheme)
+				.Execute(o => this.Messenger.Send(new CurrentThemeSelected(this.CurrentTheme)));
 
 			this.Messenger.Register<SolutionComponentLoaded>(OnSolutionComponentLoaded);
 			this.Messenger.Register<SolutionComponentSelected>(msg => this.CurrentSolutionComponent = msg.SolutionComponent);
@@ -64,7 +68,16 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		public string CurrentTheme
 		{
 			get => Get<string>();
-			set => Set(value);
+			set
+			{
+				Set(value);
+				Set(value ?? "[Default]", nameof(CurrentThemeDisplayName));
+			}
+		}
+
+		public string CurrentThemeDisplayName
+		{
+			get => Get<string>();
 		}
 
 		public Solution CurrentSolution
@@ -116,6 +129,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		public ICommand CreateNewThemeCommand { get; }
 		public ICommand SaveThemeCommand { get; }
 		public ICommand SetAsCurrentThemeCommand { get; }
+		public ICommand ResetDefaultThemeCommand { get; }
 		public ICommand CreateNewSolutionCommand { get; }
 
 
@@ -181,6 +195,13 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			}
 
 			var settingDetail = (SettingDetail)args.Result;
+
+			if (string.IsNullOrWhiteSpace(settingDetail.Value) || "-".Equals(settingDetail.Value))
+			{
+				this.CurrentTheme = null;
+				return;
+			}	
+
 			this.CurrentTheme = settingDetail.Value;
 		}
 	}

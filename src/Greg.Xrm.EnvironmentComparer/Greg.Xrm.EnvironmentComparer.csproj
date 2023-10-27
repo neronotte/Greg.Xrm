@@ -319,12 +319,16 @@
     <Compile Include="Views\Configurator\EntityMetadataDto.cs" />
     <Compile Include="Views\Configurator\IReadOnlyDictionary.cs" />
     <Compile Include="Views\Constants.cs" />
-    <Compile Include="Views\EnvironmentComparerPluginControl.cs" />
+    <Compile Include="Views\EnvironmentComparerPluginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\EnvironmentComparerPluginControl.designer.cs">
       <DependentUpon>EnvironmentComparerPluginControl.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\EnvironmentComparerViewModel.cs" />
-    <Compile Include="Views\Output\OutputView.cs" />
+    <Compile Include="Views\Output\OutputView.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Views\Results\ChangeSelectionMessage.cs" />
     <Compile Include="Views\Results\CopyRowCommand.cs" />
     <Compile Include="Views\Results\DeleteRowCommand.cs" />

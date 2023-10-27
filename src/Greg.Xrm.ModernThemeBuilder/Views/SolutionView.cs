@@ -1,8 +1,8 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.ModernThemeBuilder.Model;
+using Greg.Xrm.ModernThemeBuilder.Views.Messages;
 using Microsoft.Xrm.Sdk;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -16,6 +16,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		private readonly IMessenger messenger;
 		private readonly IAsyncJobScheduler scheduler;
 		private IOrganizationService crm;
+		private string currentThemeName;
 
 		public SolutionView(IMessenger messenger, IAsyncJobScheduler scheduler)
 		{
@@ -28,10 +29,32 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.messenger = messenger;
 			this.scheduler = scheduler;
 
-			this.messenger.Register<ConnectionUpdatedMessage>(OnConnectionUpdated);
+			this.messenger.Register<ConnectionUpdated>(OnConnectionUpdated);
 			this.messenger.Register<SolutionComponentAdded>(OnSolutionComponentAdded);
 			this.messenger.Register<SolutionComponentChanged>(OnSolutionComponentChanged);
 			this.messenger.Register<SolutionSelected>(msg => Initialize(msg.Solution));
+			this.messenger.Register<CurrentThemeSelected>(OnCurrentThemeSelected);
+		}
+
+		private void OnCurrentThemeSelected(CurrentThemeSelected selected)
+		{
+			var previousThemeName = this.currentThemeName;
+
+			if (!string.IsNullOrWhiteSpace(previousThemeName))
+			{
+				var previousTheme = this.tree.Nodes.Find(previousThemeName, true).FirstOrDefault();
+
+				if (previousTheme != null)
+					previousTheme.Text = previousTheme.Text.Replace(" (current)", "");
+			}
+
+			this.currentThemeName = selected.ThemeName;
+
+			var currentTheme = this.tree.Nodes.Find(this.currentThemeName, true).FirstOrDefault();
+			if (currentTheme != null)
+			{
+				currentTheme.Text = $"{currentTheme.Text} (current)";
+			}
 		}
 
 		private void OnSolutionComponentChanged(SolutionComponentChanged msg)
@@ -44,7 +67,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 				this.tree.Font;
 		}
 
-		private void OnConnectionUpdated(ConnectionUpdatedMessage message)
+		private void OnConnectionUpdated(ConnectionUpdated message)
 		{
 			this.crm = message.Crm;
 			this.tree.Nodes.Clear();
@@ -87,9 +110,15 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		private void OnSolutionComponentsLoaded(RunWorkerCompletedEventArgs args)
 		{
 			var solutionComponents = args.Result as List<SolutionComponent>;
-			var firstLeaf = InitializeTree(solutionComponents);
+			var nodeToSelect = InitializeTree(solutionComponents);
 			this.messenger.Send(new SolutionComponentLoaded(solutionComponents));
-			this.tree.SelectedNode = firstLeaf;
+
+			if (!string.IsNullOrWhiteSpace(this.currentThemeName))
+			{
+				nodeToSelect = this.tree.Nodes.Find(this.currentThemeName, true).FirstOrDefault() ?? nodeToSelect;
+			}
+
+			this.tree.SelectedNode = nodeToSelect;
 		}
 
 		private TreeNode InitializeTree(List<SolutionComponent> solutionComponents)
@@ -126,11 +155,17 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 				}
 
 				var imageIndex = 1;
+				var name = part;
 				if (i == 0) imageIndex = 0;
-				if (i == parts.Count - 1) imageIndex = 2;
+				if (i == parts.Count - 1)
+				{
+					name = this.currentThemeName == solutionComponent.WebResource.name ? $"{name} (current)" : name;
+					imageIndex = 2;
+				}
 
-				currentNode = nodeCollection.Add(key, part, imageIndex, imageIndex);
+				currentNode = nodeCollection.Add(key, name, imageIndex, imageIndex);
 				currentNode.Tag = (i == parts.Count - 1) ? solutionComponent : null;
+				currentNode.ToolTipText = (i == parts.Count - 1) ? solutionComponent.WebResource.name : null;
 				parentNode = currentNode;
 			}
 			return currentNode;

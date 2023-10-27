@@ -258,7 +258,9 @@
       <DependentUpon>EnvironmentListView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Environments\EnvironmentListViewModel.cs" />
-    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>

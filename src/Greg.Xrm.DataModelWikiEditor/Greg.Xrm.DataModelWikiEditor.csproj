@@ -257,7 +257,9 @@
     <Compile Include="Views\EntityTree\NodeForAttribute.cs" />
     <Compile Include="Views\EntityTree\NodeForEntity.cs" />
     <Compile Include="Views\EntityTree\RefreshEntityMessage.cs" />
-    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>

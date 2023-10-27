@@ -255,7 +255,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>

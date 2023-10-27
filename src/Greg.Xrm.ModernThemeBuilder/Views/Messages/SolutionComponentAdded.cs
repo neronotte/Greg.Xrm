@@ -1,6 +1,6 @@
 ﻿using Greg.Xrm.ModernThemeBuilder.Model;
 
-namespace Greg.Xrm.ModernThemeBuilder.Views
+namespace Greg.Xrm.ModernThemeBuilder.Views.Messages
 {
 	internal class SolutionComponentAdded
 	{

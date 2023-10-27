@@ -39,11 +39,14 @@
 			this.tree.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+			this.tree.FullRowSelect = true;
+			this.tree.HideSelection = false;
 			this.tree.ImageIndex = 0;
 			this.tree.ImageList = this.images;
 			this.tree.Location = new System.Drawing.Point(12, 12);
 			this.tree.Name = "tree";
 			this.tree.SelectedImageIndex = 0;
+			this.tree.ShowNodeToolTips = true;
 			this.tree.Size = new System.Drawing.Size(376, 634);
 			this.tree.TabIndex = 2;
 			this.tree.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnNodeSelected);

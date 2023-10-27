@@ -2,11 +2,11 @@
 using Microsoft.Xrm.Sdk;
 using System;
 
-namespace Greg.Xrm.ModernThemeBuilder.Views
+namespace Greg.Xrm.ModernThemeBuilder.Views.Messages
 {
-	public class ConnectionUpdatedMessage
+	public class ConnectionUpdated
 	{
-		public ConnectionUpdatedMessage(ConnectionDetail connectionDetail, IOrganizationService crm)
+		public ConnectionUpdated(ConnectionDetail connectionDetail, IOrganizationService crm)
 		{
 			this.ConnectionDetail = connectionDetail ?? throw new ArgumentNullException(nameof(connectionDetail));
 			this.Crm = crm ?? throw new ArgumentNullException(nameof(crm));

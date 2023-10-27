@@ -241,31 +241,40 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Views\Commands\CreateNewSolutionCommand.cs" />
     <Compile Include="Views\Commands\CreateNewThemeCommand.cs" />
+    <Compile Include="Views\Commands\ResetDefaultThemeCommand.cs" />
     <Compile Include="Views\Commands\SaveThemeCommand.cs" />
     <Compile Include="Views\Commands\SetAsCurrentThemeCommand.cs" />
-    <Compile Include="Views\ConnectionUpdatedMessage.cs" />
+    <Compile Include="Views\CreateTheme\FullDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CreateTheme\FullDialog.Designer.cs">
+      <DependentUpon>FullDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Messages\ConnectionUpdated.cs" />
     <Compile Include="Views\CreateTheme\LightDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\CreateTheme\LightDialog.Designer.cs">
       <DependentUpon>LightDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\InitializeSolutions.cs" />
-    <Compile Include="Views\MainView.cs" />
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\MainView.designer.cs">
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainViewModel.cs" />
+    <Compile Include="Views\Messages\CurrentThemeSelected.cs" />
     <Compile Include="Views\PaletteEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\PaletteEditorView.Designer.cs">
       <DependentUpon>PaletteEditorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SolutionComponentAdded.cs" />
-    <Compile Include="Views\SolutionComponentChanged.cs" />
-    <Compile Include="Views\SolutionComponentLoaded.cs" />
-    <Compile Include="Views\SolutionComponentSelected.cs" />
+    <Compile Include="Views\Messages\SolutionComponentAdded.cs" />
+    <Compile Include="Views\Messages\SolutionComponentLoaded.cs" />
+    <Compile Include="Views\Messages\SolutionComponentChanged.cs" />
+    <Compile Include="Views\Messages\SolutionComponentSelected.cs" />
     <Compile Include="Views\SolutionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,6 +299,9 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CreateTheme\FullDialog.resx">
+      <DependentUpon>FullDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CreateTheme\LightDialog.resx">
       <DependentUpon>LightDialog.cs</DependentUpon>
@@ -333,6 +345,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\folder_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\powerplatform.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

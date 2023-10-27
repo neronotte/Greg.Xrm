@@ -222,7 +222,9 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="SolutionManagerPlugin.cs" />
-    <Compile Include="SolutionManagerPluginControl.cs" />
+    <Compile Include="SolutionManagerPluginControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="SolutionManagerPluginControl.designer.cs">
       <DependentUpon>SolutionManagerPluginControl.cs</DependentUpon>
     </Compile>

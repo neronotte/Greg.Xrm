@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.ModernThemeBuilder.Model;
 using System.Collections.Generic;
 
-namespace Greg.Xrm.ModernThemeBuilder.Views
+namespace Greg.Xrm.ModernThemeBuilder.Views.Messages
 {
 	public class SolutionComponentLoaded
 	{
@@ -11,5 +11,5 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		{
 			this.SolutionComponents = solutionComponents ?? new List<SolutionComponent>();
 		}
-    }
+	}
 }
