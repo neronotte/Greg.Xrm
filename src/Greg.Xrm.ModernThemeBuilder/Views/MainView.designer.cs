@@ -34,21 +34,22 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainView));
 			this.toolStripMenu = new System.Windows.Forms.ToolStrip();
-			this.tClose = new System.Windows.Forms.ToolStripButton();
 			this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.tCurrentTheme = new Greg.Xrm.Views.ToolStripBindableLabel();
+			this.dockPanel1 = new WeifenLuo.WinFormsUI.Docking.DockPanel();
+			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
+			this.tClose = new System.Windows.Forms.ToolStripButton();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.tLoadSolutions = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.tCreateNewSolution = new Greg.Xrm.Views.ToolStripBindableMenuItem();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.tCreateNewTheme = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tSaveTheme = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tSetAsCurrentTheme = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tResetDefaults = new System.Windows.Forms.ToolStripButton();
-			this.dockPanel1 = new WeifenLuo.WinFormsUI.Docking.DockPanel();
-			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.tCurrentTheme = new ToolStripBindableLabel();
+			this.tResetDefaultTheme = new ToolStripBindableButton();
 			this.toolStripMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -63,6 +64,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
             this.tCreateNewTheme,
             this.tSaveTheme,
             this.tSetAsCurrentTheme,
+            this.tResetDefaultTheme,
             this.toolStripSeparator1,
             this.tResetDefaults,
             this.toolStripLabel1,
@@ -73,6 +75,43 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.toolStripMenu.TabIndex = 4;
 			this.toolStripMenu.Text = "toolStrip1";
 			// 
+			// tssSeparator1
+			// 
+			this.tssSeparator1.Name = "tssSeparator1";
+			this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripLabel1
+			// 
+			this.toolStripLabel1.Name = "toolStripLabel1";
+			this.toolStripLabel1.Size = new System.Drawing.Size(87, 22);
+			this.toolStripLabel1.Text = "Current theme:";
+			// 
+			// tCurrentTheme
+			// 
+			this.tCurrentTheme.Name = "tCurrentTheme";
+			this.tCurrentTheme.Size = new System.Drawing.Size(12, 22);
+			this.tCurrentTheme.Text = "-";
+			// 
+			// dockPanel1
+			// 
+			this.dockPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dockPanel1.DockBackColor = System.Drawing.Color.White;
+			this.dockPanel1.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingSdi;
+			this.dockPanel1.Location = new System.Drawing.Point(0, 25);
+			this.dockPanel1.Name = "dockPanel1";
+			this.dockPanel1.Size = new System.Drawing.Size(1020, 559);
+			this.dockPanel1.TabIndex = 5;
+			// 
 			// tClose
 			// 
 			this.tClose.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -82,11 +121,6 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tClose.Size = new System.Drawing.Size(23, 22);
 			this.tClose.Text = "Close this tool";
 			this.tClose.Click += new System.EventHandler(this.OnCloseClick);
-			// 
-			// tssSeparator1
-			// 
-			this.tssSeparator1.Name = "tssSeparator1";
-			this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// toolStripDropDownButton1
 			// 
@@ -116,11 +150,6 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tCreateNewSolution.Name = "tCreateNewSolution";
 			this.tCreateNewSolution.Size = new System.Drawing.Size(225, 22);
 			this.tCreateNewSolution.Text = "Create new working solution";
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
 			// 
 			// tCreateNewTheme
 			// 
@@ -152,11 +181,6 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tSetAsCurrentTheme.Size = new System.Drawing.Size(135, 22);
 			this.tSetAsCurrentTheme.Text = "Set as current theme";
 			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
 			// tResetDefaults
 			// 
 			this.tResetDefaults.Enabled = false;
@@ -169,27 +193,15 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tResetDefaults.Visible = false;
 			this.tResetDefaults.Click += new System.EventHandler(this.OnResetDefaultsClick);
 			// 
-			// dockPanel1
+			// tResetDefaultTheme
 			// 
-			this.dockPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.dockPanel1.DockBackColor = System.Drawing.Color.White;
-			this.dockPanel1.DocumentStyle = WeifenLuo.WinFormsUI.Docking.DocumentStyle.DockingSdi;
-			this.dockPanel1.Location = new System.Drawing.Point(0, 25);
-			this.dockPanel1.Name = "dockPanel1";
-			this.dockPanel1.Size = new System.Drawing.Size(1020, 559);
-			this.dockPanel1.TabIndex = 5;
-			// 
-			// toolStripLabel1
-			// 
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(87, 22);
-			this.toolStripLabel1.Text = "Current theme:";
-			// 
-			// tCurrentTheme
-			// 
-			this.tCurrentTheme.Name = "tCurrentTheme";
-			this.tCurrentTheme.Size = new System.Drawing.Size(12, 22);
-			this.tCurrentTheme.Text = "-";
+			this.tResetDefaultTheme.Enabled = false;
+			this.tResetDefaultTheme.Image = global::Greg.Xrm.ModernThemeBuilder.Properties.Resources.powerplatform;
+			this.tResetDefaultTheme.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.tResetDefaultTheme.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tResetDefaultTheme.Name = "tResetDefaultTheme";
+			this.tResetDefaultTheme.Size = new System.Drawing.Size(132, 22);
+			this.tResetDefaultTheme.Text = "Reset default theme";
 			// 
 			// MainView
 			// 
@@ -224,5 +236,6 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		private ToolStripBindableMenuItem tCreateNewSolution;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private ToolStripBindableLabel tCurrentTheme;
+		private ToolStripBindableButton tResetDefaultTheme;
 	}
 }

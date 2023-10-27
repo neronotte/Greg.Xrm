@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.ModernThemeBuilder.Views.Messages;
 using Greg.Xrm.Theming;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
@@ -48,7 +49,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tCreateNewTheme.BindCommand(() => this.viewModel.CreateNewThemeCommand);
 			this.tSaveTheme.BindCommand(() => this.viewModel.SaveThemeCommand);
 			this.tSetAsCurrentTheme.BindCommand(() => this.viewModel.SetAsCurrentThemeCommand);
-			this.tCurrentTheme.Bind(x => x.Text, viewModel, x => x.CurrentTheme);
+			this.tResetDefaultTheme.BindCommand(() => this.viewModel.ResetDefaultThemeCommand);
+			this.tCurrentTheme.Bind(x => x.Text, viewModel, x => x.CurrentThemeDisplayName);
 		}
 
 		private async void AfterLoad(object sender, EventArgs e)
@@ -69,7 +71,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.viewModel.Env = this.ConnectionDetail;
 			this.tLoadSolutions.Enabled = this.ConnectionDetail != null;
 
-			this.messenger.Send(new ConnectionUpdatedMessage(detail, newService));
+			this.messenger.Send(new ConnectionUpdated(detail, newService));
 		}
 
 		private void OnCloseClick(object sender, EventArgs e)
