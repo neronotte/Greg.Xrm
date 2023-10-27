@@ -34,7 +34,6 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 			this.toolStripMenu = new System.Windows.Forms.ToolStrip();
 			this.tClose = new System.Windows.Forms.ToolStripButton();
 			this.tssSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.tConnectToEnvironment = new Greg.Xrm.Views.ToolStripBindableLabel();
 			this.tEnvironmentName = new Greg.Xrm.Views.ToolStripBindableLabel();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tOpenFolder = new Greg.Xrm.Views.ToolStripBindableButton();
@@ -48,7 +47,6 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 			this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tClose,
             this.tssSeparator1,
-            this.tConnectToEnvironment,
             this.tEnvironmentName,
             this.toolStripSeparator1,
             this.tOpenFolder});
@@ -72,12 +70,6 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 			// 
 			this.tssSeparator1.Name = "tssSeparator1";
 			this.tssSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// tConnectToEnvironment
-			// 
-			this.tConnectToEnvironment.Name = "tConnectToEnvironment";
-			this.tConnectToEnvironment.Size = new System.Drawing.Size(162, 22);
-			this.tConnectToEnvironment.Text = "Connect to an environment...";
 			// 
 			// tEnvironmentName
 			// 
@@ -128,7 +120,6 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 		private System.Windows.Forms.ToolStrip toolStripMenu;
 		private System.Windows.Forms.ToolStripButton tClose;
 		private System.Windows.Forms.ToolStripSeparator tssSeparator1;
-		private Greg.Xrm.Views.ToolStripBindableLabel tConnectToEnvironment;
 		private Greg.Xrm.Views.ToolStripBindableLabel tEnvironmentName;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private Greg.Xrm.Views.ToolStripBindableButton tOpenFolder;

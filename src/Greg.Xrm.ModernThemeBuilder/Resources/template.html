@@ -1,0 +1,132 @@
+<html>
+	<head>
+		<link
+		rel="stylesheet"
+		href="https://res-1.cdn.office.net/files/fabric-cdn-prod_20230815.002/office-ui-fabric-core/11.1.0/css/fabric.min.css"
+	  />
+		<style type="text/css">
+			:root {
+				--background: {Background}; /*#742774*/
+				--foreground: {Foreground};
+				--backgroundHover: {BackgroundHover};
+				--foregroundHover: {ForegroundHover};
+				--backgroundPressed: {BackgroundPressed};
+				--foregroundPressed: {ForegroundPressed};
+				--backgroundSelected: {BackgroundSelected};
+				--foregroundSelected: {ForegroundSelected};
+			}
+
+			body, a {
+				font-family: "Segoe UI", -apple-system, BlinkMacSystemFont,
+					Roboto, "Helvetica Neue", sans-serif;
+				text-decoration: none;
+				color: var(--foreground);
+			}
+
+			body{
+				margin-top: 60px;
+				overflow: hidden;
+			}
+
+			header {
+				height: 48px;
+				background-color: var(--background);
+				color: var(--foreground);
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				display: flex;
+				flex-direction: row;
+				flex-wrap: nowrap;
+				justify-content: flex-start;
+			}
+			.rg-waffle::before {
+				content: "\F4E0";
+			}
+			.rg-add::before {
+				content: "\E710";
+			}
+			.rg-gear::before {
+				content: "\E713";
+			}
+			.rg-question::before {
+				content: "\F142";
+			}
+
+			header .ms-Icon {
+				font-size: 16px;
+				line-height: 48px;
+			}
+
+			#waffle {
+				display: inline-block;
+				width: 48px;
+				text-align: center;
+			}
+			#logo {
+				font-family: SegoeUI-Semibold, "Segoe UI Semibold",
+					"Segoe UI Regular", "Segoe UI";
+				font-size: 16px;
+				line-height: 48px;
+				padding-left: 13px;
+			}
+			#separator {
+				margin-left: 13px;
+				margin-right: 14px;
+			}
+			#title {
+				font-size: 14px;
+				line-height: 48px;
+				margin-top: 1px;
+			}
+			header .button {
+				display: inline-block;
+				width: 48px;
+				text-align: center;
+				font-size: 16px;
+			}
+
+			header .button:hover{
+				background-color: var(--backgroundHover);
+				color: var(--foregroundHover);
+			}
+
+			header .button:active{
+				background-color: var(--backgroundPressed);
+				color: var(--foregroundPressed);
+			}
+		</style>
+	</head>
+
+	<body class="ms-Fabric" dir="ltr">
+		<header>
+			<div id="waffle" class="button">
+				<i class="ms-Icon rg-waffle"></i>
+			</div>
+			<div id="logo">
+				<span>Power Apps</span>
+			</div>
+			<div id="separator">
+				<svg width="1" height="48">
+					<line
+						x1="0"
+						y1="12"
+						x2="0"
+						y2="34"
+						style="stroke:rgb(255,255,255);stroke-width:1;opacity: 0.5;"
+					/>
+			</div>
+			<div id="title">My Power App Demo Title</div>
+			<a class="button" style="margin-left: auto;" href="#">
+				<i class="ms-Icon rg-add"></i>
+			</a>
+			<a class="button" href="#">
+				<i class="ms-Icon rg-gear"></i>
+			</a>
+			<a class="button" href="#">
+				<i class="ms-Icon rg-question" style="font-size: 30px; position:relative; top: -1px"></i>
+			</a>
+		</header>
+	</body>
+</html>

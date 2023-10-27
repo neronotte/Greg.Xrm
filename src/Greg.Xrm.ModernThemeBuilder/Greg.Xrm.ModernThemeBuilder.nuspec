@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+	<metadata>
+		<id>Greg.Xrm.ModernThemeBuilder</id>
+		<version>$version$</version>
+		<title>_n.ModernThemeBuilder</title>
+		<authors>_neronotte</authors>
+		<owners>_neronotte</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
+		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
+		<icon>images\Logo_80.png</icon>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Create, manage and deploy themes for the new Power Apps Modern UI.</description>
+		<releaseNotes>
+			Create, manage and deploy themes for the new Power Apps Modern UI.
+
+			* For older releases go here: https://github.com/neronotte/Greg.Xrm/releases
+		</releaseNotes>
+		<copyright>Copyright 2020</copyright>
+		<tags>XrmToolBox Plugins Xrm _neronotte Theme FluentUI ModernUI</tags>
+		<dependencies>
+			<dependency id="XrmToolBox" version="1.2020.12.43" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\..\Logo_80.png" target="images\" />
+		<file src="bin\Release\Plugins\Greg.Xrm.ModernThemeBuilder.dll" target="lib\net462\Plugins" />
+	</files>
+</package>

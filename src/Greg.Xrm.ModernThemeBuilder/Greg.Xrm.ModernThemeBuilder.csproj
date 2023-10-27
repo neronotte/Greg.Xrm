@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{1B125F62-8E7A-4D30-9CA4-8523493293E6}</ProjectGuid>
+    <ProjectGuid>{24033FE0-9931-4375-B707-6BAB75A53EB7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Greg.Xrm.Core</RootNamespace>
-    <AssemblyName>Greg.Xrm.Core</AssemblyName>
+    <RootNamespace>Greg.Xrm.ModernThemeBuilder</RootNamespace>
+    <AssemblyName>Greg.Xrm.ModernThemeBuilder</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -32,7 +33,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Cyotek.Windows.Forms.ColorPicker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Cyotek.Windows.Forms.ColorPicker.1.7.2\lib\net35\Cyotek.Windows.Forms.ColorPicker.dll</HintPath>
+    </Reference>
     <Reference Include="McTools.Xrm.Connection, Version=1.2022.10.54, Culture=neutral, PublicKeyToken=96037217801d9658, processorArchitecture=MSIL">
       <HintPath>..\..\packages\MscrmTools.Xrm.Connection.1.2022.10.54\lib\net462\McTools.Xrm.Connection.dll</HintPath>
     </Reference>
@@ -48,17 +55,20 @@
     <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.2.9.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.2.9\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=1.4.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.1.4.1\lib\net46\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Rest.ClientRuntime.2.3.24\lib\net461\Microsoft.Rest.ClientRuntime.dll</HintPath>
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.9.1.1.32\lib\net462\Microsoft.Rest.ClientRuntime.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.1722.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.2088.41, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\lib\net45\Microsoft.Web.WebView2.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.1722.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.2088.41, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\lib\net45\Microsoft.Web.WebView2.WinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.1722.45, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.2088.41, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\lib\net45\Microsoft.Web.WebView2.Wpf.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.48\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
@@ -102,6 +112,7 @@
     <Reference Include="NuGet.Versioning, Version=6.5.0.154, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NuGet.Versioning.6.5.0\lib\netstandard2.0\NuGet.Versioning.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
@@ -113,7 +124,8 @@
       <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
-    <Reference Include="System.Configuration" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
@@ -155,8 +167,8 @@
     <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
     </Reference>
-    <Reference Include="System.Security.Cryptography.ProtectedData, Version=7.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\System.Security.Cryptography.ProtectedData.7.0.1\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.ProtectedData.4.4.0\lib\net461\System.Security.Cryptography.ProtectedData.dll</HintPath>
     </Reference>
     <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
@@ -171,6 +183,7 @@
     <Reference Include="System.Text.Json, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Text.Json.7.0.2\lib\net462\System.Text.Json.dll</HintPath>
     </Reference>
+    <Reference Include="System.Threading.Tasks, Version=4.0.11.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.5.4\lib\net461\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -205,137 +218,143 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Async\AsyncJobScheduler.cs" />
-    <Compile Include="Async\IAsyncJobScheduler.cs" />
-    <Compile Include="BindingExtensions.cs" />
-    <Compile Include="CloneSettings.cs" />
-    <Compile Include="CommandExecuteBehavior.cs" />
-    <Compile Include="CrmComparer.cs" />
-    <Compile Include="Extensions.cs" />
-    <Compile Include="GitHubPluginConstants.cs" />
-    <Compile Include="GregMultipleConnectionsPluginControlBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GregPluginBase.cs" />
-    <Compile Include="GregPluginControlBase.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Help\HelpContentIndex.cs" />
-    <Compile Include="Help\HelpRepository.cs" />
-    <Compile Include="Help\HelpTopicNotFoundException.cs" />
-    <Compile Include="Help\IHelpContentIndex.cs" />
-    <Compile Include="Help\IHelpRepository.cs" />
-    <Compile Include="Help\ShowHelp.cs" />
-    <Compile Include="Info\PluginConstants.cs" />
-    <Compile Include="ISettings.cs" />
-    <Compile Include="ISettingsProvider.cs" />
-    <Compile Include="Logging\ILog.cs" />
-    <Compile Include="Logging\LogEntry.cs" />
-    <Compile Include="Logging\OutputView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Logging\OutputView.Designer.cs">
-      <DependentUpon>OutputView.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Logging\ShowOutputView.cs" />
-    <Compile Include="Messaging\IMessageHandler.cs" />
-    <Compile Include="Messaging\IMessenger.cs" />
-    <Compile Include="Messaging\IRegistration.cs" />
-    <Compile Include="Messaging\MessageHandlerDelegate.cs" />
-    <Compile Include="Messaging\Messenger.cs" />
-    <Compile Include="Messaging\Registration.cs" />
-    <Compile Include="Model\EntityWrapper.cs" />
-    <Compile Include="Model\Extensions.cs" />
-    <Compile Include="Model\IChangeManagerFluent.cs" />
-    <Compile Include="Model\IEntityWrapperInternal.cs" />
-    <Compile Include="Model\IMessengerPropertyChangedFluentInterface.cs" />
-    <Compile Include="Model\IMessengerPropertyChangedFluentInterfaceExecuteMethod.cs" />
-    <Compile Include="Model\NotifyPropertyChangedMessage.cs" />
-    <Compile Include="Model\PluginViewModelBase.cs" />
-    <Compile Include="Model\ViewModel.cs" />
-    <Compile Include="PayPalPluginConstants.cs" />
-    <Compile Include="PluginExtensions.cs" />
-    <Compile Include="Progress.cs" />
+    <Compile Include="Model\AppHeaderColors.cs" />
+    <Compile Include="Model\ColorExtensions.cs" />
+    <Compile Include="Model\ISolutionComponentRepository.cs" />
+    <Compile Include="Model\Resources.cs" />
+    <Compile Include="Model\Solution.cs" />
+    <Compile Include="Model\SolutionComponent.cs" />
+    <Compile Include="Model\WebResource.cs" />
+    <Compile Include="Model\WebResourceType.cs" />
+    <Compile Include="ModernThemeBuilderPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.Partial.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="SettingsBase.cs" />
-    <Compile Include="SettingsProvider.cs" />
-    <Compile Include="Theming\ITheme.cs" />
-    <Compile Include="Theming\IThemeProvider.cs" />
-    <Compile Include="Theming\Theme.cs" />
-    <Compile Include="Theming\ThemeExtensions.cs" />
-    <Compile Include="Theming\ThemeProvider.cs" />
-    <Compile Include="Views\CommandBase.cs" />
-    <Compile Include="Views\Help\HelpExtensions.cs" />
-    <Compile Include="Views\Help\HelpView.cs">
+    <Compile Include="Settings.cs" />
+    <Compile Include="Views\Commands\CreateNewSolutionCommand.cs" />
+    <Compile Include="Views\Commands\CreateNewThemeCommand.cs" />
+    <Compile Include="Views\Commands\SaveThemeCommand.cs" />
+    <Compile Include="Views\Commands\SetAsCurrentThemeCommand.cs" />
+    <Compile Include="Views\ConnectionUpdatedMessage.cs" />
+    <Compile Include="Views\CreateTheme\LightDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\Help\HelpView.Designer.cs">
-      <DependentUpon>HelpView.cs</DependentUpon>
+    <Compile Include="Views\CreateTheme\LightDialog.Designer.cs">
+      <DependentUpon>LightDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Help\HelpViewModel.cs" />
-    <Compile Include="Views\ICommand.cs" />
-    <Compile Include="Views\RelayCommand.cs" />
-    <Compile Include="Views\ToolStripBindableButton.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Views\InitializeSolutions.cs" />
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\ToolStripBindableLabel.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Views\MainView.designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\ToolStripBindableMenuItem.cs">
-      <SubType>Component</SubType>
+    <Compile Include="Views\MainViewModel.cs" />
+    <Compile Include="Views\PaletteEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\PaletteEditorView.Designer.cs">
+      <DependentUpon>PaletteEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SolutionComponentAdded.cs" />
+    <Compile Include="Views\SolutionComponentChanged.cs" />
+    <Compile Include="Views\SolutionComponentLoaded.cs" />
+    <Compile Include="Views\SolutionComponentSelected.cs" />
+    <Compile Include="Views\SolutionDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SolutionDialog.Designer.cs">
+      <DependentUpon>SolutionDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SolutionSelected.cs" />
+    <Compile Include="Views\SolutionView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SolutionView.Designer.cs">
+      <DependentUpon>SolutionView.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="app.manifest" />
+    <None Include="Greg.Xrm.ModernThemeBuilder.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Logging\OutputView.resx">
-      <DependentUpon>OutputView.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
+      <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Help\HelpView.resx">
-      <DependentUpon>HelpView.cs</DependentUpon>
+    <EmbeddedResource Include="Views\CreateTheme\LightDialog.resx">
+      <DependentUpon>LightDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PaletteEditorView.resx">
+      <DependentUpon>PaletteEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SolutionDialog.resx">
+      <DependentUpon>SolutionDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SolutionView.resx">
+      <DependentUpon>SolutionView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\bug.png" />
+    <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj">
+      <Project>{1b125f62-8e7a-4d30-9ca4-8523493293e6}</Project>
+      <Name>Greg.Xrm.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\delete.png" />
+    <EmbeddedResource Include="Resources\template.html" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\error.png" />
+    <None Include="Resources\folder_explore.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\exclamation.png" />
+    <None Include="Resources\dataverse.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\information.png" />
+    <None Include="Resources\zoom.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\page_copy.png" />
+    <None Include="Resources\tick.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\page_white.png" />
+    <None Include="Resources\cross.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\blog.ico" />
+    <None Include="Resources\folder_add.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets')" />
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
+    <CefSharpBuildAction>Content</CefSharpBuildAction>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VersionNumber>1.0.0.0</VersionNumber>
+  </PropertyGroup>
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <Target Name="BeforeBuild">
+    <Message Text="Updating AssemblyInfo to Version $(VersionNumber)" />
+    <Message Text="Writing to AssemblyInfo files in $(SolutionRoot)" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.Partial.cs" AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
+..\..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /target:library /out:"Plugins\Greg.Xrm.ModernThemeBuilder.dll" Greg.Xrm.ModernThemeBuilder.dll Greg.Xrm.Core.dll Microsoft.Web.WebView2.Core.dll Microsoft.Web.WebView2.WinForms.dll Microsoft.Web.WebView2.Wpf.dll Cyotek.Windows.Forms.ColorPicker.dll</PostBuildEvent>
+  </PropertyGroup>
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.1722.45\build\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.2088.41\build\Microsoft.Web.WebView2.targets'))" />
   </Target>
 </Project>

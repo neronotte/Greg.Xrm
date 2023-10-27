@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Messaging;
+using Greg.Xrm.Views;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -99,6 +100,16 @@ namespace Greg.Xrm.Model
 			}
 
 
+			/// <summary>
+			/// Instructs the viewmodel to refresh a command when a property changes
+			/// </summary>
+			/// <param name="command">The command to refresh</param>
+			/// <returns></returns>
+			public IChangeManagerFluent Refresh(RelayCommand command)
+			{
+				return Execute(_ => command.RefreshCanExecute());
+			}
+
 
 
 			/// <summary>
@@ -168,20 +179,15 @@ namespace Greg.Xrm.Model
 		/// <param name="propertyName">The name of the property</param>
 		protected void Set<T>(T value, [CallerMemberName] string propertyName = null)
 		{
-			if (value == null)
+			if (value == null && this.defaultValueSetterDict.TryGetValue(propertyName, out object callback))
 			{
-				if (this.defaultValueSetterDict.TryGetValue(propertyName, out object callback))
-				{
-					var overrideCallback = (Func<T>)callback;
-					value = overrideCallback();
-				}
+				var overrideCallback = (Func<T>)callback;
+				value = overrideCallback();
 			}
 
 
-			if (this.propertyDict.TryGetValue(propertyName, out object oldValue))
-			{
-				if (Equals(oldValue, value)) return;
-			}
+			if (this.propertyDict.TryGetValue(propertyName, out object oldValue) && Equals(oldValue, value))
+				return;
 
 			this.propertyDict[propertyName] = value;
 			OnPropertyChanged(propertyName, value);

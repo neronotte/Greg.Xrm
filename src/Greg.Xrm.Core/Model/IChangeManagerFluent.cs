@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Messaging;
+using Greg.Xrm.Views;
 using System;
 using System.Linq.Expressions;
 
@@ -31,5 +32,12 @@ namespace Greg.Xrm.Model
 		/// </summary>
 		/// <param name="messenger">The messenger that will be used to send the message</param>
 		void NotifyOthers(IMessenger messenger);
+
+		/// <summary>
+		/// Instructs the viewmodel to refresh a command when this property changes
+		/// </summary>
+		/// <param name="command">The command to refresh</param>
+		/// <returns></returns>
+		IChangeManagerFluent Refresh(RelayCommand command);
 	}
 }
