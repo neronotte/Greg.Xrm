@@ -36,7 +36,7 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 
 
 
-			this.tConnectToEnvironment.Bind(_ => _.Visible, this.viewModel, _ => _.IsConnectToEnvirnmentVisible);
+			//this.tConnectToEnvironment.Bind(_ => _.Visible, this.viewModel, _ => _.IsConnectToEnvirnmentVisible);
 			this.tEnvironmentName.Bind(_ => _.Visible, this.viewModel, _ => _.IsEnvironmentNameVisible);
 			this.tEnvironmentName.Bind(_ => _.Text, this.viewModel, _ => _.ConnectionName);
 
