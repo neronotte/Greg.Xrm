@@ -3,7 +3,6 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.ModernThemeBuilder.Model;
 using Greg.Xrm.ModernThemeBuilder.Views.Messages;
 using Microsoft.Web.WebView2.WinForms;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,10 +14,10 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 	public partial class PaletteEditorView : DockContent
 	{
 		private readonly WebView2 browser = new WebView2();
-		private readonly List<System.Windows.Forms.Label> nameLabels = new List<System.Windows.Forms.Label>();
-		private readonly List<System.Windows.Forms.Label> colorLabels = new List<System.Windows.Forms.Label>();
-		private readonly List<System.Windows.Forms.Label> hexLabels = new List<System.Windows.Forms.Label>();
-		private readonly List<System.Windows.Forms.Control> labels = new List<System.Windows.Forms.Control>();
+		private readonly List<Label> nameLabels = new List<Label>();
+		private readonly List<Label> colorLabels = new List<Label>();
+		private readonly List<Label> hexLabels = new List<Label>();
+		private readonly List<Control> labels = new List<Control>();
 		private readonly string template;
 		private readonly IMessenger messenger;
 		private AppHeaderColors palette = AppHeaderColors.Default;
@@ -31,6 +30,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.browser.Height = 80;
 
 			InitializeComponent();
+
+			this.Icon = Core.Properties.Resources.Icon;
 
 			this.Controls.Add(this.browser);
 
