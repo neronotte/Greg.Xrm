@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.Logging;
 using Greg.Xrm.ModernThemeBuilder.Model;
 using Greg.Xrm.Views;
+using Microsoft.Crm.Sdk.Messages;
 using System.ComponentModel;
 using System.Windows;
 using XrmToolBox.Extensibility;
@@ -69,6 +70,15 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 				var solutionComponentRepository = SolutionComponent.GetRepository(this.viewModel.Crm);
 				solutionComponentRepository.Create(solutionComponent, this.viewModel.CurrentSolution);
 			}
+
+			if (this.viewModel.CurrentTheme == solutionComponent.WebResource.name)
+			{
+				this.log.Debug("The web resource is the current theme, we need to publish all to apply the changes");
+
+				var request2 = new PublishAllXmlRequest();
+				this.viewModel.Crm.Execute(request2);
+			}
+			
 
 			args.Result = solutionComponent;
 		}

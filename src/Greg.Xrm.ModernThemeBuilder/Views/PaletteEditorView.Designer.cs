@@ -53,13 +53,14 @@
 			this.label02 = new System.Windows.Forms.LinkLabel();
 			this.label01 = new System.Windows.Forms.LinkLabel();
 			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// hex08
 			// 
 			this.hex08.BackColor = System.Drawing.Color.White;
 			this.hex08.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex08.Location = new System.Drawing.Point(320, 374);
+			this.hex08.Location = new System.Drawing.Point(312, 406);
 			this.hex08.Margin = new System.Windows.Forms.Padding(5);
 			this.hex08.Name = "hex08";
 			this.hex08.Size = new System.Drawing.Size(100, 23);
@@ -72,7 +73,7 @@
 			// 
 			this.hex07.BackColor = System.Drawing.Color.White;
 			this.hex07.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex07.Location = new System.Drawing.Point(320, 341);
+			this.hex07.Location = new System.Drawing.Point(312, 373);
 			this.hex07.Margin = new System.Windows.Forms.Padding(5);
 			this.hex07.Name = "hex07";
 			this.hex07.Size = new System.Drawing.Size(100, 23);
@@ -85,7 +86,7 @@
 			// 
 			this.hex06.BackColor = System.Drawing.Color.White;
 			this.hex06.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex06.Location = new System.Drawing.Point(320, 308);
+			this.hex06.Location = new System.Drawing.Point(312, 340);
 			this.hex06.Margin = new System.Windows.Forms.Padding(5);
 			this.hex06.Name = "hex06";
 			this.hex06.Size = new System.Drawing.Size(100, 23);
@@ -98,7 +99,7 @@
 			// 
 			this.hex05.BackColor = System.Drawing.Color.White;
 			this.hex05.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex05.Location = new System.Drawing.Point(320, 275);
+			this.hex05.Location = new System.Drawing.Point(312, 307);
 			this.hex05.Margin = new System.Windows.Forms.Padding(5);
 			this.hex05.Name = "hex05";
 			this.hex05.Size = new System.Drawing.Size(100, 23);
@@ -111,7 +112,7 @@
 			// 
 			this.hex04.BackColor = System.Drawing.Color.White;
 			this.hex04.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex04.Location = new System.Drawing.Point(320, 242);
+			this.hex04.Location = new System.Drawing.Point(312, 274);
 			this.hex04.Margin = new System.Windows.Forms.Padding(5);
 			this.hex04.Name = "hex04";
 			this.hex04.Size = new System.Drawing.Size(100, 23);
@@ -124,7 +125,7 @@
 			// 
 			this.hex03.BackColor = System.Drawing.Color.White;
 			this.hex03.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex03.Location = new System.Drawing.Point(320, 209);
+			this.hex03.Location = new System.Drawing.Point(312, 241);
 			this.hex03.Margin = new System.Windows.Forms.Padding(5);
 			this.hex03.Name = "hex03";
 			this.hex03.Size = new System.Drawing.Size(100, 23);
@@ -137,7 +138,7 @@
 			// 
 			this.hex02.BackColor = System.Drawing.Color.White;
 			this.hex02.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex02.Location = new System.Drawing.Point(320, 176);
+			this.hex02.Location = new System.Drawing.Point(312, 208);
 			this.hex02.Margin = new System.Windows.Forms.Padding(5);
 			this.hex02.Name = "hex02";
 			this.hex02.Size = new System.Drawing.Size(100, 23);
@@ -150,7 +151,7 @@
 			// 
 			this.hex01.BackColor = System.Drawing.Color.White;
 			this.hex01.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.hex01.Location = new System.Drawing.Point(320, 143);
+			this.hex01.Location = new System.Drawing.Point(312, 175);
 			this.hex01.Margin = new System.Windows.Forms.Padding(5);
 			this.hex01.Name = "hex01";
 			this.hex01.Size = new System.Drawing.Size(100, 23);
@@ -162,7 +163,7 @@
 			// color08
 			// 
 			this.color08.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color08.Location = new System.Drawing.Point(210, 374);
+			this.color08.Location = new System.Drawing.Point(202, 406);
 			this.color08.Margin = new System.Windows.Forms.Padding(5);
 			this.color08.Name = "color08";
 			this.color08.Size = new System.Drawing.Size(100, 23);
@@ -172,7 +173,7 @@
 			// color07
 			// 
 			this.color07.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color07.Location = new System.Drawing.Point(210, 341);
+			this.color07.Location = new System.Drawing.Point(202, 373);
 			this.color07.Margin = new System.Windows.Forms.Padding(5);
 			this.color07.Name = "color07";
 			this.color07.Size = new System.Drawing.Size(100, 23);
@@ -182,7 +183,7 @@
 			// color06
 			// 
 			this.color06.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color06.Location = new System.Drawing.Point(210, 308);
+			this.color06.Location = new System.Drawing.Point(202, 340);
 			this.color06.Margin = new System.Windows.Forms.Padding(5);
 			this.color06.Name = "color06";
 			this.color06.Size = new System.Drawing.Size(100, 23);
@@ -192,7 +193,7 @@
 			// color05
 			// 
 			this.color05.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color05.Location = new System.Drawing.Point(210, 275);
+			this.color05.Location = new System.Drawing.Point(202, 307);
 			this.color05.Margin = new System.Windows.Forms.Padding(5);
 			this.color05.Name = "color05";
 			this.color05.Size = new System.Drawing.Size(100, 23);
@@ -202,7 +203,7 @@
 			// color04
 			// 
 			this.color04.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color04.Location = new System.Drawing.Point(210, 242);
+			this.color04.Location = new System.Drawing.Point(202, 274);
 			this.color04.Margin = new System.Windows.Forms.Padding(5);
 			this.color04.Name = "color04";
 			this.color04.Size = new System.Drawing.Size(100, 23);
@@ -212,7 +213,7 @@
 			// color03
 			// 
 			this.color03.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color03.Location = new System.Drawing.Point(210, 209);
+			this.color03.Location = new System.Drawing.Point(202, 241);
 			this.color03.Margin = new System.Windows.Forms.Padding(5);
 			this.color03.Name = "color03";
 			this.color03.Size = new System.Drawing.Size(100, 23);
@@ -222,7 +223,7 @@
 			// color02
 			// 
 			this.color02.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color02.Location = new System.Drawing.Point(210, 176);
+			this.color02.Location = new System.Drawing.Point(202, 208);
 			this.color02.Margin = new System.Windows.Forms.Padding(5);
 			this.color02.Name = "color02";
 			this.color02.Size = new System.Drawing.Size(100, 23);
@@ -232,7 +233,7 @@
 			// color01
 			// 
 			this.color01.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-			this.color01.Location = new System.Drawing.Point(210, 143);
+			this.color01.Location = new System.Drawing.Point(202, 175);
 			this.color01.Margin = new System.Windows.Forms.Padding(5);
 			this.color01.Name = "color01";
 			this.color01.Size = new System.Drawing.Size(100, 23);
@@ -245,7 +246,7 @@
 			this.label08.BackColor = System.Drawing.Color.White;
 			this.label08.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label08.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label08.Location = new System.Drawing.Point(40, 377);
+			this.label08.Location = new System.Drawing.Point(32, 409);
 			this.label08.Margin = new System.Windows.Forms.Padding(5);
 			this.label08.Name = "label08";
 			this.label08.Size = new System.Drawing.Size(130, 17);
@@ -260,7 +261,7 @@
 			this.label07.BackColor = System.Drawing.Color.White;
 			this.label07.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label07.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label07.Location = new System.Drawing.Point(40, 344);
+			this.label07.Location = new System.Drawing.Point(32, 376);
 			this.label07.Margin = new System.Windows.Forms.Padding(5);
 			this.label07.Name = "label07";
 			this.label07.Size = new System.Drawing.Size(130, 17);
@@ -275,7 +276,7 @@
 			this.label06.BackColor = System.Drawing.Color.White;
 			this.label06.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label06.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label06.Location = new System.Drawing.Point(40, 311);
+			this.label06.Location = new System.Drawing.Point(32, 343);
 			this.label06.Margin = new System.Windows.Forms.Padding(5);
 			this.label06.Name = "label06";
 			this.label06.Size = new System.Drawing.Size(127, 17);
@@ -290,7 +291,7 @@
 			this.label05.BackColor = System.Drawing.Color.White;
 			this.label05.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label05.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label05.Location = new System.Drawing.Point(40, 278);
+			this.label05.Location = new System.Drawing.Point(32, 310);
 			this.label05.Margin = new System.Windows.Forms.Padding(5);
 			this.label05.Name = "label05";
 			this.label05.Size = new System.Drawing.Size(127, 17);
@@ -305,7 +306,7 @@
 			this.label04.BackColor = System.Drawing.Color.White;
 			this.label04.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label04.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label04.Location = new System.Drawing.Point(40, 245);
+			this.label04.Location = new System.Drawing.Point(32, 277);
 			this.label04.Margin = new System.Windows.Forms.Padding(5);
 			this.label04.Name = "label04";
 			this.label04.Size = new System.Drawing.Size(116, 17);
@@ -320,7 +321,7 @@
 			this.label03.BackColor = System.Drawing.Color.White;
 			this.label03.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label03.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label03.Location = new System.Drawing.Point(40, 212);
+			this.label03.Location = new System.Drawing.Point(32, 244);
 			this.label03.Margin = new System.Windows.Forms.Padding(5);
 			this.label03.Name = "label03";
 			this.label03.Size = new System.Drawing.Size(116, 17);
@@ -335,7 +336,7 @@
 			this.label02.BackColor = System.Drawing.Color.White;
 			this.label02.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label02.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label02.Location = new System.Drawing.Point(40, 179);
+			this.label02.Location = new System.Drawing.Point(32, 211);
 			this.label02.Margin = new System.Windows.Forms.Padding(5);
 			this.label02.Name = "label02";
 			this.label02.Size = new System.Drawing.Size(77, 17);
@@ -350,7 +351,7 @@
 			this.label01.BackColor = System.Drawing.Color.White;
 			this.label01.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.label01.LinkColor = System.Drawing.Color.RoyalBlue;
-			this.label01.Location = new System.Drawing.Point(40, 146);
+			this.label01.Location = new System.Drawing.Point(32, 178);
 			this.label01.Margin = new System.Windows.Forms.Padding(5);
 			this.label01.Name = "label01";
 			this.label01.Size = new System.Drawing.Size(77, 17);
@@ -369,7 +370,17 @@
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(408, 32);
 			this.label1.TabIndex = 34;
-			this.label1.Text = "Select the component color to update";
+			this.label1.Text = "Select the color component to update";
+			// 
+			// label2
+			// 
+			this.label2.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label2.Location = new System.Drawing.Point(15, 134);
+			this.label2.Name = "label2";
+			this.label2.Size = new System.Drawing.Size(577, 36);
+			this.label2.TabIndex = 59;
+			this.label2.Text = "You can preview the theme colors by hovering or clicking the buttons in the above" +
+    " sample.";
 			// 
 			// PaletteEditorView
 			// 
@@ -379,6 +390,7 @@
 			this.ClientSize = new System.Drawing.Size(944, 513);
 			this.CloseButton = false;
 			this.CloseButtonVisible = false;
+			this.Controls.Add(this.label2);
 			this.Controls.Add(this.hex08);
 			this.Controls.Add(this.hex07);
 			this.Controls.Add(this.hex06);
@@ -437,5 +449,6 @@
 		private System.Windows.Forms.LinkLabel label02;
 		private System.Windows.Forms.LinkLabel label01;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
 	}
 }
