@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Greg.Xrm.SolutionManager")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("_neronotte")]
+[assembly: AssemblyCompany("Riccardo Gregori")]
 [assembly: AssemblyProduct("Greg.Xrm.SolutionManager")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]

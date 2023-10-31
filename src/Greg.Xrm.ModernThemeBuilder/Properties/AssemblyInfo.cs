@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Greg.Xrm.ModernThemeBuilder")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("_neronotte")]
+[assembly: AssemblyCompany("Riccardo Gregori")]
 [assembly: AssemblyProduct("Greg.Xrm.ModernThemeBuilder")]
 [assembly: AssemblyCopyright("Copyright © _neronotte 2023")]
 [assembly: AssemblyTrademark("")]
