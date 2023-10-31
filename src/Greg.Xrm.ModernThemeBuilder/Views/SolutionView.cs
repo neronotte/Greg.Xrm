@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using System.Xml.Linq;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace Greg.Xrm.ModernThemeBuilder.Views
@@ -32,8 +33,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.messenger.Register<ConnectionUpdated>(OnConnectionUpdated);
 			this.messenger.Register<SolutionComponentAdded>(OnSolutionComponentAdded);
 			this.messenger.Register<SolutionComponentChanged>(OnSolutionComponentChanged);
-			this.messenger.Register<SolutionSelected>(msg => Initialize(msg.Solution));
 			this.messenger.Register<CurrentThemeSelected>(OnCurrentThemeSelected);
+			this.messenger.Register<SolutionComponentLoaded>(OnSolutionComponentsLoaded);
 		}
 
 		private void OnCurrentThemeSelected(CurrentThemeSelected selected)
@@ -73,9 +74,12 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tree.Nodes.Clear();
 		}
 
-		public void Initialize(Solution solution)
+
+
+		private void OnSolutionComponentsLoaded(SolutionComponentLoaded msg)
 		{
-			if (solution == null) 
+			var solution = msg.Solution;
+			if (solution == null)
 			{
 				this.tree.Nodes.Clear();
 				this.messenger.Send(new SolutionComponentSelected(null));
@@ -85,33 +89,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 
 			this.TabText = this.Text = $"Solution: {solution}";
 
-			scheduler.Enqueue(new XrmToolBox.Extensibility.WorkAsyncInfo
-			{
-				Work = LoadSolutionComponents,
-				Message = "Loading solution components...",
-				PostWorkCallBack = OnSolutionComponentsLoaded,
-				AsyncArgument = solution
-			});
-		}
-		private void LoadSolutionComponents(BackgroundWorker worker, DoWorkEventArgs args)
-		{
-			var solution = args.Argument as Solution;
-			if (solution == null)
-			{
-				args.Result = new List<SolutionComponent>();
-				return;
-			}
-
-			var solutionComponentRepository = SolutionComponent.GetRepository(this.crm);
-			var solutionComponents = solutionComponentRepository.GetSolutionComponentBySolutionId(solution.Id);
-			args.Result = solutionComponents;
-		}
-
-		private void OnSolutionComponentsLoaded(RunWorkerCompletedEventArgs args)
-		{
-			var solutionComponents = args.Result as List<SolutionComponent>;
+			var solutionComponents = msg.SolutionComponents;
 			var nodeToSelect = InitializeTree(solutionComponents);
-			this.messenger.Send(new SolutionComponentLoaded(solutionComponents));
 
 			if (!string.IsNullOrWhiteSpace(this.currentThemeName))
 			{
@@ -166,6 +145,12 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 				currentNode = nodeCollection.Add(key, name, imageIndex, imageIndex);
 				currentNode.Tag = (i == parts.Count - 1) ? solutionComponent : null;
 				currentNode.ToolTipText = (i == parts.Count - 1) ? solutionComponent.WebResource.name : null;
+
+				if (i == parts.Count-1 && solutionComponent.IsDirty)
+				{
+					currentNode.NodeFont = new System.Drawing.Font(this.tree.Font, System.Drawing.FontStyle.Bold);
+				}
+
 				parentNode = currentNode;
 			}
 			return currentNode;
