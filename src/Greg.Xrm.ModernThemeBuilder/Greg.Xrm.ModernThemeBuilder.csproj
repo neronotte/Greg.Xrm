@@ -241,6 +241,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="Views\Commands\CreateNewSolutionCommand.cs" />
     <Compile Include="Views\Commands\CreateNewThemeCommand.cs" />
+    <Compile Include="Views\Commands\LoadSolutionsCommand.cs" />
     <Compile Include="Views\Commands\ResetDefaultThemeCommand.cs" />
     <Compile Include="Views\Commands\SaveThemeCommand.cs" />
     <Compile Include="Views\Commands\SetAsCurrentThemeCommand.cs" />

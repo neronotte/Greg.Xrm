@@ -27,7 +27,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.Messenger = messenger;
 			this.Log = log;
 
-			this.LoadSolutionsCommand = new RelayCommand(LoadSolutions, CanLoadSolutions);
+			this.LoadSolutionsCommand = new LoadSolutionsCommand(this, log);
 			this.CreateNewSolutionCommand = new CreateNewSolutionCommand(this);
 			this.CreateNewThemeCommand = new CreateNewThemeCommand(this, log);
 			this.SaveThemeCommand = new SaveThemeCommand(this, log);
@@ -38,13 +38,11 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 				.ChangesAlso(() => ConnectionName);
 
 			this.WhenChanges(() => Crm)
-				.Refresh(this.LoadSolutionsCommand)
 				.Execute(OnLoadTheme);
 
 			this.WhenChanges(() => CurrentTheme)
 				.Execute(o => this.Messenger.Send(new CurrentThemeSelected(this.CurrentTheme)));
 
-			this.Messenger.Register<SolutionComponentLoaded>(OnSolutionComponentLoaded);
 			this.Messenger.Register<SolutionComponentSelected>(msg => this.CurrentSolutionComponent = msg.SolutionComponent);
 			this.AllowRequests = true;
 		}
@@ -89,11 +87,6 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 
 		public List<SolutionComponent> SolutionComponentList { get; } = new List<SolutionComponent>();
 
-		private void OnSolutionComponentLoaded(SolutionComponentLoaded msg)
-		{
-			this.SolutionComponentList.Clear();
-			this.SolutionComponentList.AddRange(msg.SolutionComponents);
-		}
 
 
 		public SolutionComponent CurrentSolutionComponent
@@ -102,30 +95,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			set => Set(value);
 		}
 
-		#region LoadSolutionsCommand
 
-		public RelayCommand LoadSolutionsCommand { get; }
-
-		public bool CanLoadSolutions()
-		{
-			return Crm != null && CurrentTheme != null;
-		}
-
-		public void LoadSolutions()
-		{
-			using (var dialog = new SolutionDialog(this.Crm, this.Scheduler, this.Log))
-			{
-				dialog.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-				if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-					return;
-
-				this.CurrentSolution = dialog.SelectedSolution;
-				this.Messenger.Send(new SolutionSelected(this.CurrentSolution));
-			}
-		}
-
-		#endregion
-
+		public ICommand LoadSolutionsCommand { get; }
 		public ICommand CreateNewThemeCommand { get; }
 		public ICommand SaveThemeCommand { get; }
 		public ICommand SetAsCurrentThemeCommand { get; }
