@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Greg.Xrm.DataModelWikiEditor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Riccardo Gregori")]
 [assembly: AssemblyProduct("Greg.Xrm.DataModelWikiEditor")]
 [assembly: AssemblyCopyright("Copyright © _neronotte 2023")]
 [assembly: AssemblyTrademark("")]
