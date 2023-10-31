@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Greg.Xrm.ConstantsExtractor")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("_neronotte")]
 [assembly: AssemblyProduct("Greg.Xrm.ConstantsExtractor")]
 [assembly: AssemblyCopyright("Copyright © _neronotte 2023")]
 [assembly: AssemblyTrademark("")]

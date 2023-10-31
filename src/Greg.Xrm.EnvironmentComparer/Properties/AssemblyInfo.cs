@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Greg.Xrm.EnvironmentComparer")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("_neronotte")]
 [assembly: AssemblyProduct("Greg.Xrm.EnvironmentComparer")]
 [assembly: AssemblyCopyright("Copyright © _neronotte 2023")]
 [assembly: AssemblyTrademark("")]

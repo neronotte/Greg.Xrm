@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Greg.Xrm.DataModelWikiEditor")]
+[assembly: AssemblyTitle("Greg.Xrm.ModernThemeBuilder")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Greg.Xrm.DataModelWikiEditor")]
+[assembly: AssemblyCompany("_neronotte")]
+[assembly: AssemblyProduct("Greg.Xrm.ModernThemeBuilder")]
 [assembly: AssemblyCopyright("Copyright © _neronotte 2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
