@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<package >
+	<metadata>
+		<id>Greg.Xrm.RoleEditor</id>
+		<version>$version$</version>
+		<title>_n.RoleEditor</title>
+		<authors>_neronotte</authors>
+		<owners>_neronotte</owners>
+		<license type="expression">MIT</license>
+		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
+		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
+		<icon>images\Logo_80.png</icon>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Enhanced GUI to create, edit, assign and document Dataverse security roles.</description>
+		<releaseNotes>
+			This tool provides an advanced GUI to create, edid, assign and generate documentation for Dataverse security roles.
+			v$version$: First version.
+			
+			Main features:
+			- Create new roles or edit existing security roles with an advanced UI
+			- Create and use privilege templates (a set of predefined privileges to be assigned to tables)
+			- Predefined privilege templates
+			- Clone roles
+			- Check if a given role is actually used
+			- Assign role to a user/team
+			- Contextual help
+
+			* For older releases go here: https://github.com/neronotte/Greg.Xrm/releases
+		</releaseNotes>
+		<copyright>Copyright 2024</copyright>
+		<tags>XrmToolBox Plugins Xrm _neronotte securityrole RoleEditor</tags>
+		<dependencies>
+			<dependency id="XrmToolBox" version="1.2020.12.43" />
+		</dependencies>
+	</metadata>
+	<files>
+		<file src="..\..\Logo_80.png" target="images\" />
+		<file src="bin\Release\Plugins\Greg.Xrm.RoleEditor.dll" target="lib\net48\Plugins" />
+	</files>
+</package>

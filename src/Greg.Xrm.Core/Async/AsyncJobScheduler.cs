@@ -46,7 +46,7 @@ namespace Greg.Xrm.Async
 			}
 		}
 
-		private class Job
+		private sealed class Job
 		{
 			public WorkAsyncInfo Work { get; private set; }
 			private readonly Action<RunWorkerCompletedEventArgs> postWorkCallBack;

@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a></small>
+	<h2>Summary</h2>
+	<p>
+		<b>_n.EnvironmentComparer</b> allows to compare data between two distinct environments.<br />
+		His main purpose is to simplify the migration of <b>configuration data</b> during the deployment process,
+		providing a <b>winmerge like</b> UI.
+	</p>
+	<p>
+		<b>Please note:</b> this tool is not suitable to compare large amount of data. <br />
+		If you need to compare large amount of data we suggest to apply different approaches such as copying data to 
+		staging tables on Azure SQL and apply comparison via Stored Procedures.
+	</p>
+
+	<h3>Steps</h3>
+	<ol>
+		<li>Connect to the first environment (ENV1).</li>
+		<li>Connect to a second environment (ENV2).</li>
+		<li><a href="/configurator">Create (or open) a comparison map, deciding which tables/columns to compare and which rules to apply.</a></li>
+		<li><a href="/configurator">Execute the comparison</a> and <a href="/result-grid">analyze results</a>.</li>
+		<li>Track and apply <a href="/configurator">actions</a> on (copy record from ENV1 to ENV2 or vice-versa).</li>
+	</ol>
+
+	<h3>Connect to an environment</h3>
+	<p>
+		The plugin toolbar highlights the environments that will be used on the comparison.
+	</p>
+	<ul>
+		<li>
+			If not connectect at startup, you can use XrmToolBox connection control
+			to open the connection dialog and select the environment. The selected environment will be shown
+			in the plugin toolbar, replacing the label <b>1. Connect to environment 1</b>.
+		</li>
+		<li>
+			Once connected to the first environment, you can use the toolbar button <b>2. Connect to environment 2</b>
+			to open the connection dialog and select the second environment.<br />
+			To change connection you can click again on the same button. A prompt will ask for confirmation before removing the current connection.
+		</li>
+	</ul>
+	<p>
+		<b>Please note:</b> changing one of the connections will reset the plugin context, removing any previously executed result.
+	</p>
+</body>
+</html>

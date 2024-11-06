@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using XrmToolBox.Extensibility;
+using System.Windows.Forms;
 
 namespace Greg.Xrm.Messaging
 {
 	public class Messenger : IMessenger
 	{
 		private readonly Dictionary<Type, List<IRegistration>> registry = new Dictionary<Type, List<IRegistration>>();
-		private readonly PluginControlBase pluginControl;
+		private readonly Control pluginControl;
 
-		public Messenger(PluginControlBase pluginControl)
+		public Messenger(Control pluginControl)
 		{
 			this.pluginControl = pluginControl ?? throw new ArgumentNullException(nameof(pluginControl));
 		}
