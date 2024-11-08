@@ -54,12 +54,19 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		}
 
 
+		public string GetPrivilegeName(PrivilegeType privilegeType)
+		{
+			if (!TryGetPrivilegeName(privilegeType, out var name))
+				return null;
+
+			return name;
+		}
 
 		public bool TryGetPrivilegeName(PrivilegeType privilege, out string name)
 		{
 			name = null;
 			if (template[privilege] == null) return false;
-			
+
 			name = template[privilege].Name;
 			return true;
 		}
@@ -91,18 +98,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			{
 				nextValue = (Level)((((int)nextValue) + 1) % 5);
 				i++;
-
-				if (i > 5)
-				{
-					throw new InvalidOperationException("Cannot find a valid level for the privilege.");
-				}
 			}
-			while (!privilegeMetadata.IsValidLevel(nextValue));
+			while (!privilegeMetadata.IsValidLevel(nextValue) && i <= 5);
 
 			Set(nextValue, privilege);
 		}
 
-		
+
 
 		public void Set(Level create, Level read, Level write, Level delete, Level append, Level appendTo, Level assign, Level share)
 		{
@@ -133,6 +135,12 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private void Set(Level? value, PrivilegeType privilege)
 		{
 			if (template[privilege] == null) return;
+
+			// here i need to check if the value is actually valid for the privilege
+			// if is not a valid level, we don't perform any change.
+			var privilegeMetadata = this.template[privilege];
+			if (value != null && !privilegeMetadata.IsValidLevel(value.Value))
+				return;
 
 			if (value == preImage[privilege])
 				this.target.Remove(privilege);
@@ -174,7 +182,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					Set(kvp.Value, kvp.Key);
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				log.Error("Error while applying the configuration command: " + ex.Message, ex);
 			}

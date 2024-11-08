@@ -21,6 +21,8 @@ namespace Greg.Xrm.RoleEditor.Model
 			this.privilegeDict = this.table.Privileges.Where(x => x.PrivilegeType != PrivilegeType.None).ToDictionary(x => x.PrivilegeType);
 		}
 
+
+
 		public SecurityPrivilegeMetadata this[PrivilegeType privilegeType]
 		{
 			get

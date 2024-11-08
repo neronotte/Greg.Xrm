@@ -1,4 +1,7 @@
-﻿namespace Greg.Xrm.RoleEditor
+﻿using System;
+using System.Collections.Generic;
+
+namespace Greg.Xrm.RoleEditor
 {
 	/// <summary>
 	/// This class can help you to store settings for your plugin
@@ -6,7 +9,10 @@
 	/// <remarks>
 	/// This class must be XML serializable
 	/// </remarks>
+	
+	[Serializable]
 	public class Settings : SettingsBase<RoleEditorPlugin>
 	{
+		public string PrivilegeClassificationForMisc { get; set; }
 	}
 }

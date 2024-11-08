@@ -30,14 +30,13 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoleEditorView));
+			this.imageList = new System.Windows.Forms.ImageList(this.components);
 			this.tools = new System.Windows.Forms.ToolStrip();
-			this.tSave = new Xrm.Views.ToolStripBindableButton();
+			this.tSave = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripButton1 = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.tExportExcel = new System.Windows.Forms.ToolStripButton();
-			this.tExportMarkdown = new System.Windows.Forms.ToolStripButton();
+			this.tExportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tExportMarkdown = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
 			this.tShowOnlyAssignedPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
@@ -55,38 +54,64 @@
 			this.cAssign = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cShare = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cLogicalName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-			this.imageList = new System.Windows.Forms.ImageList(this.components);
 			this.tools2 = new System.Windows.Forms.ToolStrip();
 			this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
 			this.tSearchTableText = new System.Windows.Forms.ToolStripTextBox();
 			this.tabMisc = new System.Windows.Forms.TabPage();
-			this.tools3 = new System.Windows.Forms.ToolStrip();
-			this.tabGeneral = new System.Windows.Forms.TabPage();
-			this.tabChangeSummary = new System.Windows.Forms.TabPage();
-			this.olvChangeSummary = new BrightIdeasSoftware.ObjectListView();
-			this.cSummaryText = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.treeMisc = new BrightIdeasSoftware.TreeListView();
 			this.cMiscName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cMiscValue = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cMiscTooltip = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+			this.tools3 = new System.Windows.Forms.ToolStrip();
+			this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+			this.txtSearchMisc = new System.Windows.Forms.ToolStripTextBox();
+			this.tabGeneral = new System.Windows.Forms.TabPage();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.label1 = new System.Windows.Forms.Label();
+			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.label4 = new System.Windows.Forms.Label();
+			this.txtRoleName = new System.Windows.Forms.TextBox();
+			this.txtRoleBusinessUnit = new System.Windows.Forms.TextBox();
+			this.txtRoleDescription = new System.Windows.Forms.TextBox();
+			this.cmbRoleInheritance = new System.Windows.Forms.ComboBox();
+			this.btnRoleBusinessUnitLookup = new System.Windows.Forms.Button();
+			this.tabChangeSummary = new System.Windows.Forms.TabPage();
+			this.olvChangeSummary = new BrightIdeasSoftware.ObjectListView();
+			this.cSummaryText = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+			this.notificationPanel = new Greg.Xrm.Core.Views.NotificationPanel();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.treeTables)).BeginInit();
 			this.tools2.SuspendLayout();
 			this.tabMisc.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.treeMisc)).BeginInit();
+			this.tools3.SuspendLayout();
+			this.tabGeneral.SuspendLayout();
+			this.tableLayoutPanel1.SuspendLayout();
 			this.tabChangeSummary.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.olvChangeSummary)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.treeMisc)).BeginInit();
 			this.SuspendLayout();
+			// 
+			// imageList
+			// 
+			this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+			this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+			this.imageList.Images.SetKeyName(0, "none");
+			this.imageList.Images.SetKeyName(1, "user");
+			this.imageList.Images.SetKeyName(2, "businessunit");
+			this.imageList.Images.SetKeyName(3, "parentchild");
+			this.imageList.Images.SetKeyName(4, "organization");
+			this.imageList.Images.SetKeyName(5, "add");
+			this.imageList.Images.SetKeyName(6, "remove");
+			this.imageList.Images.SetKeyName(7, "replace");
 			// 
 			// tools
 			// 
 			this.tools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSave,
             this.toolStripSeparator2,
-            this.toolStripButton1,
-            this.toolStripSeparator1,
             this.toolStripLabel1,
             this.tExportExcel,
             this.tExportMarkdown,
@@ -97,7 +122,7 @@
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
 			this.tools.Size = new System.Drawing.Size(870, 25);
-			this.tools.TabIndex = 0;
+			this.tools.TabIndex = 3;
 			this.tools.Text = "toolStrip1";
 			// 
 			// tSave
@@ -112,20 +137,6 @@
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripButton1
-			// 
-			this.toolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.toolStripButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton1.Image")));
-			this.toolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.toolStripButton1.Name = "toolStripButton1";
-			this.toolStripButton1.Size = new System.Drawing.Size(23, 22);
-			this.toolStripButton1.Text = "toolStripButton1";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// toolStripLabel1
 			// 
@@ -191,8 +202,7 @@
 			this.tabs.Name = "tabs";
 			this.tabs.SelectedIndex = 0;
 			this.tabs.Size = new System.Drawing.Size(870, 503);
-			this.tabs.TabIndex = 1;
-			this.tabs.SelectedIndexChanged += new System.EventHandler(this.OnTabChanged);
+			this.tabs.TabIndex = 4;
 			// 
 			// tabTables
 			// 
@@ -302,19 +312,6 @@
 			this.cLogicalName.Text = "Logical Name";
 			this.cLogicalName.Width = 200;
 			// 
-			// imageList
-			// 
-			this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-			this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageList.Images.SetKeyName(0, "none");
-			this.imageList.Images.SetKeyName(1, "user");
-			this.imageList.Images.SetKeyName(2, "businessunit");
-			this.imageList.Images.SetKeyName(3, "parentchild");
-			this.imageList.Images.SetKeyName(4, "organization");
-			this.imageList.Images.SetKeyName(5, "add");
-			this.imageList.Images.SetKeyName(6, "remove");
-			this.imageList.Images.SetKeyName(7, "replace");
-			// 
 			// tools2
 			// 
 			this.tools2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -349,57 +346,6 @@
 			this.tabMisc.TabIndex = 1;
 			this.tabMisc.Text = "Miscellaneous Privileges";
 			this.tabMisc.UseVisualStyleBackColor = true;
-			// 
-			// tools3
-			// 
-			this.tools3.Location = new System.Drawing.Point(3, 3);
-			this.tools3.Name = "tools3";
-			this.tools3.Size = new System.Drawing.Size(856, 25);
-			this.tools3.TabIndex = 0;
-			this.tools3.Text = "toolStrip1";
-			// 
-			// tabGeneral
-			// 
-			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
-			this.tabGeneral.Name = "tabGeneral";
-			this.tabGeneral.Size = new System.Drawing.Size(862, 477);
-			this.tabGeneral.TabIndex = 2;
-			this.tabGeneral.Text = "General information";
-			this.tabGeneral.UseVisualStyleBackColor = true;
-			// 
-			// tabChangeSummary
-			// 
-			this.tabChangeSummary.Controls.Add(this.olvChangeSummary);
-			this.tabChangeSummary.Location = new System.Drawing.Point(4, 22);
-			this.tabChangeSummary.Name = "tabChangeSummary";
-			this.tabChangeSummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabChangeSummary.Size = new System.Drawing.Size(862, 477);
-			this.tabChangeSummary.TabIndex = 3;
-			this.tabChangeSummary.Text = "Change Summary";
-			this.tabChangeSummary.UseVisualStyleBackColor = true;
-			// 
-			// olvChangeSummary
-			// 
-			this.olvChangeSummary.AllColumns.Add(this.cSummaryText);
-			this.olvChangeSummary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.cSummaryText});
-			this.olvChangeSummary.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.olvChangeSummary.HideSelection = false;
-			this.olvChangeSummary.Location = new System.Drawing.Point(3, 3);
-			this.olvChangeSummary.Name = "olvChangeSummary";
-			this.olvChangeSummary.Size = new System.Drawing.Size(856, 471);
-			this.olvChangeSummary.SmallImageList = this.imageList;
-			this.olvChangeSummary.TabIndex = 0;
-			this.olvChangeSummary.UseCompatibleStateImageBehavior = false;
-			this.olvChangeSummary.View = System.Windows.Forms.View.Details;
-			// 
-			// cSummaryText
-			// 
-			this.cSummaryText.AspectName = "Text";
-			this.cSummaryText.CellPadding = null;
-			this.cSummaryText.FillsFreeSpace = true;
-			this.cSummaryText.Text = "Change details";
-			this.cSummaryText.Width = 400;
 			// 
 			// treeMisc
 			// 
@@ -449,6 +395,206 @@
 			this.cMiscTooltip.Text = "Privilege Name";
 			this.cMiscTooltip.Width = 200;
 			// 
+			// tools3
+			// 
+			this.tools3.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripLabel4,
+            this.txtSearchMisc});
+			this.tools3.Location = new System.Drawing.Point(3, 3);
+			this.tools3.Name = "tools3";
+			this.tools3.Size = new System.Drawing.Size(856, 25);
+			this.tools3.TabIndex = 0;
+			this.tools3.Text = "toolStrip1";
+			// 
+			// toolStripLabel4
+			// 
+			this.toolStripLabel4.Name = "toolStripLabel4";
+			this.toolStripLabel4.Size = new System.Drawing.Size(93, 22);
+			this.toolStripLabel4.Text = "Search privilege:";
+			// 
+			// txtSearchMisc
+			// 
+			this.txtSearchMisc.Font = new System.Drawing.Font("Segoe UI", 9F);
+			this.txtSearchMisc.Name = "txtSearchMisc";
+			this.txtSearchMisc.Size = new System.Drawing.Size(150, 25);
+			// 
+			// tabGeneral
+			// 
+			this.tabGeneral.Controls.Add(this.tableLayoutPanel1);
+			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
+			this.tabGeneral.Name = "tabGeneral";
+			this.tabGeneral.Padding = new System.Windows.Forms.Padding(10);
+			this.tabGeneral.Size = new System.Drawing.Size(862, 477);
+			this.tabGeneral.TabIndex = 2;
+			this.tabGeneral.Text = "General information";
+			this.tabGeneral.UseVisualStyleBackColor = true;
+			// 
+			// tableLayoutPanel1
+			// 
+			this.tableLayoutPanel1.ColumnCount = 3;
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 40F));
+			this.tableLayoutPanel1.Controls.Add(this.label1, 0, 0);
+			this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
+			this.tableLayoutPanel1.Controls.Add(this.label3, 0, 2);
+			this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
+			this.tableLayoutPanel1.Controls.Add(this.txtRoleName, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.txtRoleBusinessUnit, 1, 1);
+			this.tableLayoutPanel1.Controls.Add(this.txtRoleDescription, 1, 2);
+			this.tableLayoutPanel1.Controls.Add(this.cmbRoleInheritance, 1, 3);
+			this.tableLayoutPanel1.Controls.Add(this.btnRoleBusinessUnitLookup, 2, 1);
+			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 10);
+			this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
+			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			this.tableLayoutPanel1.RowCount = 5;
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(842, 205);
+			this.tableLayoutPanel1.TabIndex = 0;
+			// 
+			// label1
+			// 
+			this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label1.Location = new System.Drawing.Point(0, 0);
+			this.label1.Margin = new System.Windows.Forms.Padding(0);
+			this.label1.Name = "label1";
+			this.label1.Padding = new System.Windows.Forms.Padding(5);
+			this.label1.Size = new System.Drawing.Size(200, 30);
+			this.label1.TabIndex = 0;
+			this.label1.Text = "Role Name:";
+			// 
+			// label2
+			// 
+			this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label2.Location = new System.Drawing.Point(0, 30);
+			this.label2.Margin = new System.Windows.Forms.Padding(0);
+			this.label2.Name = "label2";
+			this.label2.Padding = new System.Windows.Forms.Padding(5);
+			this.label2.Size = new System.Drawing.Size(200, 30);
+			this.label2.TabIndex = 1;
+			this.label2.Text = "Business Unit:";
+			// 
+			// label3
+			// 
+			this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label3.Location = new System.Drawing.Point(0, 60);
+			this.label3.Margin = new System.Windows.Forms.Padding(0);
+			this.label3.Name = "label3";
+			this.label3.Padding = new System.Windows.Forms.Padding(5);
+			this.label3.Size = new System.Drawing.Size(200, 30);
+			this.label3.TabIndex = 2;
+			this.label3.Text = "Description";
+			// 
+			// label4
+			// 
+			this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.label4.Location = new System.Drawing.Point(0, 90);
+			this.label4.Margin = new System.Windows.Forms.Padding(0);
+			this.label4.Name = "label4";
+			this.label4.Padding = new System.Windows.Forms.Padding(5);
+			this.label4.Size = new System.Drawing.Size(200, 30);
+			this.label4.TabIndex = 3;
+			this.label4.Text = "Member\'s privilege inheritance";
+			// 
+			// txtRoleName
+			// 
+			this.txtRoleName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleName, 2);
+			this.txtRoleName.Location = new System.Drawing.Point(203, 3);
+			this.txtRoleName.Name = "txtRoleName";
+			this.txtRoleName.Size = new System.Drawing.Size(636, 20);
+			this.txtRoleName.TabIndex = 4;
+			// 
+			// txtRoleBusinessUnit
+			// 
+			this.txtRoleBusinessUnit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtRoleBusinessUnit.Enabled = false;
+			this.txtRoleBusinessUnit.Location = new System.Drawing.Point(203, 33);
+			this.txtRoleBusinessUnit.Name = "txtRoleBusinessUnit";
+			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(596, 20);
+			this.txtRoleBusinessUnit.TabIndex = 5;
+			// 
+			// txtRoleDescription
+			// 
+			this.txtRoleDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleDescription, 2);
+			this.txtRoleDescription.Location = new System.Drawing.Point(203, 63);
+			this.txtRoleDescription.Name = "txtRoleDescription";
+			this.txtRoleDescription.Size = new System.Drawing.Size(636, 20);
+			this.txtRoleDescription.TabIndex = 6;
+			// 
+			// cmbRoleInheritance
+			// 
+			this.cmbRoleInheritance.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tableLayoutPanel1.SetColumnSpan(this.cmbRoleInheritance, 2);
+			this.cmbRoleInheritance.FormattingEnabled = true;
+			this.cmbRoleInheritance.Location = new System.Drawing.Point(203, 93);
+			this.cmbRoleInheritance.Name = "cmbRoleInheritance";
+			this.cmbRoleInheritance.Size = new System.Drawing.Size(636, 21);
+			this.cmbRoleInheritance.TabIndex = 7;
+			// 
+			// btnRoleBusinessUnitLookup
+			// 
+			this.btnRoleBusinessUnitLookup.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
+			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(805, 33);
+			this.btnRoleBusinessUnitLookup.Name = "btnRoleBusinessUnitLookup";
+			this.btnRoleBusinessUnitLookup.Size = new System.Drawing.Size(34, 23);
+			this.btnRoleBusinessUnitLookup.TabIndex = 8;
+			this.btnRoleBusinessUnitLookup.UseVisualStyleBackColor = true;
+			// 
+			// tabChangeSummary
+			// 
+			this.tabChangeSummary.Controls.Add(this.olvChangeSummary);
+			this.tabChangeSummary.Location = new System.Drawing.Point(4, 22);
+			this.tabChangeSummary.Name = "tabChangeSummary";
+			this.tabChangeSummary.Padding = new System.Windows.Forms.Padding(3);
+			this.tabChangeSummary.Size = new System.Drawing.Size(862, 477);
+			this.tabChangeSummary.TabIndex = 3;
+			this.tabChangeSummary.Text = "Change Summary";
+			this.tabChangeSummary.UseVisualStyleBackColor = true;
+			// 
+			// olvChangeSummary
+			// 
+			this.olvChangeSummary.AllColumns.Add(this.cSummaryText);
+			this.olvChangeSummary.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.cSummaryText});
+			this.olvChangeSummary.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.olvChangeSummary.HideSelection = false;
+			this.olvChangeSummary.Location = new System.Drawing.Point(3, 3);
+			this.olvChangeSummary.Name = "olvChangeSummary";
+			this.olvChangeSummary.Size = new System.Drawing.Size(856, 471);
+			this.olvChangeSummary.SmallImageList = this.imageList;
+			this.olvChangeSummary.TabIndex = 0;
+			this.olvChangeSummary.UseCompatibleStateImageBehavior = false;
+			this.olvChangeSummary.View = System.Windows.Forms.View.Details;
+			// 
+			// cSummaryText
+			// 
+			this.cSummaryText.AspectName = "Text";
+			this.cSummaryText.CellPadding = null;
+			this.cSummaryText.FillsFreeSpace = true;
+			this.cSummaryText.Text = "Change details";
+			this.cSummaryText.Width = 400;
+			// 
+			// notificationPanel
+			// 
+			this.notificationPanel.AutoSize = true;
+			this.notificationPanel.Dock = System.Windows.Forms.DockStyle.Top;
+			this.notificationPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+			this.notificationPanel.Location = new System.Drawing.Point(0, 0);
+			this.notificationPanel.Name = "notificationPanel";
+			this.notificationPanel.Size = new System.Drawing.Size(870, 0);
+			this.notificationPanel.TabIndex = 2;
+			// 
 			// RoleEditorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -456,6 +602,7 @@
 			this.ClientSize = new System.Drawing.Size(870, 528);
 			this.Controls.Add(this.tabs);
 			this.Controls.Add(this.tools);
+			this.Controls.Add(this.notificationPanel);
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Name = "RoleEditorView";
 			this.tools.ResumeLayout(false);
@@ -468,33 +615,35 @@
 			this.tools2.PerformLayout();
 			this.tabMisc.ResumeLayout(false);
 			this.tabMisc.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.treeMisc)).EndInit();
+			this.tools3.ResumeLayout(false);
+			this.tools3.PerformLayout();
+			this.tabGeneral.ResumeLayout(false);
+			this.tableLayoutPanel1.ResumeLayout(false);
+			this.tableLayoutPanel1.PerformLayout();
 			this.tabChangeSummary.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.olvChangeSummary)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.treeMisc)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
 		}
 
 		#endregion
-
+		private System.Windows.Forms.ImageList imageList;
+		private Core.Views.NotificationPanel notificationPanel;
 		private System.Windows.Forms.ToolStrip tools;
 		private Xrm.Views.ToolStripBindableButton tSave;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+		private Xrm.Views.ToolStripBindableButton tExportExcel;
+		private Xrm.Views.ToolStripBindableButton tExportMarkdown;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+		private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+		private Xrm.Views.ToolStripBindableButton tShowOnlyAssignedPrivileges;
+		private Xrm.Views.ToolStripBindableButton tShowAllPrivileges;
 		private System.Windows.Forms.TabControl tabs;
 		private System.Windows.Forms.TabPage tabTables;
-		private System.Windows.Forms.TabPage tabMisc;
-		private System.Windows.Forms.TabPage tabGeneral;
-		private System.Windows.Forms.ToolStrip tools2;
-		private System.Windows.Forms.ToolStrip tools3;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
-		private System.Windows.Forms.ToolStripButton tExportExcel;
-		private System.Windows.Forms.ToolStripButton tExportMarkdown;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-		private System.Windows.Forms.ToolStripButton toolStripButton1;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
 		private BrightIdeasSoftware.TreeListView treeTables;
-		private System.Windows.Forms.ImageList imageList;
 		private BrightIdeasSoftware.OLVColumn cName;
 		private BrightIdeasSoftware.OLVColumn cCreate;
 		private BrightIdeasSoftware.OLVColumn cRead;
@@ -504,18 +653,31 @@
 		private BrightIdeasSoftware.OLVColumn cAppendTo;
 		private BrightIdeasSoftware.OLVColumn cAssign;
 		private BrightIdeasSoftware.OLVColumn cShare;
-		private Xrm.Views.ToolStripBindableButton tShowOnlyAssignedPrivileges;
-		private Xrm.Views.ToolStripBindableButton tShowAllPrivileges;
-		private System.Windows.Forms.ToolStripLabel toolStripLabel2;
+		private BrightIdeasSoftware.OLVColumn cLogicalName;
+		private System.Windows.Forms.ToolStrip tools2;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel3;
 		private System.Windows.Forms.ToolStripTextBox tSearchTableText;
-		private BrightIdeasSoftware.OLVColumn cLogicalName;
-		private System.Windows.Forms.TabPage tabChangeSummary;
-		private BrightIdeasSoftware.ObjectListView olvChangeSummary;
-		private BrightIdeasSoftware.OLVColumn cSummaryText;
+		private System.Windows.Forms.TabPage tabMisc;
 		private BrightIdeasSoftware.TreeListView treeMisc;
 		private BrightIdeasSoftware.OLVColumn cMiscName;
 		private BrightIdeasSoftware.OLVColumn cMiscValue;
 		private BrightIdeasSoftware.OLVColumn cMiscTooltip;
+		private System.Windows.Forms.ToolStrip tools3;
+		private System.Windows.Forms.TabPage tabGeneral;
+		private System.Windows.Forms.TabPage tabChangeSummary;
+		private BrightIdeasSoftware.ObjectListView olvChangeSummary;
+		private BrightIdeasSoftware.OLVColumn cSummaryText;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label label4;
+		private System.Windows.Forms.TextBox txtRoleName;
+		private System.Windows.Forms.TextBox txtRoleBusinessUnit;
+		private System.Windows.Forms.TextBox txtRoleDescription;
+		private System.Windows.Forms.ComboBox cmbRoleInheritance;
+		private System.Windows.Forms.Button btnRoleBusinessUnitLookup;
+		private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+		private System.Windows.Forms.ToolStripTextBox txtSearchMisc;
 	}
 }

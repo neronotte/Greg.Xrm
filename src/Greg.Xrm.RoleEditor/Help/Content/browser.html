@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a></small>
+	<h2>Role Browser</h2>
+	<p>
+		The role browser shows a visual representation of the roles in the system, organized in the Business Unit hierarchy as they are modeled into your dataverse environment.
+		You can load the roles for the current environment by clicking the "Load tables, privileges and roles" button of the main window.
+	</p>
+	<p>
+		Roles will be <b>displayed in a tree</b>, where the <b>root node is the organization</b> and the <b>children nodes are the business units</b>.
+		You can <b>change XrmToolbox connection</b> while the tool it's opened and, by clicking the same button, you can load the roles of the new environment, that will be displayed under a new root node.
+		This feature is really useful if you want to <em>compare roles between different environments</em>.
+	</p>
+	<h3>Main features</h3>
+	<p>
+		You can use the <em>Search</em> bar to filter the roles by name. The search is <b>case insensitive</b> and will match any role that contains the search term.
+	</p>
+	<p>
+		By default, only customizable roles are displayed. You can show all roles by clicking on the <em>Hide not customizable roles</em> toggle menu.
+	</p>
+	<p>
+		If you want to hide the roles belonging to managed solutions, you can do so by clicking on the <em>Hide managed roles</em> toggle menu.
+	</p>
+	<p>
+		You can <b>expand</b> and <b>collapse</b> the nodes of the tree by clicking on the <b>plus</b> and <b>minus</b> icons.
+	</p>
+	<p>
+		<b>Double-clicking on a role</b> will open the <a href="/editor">Role Editor</a> window, where you can see the role configuration and edit it (if the role is customizable).
+	</p>
+	<h3>Create new roles</h3>
+	<p>
+		From the role browser, you can create new roles by clicking on the <em>Create new role</em> button. This will open the <a href="/editor">Role Editor</a> window, where you can configure the new role.
+		There are 4 ways to create a new role:
+	</p>
+	<ul>
+		<li>
+			<b>Start from an empty role</b>: this will create a new role with no privileges or access levels. If you have more than one environment loaded, the new role will be created in the environemnt where the currently selected role belongs to. If no role is selected, the first environment in the list is used.
+		</li>
+		<li>
+			<b>Clone selected role</b>: this will create a new role with the same privileges and access levels as the selected role. The new role will be created in the environemnt where the currently selected role belongs to.
+		</li>
+		<li>
+			<b>From "Basic User"</b>: this will create a new role with the same privileges and access levels as the "Basic User" role. The new role will be created in the environemnt where the currently selected role belongs to.
+		</li>
+		<li>
+			<b>From "App Opener"</b>: this will create a new role with the same privileges and access levels as the "App Opener" role. The new role will be created in the environemnt where the currently selected role belongs to.
+		</li>
+	</ul>
+</body>
+</html>

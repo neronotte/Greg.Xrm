@@ -1,5 +1,7 @@
-﻿using Greg.Xrm.RoleEditor.Model;
+﻿using Greg.Xrm.Logging;
+using Greg.Xrm.RoleEditor.Model;
 using Microsoft.Crm.Sdk.Messages;
+using Newtonsoft.Json;
 using System;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
@@ -15,6 +17,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		{
 			this.template = template;
 			this.preImage = rolePrivilege.GetLevel();
+			this.target = null;
 		}
 
 		public string Name => this.template.Name;
@@ -41,14 +44,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			do
 			{
 				nextValue = (Level)((((int)nextValue) + 1) % 5);
-
 				i++;
-				if (i > 5)
-				{
-					throw new InvalidOperationException("Cannot find a valid level for the privilege.");
-				}
 			}
-			while (!template.IsValidLevel(nextValue));
+			while (!template.IsValidLevel(nextValue) && i <= 5);
 
 			Set(nextValue);
 		}
@@ -75,13 +73,58 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private void Set(Level value)
 		{
-			if (value == preImage)
+			// if the specified level is not valid for the current privilege, then ignore it
+			if (!this.template.IsValidLevel(value)) return;
+
+			if (value == this.preImage)
 			{
-				target = null;
+				this.target = null;
 			}
 			else
 			{
-				target = value;
+				this.target = value;
+			}
+		}
+
+		public string GenerateConfigurationCommand()
+		{
+			var command = new Command();
+			command.Name = Command.CommandName;
+			command.Level = Get();
+			return JsonConvert.SerializeObject(command);
+		}
+
+		public void ApplyConfigurationCommand(ILog log, string commandText)
+		{
+			try
+			{
+				var command = JsonConvert.DeserializeObject<Command>(commandText);
+				if (!command.IsValid)
+					return;
+
+				Set(command.Level);
+			}
+			catch (Exception ex)
+			{
+				log.Error("Error while applying the configuration command: " + ex.Message, ex);
+			}
+		}
+
+
+		class Command
+		{
+			public const string CommandName = "Greg.Xrm.RoleEditor-misc";
+
+			public string Name { get; set; }
+			public Level Level { get; set; }
+
+			[Newtonsoft.Json.JsonIgnore]
+			public bool IsValid
+			{
+				get
+				{
+					return CommandName.Equals(this.Name);
+				}
 			}
 		}
 	}

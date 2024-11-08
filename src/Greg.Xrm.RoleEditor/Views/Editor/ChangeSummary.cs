@@ -12,6 +12,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 	public class ChangeSummary : IEnumerable<IChangeOperation>
 	{
 		private readonly Guid roleId;
+		private Entity entityChange;
 		private readonly List<RolePrivilege> privilegesToAdd = new List<RolePrivilege>();
 		private readonly List<RolePrivilege> privilegesToReplace = new List<RolePrivilege>();
 		private readonly List<Guid> privilegesToRemove = new List<Guid>();
@@ -20,6 +21,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public ChangeSummary(Guid roleId)
 		{
 			this.roleId = roleId;
+		}
+
+		public void Add(Entity entity)
+		{
+			this.entityChange = entity;
 		}
 
 
@@ -98,12 +104,35 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		}
 
 
-
-		public ExecuteTransactionRequest CreateRequest()
+		public bool HasAnyPrivilegeChange()
 		{
-			var request = new ExecuteTransactionRequest();
-			request.ReturnResponses = true;
-			request.Requests = new OrganizationRequestCollection();
+			return this.changeList.Count > 0;
+		}
+
+
+		public IReadOnlyList<OrganizationRequest> CreateRequest()
+		{
+			var requestList = new List<OrganizationRequest>();
+
+			if (this.entityChange != null)
+			{
+				if (this.entityChange.Id == Guid.Empty)
+				{
+					var request1 = new CreateRequest
+					{
+						Target = this.entityChange
+					};
+					requestList.Add(request1);
+				}
+				else
+				{
+					var request1 = new UpdateRequest
+					{
+						Target = this.entityChange
+					};
+					requestList.Add(request1);
+				}
+			}
 
 			if (this.privilegesToAdd.Count >0)
 			{
@@ -112,7 +141,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					RoleId = this.roleId,
 					Privileges = this.privilegesToAdd.ToArray()
 				};
-				request.Requests.AddRange(request1);
+				requestList.Add(request1);
 			}
 
 			if (this.privilegesToRemove.Count > 0)
@@ -124,7 +153,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 						RoleId = this.roleId,
 						PrivilegeId = privilegeId
 					};
-					request.Requests.Add(request1);
+					requestList.Add(request1);
 				}
 			}
 
@@ -135,10 +164,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					RoleId = this.roleId,
 					Privileges = this.privilegesToReplace.ToArray()
 				};
-				request.Requests.Add(request1);
+				requestList.Add(request1);
 			}
 
-			return request;
+			return requestList;
 		}
 	}
 

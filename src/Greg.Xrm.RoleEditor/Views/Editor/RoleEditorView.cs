@@ -1,13 +1,14 @@
 ﻿using BrightIdeasSoftware;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.Messages;
-using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections;
-using System.Data.Common;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -22,28 +23,41 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly Role role;
 		private readonly RoleEditorViewModel viewModel;
 
-		public RoleEditorView(ILog log, IMessenger messenger, IOrganizationService crm, Role role, TemplateForRole template)
+		public RoleEditorView(
+			IPrivilegeClassificationProvider privilegeClassificationProvider,
+			Role role)
 		{
-			this.log = log;
-			this.messenger = messenger;
 			this.role = role;
+			this.log = role.ExecutionContext.Log;
+			this.messenger = role.ExecutionContext.Messenger;
+
+			this.RegisterHelp(messenger, Topics.Editor);
+
 			InitializeComponent();
 
-
-			this.viewModel = new RoleEditorViewModel(log, messenger, crm, role, template);
+			this.viewModel = new RoleEditorViewModel(privilegeClassificationProvider, role);
 			this.viewModel.PropertyChanged += (s, e) =>
 			{
 				if (e.PropertyName == nameof(RoleEditorViewModel.ShouldShowOnlyAssignedPrivileges))
 				{
 					RefreshTableFilters();
+					RefreshMiscFilters();
+				}
+
+				if (e.PropertyName == nameof(Model))
+				{
+					this.RefreshDataBindings();
 				}
 			};
 
-			this.SetTitle();
+			this.Bind(x => x.Text, viewModel, vm => vm.ViewTitle);
+			this.Bind(x => x.TabText, viewModel, vm => vm.ViewTitle);
 
 			this.tShowAllPrivileges.BindCommand(() => this.viewModel.ShowAllPrivilegesCommand, behavior: CommandExecuteBehavior.Visible);
 			this.tShowOnlyAssignedPrivileges.BindCommand(() => this.viewModel.ShowOnlyAssignedPrivilegesCommand, behavior: CommandExecuteBehavior.Visible);
 			this.tSave.BindCommand(() => this.viewModel.SaveCommand);
+			this.tExportExcel.BindCommand(() => this.viewModel.ExportExcelCommand);
+			this.tExportMarkdown.BindCommand(() => this.viewModel.ExportMarkdownCommand);
 
 			SetColumn(this.cCreate, PrivilegeType.Create);
 			SetColumn(this.cRead, PrivilegeType.Read);
@@ -73,8 +87,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				}
 				else
 				{
-					var tag = e.Column.Tag as PrivilegeColumnTag;
-					if (tag != null && table.TryGetPrivilegeName(tag.PrivilegeType, out var tooltip))
+					if (e.Column.Tag is PrivilegeColumnTag tag
+						&& table.TryGetPrivilegeName(tag.PrivilegeType, out var tooltip))
 					{
 						e.Text = tooltip;
 					}
@@ -97,7 +111,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeMisc.CellClick += OnCellClick;
 			this.treeMisc.FormatCell += OnFormatCell;
 			this.treeMisc.ColumnClick += OnTreeColumnClick;
-			//this.treeMisc.KeyDown += OnTreeKeyDown;
+			this.treeMisc.KeyDown += OnTreeMiscKeyDown;
 			this.treeMisc.Roots = this.viewModel.Model?.MiscGroups;
 			this.treeMisc.ExpandAll();
 
@@ -127,18 +141,52 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			};
 
 			this.tSearchTableText.KeyUp += OnSearchTableKeyUp;
+			this.txtSearchMisc.KeyUp += OnSearchMiscKeyUp;
+
+
+
+			// setup of the General Info tab
+			this.cmbRoleInheritance.DropDownStyle = ComboBoxStyle.DropDownList;
+			RefreshDataBindings();
+
+
+
+
+
 
 
 			RefreshTableFilters();
+			RefreshMiscFilters();
 
 			this.tabs.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
+			if (this.role.IsNew)
+			{
+				this.tabs.SelectedTab = this.tabGeneral;
+			}
+			this.tabs.SelectedIndexChanged += OnTabChanged;
 			this.tools.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
+
+
+			this.notificationPanel.Bind(this.viewModel);
 		}
 
-
-		private void SetTitle()
+		private void RefreshDataBindings()
 		{
-			this.Text = this.TabText = this.viewModel.Model.Name + (this.viewModel.Model.IsDirty ? " *" : string.Empty);
+			this.tabs.SelectedTab = this.tabTables;
+			this.treeTables.Roots = this.viewModel.Model?.TableGroups;
+			this.treeMisc.Roots = this.viewModel.Model?.MiscGroups;
+			this.treeTables.ExpandAll();
+			this.treeMisc.ExpandAll();
+
+			this.txtRoleName.Bind(x => x.Text, viewModel.Model, vm => vm.Name);
+			this.txtRoleDescription.Bind(x => x.Text, viewModel.Model, vm => vm.Description);
+			
+			this.txtRoleBusinessUnit.Bind(x => x.Text, viewModel.Model, vm => vm.BusinessUnitName);
+			this.btnRoleBusinessUnitLookup.BindCommand(() => viewModel.Model.CanChangeBusinessUnit, () => this);
+
+			this.cmbRoleInheritance.Items.Clear();
+			this.cmbRoleInheritance.Items.AddRange(this.viewModel.Model.InheritedValues);
+			this.cmbRoleInheritance.Bind(x => x.SelectedItem, viewModel.Model, vm => vm.IsInherited);
 		}
 
 
@@ -148,6 +196,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		{
 			this.viewModel.SearchTableText = this.tSearchTableText.Text;
 			RefreshTableFilters();
+			e.Handled = true;
+		}
+
+		private void OnSearchMiscKeyUp(object sender, KeyEventArgs e)
+		{
+			this.viewModel.SearchMiscText = this.txtSearchMisc.Text;
+			RefreshMiscFilters();
 			e.Handled = true;
 		}
 
@@ -194,10 +249,19 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 				return true;
 			});
+		}
 
+
+		private void RefreshMiscFilters()
+		{
 			this.treeMisc.ModelFilter = new ModelFilter(model =>
 			{
 				if (!(model is MiscModel misc)) return true;
+
+				if (!string.IsNullOrWhiteSpace(this.viewModel.SearchMiscText)
+					&& !misc.Name.ToLowerInvariant().Contains(this.viewModel.SearchMiscText?.ToLowerInvariant())
+					&& !misc.Tooltip.ToLowerInvariant().Contains(this.viewModel.SearchMiscText?.ToLowerInvariant()))
+					return false;
 
 				if (this.viewModel.ShouldShowOnlyAssignedPrivileges)
 				{
@@ -220,12 +284,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var column = e.Column;
 				if (column == null) return;
 
-				var tag = column.Tag as PrivilegeColumnTag;
-				if (tag == null) return;
+				if (!(column.Tag is PrivilegeColumnTag tag)) return;
 
 				table.Increase(tag.PrivilegeType);
 				this.treeTables.RefreshObject(table);
-				this.SetTitle();
+				this.viewModel.EvaluateDirty();
 				e.Handled = true;
 			}
 
@@ -236,8 +299,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 				
 				misc.Increase();
-				this.treeTables.RefreshObject(misc);
-				this.SetTitle();
+				this.treeMisc.RefreshObject(misc);
+				this.viewModel.EvaluateDirty();
 				e.Handled = true;
 			}
 		}
@@ -249,8 +312,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var column = e.Column;
 				if (column == null) return;
 
-				var tag = column.Tag as PrivilegeColumnTag;
-				if (tag == null) return;
+				if (!(column.Tag is PrivilegeColumnTag tag)) return;
 
 				if (table.IsChanged(tag.PrivilegeType))
 					e.SubItem.BackColor = Color.Yellow;
@@ -287,8 +349,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			foreach (var table in tree.FilteredObjects.OfType<TableModel>())
 			{
-				var tag = column.Tag as PrivilegeColumnTag;
-				if (tag != null)
+				if (column.Tag is PrivilegeColumnTag tag)
 				{
 					if (!tree.IsExpanded(table.Parent))
 						continue;
@@ -306,7 +367,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			}
 
 			tree.RefreshObject(tree.FilteredObjects);
-			this.SetTitle();
+			this.viewModel.EvaluateDirty();
 		}
 
 
@@ -320,7 +381,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var table = tableList[0];
 				if (tableList.Length > 1)
 				{
-					MessageBox.Show($"You selected {tableList.Length} tables, only the first table ({table.Name}) configuration will be copied.", "Copy table configuration", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					this.notificationPanel.AddWarning($"You selected {tableList.Length} tables, only the first table ({table.Name}) configuration will be copied.");
 				}
 
 				var text = table.GenerateConfigurationCommand();
@@ -332,6 +393,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				e.SuppressKeyPress = true;
 				return;
 			}
+
+
 			if (e.Control && e.KeyCode == Keys.V)
 			{
 				var text = Clipboard.GetText();
@@ -342,7 +405,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					table.ApplyConfigurationCommand(this.log, text);
 				}
 				this.treeTables.RefreshObjects(tableList);
-				this.SetTitle();
+				this.viewModel.EvaluateDirty();
 
 
 				this.log.Debug($"Table configuration pasted on {tableList.Length} tables.");
@@ -360,7 +423,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					table.IncreaseAll();
 				}
 				this.treeTables.RefreshObjects(tableList);
-				this.SetTitle();
+				this.viewModel.EvaluateDirty();
 
 
 				e.Handled = true;
@@ -376,7 +439,65 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					table.Set(Level.User, Level.User, Level.User, Level.None, Level.User, Level.User, Level.User, Level.User);
 				}
 				this.treeTables.RefreshObjects(tableList);
-				this.SetTitle();
+				this.viewModel.EvaluateDirty();
+
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+			}
+		}
+
+		private void OnTreeMiscKeyDown(object sender, KeyEventArgs e)
+		{
+			var miscList = this.treeMisc.SelectedObjects.OfType<MiscModel>().ToArray();
+			if (miscList.Length == 0) return;
+
+			if (e.Control && e.KeyCode == Keys.C)
+			{
+				var misc = miscList[0];
+				if (miscList.Length > 1)
+				{
+					this.notificationPanel.AddWarning($"You selected {miscList.Length} privileges, only the first ({misc.Name}) configuration will be copied.");
+				}
+
+				var text = misc.GenerateConfigurationCommand();
+				Clipboard.SetText(text);
+
+				this.log.Debug("Misc configuration copied to clipboard.");
+
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+				return;
+			}
+
+
+			if (e.Control && e.KeyCode == Keys.V)
+			{
+				var text = Clipboard.GetText();
+				if (string.IsNullOrWhiteSpace(text)) return;
+
+				foreach (var table in miscList)
+				{
+					table.ApplyConfigurationCommand(this.log, text);
+				}
+				this.treeTables.RefreshObjects(miscList);
+				this.viewModel.EvaluateDirty();
+
+				this.log.Debug($"Misc configuration pasted on {miscList.Length} tables.");
+
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+				return;
+			}
+
+
+			if (e.KeyCode == Keys.Space)
+			{
+				foreach (var misc in miscList)
+				{
+					misc.Increase();
+				}
+				this.treeMisc.RefreshObjects(miscList);
+				this.viewModel.EvaluateDirty();
 
 				e.Handled = true;
 				e.SuppressKeyPress = true;

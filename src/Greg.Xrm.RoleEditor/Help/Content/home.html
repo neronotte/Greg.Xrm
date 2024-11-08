@@ -6,7 +6,7 @@
 	<title>Help</title>
 	<style type="text/css">
 		body {
-			font-family: "Segoe UI", Arial, Arial, Helvetica, sans-serif;
+			font-family: "Segoe UI", Arial, Helvetica, sans-serif;
 			font-size: .7em;
 			line-height: 1.6em;
 		}
@@ -31,43 +31,33 @@
 	<small><a href="/home">Home</a></small>
 	<h2>Summary</h2>
 	<p>
-		<b>_n.EnvironmentComparer</b> allows to compare data between two distinct environments.<br />
-		His main purpose is to simplify the migration of <b>configuration data</b> during the deployment process,
-		providing a <b>winmerge like</b> UI.
+		<b>_n.RoleEditor</b> provides an advanced, user friendly, UI to manipulate dataverse security roles.<br />
+		His main purpose is to overcome the limitations of the new security role editor available via <b>Power Apps Maker Portal</b>.
 	</p>
 	<p>
-		<b>Please note:</b> this tool is not suitable to compare large amount of data. <br />
-		If you need to compare large amount of data we suggest to apply different approaches such as copying data to 
-		staging tables on Azure SQL and apply comparison via Stored Procedures.
+		<b>With this tool you can:</b>
 	</p>
+	<ul>
+		<li>Open more than one role at time, <i>even from different environments</i>.</li>
+		<li>Create new roles from scratch, or copying the minimum privileges from existing roles.</li>
+		<li>Modify existing roles.</li>
+		<li>Set <i>privilege depth</i> privilege by privilege, or massively (by table, by operation, or applying specific filters)</li>
+		<li>Use CTRL+C / CTRL+V to copy/paste privilege depth configurations between tables or between single miscellaneous privileges.</li>
+		<li>Export a role definition in excel or markdown.</li>
+	</ul>
 
 	<h3>Steps</h3>
 	<ol>
-		<li>Connect to the first environment (ENV1).</li>
-		<li>Connect to a second environment (ENV2).</li>
-		<li><a href="/configurator">Create (or open) a comparison map, deciding which tables/columns to compare and which rules to apply.</a></li>
-		<li><a href="/configurator">Execute the comparison</a> and <a href="/result-grid">analyze results</a>.</li>
-		<li>Track and apply <a href="/configurator">actions</a> on (copy record from ENV1 to ENV2 or vice-versa).</li>
+		<li>Connect to the environment that contains the roles to edit.</li>
+		<li>Click on <b>Load tables, privileges and roles</b> to fetch the list of roles from the environment.</li>
+		<li><span>Here you can</span>
+			<ul>
+				<li>Use the <b>Search</b> box to filter the list of roles</li>
+				<li>Use the <b>Filter</b> toolbar button on the right of the Search box to show/hide uncustomizable or managed roles</li>
+				<li><b>Double click</b> on a given role to enter edit mode.</li>
+				<li>Use the <b>Create new role</b> toolbar button to create a new role.</li>
+			</ul>
+		</li>
 	</ol>
-
-	<h3>Connect to an environment</h3>
-	<p>
-		The plugin toolbar highlights the environments that will be used on the comparison.
-	</p>
-	<ul>
-		<li>
-			If not connectect at startup, you can use XrmToolBox connection control
-			to open the connection dialog and select the environment. The selected environment will be shown
-			in the plugin toolbar, replacing the label <b>1. Connect to environment 1</b>.
-		</li>
-		<li>
-			Once connected to the first environment, you can use the toolbar button <b>2. Connect to environment 2</b>
-			to open the connection dialog and select the second environment.<br />
-			To change connection you can click again on the same button. A prompt will ask for confirmation before removing the current connection.
-		</li>
-	</ul>
-	<p>
-		<b>Please note:</b> changing one of the connections will reset the plugin context, removing any previously executed result.
-	</p>
 </body>
 </html>

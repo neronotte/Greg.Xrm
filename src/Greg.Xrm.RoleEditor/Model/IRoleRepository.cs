@@ -1,10 +1,10 @@
-﻿using Microsoft.Xrm.Sdk;
+﻿using Greg.Xrm.Core;
 using System.Collections.Generic;
 
 namespace Greg.Xrm.RoleEditor.Model
 {
 	public interface IRoleRepository
 	{
-		IReadOnlyList<Role> GetParentRoles(IOrganizationService crm);
+		IReadOnlyList<Role> GetParentRoles(IXrmToolboxPluginContext executionContext, TemplateForRole template);
 	}
 }

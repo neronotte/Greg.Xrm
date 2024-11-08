@@ -1,28 +1,27 @@
-﻿using Greg.Xrm.Logging;
+﻿using Greg.Xrm.Core;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.Messages;
-using Greg.Xrm.Views;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
-using System.Windows.Media.Animation;
-using XrmToolBox.Extensibility;
+using System.Windows;
 
 namespace Greg.Xrm.RoleEditor.Views
 {
 	public class MainViewModel : PluginViewModelBase
 	{
+		const string LoadButtonTextBase = "Load tables, privileges and roles";
+
 		private readonly ILog log;
 		private readonly IMessenger messenger;
-		private readonly RoleTemplateBuilder roleTemplateBuilder;
-		private readonly IRoleRepository roleRepository;
 
 
-		private List<Role> rolesCurrentlyOpened = new List<Role>();
+		private readonly List<Role> rolesCurrentlyOpened = new List<Role>();
 
 
 
@@ -31,105 +30,54 @@ namespace Greg.Xrm.RoleEditor.Views
 			ILog log,
 			IMessenger messenger,
 			RoleTemplateBuilder roleTemplateBuilder,
-			IRoleRepository roleRepository)
+			IRoleRepository roleRepository,
+			IBusinessUnitRepository businessUnitRepository)
 		{
 			this.log = log;
 			this.messenger = messenger;
-			this.roleTemplateBuilder = roleTemplateBuilder;
-			this.roleRepository = roleRepository;
-			this.InitCommand = new RelayCommand(Initialize, CanInitialize);
+
+			this.LoadDataButtonText = LoadButtonTextBase;
+
+
+			this.InitCommand = new LoadDataCommand(roleTemplateBuilder, roleRepository, businessUnitRepository);
+
 
 			this.messenger.Register<OpenRoleView>(OnOpenRoleRequested);
 			this.messenger.Register<CloseRoleView>(OnCloseRoleRequested);
-
-
-			this.WhenChanges(() => this.Crm).Refresh(this.InitCommand);
 		}
 
 
 
 
-		public string ConnectionName 
+		public void Reset(IOrganizationService newService, ConnectionDetail detail)
 		{
-			get => base.Get<string>();
-			protected set => base.Set(value);
-		}
+			if (newService == null || detail == null) return;
 
-		public IOrganizationService Crm
-		{
-			get => base.Get<IOrganizationService>();
-			protected set => base.Set(value);
-		}
+			var context = new XrmToolboxPluginContext(this.log, this.messenger, detail, newService);
 
-		public TemplateForRole RoleTemplate
-		{
-			get => Get<TemplateForRole>();
-			private set => Set(value);
-		}
+			this.LoadDataButtonText = LoadButtonTextBase + $" ({detail.ConnectionName})";
 
 
-
-
-		public void Reset(IOrganizationService newService, ConnectionDetail detail, string actionName, object parameter)
-		{
-			this.Crm = newService;
-			this.ConnectionName = detail.ConnectionName;
-
-			this.messenger.Send(new RoleListLoaded() { RoleList = Array.Empty<Role>(), RoleTemplate = null });
-			foreach (var role in this.rolesCurrentlyOpened.ToArray())
+			if (this.InitCommand.Context != null)
 			{
-				OnCloseRoleRequested(new CloseRoleView(role));
+				MessageBox.Show($"A new connection has been established.{Environment.NewLine}You can use the \"Load tables, privileges and roles\" from this environment.", "Connection Updated", MessageBoxButton.OK, MessageBoxImage.Information);
 			}
+
+			this.InitCommand.Context = context;
+			this.messenger.Send(new ConnectionUpdated(context));
 		}
 
 
 
 		#region Init Command
-		public RelayCommand InitCommand { get; }
 
-		private bool CanInitialize()
+		public string LoadDataButtonText
 		{
-			return this.Crm != null;
+			get => Get<string>();
+			private set => Set(value);
 		}
 
-
-		private void Initialize()
-		{
-			this.messenger.Send(new WorkAsyncInfo
-			{
-				Message = "Loading tables and privileges...",
-				Work = (worker, args) =>
-				{
-					// do some work here
-					this.messenger.Send<Freeze>();
-
-					var roleTemplate = this.roleTemplateBuilder.CreateTemplate(this.Crm);
-
-					IReadOnlyList<Role> roleList;
-					using(this.log.Track("Retrieving roles..."))
-					{
-						roleList = this.roleRepository.GetParentRoles(this.Crm);
-						this.log.Info($"Found {roleList.Count} roles");
-					}
-
-					args.Result = Tuple.Create(roleTemplate, roleList);
-				},
-				PostWorkCallBack = e =>
-				{
-					this.messenger.Send<Unfreeze>();
-
-					// do some work here
-					var result = e.Result as Tuple<TemplateForRole, IReadOnlyList<Role>>;
-					if (result == null) return;
-
-
-					this.RoleTemplate = result.Item1;
-					var roleList = result.Item2;
-
-					this.messenger.Send(new RoleListLoaded{ RoleList = roleList, RoleTemplate = this.RoleTemplate });
-				}
-			});
-		}
+		public LoadDataCommand InitCommand { get; }
 
 		#endregion
 
@@ -140,44 +88,23 @@ namespace Greg.Xrm.RoleEditor.Views
 		public event EventHandler<OpenRoleView> OpenRoleRequested;
 		public event EventHandler<OpenRoleView> ShowRoleRequested;
 
+
 		private void OnOpenRoleRequested(OpenRoleView message)
 		{
-			if (this.rolesCurrentlyOpened.Contains(message.Role))
+			var role = message.Role;
+
+			if (this.rolesCurrentlyOpened.Contains(role))
 			{
 				// we should highlight the panel of the role if it is already opened
-				this.log.Debug("Role editor highlighted for: " + message.Role.name);
+				this.log.Debug("Role editor highlighted for: " + role.name);
 				ShowRoleRequested?.Invoke(this, message);
 			}
 			else
 			{
-				this.messenger.Send(new WorkAsyncInfo
-				{
-					Message = "Reading role details...",
-					Work = (worker, args) =>
-					{
-						message.Role.ReadPrivileges(this.log, this.Crm);
+				this.rolesCurrentlyOpened.Add(role);
 
-						// do some work here
-						args.Result = message.Role;
-					},
-					PostWorkCallBack = e =>
-					{
-						if (e.Error != null)
-						{
-							this.log.Error("Error retrieving role info: " + e.Error.Message, e.Error);
-							return;
-						}
-
-						// do some work here
-						var role = e.Result as Role;
-						if (role == null) return;
-
-						this.rolesCurrentlyOpened.Add(role);
-
-						this.log.Debug($"Role editor opened for <{role.name}>. Total #roles opened: {this.rolesCurrentlyOpened.Count}");
-						OpenRoleRequested?.Invoke(this, message);
-					}
-				});
+				this.log.Debug($"Role editor opened for <{role.name}>. Total #roles opened: {this.rolesCurrentlyOpened.Count}");
+				OpenRoleRequested?.Invoke(this, message);
 			}
 		}
 

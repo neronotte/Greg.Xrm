@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.Core.Async;
 using Greg.Xrm.Core.Help;
+using Greg.Xrm.Core.Views;
 using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
@@ -14,7 +15,6 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility.Args;
 using XrmToolBox.Extensibility.Interfaces;
@@ -27,6 +27,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		private readonly IMessenger messenger;
 		private readonly IAsyncJobScheduler scheduler;
+		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
 
 		private readonly MainViewModel viewModel;
 
@@ -40,27 +41,28 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 			this.dockPanel.Theme = new VS2015BlueTheme();
+			this.dockPanel.CustomizaFloatWindow(x => x.MakeResizable());
+
 			this.messenger = new Messenger(this);
 			this.outputView = new OutputView(themeProvider, messenger);
 
 
-
 			// initialization of model and services
 			var privilegeRepository = new Privilege.Repository();
-			var roleRepository = new Role.Repository();
+			var roleRepository = new Role.Repository(this.outputView, this.messenger);
 			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
-
+			var businessUnitRepository = new BusinessUnit.Repository();
+			this.privilegeClassificationProvider = new PrivilegeClassificationProvider(settingsProvider);
 
 			// ui initialization
 
-			this.viewModel = new MainViewModel(this.outputView, this.messenger, roleTemplateBuilder, roleRepository);
+			this.viewModel = new MainViewModel(this.outputView, this.messenger, roleTemplateBuilder, roleRepository, businessUnitRepository);
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
 			this.messenger.RegisterJobScheduler(scheduler);
 
 
 
 			this.outputView.Show(this.dockPanel, DockState.DockBottom);
-
 
 			var helpContentIndexProvider = new HelpContentIndexProvider();
 			var helpContentIndex = helpContentIndexProvider.GetIndex();
@@ -76,6 +78,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 			// data binding
+			this.tInit.Bind(x => x.Text, viewModel, vm => vm.LoadDataButtonText);
 			this.tInit.BindCommand(() => this.viewModel.InitCommand);
 
 
@@ -87,6 +90,11 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.viewModel.OpenRoleRequested += OnOpenRoleRequested;
 			this.viewModel.ShowRoleRequested += OnShowRoleRequested;
 			this.viewModel.CloseRoleRequested += OnCloseRoleRequested;
+
+			this.messenger.Register<ShowHelp>(m =>
+			{
+				helpView.Show();
+			});
 		}
 
 
@@ -102,7 +110,7 @@ namespace Greg.Xrm.RoleEditor.Views
 		// any state must be reset.
 		public override void UpdateConnection(IOrganizationService newService, ConnectionDetail detail, string actionName, object parameter)
 		{
-			this.viewModel.Reset(newService, detail, actionName, parameter);
+			this.viewModel.Reset(newService, detail);
 		}
 
 		private void OnExitClick(object sender, System.EventArgs e)
@@ -116,7 +124,9 @@ namespace Greg.Xrm.RoleEditor.Views
 		{
 			lock(this.syncRoot)
 			{
-				var editor = new Editor.RoleEditorView(this.outputView, this.messenger, this.viewModel.Crm, e.Role, this.viewModel.RoleTemplate);
+				var editor = new Editor.RoleEditorView(
+					this.privilegeClassificationProvider,
+					e.Role);
 				this.roleViewDict[e.Role] = editor;
 				editor.Show(this.dockPanel, DockState.Document);
 			}

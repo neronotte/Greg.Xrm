@@ -40,5 +40,12 @@ namespace Greg.Xrm.Model
 		/// </summary>
 		/// <param name="newId">The new GUID for the current record.</param>
 		void SetId(Guid newId);
+
+
+		/// <summary>
+		/// Re-initializes the current record starting from the provided image.
+		/// </summary>
+		/// <param name="entity">The record image.</param>
+		void Reload(Entity entity);
 	}
 }

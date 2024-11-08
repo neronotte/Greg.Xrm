@@ -2,13 +2,13 @@
 {
 	public class IsInheritedValue
 	{
-        public IsInheritedValue(bool isInherited, string label)
+        public IsInheritedValue(int isInherited, string label)
         {
-			IsInherited = isInherited;
+			Value = isInherited;
 			Label = label;
 		}
 
-		public bool IsInherited { get; }
+		public int Value { get; }
 		public string Label { get; }
 
 		public override string ToString()

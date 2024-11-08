@@ -15,7 +15,9 @@ namespace Greg.Xrm.RoleEditor.Help
 
 			return new HelpContentIndex(resourcePath)
 			{
-				{ Topics.Home, "home.html" }
+				{ Topics.Home, "home.html" },
+				{ Topics.Browser, "browser.html" },
+				{ Topics.Editor, "editor.html" }
 			};
 		}
 
