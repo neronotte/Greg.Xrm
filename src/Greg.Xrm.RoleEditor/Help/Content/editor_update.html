@@ -11,6 +11,10 @@
 			line-height: 1.6em;
 		}
 
+		h1, h2, h3, h4 {
+			line-height: 1.2em;
+		}
+
 		a {
 			text-decoration: none;
 			color: #0065B3;
@@ -25,25 +29,23 @@
 				text-decoration: none;
 				color: #0065B3;
 			}
+
+		body > img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	</style>
 </head>
 <body>
 	<small><a href="/home">Home</a> | <a href="/editor">Editor</a></small>
-	<h2>Layout of the Role Editor</h2>
+	<h2>Modify an existing role</h2>
 	<p>
-		<b>_n.RoleEditor</b> offers an advanced, user friendly, UI to manipulate dataverse security roles.<br />
-		His main purpose is to <b>overcome the limitations</b> of the new security role editor available via <b>Power Apps Maker Portal</b>,
-		providing a familiar and intuitive configuration experience with a wealth of useful features.
+		Double-clicking a role in the <a href="/browser">Role Browser</a> opens a new editor tab.
+		If the role is marked as <pre>customizable</pre>, you can modify its properties (name and description), and <a href="/editor_edit">assign or remove privileges</a>.
 	</p>
-	<h3>Topics</h3>
-	<ul>
-		<li><a href="/editor_layout">Layout of the Role Editor</a></li>
-		<li><a href="/editor_docking">Docking / Undocking the role editor</a></li>
-		<li><a href="/editor_create">Create a new role</a></li>
-		<li><a href="/editor_update">Modify existing role</a></li>
-		<li><a href="/editor_edit">Editing capabilities</a></li>
-		<li><a href="/editor_save">Saving changes to new or existing roles</a></li>
-		<li><a href="/editor_export">Export in Excel or Markdown</a></li>
-	</ul>
+	<p>
+		The editor window will open directly onto the <b>Table related privileges</b> tab, where you can <a href="/editor_edit">edit the table-related privileges</a> assigned to the role.
+	</p>
 </body>
 </html>

@@ -11,6 +11,10 @@
 			line-height: 1.6em;
 		}
 
+		h1, h2, h3, h4 {
+			line-height: 1.2em;
+		}
+
 		a {
 			text-decoration: none;
 			color: #0065B3;
@@ -25,6 +29,12 @@
 				text-decoration: none;
 				color: #0065B3;
 			}
+
+		body > img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
 	</style>
 </head>
 <body>
@@ -33,60 +43,43 @@
 	</small>
 	<h2>Role Browser</h2>
 	<p>
-		The role browser provides a visual representation of the roles in the system, organized within the Business Unit hierarchy 
-		as modeled in your Dataverse environment. You can load the roles for the current environment 
-		by clicking the "Load tables, privileges, and roles" button in the main window. 
+		The role browser provides a visual representation of the roles in the system, organized within the Business Unit hierarchy
+		as modeled in your Dataverse environment. You can load the roles for the current environment
+		by clicking the "Load tables, privileges, and roles" button in the main window.
 	</p>
 	<p>
-		Roles will be <b>displayed in a tree</b> structure, where the <b>root node represents the organization</b>, 
+		Roles will be <b>displayed in a tree</b> structure, where the <b>root node represents the organization</b>,
 		the <b>child nodes represent the business units</b>, and the <b>leaf nodes are the actual roles</b>.
-		You can <b>change the XrmToolbox connection</b> while the tool is open and, by clicking the same button, 
-		load the roles of the new environment, which will be displayed under a new root node. 
+		You can <b>change the XrmToolbox connection</b> while the tool is open and, by clicking the same button,
+		load the roles of the new environment, which will be displayed under a new root node.
 		This feature is particularly useful if you want to <em>compare roles between different environments</em>.
 	</p>
-	
+
 	<h3>Main Features</h3>
 	<p>
-		You can use the <em>Search</em> bar to filter roles by name. The search is <b>case-insensitive</b> 
-		and will match any role containing the search term. 
+		You can use the <em>Search</em> bar to filter roles by name. The search is <b>case-insensitive</b>
+		and will match any role containing the search term.
 		<br />
-		By default, only customizable roles are displayed. You can show all roles by clicking on the 
+		By default, only customizable roles are displayed. You can show all roles by clicking on the
 		<em>Hide non-customizable roles</em> toggle menu.
-		<br/>
-		If you want to hide roles belonging to managed solutions, you can do so by clicking on the <em>Hide managed roles</em> toggle menu. 
+		<br />
+		If you want to hide roles belonging to managed solutions, you can do so by clicking on the <em>Hide managed roles</em> toggle menu.
 	</p>
 	<p>
 		You can <b>expand</b> and <b>collapse</b> the nodes of the tree by clicking on the <b>plus</b> and <b>minus</b> icons.
 		<br />
-		<b>Double-clicking a role</b> will open the <a href="/editor">Role Editor</a> window, 
+		<b>Double-clicking a role</b> will open the <a href="/editor">Role Editor</a> window,
 		where you can view and edit the role configuration (if the role is customizable).
 	</p>
-
-	<h3>Create New Roles</h3>
 	<p>
-		From the role browser, you can create new roles by clicking on the <em>Create new role</em> button. 
-		This opens the <a href="/editor">Role Editor</a> window, where you can configure the new role.<br/>
-		There are four ways to create a new role: </p>
+		From the role browser, you can create new roles by clicking on the <em>Create new role</em> button.
+		This opens the <a href="/editor">Role Editor</a> window, where you can configure the new role.<br />
+		<a href="/editor_create">Click here to get more info about the possibilities offered by the tool.</a>
+	</p>
+
+	<h3>Take a look at</h3>
 	<ul>
-		<li>
-			<b>Start from an empty role</b>: This option creates a new role with no privileges or access levels. 
-			If you have more than one environment loaded, the new role will be created in the environment 
-			of the currently selected role. If no role is selected, the first environment in the list is used.
-		</li>
-		<li>
-			<b>Clone selected role</b>: This option creates a new role with the same privileges and access levels 
-			as the selected role. The new role will be created in the environment of the currently selected role.
-		</li>
-		<li>
-			<b>From "Basic User"</b>: This option creates a new role with the same privileges and access levels 
-			as the "Basic User" role (if present in the selected environment). The new role will be created in 
-			the environment of the currently selected role.
-		</li>
-		<li>
-			<b>From "App Opener"</b>: This option creates a new role with the same privileges and access levels
-			as the "App Opener" role (if present in the selected environment). The new role will be created in 
-			the environment of the currently selected role.
-		</li>
+		<li><a href="/editor">Role Editor</a></li>
 	</ul>
 </body>
 </html>

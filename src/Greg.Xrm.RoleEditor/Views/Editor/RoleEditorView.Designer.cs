@@ -54,6 +54,7 @@
 			this.cAssign = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cShare = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cLogicalName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+			this.privilegeImagesNew = new System.Windows.Forms.ImageList(this.components);
 			this.tools2 = new System.Windows.Forms.ToolStrip();
 			this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
 			this.tSearchTableText = new System.Windows.Forms.ToolStripTextBox();
@@ -81,8 +82,6 @@
 			this.cSummaryText = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.notificationPanel = new Greg.Xrm.Core.Views.NotificationPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-			this.privilegeImagesNew = new System.Windows.Forms.ImageList(this.components);
-			this.tToggleIcons = new System.Windows.Forms.ToolStripButton();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -121,8 +120,7 @@
             this.toolStripSeparator3,
             this.toolStripLabel2,
             this.tShowOnlyAssignedPrivileges,
-            this.tShowAllPrivileges,
-            this.tToggleIcons});
+            this.tShowAllPrivileges});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
 			this.tools.Size = new System.Drawing.Size(870, 25);
@@ -265,7 +263,7 @@
 			this.cName.AspectName = "Name";
 			this.cName.CellPadding = null;
 			this.cName.IsEditable = false;
-			this.cName.Text = "Name";
+			this.cName.Text = "Table Display Name";
 			this.cName.Width = 200;
 			// 
 			// cCreate
@@ -313,8 +311,18 @@
 			this.cLogicalName.AspectName = "Tooltip";
 			this.cLogicalName.CellPadding = null;
 			this.cLogicalName.FillsFreeSpace = true;
-			this.cLogicalName.Text = "Logical Name";
+			this.cLogicalName.Text = "Table Logical Name";
 			this.cLogicalName.Width = 200;
+			// 
+			// privilegeImagesNew
+			// 
+			this.privilegeImagesNew.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("privilegeImagesNew.ImageStream")));
+			this.privilegeImagesNew.TransparentColor = System.Drawing.Color.Transparent;
+			this.privilegeImagesNew.Images.SetKeyName(0, "none");
+			this.privilegeImagesNew.Images.SetKeyName(1, "user");
+			this.privilegeImagesNew.Images.SetKeyName(2, "businessunit");
+			this.privilegeImagesNew.Images.SetKeyName(3, "parentchild");
+			this.privilegeImagesNew.Images.SetKeyName(4, "organization");
 			// 
 			// tools2
 			// 
@@ -599,24 +607,6 @@
 			this.notificationPanel.Size = new System.Drawing.Size(870, 0);
 			this.notificationPanel.TabIndex = 2;
 			// 
-			// privilegeImagesNew
-			// 
-			this.privilegeImagesNew.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("privilegeImagesNew.ImageStream")));
-			this.privilegeImagesNew.TransparentColor = System.Drawing.Color.Transparent;
-			this.privilegeImagesNew.Images.SetKeyName(0, "none");
-			this.privilegeImagesNew.Images.SetKeyName(1, "user");
-			this.privilegeImagesNew.Images.SetKeyName(2, "businessunit");
-			this.privilegeImagesNew.Images.SetKeyName(3, "parentchild");
-			this.privilegeImagesNew.Images.SetKeyName(4, "organization");
-			// 
-			// tToggleIcons
-			// 
-			this.tToggleIcons.Image = ((System.Drawing.Image)(resources.GetObject("tToggleIcons.Image")));
-			this.tToggleIcons.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tToggleIcons.Name = "tToggleIcons";
-			this.tToggleIcons.Size = new System.Drawing.Size(93, 22);
-			this.tToggleIcons.Text = "Toggle Icons";
-			// 
 			// RoleEditorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -703,6 +693,5 @@
 		private System.Windows.Forms.ToolStripTextBox txtSearchMisc;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.ImageList privilegeImagesNew;
-		private System.Windows.Forms.ToolStripButton tToggleIcons;
 	}
 }
