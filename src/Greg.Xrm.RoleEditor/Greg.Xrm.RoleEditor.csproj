@@ -320,6 +320,7 @@
     <Compile Include="Views\Editor\ExportExcelCommand.cs" />
     <Compile Include="Views\Editor\ExportMarkdownCommand.cs" />
     <Compile Include="Views\LoadDataCommand.cs" />
+    <Compile Include="Views\Messages\ChangePrivilegeIcons.cs" />
     <Compile Include="Views\Messages\ConnectionUpdated.cs" />
     <Compile Include="Views\Editor\ChangeBusinessUnitCommand.cs" />
     <Compile Include="Views\Editor\ChangeSummary.cs" />
@@ -363,6 +364,13 @@
       <DependentUpon>RoleBrowserView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Browser\RoleBrowserViewModel.cs" />
+    <Compile Include="Views\SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -380,6 +388,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Browser\RoleBrowserView.resx">
       <DependentUpon>RoleBrowserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -432,6 +443,30 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\browser.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_layout.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_docking.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_create.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_update.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_edit.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_save.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_export.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cog.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -6,6 +7,7 @@ namespace Greg.Xrm.Core.Views
 {
 	public class NotificationPanel : StackPanel
 	{
+		private readonly List<System.Timers.Timer> timers = new List<System.Timers.Timer>();
 		private readonly ToolTip tooltip = new ToolTip();
 
 		public NotificationPanel()
@@ -13,10 +15,11 @@ namespace Greg.Xrm.Core.Views
 			this.Padding = new Padding(0);
 		}
 
-		private void AddPanel(string message, Color backColor, Bitmap icon = null)
+		private void AddPanel(string message, Color backColor, Bitmap icon, int? timerInSeconds)
 		{
-			var timer = new System.Timers.Timer(15 * 1000);
+			var timer = new System.Timers.Timer(timerInSeconds.GetValueOrDefault(10) * 1000);
 			timer.Start();
+			this.timers.Add(timer);
 
 
 			var panel = new Panel();
@@ -28,9 +31,16 @@ namespace Greg.Xrm.Core.Views
 
 			Action closeAll = () =>
 			{
-				this.Controls.Remove(panel);
-				panel.Dispose();
-				timer.Dispose();
+#pragma warning disable S2486 // Generic exceptions should not be ignored
+				try
+				{
+					this.Controls.Remove(panel);
+					panel.Dispose();
+					timer.Dispose();
+					this.timers.Remove(timer);
+				}
+				catch { }
+#pragma warning restore S2486 // Generic exceptions should not be ignored
 			};
 			timer.Elapsed += (s, e) => BeginInvoke(closeAll);
 
@@ -82,13 +92,13 @@ namespace Greg.Xrm.Core.Views
 		}
 
 
-		public void AddSuccess(string message) => AddPanel(message, Color.FromArgb(223, 246, 221), Properties.Resources.success);
+		public void AddSuccess(string message, int? timerInSeconds = null) => AddPanel(message, Color.FromArgb(223, 246, 221), Properties.Resources.success, timerInSeconds);
 
-		public void AddWarning(string message) => AddPanel(message, Color.FromArgb(255, 244, 206), Properties.Resources.error);
+		public void AddWarning(string message, int? timerInSeconds = null) => AddPanel(message, Color.FromArgb(255, 244, 206), Properties.Resources.error, timerInSeconds);
 
-		public void AddError(string message) => AddPanel(message, Color.FromArgb(253, 231, 233), Properties.Resources.exclamation);
+		public void AddError(string message, int? timerInSeconds = null) => AddPanel(message, Color.FromArgb(253, 231, 233), Properties.Resources.exclamation, timerInSeconds);
 
-		public void AddInfo(string message) => AddPanel(message, Color.FromArgb(204, 229, 255), Properties.Resources.information);
+		public void AddInfo(string message, int? timerInSeconds = null) => AddPanel(message, Color.FromArgb(204, 229, 255), Properties.Resources.information, timerInSeconds);
 
 
 
@@ -113,6 +123,16 @@ namespace Greg.Xrm.Core.Views
 						break;
 				}
 			};
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			base.Dispose(disposing);
+			if (disposing)
+			{
+				this.timers.ForEach(t => t.Dispose());
+				this.timers.Clear();
+			}
 		}
 	}
 }

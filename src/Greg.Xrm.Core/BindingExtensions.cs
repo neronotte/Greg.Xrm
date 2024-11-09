@@ -25,7 +25,7 @@ namespace Greg.Xrm
 		}
 
 
-		public static void Bind<TComponent, TViewModel, TProperty>(
+		public static Binding Bind<TComponent, TViewModel, TProperty>(
 			this TComponent component,
 			Expression<Func<TComponent, TProperty>> componentProperty,
 			TViewModel viewModel,
@@ -41,7 +41,7 @@ namespace Greg.Xrm
 			var componentMemberName = componentProperty.GetMemberName();
 			RemoveBinding(component, componentMemberName);
 
-			component.DataBindings.Add(
+			return component.DataBindings.Add(
 				componentMemberName,
 				viewModel,
 				viewModelProperty.GetMemberName());

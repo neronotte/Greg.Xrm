@@ -19,14 +19,7 @@ namespace Greg.Xrm.RoleEditor.Services
 			lock(syncRoot)
 			{
 				var settings = this.settingsProvider.GetSettings();
-
-
-				if (settings == null)
-				{
-					settings = new Settings();
-				}
-				settings.PrivilegeClassificationForMisc = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForMisc);
-				settings.Save();
+				
 
 				if (settings.PrivilegeClassificationForMisc == null)
 				{
@@ -50,37 +43,32 @@ namespace Greg.Xrm.RoleEditor.Services
 			
 		}
 
-		public void SaveForMiscPrivileges(Dictionary<string, string[]> classification)
-		{
-			if (classification == null) classification = new Dictionary<string, string[]>();
-
-			lock (syncRoot)
-			{
-				var settings = this.settingsProvider.GetSettings();
-
-				if (settings == null)
-				{
-					settings = new Settings();
-				}
-
-				settings.PrivilegeClassificationForMisc = JsonConvert.SerializeObject( classification);
-				settings.Save();
-			}
-		}
-
-		public void ResetMiscPrivileges()
+		public Dictionary<string, string[]> GetForTablePrivileges()
 		{
 			lock (syncRoot)
 			{
 				var settings = this.settingsProvider.GetSettings();
-				if (settings == null)
+
+				if (settings.PrivilegeClassificationForTable == null)
 				{
-					settings = new Settings();
+					settings.PrivilegeClassificationForTable = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForTable);
+					settings.Save();
+
+					return PrivilegeClassification.DefaultForTable;
 				}
 
-				settings.PrivilegeClassificationForMisc = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForMisc);
-				settings.Save();
+				try
+				{
+					return JsonConvert.DeserializeObject<Dictionary<string, string[]>>(settings.PrivilegeClassificationForTable);
+				}
+				catch
+				{
+					settings.PrivilegeClassificationForTable = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForTable);
+					settings.Save();
+					return PrivilegeClassification.DefaultForTable;
+				}
 			}
+
 		}
 	}
 }

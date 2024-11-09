@@ -15,13 +15,14 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility.Args;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.RoleEditor.Views
 {
-	public partial class MainView : GregPluginControlBase<RoleEditorPlugin>, IStatusBarMessenger
+	public partial class MainView : GregPluginControlBase<RoleEditorPlugin>, IStatusBarMessenger, ISettingsPlugin
 	{
 		private readonly object syncRoot = new object();
 
@@ -33,12 +34,11 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		private readonly OutputView outputView;
 		private readonly Dictionary<Role, Editor.RoleEditorView> roleViewDict = new Dictionary<Role, Editor.RoleEditorView>();
-
+		private readonly ISettingsProvider<Settings> settingsProvider;
 
 		public MainView(ISettingsProvider<Settings> settingsProvider, IThemeProvider themeProvider)
 		{
 			InitializeComponent();
-
 
 			this.dockPanel.Theme = new VS2015BlueTheme();
 			this.dockPanel.CustomizaFloatWindow(x => x.MakeResizable());
@@ -48,6 +48,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 			// initialization of model and services
+			this.settingsProvider = settingsProvider;
 			var privilegeRepository = new Privilege.Repository();
 			var roleRepository = new Role.Repository(this.outputView, this.messenger);
 			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
@@ -72,7 +73,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;
 
-			var roleBrowserView = new RoleBrowserView(this.outputView, messenger);
+			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider);
 			roleBrowserView.Show(this.dockPanel, DockState.DockLeft);
 
 
@@ -80,6 +81,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			// data binding
 			this.tInit.Bind(x => x.Text, viewModel, vm => vm.LoadDataButtonText);
 			this.tInit.BindCommand(() => this.viewModel.InitCommand);
+			this.tSettings.Click += (s, e) => ShowSettings();
 
 
 
@@ -125,6 +127,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			lock(this.syncRoot)
 			{
 				var editor = new Editor.RoleEditorView(
+					this.settingsProvider,
 					this.privilegeClassificationProvider,
 					e.Role);
 				this.roleViewDict[e.Role] = editor;
@@ -146,6 +149,15 @@ namespace Greg.Xrm.RoleEditor.Views
 			lock(this.syncRoot)
 			{
 				this.roleViewDict.Remove(e.Role);
+			}
+		}
+
+		public void ShowSettings()
+		{
+			using (var dialog = new SettingsDialog(this.messenger, this.settingsProvider))
+			{
+				dialog.StartPosition = FormStartPosition.CenterParent;
+				dialog.ShowDialog(this);
 			}
 		}
 	}

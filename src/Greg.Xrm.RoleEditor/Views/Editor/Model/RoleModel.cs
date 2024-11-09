@@ -53,8 +53,21 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 			this.TableGroups.Clear();
-			var group = new TableGroupModel("Generic");
-			this.TableGroups.Add(group);
+
+			var tableMap = this.privilegeClassificationProvider.GetForTablePrivileges();
+			var reverseTableMap = tableMap.CreateReverseMap();
+
+
+			var tableGroupDict = new Dictionary<string, TableGroupModel>();
+			foreach (var name in tableMap.Keys)
+			{
+				var g = new TableGroupModel(name);
+				tableGroupDict[name] = g;
+			}
+			tableGroupDict["General"] = new TableGroupModel("General");
+
+
+
 
 			foreach (var tableTemplate in this.template.Tables.Values.OrderBy(x => x.Name))
 			{
@@ -63,7 +76,23 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var privilegesForCurrentTable = role.Privileges.Where(x => privilegeIdList.Contains(x.PrivilegeId)).ToArray();
 
 				var tableModel = new TableModel(tableTemplate, privilegesForCurrentTable);
-				group.Add(tableModel);
+
+				if (reverseTableMap.TryGetValue(tableModel.Tooltip, out var groupNames) && groupNames.Count > 0)
+				{
+					tableGroupDict[groupNames[0]].Add(tableModel);
+				}
+				else
+				{
+					tableGroupDict["General"].Add(tableModel);
+				}
+			}
+
+			foreach (var g in tableGroupDict.Values)
+			{
+				if (g.Count > 0)
+				{
+					this.TableGroups.Add(g);
+				}
 			}
 
 
@@ -78,10 +107,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			var reverseMiscMap = miscMap.CreateReverseMap();
 
 			var miscGroupDict = new Dictionary<string, MiscGroupModel>();
-			foreach (var miscGroupName in miscMap.Keys)
+			foreach (var name in miscMap.Keys)
 			{
-				var g = new MiscGroupModel(miscGroupName);
-				miscGroupDict[miscGroupName] = g;
+				var g = new MiscGroupModel(name);
+				miscGroupDict[name] = g;
 			}
 			miscGroupDict["Miscellaneous"] = new MiscGroupModel("Miscellaneous");
 
@@ -105,11 +134,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				}
 			}
 
-			foreach (var miscGroup in miscGroupDict.Values)
+			foreach (var g in miscGroupDict.Values)
 			{
-				if (miscGroup.Count > 0)
+				if (g.Count > 0)
 				{
-					this.MiscGroups.Add(miscGroup);
+					this.MiscGroups.Add(g);
 				}
 			}
 		}

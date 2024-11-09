@@ -17,7 +17,14 @@ namespace Greg.Xrm.RoleEditor.Help
 			{
 				{ Topics.Home, "home.html" },
 				{ Topics.Browser, "browser.html" },
-				{ Topics.Editor, "editor.html" }
+				{ Topics.Editor, "editor.html" },
+				{ "editor_layout", "editor_layout.html" },
+				{ "editor_docking", "editor_docking.html" },
+				{ "editor_create", "editor_create.html" },
+				{ "editor_update", "editor_update.html" },
+				{ "editor_edit", "editor_edit.html" },
+				{ "editor_save", "editor_save.html" },
+				{ "editor_export", "editor_export.html" }
 			};
 		}
 

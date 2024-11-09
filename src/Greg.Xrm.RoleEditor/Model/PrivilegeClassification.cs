@@ -2,7 +2,7 @@
 
 namespace Greg.Xrm.RoleEditor.Model
 {
-	public class PrivilegeClassification
+	public static class PrivilegeClassification
 	{
 		public static Dictionary<string, string[]> DefaultForMisc { get; } = new Dictionary<string, string[]>() {
 			{ "General", new string[] {
@@ -142,5 +142,6 @@ namespace Greg.Xrm.RoleEditor.Model
 				"prvPowerBIWorkspaceViewer",
 			}}
 		};
+		public static Dictionary<string, string[]> DefaultForTable { get; } = new Dictionary<string, string[]>();
 	}
 }

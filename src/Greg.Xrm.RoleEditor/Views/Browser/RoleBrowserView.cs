@@ -15,7 +15,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		private readonly RoleBrowserViewModel viewModel;
 
 
-		public RoleBrowserView(ILog log, IMessenger messenger)
+		public RoleBrowserView(ILog log, IMessenger messenger, ISettingsProvider<Settings> settingsProvider)
 		{
 			this.RegisterHelp(messenger, Topics.Browser);
 
@@ -26,11 +26,13 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			InitializeComponent();
 			this.Text = this.TabText = "Role Browser";
 
+
+
 			this.roleTree.UseFiltering = true;
 			this.roleTree.FullRowSelect = true;
 			this.cTreeName.Sortable = false;
 			this.tSearchText.Enabled = false;
-			this.viewModel = new RoleBrowserViewModel(log, messenger);
+			this.viewModel = new RoleBrowserViewModel(log, messenger, settingsProvider);
 
 
 			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Bind(

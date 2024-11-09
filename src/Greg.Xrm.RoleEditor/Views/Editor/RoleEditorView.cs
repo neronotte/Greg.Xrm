@@ -24,6 +24,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly RoleEditorViewModel viewModel;
 
 		public RoleEditorView(
+			ISettingsProvider<Settings> settingsProvider,
 			IPrivilegeClassificationProvider privilegeClassificationProvider,
 			Role role)
 		{
@@ -34,6 +35,14 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.RegisterHelp(messenger, Topics.Editor);
 
 			InitializeComponent();
+
+
+
+			// here we will check which icons to use
+			var settings = settingsProvider.GetSettings();
+			this.SetIcons(settings.UseLegacyPrivilegeIcons);
+			this.messenger.Register<ChangePrivilegeIcons>(m => SetIcons(m.UseLegacyIcons));
+
 
 			this.viewModel = new RoleEditorViewModel(privilegeClassificationProvider, role);
 			this.viewModel.PropertyChanged += (s, e) =>
@@ -103,6 +112,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeTables.ColumnClick += OnTreeColumnClick;
 			this.treeTables.KeyDown += OnTreeTablesKeyDown;
 			this.treeTables.Roots = this.viewModel.Model?.TableGroups;
+			this.treeTables.UseCustomSelectionColors = true;
+			this.treeTables.HighlightBackgroundColor = Color.FromArgb(240, 240, 240);
+			this.treeTables.HighlightForegroundColor = Color.Black;
 			this.treeTables.ExpandAll();
 
 
@@ -113,6 +125,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeMisc.ColumnClick += OnTreeColumnClick;
 			this.treeMisc.KeyDown += OnTreeMiscKeyDown;
 			this.treeMisc.Roots = this.viewModel.Model?.MiscGroups;
+			this.treeMisc.UseCustomSelectionColors = true;
+			this.treeMisc.HighlightBackgroundColor = Color.FromArgb(240, 240, 240);
+			this.treeMisc.HighlightForegroundColor = Color.Black;
 			this.treeMisc.ExpandAll();
 
 
@@ -170,6 +185,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.notificationPanel.Bind(this.viewModel);
 		}
 
+
+
 		private void RefreshDataBindings()
 		{
 			this.tabs.SelectedTab = this.tabTables;
@@ -187,8 +204,31 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.cmbRoleInheritance.Items.Clear();
 			this.cmbRoleInheritance.Items.AddRange(this.viewModel.Model.InheritedValues);
 			this.cmbRoleInheritance.Bind(x => x.SelectedItem, viewModel.Model, vm => vm.IsInherited);
+
+			if (this.viewModel.Model.Id == Guid.Empty)
+			{
+				this.toolTip1.SetToolTip(this.txtRoleName, "When creating a new role, consider adding a well defined prefix to the name to make it easily identifiable among all system roles.");
+			}
+			else
+			{
+				this.toolTip1.SetToolTip(this.txtRoleName, null);
+			}
 		}
 
+
+		private void SetIcons(bool useLegacyIcons)
+		{
+			if (useLegacyIcons)
+			{
+				this.treeTables.SmallImageList = this.privilegeImagesOld;
+				this.treeMisc.SmallImageList = this.privilegeImagesOld;
+			}
+			else
+			{
+				this.treeTables.SmallImageList = this.privilegeImagesNew;
+				this.treeMisc.SmallImageList = this.privilegeImagesNew;
+			}
+		}
 
 
 

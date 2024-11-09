@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		h1,h2,h3,h4 {
+			line-height: 1.2em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+		img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a> | <a href="/editor">Editor</a></small>
+	<h2>Export in Excel or Markdown</h2>
+	<p>
+		<b>_n.RoleEditor</b> allows you to export the configuration of a given role in Excel or Markdown format.
+		This capability may be useful for documentation purposes or to share the configuration with other team members.
+	</p>
+	<p>
+		Export can be done by clicking on <b>one of the two "Export" buttons on the Role Editor toolbar</b>:
+	</p>
+	<img alt="" src="data:image/png;base64,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" />
+	<p>
+		The export will reflect also any unsaved changes made to the role, so <em>make sure to save your changes before exporting</em>.
+	</p>
+
+	<h3>Export in Excel</h3>
+	<p>
+		This export mode generates an Excel (xlsx) file composed by 3 sheets:
+	</p>
+	<ol>
+		<li><b>General</b>: containing the role name and a few info such as the role <em>Business Unit</em>, the role <em>description</em> and the <em>inheritance type</em>.</li>.
+		<li><b>Tables</b>: containing an <em>Excel table</em> with the list of all <em>Dataverse table</em> related privileges, grouped by table. Even unassinged privileges are shown. You can easily highlight only the tables having at least one privilege by filtering using the "Has privileges?" column.</li>
+		<li><b>Misc</b>: containing an <em>Excel table</em> with the list of all non-table related privileges, grouped in the same way they are grouped in the role editor. For each privilege, also the technical name is shown in a dedicated column.</li>
+	</ol>
+
+	<h3>Export in Markdown</h3>
+	<p>
+		Markdown is the official format used by <b>GitHub</b> or <b>Azure DevOps</b> to render documentation. 
+		This export mode generates a Markdown file with a structure similar to the Excel export, but in a plain text format.
+	</p>
+	<p>
+		In the exported file, privileges are represented using emojis, for an easy and quick visual recognition.
+	</p>
+	<p>
+		The main difference with the excel export is that only the tables having at least one privilege are shown, 
+		and only the miscellaneous privileges actually assigned to the role are listed.
+	</p>
+</body>
+</html>

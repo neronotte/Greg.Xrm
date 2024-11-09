@@ -32,6 +32,7 @@
 			this.tExit = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tInit = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tSettings = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.status = new System.Windows.Forms.StatusStrip();
@@ -43,9 +44,10 @@
 			// 
 			this.tools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tExit,
-            this.toolStripSeparator1,
-            this.tInit,
-            this.toolStripSeparator2,
+			this.tSettings,
+			this.toolStripSeparator1,
+			this.tInit,
+			this.toolStripSeparator2,
             this.toolStripLabel1});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
@@ -76,6 +78,16 @@
 			this.tInit.Name = "tInit";
 			this.tInit.Size = new System.Drawing.Size(163, 22);
 			this.tInit.Text = "Load tables, privileges and roles";
+			// 
+			// tSettings
+			// 
+			this.tSettings.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.settings;
+			this.tSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tSettings.Name = "tSettings";
+			this.tSettings.Size = new System.Drawing.Size(23, 22);
+			this.tSettings.Text = "Settings";
+			this.tSettings.ToolTipText = "Open the settings dialog";
+			this.tSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			// 
 			// toolStripSeparator2
 			// 
@@ -131,6 +143,7 @@
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private Greg.Xrm.Views.ToolStripBindableButton tInit;
+		private Greg.Xrm.Views.ToolStripBindableButton tSettings;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 	}
 }

@@ -30,7 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoleEditorView));
-			this.imageList = new System.Windows.Forms.ImageList(this.components);
+			this.privilegeImagesOld = new System.Windows.Forms.ImageList(this.components);
 			this.tools = new System.Windows.Forms.ToolStrip();
 			this.tSave = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -80,6 +80,9 @@
 			this.olvChangeSummary = new BrightIdeasSoftware.ObjectListView();
 			this.cSummaryText = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.notificationPanel = new Greg.Xrm.Core.Views.NotificationPanel();
+			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.privilegeImagesNew = new System.Windows.Forms.ImageList(this.components);
+			this.tToggleIcons = new System.Windows.Forms.ToolStripButton();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -94,18 +97,18 @@
 			((System.ComponentModel.ISupportInitialize)(this.olvChangeSummary)).BeginInit();
 			this.SuspendLayout();
 			// 
-			// imageList
+			// privilegeImagesOld
 			// 
-			this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-			this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-			this.imageList.Images.SetKeyName(0, "none");
-			this.imageList.Images.SetKeyName(1, "user");
-			this.imageList.Images.SetKeyName(2, "businessunit");
-			this.imageList.Images.SetKeyName(3, "parentchild");
-			this.imageList.Images.SetKeyName(4, "organization");
-			this.imageList.Images.SetKeyName(5, "add");
-			this.imageList.Images.SetKeyName(6, "remove");
-			this.imageList.Images.SetKeyName(7, "replace");
+			this.privilegeImagesOld.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("privilegeImagesOld.ImageStream")));
+			this.privilegeImagesOld.TransparentColor = System.Drawing.Color.Transparent;
+			this.privilegeImagesOld.Images.SetKeyName(0, "none");
+			this.privilegeImagesOld.Images.SetKeyName(1, "user");
+			this.privilegeImagesOld.Images.SetKeyName(2, "businessunit");
+			this.privilegeImagesOld.Images.SetKeyName(3, "parentchild");
+			this.privilegeImagesOld.Images.SetKeyName(4, "organization");
+			this.privilegeImagesOld.Images.SetKeyName(5, "add");
+			this.privilegeImagesOld.Images.SetKeyName(6, "remove");
+			this.privilegeImagesOld.Images.SetKeyName(7, "replace");
 			// 
 			// tools
 			// 
@@ -118,7 +121,8 @@
             this.toolStripSeparator3,
             this.toolStripLabel2,
             this.tShowOnlyAssignedPrivileges,
-            this.tShowAllPrivileges});
+            this.tShowAllPrivileges,
+            this.tToggleIcons});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
 			this.tools.Size = new System.Drawing.Size(870, 25);
@@ -250,7 +254,7 @@
 			this.treeTables.OwnerDraw = true;
 			this.treeTables.ShowGroups = false;
 			this.treeTables.Size = new System.Drawing.Size(856, 446);
-			this.treeTables.SmallImageList = this.imageList;
+			this.treeTables.SmallImageList = this.privilegeImagesNew;
 			this.treeTables.TabIndex = 1;
 			this.treeTables.UseCompatibleStateImageBehavior = false;
 			this.treeTables.View = System.Windows.Forms.View.Details;
@@ -367,7 +371,7 @@
 			this.treeMisc.OwnerDraw = true;
 			this.treeMisc.ShowGroups = false;
 			this.treeMisc.Size = new System.Drawing.Size(856, 446);
-			this.treeMisc.SmallImageList = this.imageList;
+			this.treeMisc.SmallImageList = this.privilegeImagesOld;
 			this.treeMisc.TabIndex = 2;
 			this.treeMisc.UseCompatibleStateImageBehavior = false;
 			this.treeMisc.View = System.Windows.Forms.View.Details;
@@ -572,7 +576,7 @@
 			this.olvChangeSummary.Location = new System.Drawing.Point(3, 3);
 			this.olvChangeSummary.Name = "olvChangeSummary";
 			this.olvChangeSummary.Size = new System.Drawing.Size(856, 471);
-			this.olvChangeSummary.SmallImageList = this.imageList;
+			this.olvChangeSummary.SmallImageList = this.privilegeImagesOld;
 			this.olvChangeSummary.TabIndex = 0;
 			this.olvChangeSummary.UseCompatibleStateImageBehavior = false;
 			this.olvChangeSummary.View = System.Windows.Forms.View.Details;
@@ -594,6 +598,24 @@
 			this.notificationPanel.Name = "notificationPanel";
 			this.notificationPanel.Size = new System.Drawing.Size(870, 0);
 			this.notificationPanel.TabIndex = 2;
+			// 
+			// privilegeImagesNew
+			// 
+			this.privilegeImagesNew.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("privilegeImagesNew.ImageStream")));
+			this.privilegeImagesNew.TransparentColor = System.Drawing.Color.Transparent;
+			this.privilegeImagesNew.Images.SetKeyName(0, "none");
+			this.privilegeImagesNew.Images.SetKeyName(1, "user");
+			this.privilegeImagesNew.Images.SetKeyName(2, "businessunit");
+			this.privilegeImagesNew.Images.SetKeyName(3, "parentchild");
+			this.privilegeImagesNew.Images.SetKeyName(4, "organization");
+			// 
+			// tToggleIcons
+			// 
+			this.tToggleIcons.Image = ((System.Drawing.Image)(resources.GetObject("tToggleIcons.Image")));
+			this.tToggleIcons.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tToggleIcons.Name = "tToggleIcons";
+			this.tToggleIcons.Size = new System.Drawing.Size(93, 22);
+			this.tToggleIcons.Text = "Toggle Icons";
 			// 
 			// RoleEditorView
 			// 
@@ -629,7 +651,7 @@
 		}
 
 		#endregion
-		private System.Windows.Forms.ImageList imageList;
+		private System.Windows.Forms.ImageList privilegeImagesOld;
 		private Core.Views.NotificationPanel notificationPanel;
 		private System.Windows.Forms.ToolStrip tools;
 		private Xrm.Views.ToolStripBindableButton tSave;
@@ -679,5 +701,8 @@
 		private System.Windows.Forms.Button btnRoleBusinessUnitLookup;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel4;
 		private System.Windows.Forms.ToolStripTextBox txtSearchMisc;
+		private System.Windows.Forms.ToolTip toolTip1;
+		private System.Windows.Forms.ImageList privilegeImagesNew;
+		private System.Windows.Forms.ToolStripButton tToggleIcons;
 	}
 }

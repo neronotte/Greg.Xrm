@@ -15,10 +15,8 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 	public class RoleBrowserViewModel : ViewModel
 	{
 
-		public RoleBrowserViewModel(ILog log, IMessenger messenger)
+		public RoleBrowserViewModel(ILog log, IMessenger messenger, ISettingsProvider<Settings> settingsProvider)
         {
-			this.OverrideSetDefaultValue(() => ShouldHideNotCustomizableRoles, () => true);
-			this.OverrideSetDefaultValue(() => ShouldHideManagedRoles, () => false);
 			this.OverrideSetDefaultValue(() => EmptyListMessage, () => "Click on \"Load tables, privileges and roles\" button to load the roles.");
 
 
@@ -27,6 +25,12 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.NewRoleFromBasicUserCommand = new NewRoleFromExistingCommand(this, "Basic User");
 			this.NewRoleFromCurrentCommand = new NewRoleFromCurrentCommand();
 			this.OpenRoleCommand = new OpenRoleCommand();
+
+
+
+			var settings = settingsProvider.GetSettings();
+			this.ShouldHideManagedRoles = settings.HideManagedRoles;
+			this.ShouldHideNotCustomizableRoles = settings.HideNotCustomizableRoles;
 
 
 			this.ShouldHideNotCustomizableRolesCommand = new RelayCommand(() =>
