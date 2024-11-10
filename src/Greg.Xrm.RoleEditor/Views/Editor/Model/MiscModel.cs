@@ -13,11 +13,22 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private Level? target;
 
 
-		public MiscModel(TemplateForGenericPrivilege template, RolePrivilege rolePrivilege)
+		public MiscModel(TemplateForGenericPrivilege template, RolePrivilege rolePrivilege, bool isNew)
 		{
 			this.template = template;
-			this.preImage = rolePrivilege.GetLevel();
-			this.target = null;
+
+			if (isNew)
+			{
+				// if the privilege is new, then the pre-image is None
+				this.preImage = Level.None;
+				Set( rolePrivilege.GetLevel());
+			}
+			else
+			{ 
+				// if the privilege is not new, then the pre-image is the current level
+				this.preImage = rolePrivilege.GetLevel();
+				this.target = null;
+			}
 		}
 
 		public string Name => this.template.Name;
@@ -33,7 +44,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			set => Set(value);
 		}
 
-		public bool IsAssigned => Get() != Level.None;
+		public bool IsAssigned => this.preImage != Level.None || (this.target != null && this.target != Level.None);
 
 		public bool IsChanged => this.target.HasValue;
 
@@ -49,6 +60,15 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			while (!template.IsValidLevel(nextValue) && i <= 5);
 
 			Set(nextValue);
+		}
+		public bool[] GetPrivilegeLevelValidityMatrix()
+		{
+			var result = new bool[5];
+			for (var i = 0; i < 5; i++)
+			{
+				result[i] = this.template.IsValidLevel((Level)i);
+			}
+			return result;
 		}
 
 		public void CalculateChanges(ChangeSummary summary)

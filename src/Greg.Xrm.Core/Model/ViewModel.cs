@@ -13,7 +13,7 @@ namespace Greg.Xrm.Model
 	/// Base interface for MVVM implementation.
 	/// Allows declarative configuration of the viewmodel behavior when something changes
 	/// </summary>
-	public abstract class ViewModel : INotifyPropertyChanged
+	public abstract class ViewModel : INotifyPropertyChanged, INotifyPropertyChanging
 	{
 		private readonly Dictionary<string, object> propertyDict = new Dictionary<string, object>();
 		private readonly Dictionary<string, object> defaultValueSetterDict = new Dictionary<string, object>();
@@ -23,6 +23,7 @@ namespace Greg.Xrm.Model
 
 
 		public event PropertyChangedEventHandler PropertyChanged;
+		public event PropertyChangingEventHandler PropertyChanging;
 
 
 
@@ -32,7 +33,7 @@ namespace Greg.Xrm.Model
 		/// <typeparam name="TProperty">The type of the property that changes</typeparam>
 		/// <param name="propertyLambda">An expression representing the property that changes</param>
 		/// <returns>The fluent interface</returns>
-		protected IChangeManagerFluent WhenChanges<TProperty>(Expression<Func<TProperty>> propertyLambda)
+		public IChangeManagerFluent WhenChanges<TProperty>(Expression<Func<TProperty>> propertyLambda)
 		{
 			var property = GetPropertyInfo(propertyLambda);
 			return new ChangeManagerFluent(this, property.Name);
@@ -189,9 +190,17 @@ namespace Greg.Xrm.Model
 			if (this.propertyDict.TryGetValue(propertyName, out object oldValue) && Equals(oldValue, value))
 				return;
 
+			OnPropertyChanging(propertyName);
 			this.propertyDict[propertyName] = value;
 			OnPropertyChanged(propertyName, value);
 		}
+
+
+		protected void OnPropertyChanging(string propertyName)
+		{
+			this.PropertyChanging?.Invoke(this, new PropertyChangingEventArgs(propertyName));
+		}
+
 
 		protected void OnPropertyChanged(string propertyName, object newValue)
 		{

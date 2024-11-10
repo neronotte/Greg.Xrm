@@ -23,6 +23,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly Role role;
 		private readonly RoleEditorViewModel viewModel;
 
+		private readonly ToolStripMenuItem[] contextMenuItems = new ToolStripMenuItem[5];
+
 		public RoleEditorView(
 			ISettingsProvider<Settings> settingsProvider,
 			IPrivilegeClassificationProvider privilegeClassificationProvider,
@@ -35,6 +37,18 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.RegisterHelp(messenger, Topics.Editor);
 
 			InitializeComponent();
+
+			this.contextMenuItems[0] = this.mSet0;
+			this.contextMenuItems[1] = this.mSet1;
+			this.contextMenuItems[2] = this.mSet2;
+			this.contextMenuItems[3] = this.mSet3;
+			this.contextMenuItems[4] = this.mSet4;
+
+			for (int i = 0; i < this.contextMenuItems.Length; i++)
+			{
+				this.contextMenuItems[i].Tag = i;
+				this.contextMenuItems[i].Click += OnContextMenuClick;
+			}
 
 
 
@@ -65,6 +79,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.tShowAllPrivileges.BindCommand(() => this.viewModel.ShowAllPrivilegesCommand, behavior: CommandExecuteBehavior.Visible);
 			this.tShowOnlyAssignedPrivileges.BindCommand(() => this.viewModel.ShowOnlyAssignedPrivilegesCommand, behavior: CommandExecuteBehavior.Visible);
 			this.tSave.BindCommand(() => this.viewModel.SaveCommand);
+			this.tAddToSolution.BindCommand(() => this.viewModel.AddRoleToSolutionCommand, () => this);
 			this.tExportExcel.BindCommand(() => this.viewModel.ExportExcelCommand);
 			this.tExportMarkdown.BindCommand(() => this.viewModel.ExportMarkdownCommand);
 
@@ -82,8 +97,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				this.treeMisc.CanExpandGetter =
 					x => (x is ICollection collection) && collection.Count > 0;
 
-			this.treeTables.ChildrenGetter = 
-				this.treeMisc.ChildrenGetter = 
+			this.treeTables.ChildrenGetter =
+				this.treeMisc.ChildrenGetter =
 					x => (x is ICollection collection) ? collection : Array.Empty<object>();
 
 			this.treeTables.CellToolTipShowing += (object sender, ToolTipShowingEventArgs e) =>
@@ -115,6 +130,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeTables.UseCustomSelectionColors = true;
 			this.treeTables.HighlightBackgroundColor = Color.FromArgb(240, 240, 240);
 			this.treeTables.HighlightForegroundColor = Color.Black;
+			this.treeTables.CellRightClick += OnCellRightClick;
 			this.treeTables.ExpandAll();
 
 
@@ -128,6 +144,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeMisc.UseCustomSelectionColors = true;
 			this.treeMisc.HighlightBackgroundColor = Color.FromArgb(240, 240, 240);
 			this.treeMisc.HighlightForegroundColor = Color.Black;
+			this.treeMisc.CellRightClick += OnCellRightClick;
 			this.treeMisc.ExpandAll();
 
 
@@ -190,8 +207,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.notificationPanel.Bind(this.viewModel);
 		}
 
-
-
 		private void RefreshDataBindings()
 		{
 			this.tabs.SelectedTab = this.tabTables;
@@ -202,7 +217,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			this.txtRoleName.Bind(x => x.Text, viewModel.Model, vm => vm.Name);
 			this.txtRoleDescription.Bind(x => x.Text, viewModel.Model, vm => vm.Description);
-			
+
 			this.txtRoleBusinessUnit.Bind(x => x.Text, viewModel.Model, vm => vm.BusinessUnitName);
 			this.btnRoleBusinessUnitLookup.BindCommand(() => viewModel.Model.CanChangeBusinessUnit, () => this);
 
@@ -227,11 +242,19 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			{
 				this.treeTables.SmallImageList = this.privilegeImagesOld;
 				this.treeMisc.SmallImageList = this.privilegeImagesOld;
+				for (int i = 0; i < this.contextMenuItems.Length; i++)
+				{
+					this.contextMenuItems[i].Image = this.privilegeImagesOld.Images[i];
+				}
 			}
 			else
 			{
 				this.treeTables.SmallImageList = this.privilegeImagesNew;
 				this.treeMisc.SmallImageList = this.privilegeImagesNew;
+				for (int i = 0; i < this.contextMenuItems.Length; i++)
+				{
+					this.contextMenuItems[i].Image = this.privilegeImagesNew.Images[i];
+				}
 			}
 		}
 
@@ -319,7 +342,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 
-
 		private void OnCellClick(object sender, CellClickEventArgs e)
 		{
 			if (!this.viewModel.IsCustomizable) return;
@@ -343,13 +365,95 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var column = e.Column;
 				if (column != this.cMiscValue) return;
 
-				
+
 				misc.Increase();
 				this.treeMisc.RefreshObject(misc);
 				this.viewModel.EvaluateDirty();
 				e.Handled = true;
 			}
 		}
+
+
+
+
+		private void OnCellRightClick(object sender, CellRightClickEventArgs e)
+		{
+			if (!this.viewModel.IsCustomizable) return;
+			if (e.ColumnIndex == 0) return;
+			if (e.Model is TableModel table)
+			{
+				var column = e.Column;
+				if (column == null) return;
+
+				if (!(column.Tag is PrivilegeColumnTag tag)) return;
+
+				var validityMatrix = table.GetPrivilegeLevelValidityMatrix(tag.PrivilegeType);
+				if (validityMatrix.Length == 0) return;
+
+				for (int i = 0; i < contextMenuItems.Length; i++)
+				{
+					contextMenuItems[i].Visible = validityMatrix[i];
+				}
+				this.contextMenu.Tag = e;
+				this.contextMenu.Show(this.treeTables, e.Location);
+				e.Handled = true;
+			}
+
+			if (e.Model is MiscModel misc)
+			{
+				var column = e.Column;
+				if (column == null) return;
+				if (column != this.cMiscValue) return;
+
+				var validityMatrix = misc.GetPrivilegeLevelValidityMatrix();
+				if (validityMatrix.Length == 0) return;
+
+				for (int i = 0; i < contextMenuItems.Length; i++)
+				{
+					contextMenuItems[i].Visible = validityMatrix[i];
+				}
+				this.contextMenu.Tag = e;
+				this.contextMenu.Show(this.treeMisc, e.Location);
+				e.Handled = true;
+			}
+		}
+
+		private void OnContextMenuClick(object sender, EventArgs e1)
+		{
+			if (!this.viewModel.IsCustomizable) return;
+
+			var e = this.contextMenu.Tag as CellRightClickEventArgs;
+			if (e == null) return;
+
+			var menu = (ToolStripMenuItem)sender;
+			var selectedLevel = (Level)menu.Tag;
+
+			if (e.Model is TableModel table)
+			{
+				var column = e.Column;
+				if (column == null) return;
+
+				if (!(column.Tag is PrivilegeColumnTag tag)) return;
+				table.Set(tag.PrivilegeType, selectedLevel);
+				this.treeTables.RefreshObject(table);
+				this.viewModel.EvaluateDirty();
+				e.Handled = true;
+			}
+
+
+			if (e.Model is MiscModel misc)
+			{
+				var column = e.Column;
+				if (column == null) return;
+
+				misc.Value = selectedLevel;
+				this.treeMisc.RefreshObject(misc);
+				this.viewModel.EvaluateDirty();
+
+				e.Handled = true;
+			}
+		}
+
 
 		private void OnFormatCell(object sender, FormatCellEventArgs e)
 		{

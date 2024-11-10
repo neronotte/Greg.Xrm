@@ -316,6 +316,7 @@
     <Compile Include="Views\Browser\NewRoleCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromCurrentCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromExistingCommand.cs" />
+    <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
     <Compile Include="Views\Editor\ExcelExtensions.cs" />
     <Compile Include="Views\Editor\ExportExcelCommand.cs" />
     <Compile Include="Views\Editor\ExportMarkdownCommand.cs" />
@@ -406,6 +407,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\home.html" />
+    <None Include="README.md" />
     <None Include="Resources\page_white.png" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\folder_explore.png" />
@@ -467,6 +469,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_addtosolution.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

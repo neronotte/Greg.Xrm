@@ -35,6 +35,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 			this.SaveCommand = new SaveCommand(this);
+			this.AddRoleToSolutionCommand = new AddRoleToSolutionCommand(this);
 			this.ExportExcelCommand = new ExportExcelCommand(this);
 			this.ExportMarkdownCommand = new ExportMarkdownCommand(this);
 
@@ -148,6 +149,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 		public SaveCommand SaveCommand { get; }
+
+		public AddRoleToSolutionCommand AddRoleToSolutionCommand { get; }
 
 		public ExportExcelCommand ExportExcelCommand { get; }
 		public ExportMarkdownCommand ExportMarkdownCommand  { get; }

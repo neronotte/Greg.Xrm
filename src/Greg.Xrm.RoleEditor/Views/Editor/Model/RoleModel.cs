@@ -75,7 +75,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 				var privilegesForCurrentTable = role.Privileges.Where(x => privilegeIdList.Contains(x.PrivilegeId)).ToArray();
 
-				var tableModel = new TableModel(tableTemplate, privilegesForCurrentTable);
+				var tableModel = new TableModel(tableTemplate, privilegesForCurrentTable, role.IsNew);
 
 				if (reverseTableMap.TryGetValue(tableModel.Tooltip, out var groupNames) && groupNames.Count > 0)
 				{
@@ -122,7 +122,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var privilegeName = miscTemplate.PrivilegeName;
 
 				var currentPrivilege = role.Privileges.FirstOrDefault(x => x.PrivilegeName == privilegeName);
-				var miscModel = new MiscModel(miscTemplate, currentPrivilege);
+				var miscModel = new MiscModel(miscTemplate, currentPrivilege, role.IsNew);
 
 				if (reverseMiscMap.TryGetValue(privilegeName, out var groupNames) && groupNames.Count > 0)
 				{

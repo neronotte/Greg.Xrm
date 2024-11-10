@@ -108,7 +108,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 						{
 							writer.WriteHeader3(g.Name);
 
-							writer.WriteTable(g.Where(x=> x.IsAssigned).ToArray(),
+							writer.WriteTable(g.Where(x=> x.Value != Level.None ).ToArray(),
 								() => new string[] {
 									"Operation",
 									"Do action?",
