@@ -7,6 +7,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Text;
+using System.Text.RegularExpressions;
 using Label = Microsoft.Xrm.Sdk.Label;
 
 namespace Greg.Xrm
@@ -841,6 +842,30 @@ namespace Greg.Xrm
 		{
 			if (obj == null) return string.Empty;
 			return Newtonsoft.Json.JsonConvert.SerializeObject(obj, Newtonsoft.Json.Formatting.Indented);
+		}
+
+
+		/// <summary>
+		/// Takes as input a string such as "AGenericString" and returns "A Generic String"
+		/// </summary>
+		/// <param name="input">The string to split</param>
+		/// <returns>A converted string</returns>
+		public static string SplitCamelCase(this string input)
+		{
+			if (string.IsNullOrEmpty(input))
+				return input;
+
+			var result = new StringBuilder();
+			var regex = new Regex(@"([A-Z]+)(?=[A-Z][a-z0-9_])|([A-Z][a-z0-9_]*)");
+
+			foreach (Match match in regex.Matches(input))
+			{
+				if (result.Length > 0)
+					result.Append(" ");
+				result.Append(match.Value);
+			}
+
+			return result.ToString();
 		}
 	}
 }

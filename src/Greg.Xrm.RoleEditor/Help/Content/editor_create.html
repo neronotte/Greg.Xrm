@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		h1, h2, h3, h4 {
+			line-height: 1.2em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+
+		body > img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a> | <a href="/browser">Browser</a> | <a href="/editor">Editor</a></small>
+	<h2>Create a new role</h2>
+	<p>
+		From the role browser, you can create new roles by clicking on the <em>Create new role</em> button.
+		This opens the <a href="/editor">Role Editor</a> window, where you can configure the new role.
+	</p>
+	<p>
+		The tool provides 4 different ways to create a new role:
+	</p>
+	<ol>
+		<li>
+			<b>Start from an empty role</b>: This option creates a new role with no privileges or access levels.
+			If you have more than one environment loaded, the new role will be created in the environment
+			of the currently selected role. If no role is selected, the first environment in the list is used.
+		</li>
+		<li>
+			<b>Clone selected role</b>: This option creates a new role with the same privileges and access levels
+			as the selected role. The new role will be created in the environment of the currently selected role.
+		</li>
+		<li>
+			<b>From "Basic User"</b>: This option creates a new role with the same privileges and access levels
+			as the "Basic User" role (if present in the selected environment). The new role will be created in
+			the environment of the currently selected role.
+		</li>
+		<li>
+			<b>From "App Opener"</b>: This option creates a new role with the same privileges and access levels
+			as the "App Opener" role (if present in the selected environment). The new role will be created in
+			the environment of the currently selected role.
+		</li>
+	</ol>
+	<p>
+		Once selected the creation method, a new <a href="/browser">Role Browser</a> window will spawn,
+		set onto the <b>General information</b> tab where you can specify the <b>name</b>, <b>description</b>,
+		parent <b>Business Unit</b> and <b>member's privilege inheritance</b> of the new role.
+	</p>
+	<p>
+		All info except description are required to save the role.
+	</p>
+</body>
+</html>

@@ -57,12 +57,9 @@ namespace Greg.Xrm.Views
 
 		public virtual void Execute(object arg)
 		{
-			if (arg != null)
+			if (arg != null && !(arg is T))
 			{
-				if (!typeof(T).IsAssignableFrom(arg.GetType()))
-				{
-					throw new ArgumentException($"Invalid type for the given argument. Expected <{typeof(T).FullName}>, actual <{arg.GetType().FullName}>", nameof(arg));
-				}
+				throw new ArgumentException($"Invalid type for the given argument. Expected <{typeof(T).FullName}>, actual <{arg.GetType().FullName}>", nameof(arg));
 			}
 
 			ExecuteInternal((T)arg);

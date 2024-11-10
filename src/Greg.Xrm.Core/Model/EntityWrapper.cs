@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
 using System.Runtime.CompilerServices;
+using System.Windows.Forms.VisualStyles;
 using static Greg.Xrm.Extensions;
 
 namespace Greg.Xrm.Model
@@ -326,6 +327,62 @@ namespace Greg.Xrm.Model
 		{
 			this.target.Id = newId;
 			this.preImage.Id = newId;
+		}
+
+
+		/// <summary>
+		/// Re-initializes the current record starting from the provided image.
+		/// </summary>
+		/// <param name="entity">The record image.</param>
+		void IEntityWrapperInternal.Reload(Entity entity)
+		{
+			if (this.preImage.LogicalName != entity.LogicalName)
+				throw new ArgumentException($"The entity type doesn't match the type of entity you want to clone (current: {this.preImage.LogicalName}, other: {entity.LogicalName}", nameof(entity));
+			if (!this.IsNew && this.Id != entity.Id)
+				throw new ArgumentException($"The entity ID doesn't match the ID of the entity you want to clone (current: {this.Id}, other: {entity.Id}", nameof(entity));
+
+			if (this.IsNew)
+			{
+				this.preImage.Id = entity.Id;
+				this.target.Id = entity.Id;
+			}
+
+			this.preImage.Attributes.Clear();
+			foreach (var kvp in entity.Attributes)
+			{
+				this.preImage.Attributes[kvp.Key] = kvp.Value;
+			}
+
+			if (entity.FormattedValues != null)
+			{
+				this.preImage.FormattedValues = new FormattedValueCollection();
+				foreach (var kvp in entity.FormattedValues)
+				{
+					this.preImage.FormattedValues[kvp.Key] = kvp.Value;
+				}
+			}
+			
+			if (entity.KeyAttributes != null)
+			{
+				this.preImage.KeyAttributes = new KeyAttributeCollection();
+				foreach (var kvp in entity.KeyAttributes)
+				{
+					this.preImage.KeyAttributes[kvp.Key] = kvp.Value;
+				}
+			}
+
+			if (entity.RelatedEntities != null)
+			{
+				this.preImage.RelatedEntities = new RelatedEntityCollection();
+				foreach (var kvp in entity.RelatedEntities)
+				{
+					this.preImage.RelatedEntities[kvp.Key] = kvp.Value;
+				}
+			}
+			this.preImage.EntityState = entity.EntityState;
+
+
+			this.target.Attributes.Clear();
 		}
 
 

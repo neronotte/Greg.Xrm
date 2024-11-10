@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		h1, h2, h3, h4 {
+			line-height: 1.2em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+
+		body > img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a></small>
+	<h2>_n.RoleEditor</h2>
+	<p>
+		<b>_n.RoleEditor</b> provides an advanced, user friendly, UI to manipulate dataverse security roles.<br />
+		His main purpose is to overcome the limitations of the new security role editor available via <b>Power Apps Maker Portal</b>.
+	</p>
+	<p>
+		<b>With this tool you can:</b>
+	</p>
+	<ul>
+		<li>Open more than one role at time, <i>even from different environments</i>.</li>
+		<li>Create new roles from scratch, or copying the minimum privileges from existing roles.</li>
+		<li>Modify existing roles.</li>
+		<li>Set <i>privilege depth</i> privilege by privilege, or massively (by table, by operation, or applying specific filters)</li>
+		<li>Use CTRL+C / CTRL+V to copy/paste privilege depth configurations between tables or between single miscellaneous privileges.</li>
+		<li>Export a role definition in excel or markdown.</li>
+	</ul>
+
+	<h3>Steps</h3>
+	<ol>
+		<li>Connect to the environment that contains the roles to edit.</li>
+		<li>Click on <b>Load tables, privileges and roles</b> to fetch the list of roles from the environment.</li>
+		<li>
+			<span>Here you can</span>
+			<ul>
+				<li>Use the <b>Search</b> box to filter the list of roles</li>
+				<li>Use the <b>Filter</b> toolbar button on the right of the Search box to show/hide uncustomizable or managed roles</li>
+				<li><b>Double click</b> on a given role to enter edit mode.</li>
+				<li>Use the <b>Create new role</b> toolbar button to create a new role.</li>
+			</ul>
+		</li>
+	</ol>
+
+	<h3>Take a look at</h3>
+	<ul>
+		<li><a href="/editor">Role Editor</a></li>
+		<li><a href="/browser">Role Browser</a></li>
+	</ul>
+</body>
+</html>

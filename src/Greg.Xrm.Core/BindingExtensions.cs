@@ -11,12 +11,26 @@ namespace Greg.Xrm
 
 	public static class BindingExtensions
 	{
-		public static void Bind<TComponent, TViewModel, TProperty>(
+		private static void RemoveBinding(IBindableComponent component, string propertyName)
+		{
+			for (var i = 0; i < component.DataBindings.Count; i++)
+			{
+				var binding = component.DataBindings[i];
+				if (binding.PropertyName == propertyName)
+				{
+					component.DataBindings.RemoveAt(i);
+					break;
+				}
+			}
+		}
+
+
+		public static Binding Bind<TComponent, TViewModel, TProperty>(
 			this TComponent component,
 			Expression<Func<TComponent, TProperty>> componentProperty,
 			TViewModel viewModel,
 			Expression<Func<TViewModel, TProperty>> viewModelProperty)
-			where TComponent : IBindableComponent
+			where TComponent : class, IBindableComponent
 			where TViewModel : ViewModel
 		{
 			if (component == null) throw new ArgumentNullException(nameof(component));
@@ -24,9 +38,11 @@ namespace Greg.Xrm
 			if (viewModel == null) throw new ArgumentNullException(nameof(viewModel));
 			if (viewModelProperty == null) throw new ArgumentNullException(nameof(viewModelProperty));
 
+			var componentMemberName = componentProperty.GetMemberName();
+			RemoveBinding(component, componentMemberName);
 
-			component.DataBindings.Add(
-				componentProperty.GetMemberName(),
+			return component.DataBindings.Add(
+				componentMemberName,
 				viewModel,
 				viewModelProperty.GetMemberName());
 		}
@@ -36,7 +52,7 @@ namespace Greg.Xrm
 			Func<ICommand> commandAccessor,
 			Func<object> argumentAccessor = null,
 			CommandExecuteBehavior behavior = CommandExecuteBehavior.Enabled)
-			where TComponent : IBindableComponent
+			where TComponent : class, IBindableComponent
 		{
 			if (component == null) throw new ArgumentNullException(nameof(component));
 			if (commandAccessor == null) throw new ArgumentNullException(nameof(commandAccessor));
@@ -50,6 +66,7 @@ namespace Greg.Xrm
 
 			if (behavior == CommandExecuteBehavior.Enabled || behavior == CommandExecuteBehavior.EnabledAndVisible)
 			{
+				RemoveBinding(component, "Enabled");
 				component.DataBindings.Add(
 					"Enabled",
 					command,
@@ -57,6 +74,7 @@ namespace Greg.Xrm
 			}
 			if (behavior == CommandExecuteBehavior.Visible || behavior == CommandExecuteBehavior.EnabledAndVisible)
 			{
+				RemoveBinding(component, "Visible");
 				component.DataBindings.Add(
 					"Visible",
 					command,

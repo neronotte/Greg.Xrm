@@ -73,6 +73,16 @@ namespace Greg.Xrm.Core.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap cross {
+            get {
+                object obj = ResourceManager.GetObject("cross", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
@@ -136,6 +146,16 @@ namespace Greg.Xrm.Core.Properties {
         public static System.Drawing.Bitmap page_white {
             get {
                 object obj = ResourceManager.GetObject("page_white", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        public static System.Drawing.Bitmap success {
+            get {
+                object obj = ResourceManager.GetObject("success", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
