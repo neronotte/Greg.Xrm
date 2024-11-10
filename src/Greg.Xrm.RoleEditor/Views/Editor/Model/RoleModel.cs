@@ -31,7 +31,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			};
 
 
-			this.CanChangeBusinessUnit = new ChangeBusinessUnitCommand(role.ExecutionContext, this, this.role.IsNew);
+			this.ChangeBusinessUnit = new ChangeBusinessUnitCommand(role.ExecutionContext, this, this.role.IsNew);
 
 			this.Initialize();
 
@@ -178,7 +178,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		}
 
 
-		public ICommand CanChangeBusinessUnit { get; }
+		public ICommand ChangeBusinessUnit { get; }
 
 
 
