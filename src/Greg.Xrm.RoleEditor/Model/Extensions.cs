@@ -6,6 +6,17 @@ namespace Greg.Xrm.RoleEditor
 {
 	public static class Extensions
 	{
+		public static bool[] GetValidLevels(this SecurityPrivilegeMetadata privilegeMetadata)
+		{
+			var result = new bool[5];
+			result[0] = true;
+			result[1] = privilegeMetadata.CanBeBasic;
+			result[2] = privilegeMetadata.CanBeLocal;
+			result[3] = privilegeMetadata.CanBeDeep;
+			result[4] = privilegeMetadata.CanBeGlobal;
+			return result;
+		}
+
 		public static bool IsValidLevel(this SecurityPrivilegeMetadata privilegeMetadata, Level nextValue)
 		{
 			if (nextValue == Level.None) return true;

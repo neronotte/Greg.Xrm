@@ -406,6 +406,7 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\home.html" />
+    <None Include="README.md" />
     <None Include="Resources\page_white.png" />
     <None Include="Resources\folder.png" />
     <None Include="Resources\folder_explore.png" />

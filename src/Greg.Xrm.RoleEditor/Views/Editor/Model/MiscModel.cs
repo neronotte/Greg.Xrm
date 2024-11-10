@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.Logging;
 using Greg.Xrm.RoleEditor.Model;
 using Microsoft.Crm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 using Newtonsoft.Json;
 using System;
 
@@ -33,7 +34,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			set => Set(value);
 		}
 
-		public bool IsAssigned => Get() != Level.None;
+		public bool IsAssigned => this.preImage != Level.None || (this.target != null && this.target != Level.None);
 
 		public bool IsChanged => this.target.HasValue;
 
@@ -49,6 +50,15 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			while (!template.IsValidLevel(nextValue) && i <= 5);
 
 			Set(nextValue);
+		}
+		public bool[] GetPrivilegeLevelValidityMatrix()
+		{
+			var result = new bool[5];
+			for (var i = 0; i < 5; i++)
+			{
+				result[i] = this.template.IsValidLevel((Level)i);
+			}
+			return result;
 		}
 
 		public void CalculateChanges(ChangeSummary summary)

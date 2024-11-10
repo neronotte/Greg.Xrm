@@ -71,6 +71,12 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			return true;
 		}
 
+		public bool[] GetPrivilegeLevelValidityMatrix(PrivilegeType privilege)
+		{
+			var privilegeMetadata = template[privilege];
+			if (privilegeMetadata == null) return new bool[0];
+			return privilegeMetadata.GetValidLevels();
+		}
 
 		public bool IsChanged(PrivilegeType privilege)
 		{
@@ -106,16 +112,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 
-		public void Set(Level create, Level read, Level write, Level delete, Level append, Level appendTo, Level assign, Level share)
+		public void Set(PrivilegeType privilege, Level level)
 		{
-			Set(read, PrivilegeType.Create);
-			Set(read, PrivilegeType.Read);
-			Set(write, PrivilegeType.Write);
-			Set(delete, PrivilegeType.Delete);
-			Set(append, PrivilegeType.Append);
-			Set(appendTo, PrivilegeType.AppendTo);
-			Set(assign, PrivilegeType.Assign);
-			Set(share, PrivilegeType.Share);
+			Set(level, privilege);
 		}
 
 

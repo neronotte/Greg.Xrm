@@ -82,6 +82,12 @@
 			this.cSummaryText = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.notificationPanel = new Greg.Xrm.Core.Views.NotificationPanel();
 			this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.mSet0 = new System.Windows.Forms.ToolStripMenuItem();
+			this.mSet1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.mSet2 = new System.Windows.Forms.ToolStripMenuItem();
+			this.mSet3 = new System.Windows.Forms.ToolStripMenuItem();
+			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -94,6 +100,7 @@
 			this.tableLayoutPanel1.SuspendLayout();
 			this.tabChangeSummary.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.olvChangeSummary)).BeginInit();
+			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// privilegeImagesOld
@@ -607,6 +614,52 @@
 			this.notificationPanel.Size = new System.Drawing.Size(870, 0);
 			this.notificationPanel.TabIndex = 2;
 			// 
+			// contextMenu
+			// 
+			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mSet0,
+            this.mSet1,
+            this.mSet2,
+            this.mSet3,
+            this.mSet4});
+			this.contextMenu.Name = "contextMenu";
+			this.contextMenu.Size = new System.Drawing.Size(215, 136);
+			// 
+			// mSet0
+			// 
+			this.mSet0.Name = "mSet0";
+			this.mSet0.Size = new System.Drawing.Size(214, 22);
+			this.mSet0.Tag = "0";
+			this.mSet0.Text = "None";
+			// 
+			// mSet1
+			// 
+			this.mSet1.Name = "mSet1";
+			this.mSet1.Size = new System.Drawing.Size(214, 22);
+			this.mSet1.Tag = "1";
+			this.mSet1.Text = "User";
+			// 
+			// mSet2
+			// 
+			this.mSet2.Name = "mSet2";
+			this.mSet2.Size = new System.Drawing.Size(214, 22);
+			this.mSet2.Tag = "2";
+			this.mSet2.Text = "Business Unit";
+			// 
+			// mSet3
+			// 
+			this.mSet3.Name = "mSet3";
+			this.mSet3.Size = new System.Drawing.Size(214, 22);
+			this.mSet3.Tag = "3";
+			this.mSet3.Text = "Parent-Child Business Unit";
+			// 
+			// mSet4
+			// 
+			this.mSet4.Name = "mSet4";
+			this.mSet4.Size = new System.Drawing.Size(214, 22);
+			this.mSet4.Tag = "4";
+			this.mSet4.Text = "Organization";
+			// 
 			// RoleEditorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -635,6 +688,7 @@
 			this.tableLayoutPanel1.PerformLayout();
 			this.tabChangeSummary.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.olvChangeSummary)).EndInit();
+			this.contextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -693,5 +747,11 @@
 		private System.Windows.Forms.ToolStripTextBox txtSearchMisc;
 		private System.Windows.Forms.ToolTip toolTip1;
 		private System.Windows.Forms.ImageList privilegeImagesNew;
+		private System.Windows.Forms.ContextMenuStrip contextMenu;
+		private System.Windows.Forms.ToolStripMenuItem mSet0;
+		private System.Windows.Forms.ToolStripMenuItem mSet1;
+		private System.Windows.Forms.ToolStripMenuItem mSet2;
+		private System.Windows.Forms.ToolStripMenuItem mSet3;
+		private System.Windows.Forms.ToolStripMenuItem mSet4;
 	}
 }
