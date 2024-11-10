@@ -23,7 +23,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.role = role;
 			this.template = role.Template;
 
-			this.OverrideSetDefaultValue(() => IsEnabled, () => role.iscustomizable);
+			this.OverrideSetDefaultValue(() => IsEnabled, () => true);
 
 			this.ShowAllPrivilegesCommand = new RelayCommand(() => {
 				this.ShouldShowOnlyAssignedPrivileges = false;
@@ -58,12 +58,12 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			var messenger = this.role.ExecutionContext.Messenger;
 			messenger.Register<Freeze>(m => IsEnabled = false);
-			messenger.Register<Unfreeze>(m => IsEnabled = this.role?.iscustomizable ?? false);
+			messenger.Register<Unfreeze>(m => IsEnabled = true);
 		}
 
 		private void RefreshSaveCommand()
 		{
-			this.SaveCommand.SetEnabled(this.IsEnabled && this.Model != null && this.Model.IsDirty);
+			this.SaveCommand.SetEnabled(this.IsCustomizable && this.IsEnabled && this.Model != null && this.Model.IsDirty);
 		}
 
 		private void BindModel()
@@ -115,6 +115,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			get => Get<bool>();
 			private set => Set(value);
 		}
+
+		public bool IsCustomizable => this.role.iscustomizable;
+
 
 		public bool ShouldShowOnlyAssignedPrivileges
 		{

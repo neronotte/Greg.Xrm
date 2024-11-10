@@ -173,13 +173,18 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			RefreshTableFilters();
 			RefreshMiscFilters();
 
+
+			this.txtRoleName.Enabled = this.viewModel.IsCustomizable;
+			this.txtRoleBusinessUnit.Enabled = this.viewModel.IsCustomizable;
+			this.txtRoleDescription.Enabled = this.viewModel.IsCustomizable;
+			this.cmbRoleInheritance.Enabled = this.viewModel.IsCustomizable;
+			this.tools.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
 			this.tabs.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
 			if (this.role.IsNew)
 			{
 				this.tabs.SelectedTab = this.tabGeneral;
 			}
 			this.tabs.SelectedIndexChanged += OnTabChanged;
-			this.tools.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
 
 
 			this.notificationPanel.Bind(this.viewModel);
@@ -317,6 +322,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private void OnCellClick(object sender, CellClickEventArgs e)
 		{
+			if (!this.viewModel.IsCustomizable) return;
 			if (e.ColumnIndex == 0) return;
 
 			if (e.Model is TableModel table)
@@ -381,8 +387,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private void OnTreeColumnClick(object sender, ColumnClickEventArgs e)
 		{
+			if (!this.viewModel.IsCustomizable) return;
 			var tree = (TreeListView)sender;
-
 			var column = (OLVColumn)tree.Columns[e.Column];
 
 
@@ -435,6 +441,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			}
 
 
+			// we enable copying the role configuration, but we cannot allow paste or other write operations
+			if (!this.viewModel.IsCustomizable) return;
+
 			if (e.Control && e.KeyCode == Keys.V)
 			{
 				var text = Clipboard.GetText();
@@ -469,21 +478,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}
-
-
-
-			if (e.KeyCode == Keys.A)
-			{
-				foreach (var table in tableList)
-				{
-					table.Set(Level.User, Level.User, Level.User, Level.None, Level.User, Level.User, Level.User, Level.User);
-				}
-				this.treeTables.RefreshObjects(tableList);
-				this.viewModel.EvaluateDirty();
-
-				e.Handled = true;
-				e.SuppressKeyPress = true;
-			}
 		}
 
 		private void OnTreeMiscKeyDown(object sender, KeyEventArgs e)
@@ -509,6 +503,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				return;
 			}
 
+
+
+
+			// we enable copying the role configuration, but we cannot allow paste or other write operations
+			if (!this.viewModel.IsCustomizable) return;
 
 			if (e.Control && e.KeyCode == Keys.V)
 			{

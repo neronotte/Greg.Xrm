@@ -2,11 +2,13 @@
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Greg.Xrm.RoleEditor.Views
 {
@@ -81,6 +83,19 @@ namespace Greg.Xrm.RoleEditor.Views
 						return false;
 					}
 				}
+
+				var reverseDict = dictionary.CreateReverseMap();
+				var duplicated = reverseDict
+					.Where(x => x.Value.Count > 1)
+					.Select(x => x.Key)
+					.OrderBy(x => x)
+					.ToList();
+
+				if (duplicated.Count > 0)
+				{
+					this.SendNotification(NotificationType.Error, $"On the table privilege classification JSON there are duplicated tables: " + string.Join(", ", duplicated));
+					return false;
+				}
 			}
 			catch
 			{
@@ -99,6 +114,21 @@ namespace Greg.Xrm.RoleEditor.Views
 						this.SendNotification(NotificationType.Error, $"On the misc. privilege classification JSON, there must be at least one privilege in group '{kvp.Key}'.");
 						return false;
 					}
+				}
+
+
+
+				var reverseDict = dictionary.CreateReverseMap();
+				var duplicated = reverseDict
+					.Where(x => x.Value.Count > 1)
+					.Select(x => x.Key)
+					.OrderBy(x => x)
+					.ToList();
+
+				if (duplicated.Count > 0)
+				{
+					this.SendNotification(NotificationType.Error, $"On the misc privilege classification JSON there are duplicated privileges: " + string.Join(", ", duplicated));
+					return false;
 				}
 			}
 			catch

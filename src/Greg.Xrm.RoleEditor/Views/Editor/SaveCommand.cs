@@ -19,6 +19,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public SaveCommand(RoleEditorViewModel viewModel)
         {
 			this.viewModel = viewModel;
+			this.CanExecute = this.viewModel.IsCustomizable;
 		}
 
 		public void SetEnabled(bool enabled)
