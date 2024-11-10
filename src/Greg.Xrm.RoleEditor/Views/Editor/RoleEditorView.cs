@@ -182,17 +182,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			RefreshDataBindings();
 
 
-
-
-
-
-
 			RefreshTableFilters();
 			RefreshMiscFilters();
 
 
 			this.txtRoleName.Enabled = this.viewModel.IsCustomizable;
-			this.txtRoleBusinessUnit.Enabled = this.viewModel.IsCustomizable;
 			this.txtRoleDescription.Enabled = this.viewModel.IsCustomizable;
 			this.cmbRoleInheritance.Enabled = this.viewModel.IsCustomizable;
 			this.tools.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
@@ -219,7 +213,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.txtRoleDescription.Bind(x => x.Text, viewModel.Model, vm => vm.Description);
 
 			this.txtRoleBusinessUnit.Bind(x => x.Text, viewModel.Model, vm => vm.BusinessUnitName);
-			this.btnRoleBusinessUnitLookup.BindCommand(() => viewModel.Model.CanChangeBusinessUnit, () => this);
+			this.btnRoleBusinessUnitLookup.BindCommand(() => viewModel.Model.ChangeBusinessUnit, () => this);
 
 			this.cmbRoleInheritance.Items.Clear();
 			this.cmbRoleInheritance.Items.AddRange(this.viewModel.Model.InheritedValues);
