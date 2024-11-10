@@ -1,7 +1,6 @@
 ﻿using Greg.Xrm.Logging;
 using Greg.Xrm.RoleEditor.Model;
 using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Metadata;
 using Newtonsoft.Json;
 using System;
 
@@ -14,11 +13,22 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private Level? target;
 
 
-		public MiscModel(TemplateForGenericPrivilege template, RolePrivilege rolePrivilege)
+		public MiscModel(TemplateForGenericPrivilege template, RolePrivilege rolePrivilege, bool isNew)
 		{
 			this.template = template;
-			this.preImage = rolePrivilege.GetLevel();
-			this.target = null;
+
+			if (isNew)
+			{
+				// if the privilege is new, then the pre-image is None
+				this.preImage = Level.None;
+				Set( rolePrivilege.GetLevel());
+			}
+			else
+			{ 
+				// if the privilege is not new, then the pre-image is the current level
+				this.preImage = rolePrivilege.GetLevel();
+				this.target = null;
+			}
 		}
 
 		public string Name => this.template.Name;

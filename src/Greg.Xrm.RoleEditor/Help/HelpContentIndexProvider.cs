@@ -1,6 +1,5 @@
 ﻿using Greg.Xrm.Core.Help;
 using System;
-using System.Collections.Generic;
 
 namespace Greg.Xrm.RoleEditor.Help
 {
@@ -24,7 +23,8 @@ namespace Greg.Xrm.RoleEditor.Help
 				{ "editor_update", "editor_update.html" },
 				{ "editor_edit", "editor_edit.html" },
 				{ "editor_save", "editor_save.html" },
-				{ "editor_export", "editor_export.html" }
+				{ "editor_export", "editor_export.html" },
+				{ "editor_addtosolution", "editor_addtosolution.html" }
 			};
 		}
 

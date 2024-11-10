@@ -16,6 +16,7 @@ It provides a rich set of features:
 - Massive privilege editing "by column" (that applies only to visible privileges)
 - Copy-Paste privilege configuration
 - Export in Excel and Markdown
+- Possibility to add a role to a given solution 
 - Possibility to configure several aspects of the UI (such as icons, default filters, and privilege grouping)
 - Contextual detailed help in all screens
 
@@ -24,7 +25,6 @@ It provides a rich set of features:
 This list contains the features that are planned to be implemented in the future.
 Order is irrelevant:
 
-- Possibility to add a role to a given solution 
 - Possibility to define and apply "privilege set templates" on table-related privileges
 - Export with possibility of reimport after editing
 - Possibility to check where a given role is actually used

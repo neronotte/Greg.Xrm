@@ -15,13 +15,27 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly Dictionary<PrivilegeType, Level> target = new Dictionary<PrivilegeType, Level>();
 		private readonly ITemplateForTable template;
 
-		public TableModel(ITemplateForTable template, RolePrivilege[] currentPrivileges)
+		public TableModel(ITemplateForTable template, RolePrivilege[] currentPrivileges, bool isNew)
 		{
 			this.template = template;
 
-			foreach (var kvp in template)
+			if (isNew)
 			{
-				preImage[kvp.Key] = Array.Find(currentPrivileges, x => kvp.Value.PrivilegeId == x.PrivilegeId).GetLevel();
+				foreach (var kvp in template)
+				{
+					var currentPrivilege = Array.Find(currentPrivileges, x => kvp.Value.PrivilegeId == x.PrivilegeId);
+
+					preImage[kvp.Key] = Level.None;
+					Set(kvp.Key, currentPrivilege.GetLevel());
+				}
+			}
+			else
+			{
+				foreach (var kvp in template)
+				{
+					preImage[kvp.Key] = Array.Find(currentPrivileges, x => kvp.Value.PrivilegeId == x.PrivilegeId).GetLevel();
+				}
+				target.Clear();
 			}
 
 			this.Name = this.template.Name;

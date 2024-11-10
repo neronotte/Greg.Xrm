@@ -88,6 +88,7 @@
 			this.mSet2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
+			this.tAddToSolution = new Xrm.Views.ToolStripBindableButton();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -120,6 +121,7 @@
 			// 
 			this.tools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tSave,
+            this.tAddToSolution,
             this.toolStripSeparator2,
             this.toolStripLabel1,
             this.tExportExcel,
@@ -623,7 +625,7 @@
             this.mSet3,
             this.mSet4});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(215, 136);
+			this.contextMenu.Size = new System.Drawing.Size(215, 114);
 			// 
 			// mSet0
 			// 
@@ -659,6 +661,14 @@
 			this.mSet4.Size = new System.Drawing.Size(214, 22);
 			this.mSet4.Tag = "4";
 			this.mSet4.Text = "Organization";
+			// 
+			// tAddToSolution
+			// 
+			this.tAddToSolution.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.package_add;
+			this.tAddToSolution.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tAddToSolution.Name = "tAddToSolution";
+			this.tAddToSolution.Size = new System.Drawing.Size(141, 22);
+			this.tAddToSolution.Text = "Add role to solution...";
 			// 
 			// RoleEditorView
 			// 
@@ -753,5 +763,6 @@
 		private System.Windows.Forms.ToolStripMenuItem mSet2;
 		private System.Windows.Forms.ToolStripMenuItem mSet3;
 		private System.Windows.Forms.ToolStripMenuItem mSet4;
+		private Xrm.Views.ToolStripBindableButton tAddToSolution;
 	}
 }

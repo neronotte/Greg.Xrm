@@ -79,6 +79,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.tShowAllPrivileges.BindCommand(() => this.viewModel.ShowAllPrivilegesCommand, behavior: CommandExecuteBehavior.Visible);
 			this.tShowOnlyAssignedPrivileges.BindCommand(() => this.viewModel.ShowOnlyAssignedPrivilegesCommand, behavior: CommandExecuteBehavior.Visible);
 			this.tSave.BindCommand(() => this.viewModel.SaveCommand);
+			this.tAddToSolution.BindCommand(() => this.viewModel.AddRoleToSolutionCommand, () => this);
 			this.tExportExcel.BindCommand(() => this.viewModel.ExportExcelCommand);
 			this.tExportMarkdown.BindCommand(() => this.viewModel.ExportMarkdownCommand);
 
