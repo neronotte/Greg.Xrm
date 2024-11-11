@@ -33,6 +33,7 @@
 			this.privilegeImagesOld = new System.Windows.Forms.ImageList(this.components);
 			this.tools = new System.Windows.Forms.ToolStrip();
 			this.tSave = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tAddToSolution = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.tExportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
@@ -88,7 +89,6 @@
 			this.mSet2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
-			this.tAddToSolution = new Xrm.Views.ToolStripBindableButton();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -143,6 +143,14 @@
 			this.tSave.Name = "tSave";
 			this.tSave.Size = new System.Drawing.Size(51, 22);
 			this.tSave.Text = "Save";
+			// 
+			// tAddToSolution
+			// 
+			this.tAddToSolution.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.package_add;
+			this.tAddToSolution.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tAddToSolution.Name = "tAddToSolution";
+			this.tAddToSolution.Size = new System.Drawing.Size(141, 22);
+			this.tAddToSolution.Text = "Add role to solution...";
 			// 
 			// toolStripSeparator2
 			// 
@@ -661,14 +669,6 @@
 			this.mSet4.Size = new System.Drawing.Size(214, 22);
 			this.mSet4.Tag = "4";
 			this.mSet4.Text = "Organization";
-			// 
-			// tAddToSolution
-			// 
-			this.tAddToSolution.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.package_add;
-			this.tAddToSolution.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tAddToSolution.Name = "tAddToSolution";
-			this.tAddToSolution.Size = new System.Drawing.Size(141, 22);
-			this.tAddToSolution.Text = "Add role to solution...";
 			// 
 			// RoleEditorView
 			// 

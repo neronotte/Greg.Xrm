@@ -39,7 +39,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			this.changeList.Add(new ChangeOperationAdd
 			{
-				PrivilegeName = template.PrivilegeName,
+				Template = template,
 				Depth = v.Value
 			});
 		}
@@ -54,7 +54,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			this.changeList.Add(new ChangeOperationAdd
 			{
-				PrivilegeName = metadata.Name,
+				Metadata = metadata,
 				Depth = v.Value
 			});
 		}
@@ -64,7 +64,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.privilegesToRemove.Add(template.PrivilegeId);
 			this.changeList.Add(new ChangeOperationRemove
 			{
-				PrivilegeName = template.PrivilegeName
+				Template = template
 			});
 		}
 
@@ -73,7 +73,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.privilegesToRemove.Add(metadata.PrivilegeId);
 			this.changeList.Add(new ChangeOperationRemove
 			{
-				PrivilegeName = metadata.Name
+				Metadata = metadata,
 			});
 		}
 
@@ -87,7 +87,23 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			this.changeList.Add(new ChangeOperationReplace
 			{
-				PrivilegeName = metadata.Name,
+				Metadata = metadata,
+				OldValue = oldValue.Value,
+				NewValue = newValue.Value
+			});
+		}
+
+		public void ReplacePrivilege(TemplateForGenericPrivilege template, PrivilegeDepth? oldValue, PrivilegeDepth? newValue)
+		{
+			this.privilegesToReplace.Add(new RolePrivilege
+			{
+				PrivilegeId = template.PrivilegeId,
+				Depth = newValue.Value
+			});
+
+			this.changeList.Add(new ChangeOperationReplace
+			{
+				Template = template,
 				OldValue = oldValue.Value,
 				NewValue = newValue.Value
 			});
@@ -173,7 +189,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 	public class ChangeOperationAdd : IChangeOperation
 	{
-		public string PrivilegeName { get; set; }
+		public TemplateForGenericPrivilege Template { get; set; }
+		public SecurityPrivilegeMetadata Metadata { get; set; }
+
+		public string PrivilegeName => Metadata?.Name ?? Template?.PrivilegeName;
 
 		public PrivilegeDepth Depth { get; set; }
 
@@ -188,7 +207,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 	public class ChangeOperationReplace : IChangeOperation
 	{
-		public string PrivilegeName { get; set; }
+		public TemplateForGenericPrivilege Template { get; set; }
+		public SecurityPrivilegeMetadata Metadata { get; set; }
+
+		public string PrivilegeName => Metadata?.Name ?? Template?.PrivilegeName;
 		public PrivilegeDepth OldValue { get; set; }
 
 		public PrivilegeDepth NewValue { get; set; }
@@ -204,7 +226,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 	public class ChangeOperationRemove : IChangeOperation
 	{
-		public string PrivilegeName { get; set; }
+		public TemplateForGenericPrivilege Template { get; set; }
+		public SecurityPrivilegeMetadata Metadata { get; set; }
+		public string PrivilegeName => Metadata?.Name ?? Template?.PrivilegeName;
 
 
 		public string Text => ToString();

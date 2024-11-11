@@ -80,9 +80,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				summary.RemovePrivilege(this.template);
 
 			}
-			else
+			else if (preImage == Level.None)
 			{
 				summary.AddPrivilege(this.template, target.Value.ToPrivilegeDepth());
+			}
+			else 
+			{
+				summary.ReplacePrivilege(this.template, this.preImage.ToPrivilegeDepth(), this.target.Value.ToPrivilegeDepth());
 			}
 		}
 

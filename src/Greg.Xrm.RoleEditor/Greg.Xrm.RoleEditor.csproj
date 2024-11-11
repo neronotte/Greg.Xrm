@@ -311,11 +311,15 @@
     <Compile Include="Services\MarkdownWriter.cs" />
     <Compile Include="Services\PrivilegeClassificationProvider.cs" />
     <Compile Include="Services\RoleTemplateBuilder.cs" />
+    <Compile Include="Services\Snippets\IPrivilegeSnippetRepository.cs" />
+    <Compile Include="Services\Snippets\PrivilegeSnippet.cs" />
+    <Compile Include="Services\Snippets\PrivilegeSnippetRepository.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="RoleEditorPlugin.cs" />
     <Compile Include="Views\Browser\NewRoleCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromCurrentCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromExistingCommand.cs" />
+    <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
     <Compile Include="Views\Editor\ExcelExtensions.cs" />
     <Compile Include="Views\Editor\ExportExcelCommand.cs" />
@@ -365,13 +369,13 @@
       <DependentUpon>RoleBrowserView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Browser\RoleBrowserViewModel.cs" />
-    <Compile Include="Views\SettingsDialog.cs">
+    <Compile Include="Views\Config\SettingsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\SettingsDialog.Designer.cs">
+    <Compile Include="Views\Config\SettingsDialog.Designer.cs">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\SettingsViewModel.cs" />
+    <Compile Include="Views\Config\SettingsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -390,7 +394,7 @@
     <EmbeddedResource Include="Views\Browser\RoleBrowserView.resx">
       <DependentUpon>RoleBrowserView.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\SettingsDialog.resx">
+    <EmbeddedResource Include="Views\Config\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
@@ -476,6 +480,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\editor_addtosolution.html" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins

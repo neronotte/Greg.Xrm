@@ -8,6 +8,7 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
+using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
 using Greg.Xrm.Theming;
@@ -29,6 +30,7 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly IMessenger messenger;
 		private readonly IAsyncJobScheduler scheduler;
 		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
+		private readonly IPrivilegeSnippetRepository privilegeSnippetRepository;
 
 		private readonly MainViewModel viewModel;
 
@@ -54,6 +56,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
 			var businessUnitRepository = new BusinessUnit.Repository();
 			this.privilegeClassificationProvider = new PrivilegeClassificationProvider(settingsProvider);
+			this.privilegeSnippetRepository = new PrivilegeSnippetRepository(outputView, settingsProvider);
 
 			// ui initialization
 
@@ -128,6 +131,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			{
 				var editor = new Editor.RoleEditorView(
 					this.settingsProvider,
+					this.privilegeSnippetRepository,
 					this.privilegeClassificationProvider,
 					e.Role);
 				this.roleViewDict[e.Role] = editor;
@@ -139,7 +143,6 @@ namespace Greg.Xrm.RoleEditor.Views
 			lock (this.syncRoot)
 			{
 				if (!this.roleViewDict.TryGetValue(e.Role, out var editor)) return;
-				
 				editor.Show(this.dockPanel, DockState.Document);
 			}
 		}
@@ -154,7 +157,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		public void ShowSettings()
 		{
-			using (var dialog = new SettingsDialog(this.messenger, this.settingsProvider))
+			using (var dialog = new SettingsDialog(this.messenger, this.settingsProvider, this.privilegeSnippetRepository))
 			{
 				dialog.StartPosition = FormStartPosition.CenterParent;
 				dialog.ShowDialog(this);

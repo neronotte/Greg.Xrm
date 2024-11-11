@@ -3,12 +3,15 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
+using Greg.Xrm.RoleEditor.Services.Snippets;
+using Greg.Xrm.RoleEditor.Views.Config;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace Greg.Xrm.RoleEditor.Views
 {
@@ -16,12 +19,16 @@ namespace Greg.Xrm.RoleEditor.Views
 	{
 		private readonly IMessenger messenger;
 		private readonly ISettingsProvider<Settings> settingsProvider;
+		private readonly IPrivilegeSnippetRepository snippetRepository;
 
-		public SettingsViewModel(IMessenger messenger, ISettingsProvider<Settings> settingsProvider)
+		public SettingsViewModel(
+			IMessenger messenger, 
+			ISettingsProvider<Settings> settingsProvider,
+			IPrivilegeSnippetRepository snippetRepository)
 		{
 			this.messenger = messenger;
 			this.settingsProvider = settingsProvider;
-
+			this.snippetRepository = snippetRepository;
 			var settings = settingsProvider.GetSettings();
 			this.HideNotCustomizableRoles = settings.HideNotCustomizableRoles;
 			this.HideManagedRoles = settings.HideManagedRoles;
@@ -33,6 +40,16 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.ResetPrivilegeClassificationForTableCommand = new RelayCommand(OnResetPrivilegeClassificationForTable);
 			this.ResetPrivilegeClassificationForMiscCommand = new RelayCommand(OnResetPrivilegeClassificationForMisc);
 			this.ConfirmCommand = new RelayCommand(OnConfirm);
+
+
+
+			var snippetViewModelList = new PrivilegeSnippetViewModel[10];
+			for (int i = 0; i < snippetViewModelList.Length; i++)
+			{
+				var snippet = this.snippetRepository[i];
+				snippetViewModelList[i] = new PrivilegeSnippetViewModel(i, snippet);
+			}
+			this.Snippets = snippetViewModelList;
 		}
 
 
@@ -68,6 +85,9 @@ namespace Greg.Xrm.RoleEditor.Views
 			get => Get<string>();
 			set => Set(value);
 		}
+
+
+		public PrivilegeSnippetViewModel[] Snippets { get; private set; }
 
 
 		private bool ValidatePrivilegeClassification()
@@ -167,10 +187,19 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		public void OnConfirm()
 		{
-			var settings = this.settingsProvider.GetSettings();
 
 			if (!this.ValidatePrivilegeClassification()) return;
 
+			for (int i = 0; i < this.Snippets.Length; i++)
+			{
+				var snippet = this.Snippets[i].ToPrivilegeSnippet();
+				this.snippetRepository.Set(i, snippet);
+			}
+
+
+
+
+			var settings = this.settingsProvider.GetSettings();
 			settings.HideNotCustomizableRoles = this.HideNotCustomizableRoles;
 			settings.HideManagedRoles = this.HideManagedRoles;
 			settings.UseLegacyPrivilegeIcons = this.UseLegacyIcons;
@@ -191,6 +220,22 @@ namespace Greg.Xrm.RoleEditor.Views
 		public void SendNotification(NotificationType type, string message)
 		{
 			Notify?.Invoke(this, new NotificationEventArgs(type, message));
+		}
+
+		public void ResetSnippets()
+		{
+			var result = MessageBox.Show("This will reset all your customizations on the privilege snippets. Are you sure?", "Reset Snippets", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+			if (result != DialogResult.Yes) return;
+
+
+			var defaults = PrivilegeSnippet.DefaultSnippets;
+			for (int i = 0; i < defaults.Length; i++)
+			{
+				if (this.Snippets.Length > i)
+				{
+					this.Snippets[i].SetFrom(defaults[i]);
+				}
+			}
 		}
 	}
 }

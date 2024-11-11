@@ -5,6 +5,7 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
+using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
@@ -27,6 +28,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		public RoleEditorView(
 			ISettingsProvider<Settings> settingsProvider,
+			IPrivilegeSnippetRepository snippetRepository,
 			IPrivilegeClassificationProvider privilegeClassificationProvider,
 			Role role)
 		{
@@ -58,7 +60,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.messenger.Register<ChangePrivilegeIcons>(m => SetIcons(m.UseLegacyIcons));
 
 
-			this.viewModel = new RoleEditorViewModel(privilegeClassificationProvider, role);
+			this.viewModel = new RoleEditorViewModel(snippetRepository, privilegeClassificationProvider, role);
 			this.viewModel.PropertyChanged += (s, e) =>
 			{
 				if (e.PropertyName == nameof(RoleEditorViewModel.ShouldShowOnlyAssignedPrivileges))
@@ -335,6 +337,46 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		}
 
 
+		private void OnFormatCell(object sender, FormatCellEventArgs e)
+		{
+			if (e.Model is TableModel table)
+			{
+				var column = e.Column;
+				if (column == null) return;
+
+				if (!(column.Tag is PrivilegeColumnTag tag)) return;
+
+				if (table.IsChanged(tag.PrivilegeType))
+					e.SubItem.BackColor = Color.Yellow;
+			}
+
+			if (e.Model is MiscModel misc)
+			{
+				var column = e.Column;
+				if (column == this.cMiscValue)
+				{
+					if (misc.IsChanged)
+						e.SubItem.BackColor = Color.Yellow;
+				}
+				if (column == this.cMiscTooltip)
+				{
+					e.SubItem.ForeColor = Color.Gray;
+				}
+			}
+
+			if (e.Model is TableGroupModel || e.Model is MiscGroupModel)
+			{
+				e.SubItem.Font = new Font(e.SubItem.Font, FontStyle.Bold);
+			}
+		}
+
+
+
+
+
+
+
+
 
 		private void OnCellClick(object sender, CellClickEventArgs e)
 		{
@@ -449,40 +491,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		}
 
 
-		private void OnFormatCell(object sender, FormatCellEventArgs e)
-		{
-			if (e.Model is TableModel table)
-			{
-				var column = e.Column;
-				if (column == null) return;
-
-				if (!(column.Tag is PrivilegeColumnTag tag)) return;
-
-				if (table.IsChanged(tag.PrivilegeType))
-					e.SubItem.BackColor = Color.Yellow;
-			}
-
-			if (e.Model is MiscModel misc)
-			{
-				var column = e.Column;
-				if (column == this.cMiscValue)
-				{
-					if (misc.IsChanged)
-						e.SubItem.BackColor = Color.Yellow;
-				}
-				if (column == this.cMiscTooltip)
-				{
-					e.SubItem.ForeColor = Color.Gray;
-				}
-			}
-
-			if (e.Model is TableGroupModel || e.Model is MiscGroupModel)
-			{
-				e.SubItem.Font = new Font(e.SubItem.Font, FontStyle.Bold);
-			}
-		}
-
-
 		private void OnTreeColumnClick(object sender, ColumnClickEventArgs e)
 		{
 			if (!this.viewModel.IsCustomizable) return;
@@ -517,6 +525,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private void OnTreeTablesKeyDown(object sender, KeyEventArgs e)
 		{
+			if (e.KeyCode == Keys.ShiftKey) return;
+			if (e.KeyCode == Keys.ControlKey) return;
+
 			var tableList = this.treeTables.SelectedObjects.OfType<TableModel>().ToArray();
 			if (tableList.Length == 0) return;
 
@@ -539,10 +550,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			}
 
 
-			// we enable copying the role configuration, but we cannot allow paste or other write operations
-			if (!this.viewModel.IsCustomizable) return;
-
-			if (e.Control && e.KeyCode == Keys.V)
+			if (this.viewModel.IsCustomizable && e.Control && e.KeyCode == Keys.V)
 			{
 				var text = Clipboard.GetText();
 				if (string.IsNullOrWhiteSpace(text)) return;
@@ -563,7 +571,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			}
 
 
-			if (e.KeyCode == Keys.Space)
+			if (this.viewModel.IsCustomizable && e.KeyCode == Keys.Space)
 			{
 				foreach (var table in tableList)
 				{
@@ -573,6 +581,27 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				this.viewModel.EvaluateDirty();
 
 
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+				return;
+			}
+
+
+			if (e.Control && e.Shift && e.KeyCode >= Keys.D5 && e.KeyCode <= Keys.D9)
+			{
+				// User pressed CTRL+SHIFT+ any digit from 4 to 9
+				int digit = e.KeyCode - Keys.D0;
+				this.viewModel.SaveSnippet(digit, tableList[0]);
+				e.Handled = true;
+				e.SuppressKeyPress = true;
+				return;
+			}
+
+			if (this.viewModel.IsCustomizable && e.Control && e.KeyCode >= Keys.D0 && e.KeyCode <= Keys.D9)
+			{
+				// User pressed CTRL+SHIFT+ any digit from 0 to 9
+				int digit = e.KeyCode - Keys.D0;
+				this.viewModel.PasteSnippet(digit, tableList);
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}
