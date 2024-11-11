@@ -110,16 +110,16 @@ namespace Greg.Xrm.Core.Views
 				switch (e.Type)
 				{
 					case NotificationType.Success:
-						AddSuccess(e.Message);
+						AddSuccess(e.Message, e.TimerInSeconds);
 						break;
 					case NotificationType.Warning:
-						AddWarning(e.Message);
+						AddWarning(e.Message, e.TimerInSeconds);
 						break;
 					case NotificationType.Error:
-						AddError(e.Message);
+						AddError(e.Message, e.TimerInSeconds);
 						break;
 					case NotificationType.Info:
-						AddInfo(e.Message);
+						AddInfo(e.Message, e.TimerInSeconds);
 						break;
 				}
 			};

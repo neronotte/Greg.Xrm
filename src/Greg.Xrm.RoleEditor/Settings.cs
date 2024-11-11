@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Services.Snippets;
 using Newtonsoft.Json;
 using System;
 
@@ -19,6 +20,7 @@ namespace Greg.Xrm.RoleEditor
 			// set default values
 			this.PrivilegeClassificationForMisc = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForMisc, Formatting.Indented);
 			this.PrivilegeClassificationForTable = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForTable, Formatting.Indented);
+			this.PrivilegeSnippets = JsonConvert.SerializeObject(PrivilegeSnippet.DefaultSnippets, Formatting.Indented);
 			this.UseLegacyPrivilegeIcons = true;
 
 			this.HideNotCustomizableRoles = true;
@@ -36,5 +38,7 @@ namespace Greg.Xrm.RoleEditor
 		public string PrivilegeClassificationForMisc { get; set; }
 
 		public string PrivilegeClassificationForTable { get; set; }
+
+		public string PrivilegeSnippets { get; set; }
 	}
 }

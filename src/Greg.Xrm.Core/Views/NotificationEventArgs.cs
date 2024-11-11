@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Greg.Xrm.Core.Views
+﻿namespace Greg.Xrm.Core.Views
 {
 	public class NotificationEventArgs
 	{
-        public NotificationEventArgs(NotificationType type, string message)
+		
+		public NotificationEventArgs(NotificationType type, string message, int? timerInSeconds = null)
         {
-			Type = type;
-			Message = message;
+			this.Type = type;
+			this.Message = message;
+			this.TimerInSeconds = timerInSeconds;
 		}
 
 		public NotificationType Type { get; }
 		public string Message { get; }
+		public int? TimerInSeconds { get; }
 	}
 }

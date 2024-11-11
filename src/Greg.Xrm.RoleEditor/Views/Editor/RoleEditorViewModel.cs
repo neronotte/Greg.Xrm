@@ -2,23 +2,28 @@
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
+using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using System;
 using System.Text;
+using System.Windows.Forms;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
 	public class RoleEditorViewModel : ViewModel, INotificationProvider
 	{
+		private readonly IPrivilegeSnippetRepository snippetRepository;
 		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
 		private readonly Role role;
 		private readonly TemplateForRole template;
 
 		public RoleEditorViewModel(
+			IPrivilegeSnippetRepository snippetRepository,
 			IPrivilegeClassificationProvider privilegeClassificationProvider,
 			Role role)
 		{
+			this.snippetRepository = snippetRepository;
 			this.privilegeClassificationProvider = privilegeClassificationProvider;
 			this.role = role;
 			this.template = role.Template;
@@ -156,6 +161,46 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public ExportMarkdownCommand ExportMarkdownCommand  { get; }
 
 
+		public void SaveSnippet(int index, TableModel table)
+		{
+			if (index < 0 || index >= 10) return;
+			if (table == null) return;
+
+			var snippet = PrivilegeSnippet.CreateFromTable(table);
+			if (this.snippetRepository[index] != null)
+			{
+				var result = MessageBox.Show($"Position {index} already contains a privilege snippet. Do you want to replace it?", "Save snippet", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+				if (result != DialogResult.Yes) return;
+			}
+
+			this.snippetRepository[index] = snippet;
+			this.SendNotification(NotificationType.Success, $"Snippet saved at position {index}!", 5);
+		}
+
+
+		public void PasteSnippet(int index, TableModel[] tableList)
+		{
+			if (index < 0 || index >= 10) return;
+			if (tableList.Length == 0) return;
+
+			var snippet = snippetRepository[index];
+			if (snippet == null)
+			{
+				MessageBox.Show($"No snippet found at position {index}.", "Paste snippet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+
+			foreach (var table in tableList)
+			{
+				snippet.ApplyTo(table);
+			}
+			var plural = tableList.Length > 1 ? "s" : "";
+			this.SendNotification(NotificationType.Success, $"Snippet applied to {tableList.Length} table{plural}.", 5);
+		}
+
+
+
 
 		/// <summary>
 		/// This method navigates the model tree and returns the summary of changes to be applied
@@ -199,9 +244,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 		public event EventHandler<NotificationEventArgs> Notify;
-		public void SendNotification(NotificationType type, string message)
+		public void SendNotification(NotificationType type, string message, int? timerInSeconds = null)
 		{
-			Notify?.Invoke(this, new NotificationEventArgs(type, message));
+			Notify?.Invoke(this, new NotificationEventArgs(type, message, timerInSeconds));
 		}
 
 
