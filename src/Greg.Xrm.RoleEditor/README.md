@@ -17,6 +17,7 @@ It provides a rich set of features:
 - Copy-Paste privilege configuration
 - Possibility to define and apply "privilege set templates" on table-related privileges
 - Export in Excel and Markdown
+- Export with possibility of reimport after editing
 - Possibility to add a role to a given solution 
 - Possibility to configure several aspects of the UI (such as icons, default filters, and privilege grouping)
 - Contextual detailed help in all screens
@@ -26,7 +27,6 @@ It provides a rich set of features:
 This list contains the features that are planned to be implemented in the future.
 Order is irrelevant:
 
-- Export with possibility of reimport after editing
 - Possibility to check where a given role is actually used
 - Possibility to assign a given role to a set of users / teams
 - Possibility to show the set of permissions assigned to a given user (merging all the roles of the user, and all the roles assigned to user's teams).

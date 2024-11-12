@@ -321,8 +321,11 @@
     <Compile Include="Views\Browser\NewRoleFromExistingCommand.cs" />
     <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
-    <Compile Include="Views\Editor\ExcelExtensions.cs" />
-    <Compile Include="Views\Editor\ExportExcelCommand.cs" />
+    <Compile Include="Views\Editor\Excel\Constants.cs" />
+    <Compile Include="Views\Editor\Excel\ExcelExtensions.cs" />
+    <Compile Include="Views\Editor\Excel\ExcelMap.cs" />
+    <Compile Include="Views\Editor\Excel\ExportExcelCommand.cs" />
+    <Compile Include="Views\Editor\Excel\ImportExcelCommand.cs" />
     <Compile Include="Views\Editor\ExportMarkdownCommand.cs" />
     <Compile Include="Views\LoadDataCommand.cs" />
     <Compile Include="Views\Messages\ChangePrivilegeIcons.cs" />
@@ -480,7 +483,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\editor_addtosolution.html" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_import.html" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins

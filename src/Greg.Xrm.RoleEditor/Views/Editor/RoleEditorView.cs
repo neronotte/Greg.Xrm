@@ -74,6 +74,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					this.RefreshDataBindings();
 				}
 			};
+			this.viewModel.ForceRefresh += (s, e) =>
+			{
+				this.RefreshDataBindings();
+				this.RefreshTableFilters();
+				this.RefreshMiscFilters();
+				this.viewModel.Model.EvaluateDirty();
+			};
 
 			this.Bind(x => x.Text, viewModel, vm => vm.ViewTitle);
 			this.Bind(x => x.TabText, viewModel, vm => vm.ViewTitle);
@@ -84,6 +91,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.tAddToSolution.BindCommand(() => this.viewModel.AddRoleToSolutionCommand, () => this);
 			this.tExportExcel.BindCommand(() => this.viewModel.ExportExcelCommand);
 			this.tExportMarkdown.BindCommand(() => this.viewModel.ExportMarkdownCommand);
+			this.tImportExcel.BindCommand(() => this.viewModel.ImportExcelCommand);
 
 			SetColumn(this.cCreate, PrivilegeType.Create);
 			SetColumn(this.cRead, PrivilegeType.Read);

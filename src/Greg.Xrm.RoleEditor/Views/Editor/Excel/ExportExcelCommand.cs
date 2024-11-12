@@ -1,10 +1,16 @@
-﻿using Greg.Xrm.Views;
+﻿using Greg.Xrm.Logging;
+using Greg.Xrm.RoleEditor.Views.Editor.Excel;
+using Greg.Xrm.RoleEditor.Views.Messages;
+using Greg.Xrm.Views;
 using Microsoft.Xrm.Sdk.Metadata;
 using OfficeOpenXml;
 using OfficeOpenXml.ConditionalFormatting;
 using System;
 using System.Diagnostics;
+using System.Security.Cryptography;
+using System.Text;
 using System.Windows.Forms;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
@@ -40,13 +46,34 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				fileName = dialog.FileName;
 			}
 
+			context.Messenger.Send(new WorkAsyncInfo
+			{
+				Message = "Exporting data to excel file...",
+				Work = (worker, e) =>
+				{
+					context.Messenger.Send<Freeze>();
 
+					ExportToExcel(m, fileName, log);
+				},
+				PostWorkCallBack = e => {
+					context.Messenger.Send<Unfreeze>();
+				}
+				
+			});
+		}
+
+		private void ExportToExcel(RoleModel m, string fileName, ILog log)
+		{
 			using (log.Track($"Generating excel report for <{m.Name}>"))
 			{
 				try
 				{
 					using (var package = new ExcelPackage())
 					{
+						package.Workbook.Protection.SetPassword("fatti non foste a viver come bruti, ma per seguir virtute et canoscenza");
+						package.Workbook.Protection.LockStructure = true;
+						package.Workbook.Protection.LockWindows = true;
+
 						var ws1 = package.Workbook.Worksheets.Add("General");
 						ws1.View.ShowGridLines = false;
 
@@ -64,9 +91,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 						ws1.Cells["B4"].SetValue(m.Description);
 						ws1.Cells["A5"].SetValue("Inheritance:").SetExplanatory().Right();
 						ws1.Cells["B5"].SetValue(m.IsInherited?.ToString());
+						ws1.Cells["B10"].SetValue(m.Name.GenerateSignature()).Hidden();
+						ws1.Protection.IsProtected = true;
+						ws1.Protection.AllowSelectLockedCells = true;
 
-
-						var row = 1; 
+						var row = 1;
 						var col = 0;
 
 						ws2.Cells[row, ++col].SetValue("Group");
@@ -91,18 +120,31 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 								ws2.Cells[row, ++col].SetValue(tableGroup.Name);
 								ws2.Cells[row, ++col].SetValue(table.Name);
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Create].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Read].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Write].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Delete].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Append].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.AppendTo].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Assign].ToInt()).Center();
-								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Share].ToInt()).Center();
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Create].ToInt()).Center().SetValidRange(table, PrivilegeType.Create);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Read].ToInt()).Center().SetValidRange(table, PrivilegeType.Read);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Write].ToInt()).Center().SetValidRange(table, PrivilegeType.Write);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Delete].ToInt()).Center().SetValidRange(table, PrivilegeType.Delete);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Append].ToInt()).Center().SetValidRange(table, PrivilegeType.Append);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.AppendTo].ToInt()).Center().SetValidRange(table, PrivilegeType.AppendTo);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Assign].ToInt()).Center().SetValidRange(table, PrivilegeType.Assign);
+								ws2.Cells[row, ++col].SetValue(table[PrivilegeType.Share].ToInt()).Center().SetValidRange(table, PrivilegeType.Share);
 								ws2.Cells[row, ++col].SetValue(table.HasAssignedPrivileges ? "X" : string.Empty).Center();
+
+
+								ws2.Cells[row, Constants.ColumnContainingTableNames].SetValue(table.GetTableNameForExcelFile()).Hidden();
 							}
 						}
-						var formatting = ws2.ConditionalFormatting.AddFiveIconSet(ws2.Cells[2, 3, row, col-1], eExcelconditionalFormatting5IconsSetType.Quarters);
+						ws2.Protection.IsProtected = true;
+						ws2.Protection.AllowSelectLockedCells = true;
+						ws2.Protection.AllowSort = true;
+						ws2.Protection.AllowAutoFilter = true;
+						ws2.Protection.AllowDeleteRows = false;
+						ws2.Protection.AllowDeleteColumns = false;
+						ws2.Protection.AllowSelectLockedCells = true;
+						ws2.Protection.AllowFormatColumns = true;
+
+
+						var formatting = ws2.ConditionalFormatting.AddFiveIconSet(ws2.Cells[2, 3, row, col - 1], eExcelconditionalFormatting5IconsSetType.Quarters);
 						formatting.ShowValue = false;
 						formatting.Icon1.Value = 0;
 						formatting.Icon1.Type = eExcelConditionalFormattingValueObjectType.Num;
@@ -115,7 +157,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 						formatting.Icon5.Value = 4;
 						formatting.Icon5.Type = eExcelConditionalFormattingValueObjectType.Num;
 
-						var table1 = ws2.Tables.Add(ws2.Cells[1,1, row, col], "Tables");
+						var table1 = ws2.Tables.Add(ws2.Cells[1, 1, row, col], "Tables");
 						table1.TableStyle = OfficeOpenXml.Table.TableStyles.Medium3;
 
 						for (int i = 0; i < col; i++)
@@ -131,7 +173,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 						ws3.Cells[row, ++col].SetValue("Group");
 						ws3.Cells[row, ++col].SetValue("Privilege");
 						ws3.Cells[row, ++col].SetValue("Do action?");
-						ws3.Cells[row, ++col].SetValue("Privilege name");
+						ws3.Cells[row, Constants.ColumnContainingMiscNames].SetValue("Privilege name");
 
 						foreach (var g in m.MiscGroups)
 						{
@@ -143,10 +185,20 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 								ws3.Cells[row, ++col].SetValue(g.Name);
 								ws3.Cells[row, ++col].SetValue(misc.Name);
-								ws3.Cells[row, ++col].SetValue(misc.Value.ToInt()).Center();
-								ws3.Cells[row, ++col].SetValue(misc.Tooltip).Center();
+								ws3.Cells[row, ++col].SetValue(misc.Value.ToInt()).Center().SetValidRange(misc);
+								ws3.Cells[row, Constants.ColumnContainingMiscNames].SetValue(misc.Tooltip).Center();
+								++col;
 							}
 						}
+						ws3.Protection.IsProtected = true;
+						ws3.Protection.AllowSelectLockedCells = true;
+						ws3.Protection.AllowSort = true;
+						ws3.Protection.AllowAutoFilter = true;
+						ws3.Protection.AllowDeleteRows = false;
+						ws3.Protection.AllowDeleteColumns = false;
+						ws3.Protection.AllowSelectLockedCells = true;
+						ws2.Protection.AllowFormatColumns = true;
+
 						formatting = ws3.ConditionalFormatting.AddFiveIconSet(ws3.Cells[2, 3, row, 3], eExcelconditionalFormatting5IconsSetType.Quarters);
 						formatting.ShowValue = false;
 						formatting.Icon1.Value = 0;
