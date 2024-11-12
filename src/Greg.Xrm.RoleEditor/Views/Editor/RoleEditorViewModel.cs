@@ -3,6 +3,7 @@ using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
+using Greg.Xrm.RoleEditor.Views.Editor.Excel;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using System;
@@ -43,6 +44,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.AddRoleToSolutionCommand = new AddRoleToSolutionCommand(this);
 			this.ExportExcelCommand = new ExportExcelCommand(this);
 			this.ExportMarkdownCommand = new ExportMarkdownCommand(this);
+			this.ImportExcelCommand = new ImportExcelCommand(this);
 
 
 			this.WhenChanges(() => IsEnabled)
@@ -158,6 +160,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public AddRoleToSolutionCommand AddRoleToSolutionCommand { get; }
 
 		public ExportExcelCommand ExportExcelCommand { get; }
+		public ImportExcelCommand ImportExcelCommand { get; }
 		public ExportMarkdownCommand ExportMarkdownCommand  { get; }
 
 
@@ -260,6 +263,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public void EvaluateDirty()
 		{
 			this.Model.EvaluateDirty();
+		}
+
+
+		public event EventHandler ForceRefresh;
+		public void ForceViewRefresh()
+		{
+			this.ForceRefresh?.Invoke(this, EventArgs.Empty);
 		}
 	}
 }

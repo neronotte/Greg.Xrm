@@ -39,6 +39,8 @@
 			this.tExportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tExportMarkdown = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.tImportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
 			this.tShowOnlyAssignedPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tShowAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
@@ -127,6 +129,8 @@
             this.tExportExcel,
             this.tExportMarkdown,
             this.toolStripSeparator3,
+            this.tImportExcel,
+            this.toolStripSeparator1,
             this.toolStripLabel2,
             this.tShowOnlyAssignedPrivileges,
             this.tShowAllPrivileges});
@@ -185,6 +189,19 @@
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tImportExcel
+			// 
+			this.tImportExcel.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_excel;
+			this.tImportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tImportExcel.Name = "tImportExcel";
+			this.tImportExcel.Size = new System.Drawing.Size(63, 22);
+			this.tImportExcel.Text = "Import";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// toolStripLabel2
 			// 
@@ -764,5 +781,7 @@
 		private System.Windows.Forms.ToolStripMenuItem mSet3;
 		private System.Windows.Forms.ToolStripMenuItem mSet4;
 		private Xrm.Views.ToolStripBindableButton tAddToSolution;
+		private Xrm.Views.ToolStripBindableButton tImportExcel;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 	}
 }

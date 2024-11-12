@@ -42,6 +42,8 @@ namespace Greg.Xrm.RoleEditor.Views
 		{
 			InitializeComponent();
 
+
+			this.dockPanel.DocumentStyle = DocumentStyle.DockingWindow;
 			this.dockPanel.Theme = new VS2015BlueTheme();
 			this.dockPanel.CustomizaFloatWindow(x => x.MakeResizable().AllowAltTab());
 
