@@ -62,7 +62,13 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			// ui initialization
 
-			this.viewModel = new MainViewModel(this.outputView, this.messenger, roleTemplateBuilder, roleRepository, businessUnitRepository);
+			this.viewModel = new MainViewModel(
+				this.outputView, 
+				this.messenger, 
+				settingsProvider,
+				roleTemplateBuilder, 
+				roleRepository, 
+				businessUnitRepository);
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
 			this.messenger.RegisterJobScheduler(scheduler);
 
@@ -78,7 +84,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;
 
-			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider);
+			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider, roleRepository);
 			roleBrowserView.Show(this.dockPanel, DockState.DockLeft);
 
 
@@ -135,16 +141,22 @@ namespace Greg.Xrm.RoleEditor.Views
 					this.settingsProvider,
 					this.privilegeSnippetRepository,
 					this.privilegeClassificationProvider,
-					e.Role);
-				this.roleViewDict[e.Role] = editor;
+					e.Roles[0]);
+
+				foreach (var role in e.Roles)
+				{
+					this.roleViewDict[role] = editor;
+				}
+
 				editor.Show(this.dockPanel, DockState.Document);
 			}
 		}
+
 		private void OnShowRoleRequested(object sender, OpenRoleView e)
 		{
 			lock (this.syncRoot)
 			{
-				if (!this.roleViewDict.TryGetValue(e.Role, out var editor)) return;
+				if (!this.roleViewDict.TryGetValue(e.Roles[0], out var editor)) return;
 				editor.Show(this.dockPanel, DockState.Document);
 			}
 		}

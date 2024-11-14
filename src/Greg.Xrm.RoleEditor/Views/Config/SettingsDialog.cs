@@ -31,6 +31,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.chkHide1.Bind(x => x.Checked, this.viewModel, x => x.HideNotCustomizableRoles);
 			this.chkHide2.Bind(x => x.Checked, this.viewModel, x => x.HideManagedRoles);
 			this.chkUseLegacyIcons.Bind(x => x.Checked, this.viewModel, x => x.UseLegacyIcons);
+			this.chkAutoLoad.Bind(x => x.Checked, this.viewModel, x => x.AutoLoadRolesWhenConnectonChanges);
 			this.txtTableGrouping.Bind(x => x.Text, this.viewModel, x => x.PrivilegeClassificationForTable);
 			this.btnResetTableGrouping.BindCommand(() => this.viewModel.ResetPrivilegeClassificationForTableCommand);
 			this.txtMiscGrouping.Bind(x => x.Text, this.viewModel, x => x.PrivilegeClassificationForMisc);

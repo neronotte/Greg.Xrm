@@ -47,7 +47,7 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.chkHide1 = new System.Windows.Forms.CheckBox();
 			this.chkUseLegacyIcons = new System.Windows.Forms.CheckBox();
-			this.tabPage1 = new System.Windows.Forms.TabPage();
+			this.tabGrouping = new System.Windows.Forms.TabPage();
 			this.btnResetTableGrouping = new System.Windows.Forms.Button();
 			this.txtTableGrouping = new System.Windows.Forms.TextBox();
 			this.label8 = new System.Windows.Forms.Label();
@@ -66,6 +66,9 @@
 			this.cAssign = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cShare = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.tSnipReset = new System.Windows.Forms.ToolStripButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
 			this.notificationPanel1 = new Greg.Xrm.Core.Views.NotificationPanel();
 			this.imagesOld = new System.Windows.Forms.ImageList(this.components);
 			this.imagesNew = new System.Windows.Forms.ImageList(this.components);
@@ -77,20 +80,22 @@
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mSetNull = new System.Windows.Forms.ToolStripMenuItem();
-			this.tSnipReset = new System.Windows.Forms.ToolStripButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.tabBehavior = new System.Windows.Forms.TabPage();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.chkAutoLoad = new System.Windows.Forms.CheckBox();
 			this.tableLayout.SuspendLayout();
 			this.pnlHeader.SuspendLayout();
 			this.pnlFooter.SuspendLayout();
 			this.tableLayout2.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabUX.SuspendLayout();
-			this.tabPage1.SuspendLayout();
+			this.tabGrouping.SuspendLayout();
 			this.tabSnippets.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.privilegeSnippetView)).BeginInit();
 			this.toolStrip1.SuspendLayout();
 			this.contextMenu.SuspendLayout();
+			this.tabBehavior.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tableLayout
@@ -192,7 +197,8 @@
 			// tabs
 			// 
 			this.tabs.Controls.Add(this.tabUX);
-			this.tabs.Controls.Add(this.tabPage1);
+			this.tabs.Controls.Add(this.tabBehavior);
+			this.tabs.Controls.Add(this.tabGrouping);
 			this.tabs.Controls.Add(this.tabSnippets);
 			this.tabs.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tabs.Location = new System.Drawing.Point(3, 3);
@@ -259,7 +265,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.label5.AutoSize = true;
 			this.label5.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label5.Location = new System.Drawing.Point(13, 34);
+			this.label5.Location = new System.Drawing.Point(14, 34);
 			this.label5.Name = "label5";
 			this.label5.Size = new System.Drawing.Size(525, 13);
 			this.label5.TabIndex = 3;
@@ -298,27 +304,27 @@
 			this.chkUseLegacyIcons.Text = "Use legacy privilege icons";
 			this.chkUseLegacyIcons.UseVisualStyleBackColor = true;
 			// 
-			// tabPage1
+			// tabGrouping
 			// 
-			this.tabPage1.AutoScroll = true;
-			this.tabPage1.Controls.Add(this.btnResetTableGrouping);
-			this.tabPage1.Controls.Add(this.txtTableGrouping);
-			this.tabPage1.Controls.Add(this.label8);
-			this.tabPage1.Controls.Add(this.btnResetMiscGrouping);
-			this.tabPage1.Controls.Add(this.txtMiscGrouping);
-			this.tabPage1.Controls.Add(this.label3);
-			this.tabPage1.Location = new System.Drawing.Point(4, 22);
-			this.tabPage1.Name = "tabPage1";
-			this.tabPage1.Padding = new System.Windows.Forms.Padding(10);
-			this.tabPage1.Size = new System.Drawing.Size(966, 319);
-			this.tabPage1.TabIndex = 2;
-			this.tabPage1.Text = "Privilege grouping";
-			this.tabPage1.UseVisualStyleBackColor = true;
+			this.tabGrouping.AutoScroll = true;
+			this.tabGrouping.Controls.Add(this.btnResetTableGrouping);
+			this.tabGrouping.Controls.Add(this.txtTableGrouping);
+			this.tabGrouping.Controls.Add(this.label8);
+			this.tabGrouping.Controls.Add(this.btnResetMiscGrouping);
+			this.tabGrouping.Controls.Add(this.txtMiscGrouping);
+			this.tabGrouping.Controls.Add(this.label3);
+			this.tabGrouping.Location = new System.Drawing.Point(4, 22);
+			this.tabGrouping.Name = "tabGrouping";
+			this.tabGrouping.Padding = new System.Windows.Forms.Padding(10);
+			this.tabGrouping.Size = new System.Drawing.Size(966, 319);
+			this.tabGrouping.TabIndex = 2;
+			this.tabGrouping.Text = "Privilege grouping";
+			this.tabGrouping.UseVisualStyleBackColor = true;
 			// 
 			// btnResetTableGrouping
 			// 
 			this.btnResetTableGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetTableGrouping.Location = new System.Drawing.Point(805, 451);
+			this.btnResetTableGrouping.Location = new System.Drawing.Point(771, 451);
 			this.btnResetTableGrouping.Name = "btnResetTableGrouping";
 			this.btnResetTableGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetTableGrouping.TabIndex = 5;
@@ -335,7 +341,7 @@
 			this.txtTableGrouping.Multiline = true;
 			this.txtTableGrouping.Name = "txtTableGrouping";
 			this.txtTableGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtTableGrouping.Size = new System.Drawing.Size(872, 157);
+			this.txtTableGrouping.Size = new System.Drawing.Size(838, 157);
 			this.txtTableGrouping.TabIndex = 4;
 			// 
 			// label8
@@ -345,7 +351,7 @@
 			this.label8.AutoEllipsis = true;
 			this.label8.Location = new System.Drawing.Point(13, 251);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(872, 34);
+			this.label8.Size = new System.Drawing.Size(838, 34);
 			this.label8.TabIndex = 3;
 			this.label8.Text = "The JSON dictionary below allows to configure the structure of the table privileg" +
     "es list.\r\nAny table not indicated in the configuration below will be put in a ge" +
@@ -354,7 +360,7 @@
 			// btnResetMiscGrouping
 			// 
 			this.btnResetMiscGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetMiscGrouping.Location = new System.Drawing.Point(805, 210);
+			this.btnResetMiscGrouping.Location = new System.Drawing.Point(771, 210);
 			this.btnResetMiscGrouping.Name = "btnResetMiscGrouping";
 			this.btnResetMiscGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetMiscGrouping.TabIndex = 2;
@@ -371,7 +377,7 @@
 			this.txtMiscGrouping.Multiline = true;
 			this.txtMiscGrouping.Name = "txtMiscGrouping";
 			this.txtMiscGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtMiscGrouping.Size = new System.Drawing.Size(872, 157);
+			this.txtMiscGrouping.Size = new System.Drawing.Size(838, 157);
 			this.txtMiscGrouping.TabIndex = 1;
 			// 
 			// label3
@@ -381,7 +387,7 @@
 			this.label3.AutoEllipsis = true;
 			this.label3.Location = new System.Drawing.Point(13, 10);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(872, 34);
+			this.label3.Size = new System.Drawing.Size(838, 34);
 			this.label3.TabIndex = 0;
 			this.label3.Text = resources.GetString("label3.Text");
 			// 
@@ -495,6 +501,29 @@
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
+			// tSnipReset
+			// 
+			this.tSnipReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tSnipReset.Image = ((System.Drawing.Image)(resources.GetObject("tSnipReset.Image")));
+			this.tSnipReset.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tSnipReset.Name = "tSnipReset";
+			this.tSnipReset.Size = new System.Drawing.Size(39, 22);
+			this.tSnipReset.Text = "Reset";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// toolStripLabel1
+			// 
+			this.toolStripLabel1.ForeColor = System.Drawing.Color.Gray;
+			this.toolStripLabel1.Name = "toolStripLabel1";
+			this.toolStripLabel1.Size = new System.Drawing.Size(867, 22);
+			this.toolStripLabel1.Text = "Custom snippets from 4 to 9 can be freely updated. You can also type CTRL+SHIFT+d" +
+    "igit in the Role Editor to create a snippet from the selected table configuratio" +
+    "n.";
+			// 
 			// notificationPanel1
 			// 
 			this.notificationPanel1.AutoSize = true;
@@ -585,28 +614,54 @@
 			this.mSetNull.Size = new System.Drawing.Size(229, 22);
 			this.mSetNull.Text = "Remove privilege assignment";
 			// 
-			// tSnipReset
+			// tabBehavior
 			// 
-			this.tSnipReset.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.tSnipReset.Image = ((System.Drawing.Image)(resources.GetObject("tSnipReset.Image")));
-			this.tSnipReset.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tSnipReset.Name = "tSnipReset";
-			this.tSnipReset.Size = new System.Drawing.Size(39, 22);
-			this.tSnipReset.Text = "Reset";
+			this.tabBehavior.Controls.Add(this.label9);
+			this.tabBehavior.Controls.Add(this.label10);
+			this.tabBehavior.Controls.Add(this.chkAutoLoad);
+			this.tabBehavior.Location = new System.Drawing.Point(4, 22);
+			this.tabBehavior.Margin = new System.Windows.Forms.Padding(0);
+			this.tabBehavior.Name = "tabBehavior";
+			this.tabBehavior.Padding = new System.Windows.Forms.Padding(10);
+			this.tabBehavior.Size = new System.Drawing.Size(966, 319);
+			this.tabBehavior.TabIndex = 4;
+			this.tabBehavior.Text = "Behavior";
+			this.tabBehavior.UseVisualStyleBackColor = true;
 			// 
-			// toolStripSeparator1
+			// label9
 			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label9.AutoSize = true;
+			this.label9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Location = new System.Drawing.Point(14, 34);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(525, 13);
+			this.label9.TabIndex = 6;
+			this.label9.Text = "Configure which roles are visible by default. It requires to close and reopen the" +
+    " plugin to take effect.";
 			// 
-			// toolStripLabel1
+			// label10
 			// 
-			this.toolStripLabel1.ForeColor = System.Drawing.Color.Gray;
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(867, 22);
-			this.toolStripLabel1.Text = "Custom snippets from 4 to 9 can be freely updated. You can also type CTRL+SHIFT+d" +
-    "igit in the Role Editor to create a snippet from the selected table configuratio" +
-    "n.";
+			this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label10.AutoSize = true;
+			this.label10.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.Location = new System.Drawing.Point(14, 14);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(90, 13);
+			this.label10.TabIndex = 5;
+			this.label10.Text = "Plugin behavior";
+			// 
+			// chkAutoLoad
+			// 
+			this.chkAutoLoad.AutoSize = true;
+			this.chkAutoLoad.Location = new System.Drawing.Point(16, 60);
+			this.chkAutoLoad.Name = "chkAutoLoad";
+			this.chkAutoLoad.Size = new System.Drawing.Size(265, 17);
+			this.chkAutoLoad.TabIndex = 4;
+			this.chkAutoLoad.Text = "Automatically load roles when connection changes";
+			this.chkAutoLoad.UseVisualStyleBackColor = true;
 			// 
 			// SettingsDialog
 			// 
@@ -629,14 +684,16 @@
 			this.tabs.ResumeLayout(false);
 			this.tabUX.ResumeLayout(false);
 			this.tabUX.PerformLayout();
-			this.tabPage1.ResumeLayout(false);
-			this.tabPage1.PerformLayout();
+			this.tabGrouping.ResumeLayout(false);
+			this.tabGrouping.PerformLayout();
 			this.tabSnippets.ResumeLayout(false);
 			this.tabSnippets.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.privilegeSnippetView)).EndInit();
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.contextMenu.ResumeLayout(false);
+			this.tabBehavior.ResumeLayout(false);
+			this.tabBehavior.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -654,7 +711,7 @@
 		private System.Windows.Forms.TabControl tabs;
 		private System.Windows.Forms.TabPage tabUX;
 		private System.Windows.Forms.CheckBox chkUseLegacyIcons;
-		private System.Windows.Forms.TabPage tabPage1;
+		private System.Windows.Forms.TabPage tabGrouping;
 		private Core.Views.NotificationPanel notificationPanel1;
 		private System.Windows.Forms.TextBox txtMiscGrouping;
 		private System.Windows.Forms.Label label3;
@@ -693,5 +750,9 @@
 		private System.Windows.Forms.ToolStripButton tSnipReset;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
+		private System.Windows.Forms.TabPage tabBehavior;
+		private System.Windows.Forms.Label label9;
+		private System.Windows.Forms.Label label10;
+		private System.Windows.Forms.CheckBox chkAutoLoad;
 	}
 }

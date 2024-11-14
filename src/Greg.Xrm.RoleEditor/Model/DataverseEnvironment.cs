@@ -28,6 +28,8 @@ namespace Greg.Xrm.RoleEditor.Model
 			return this.Exists(businessUnit => businessUnit.Contains(role, recursive: true));
 		}
 
+
+
 		public IReadOnlyList<Role> GetAllRoles()
 		{
 			var roleList = new List<Role>();

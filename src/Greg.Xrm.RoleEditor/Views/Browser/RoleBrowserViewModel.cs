@@ -5,7 +5,6 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Views.Browser;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
-using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,8 +13,11 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 {
 	public class RoleBrowserViewModel : ViewModel
 	{
-
-		public RoleBrowserViewModel(ILog log, IMessenger messenger, ISettingsProvider<Settings> settingsProvider)
+		public RoleBrowserViewModel(
+			ILog log, 
+			IMessenger messenger, 
+			ISettingsProvider<Settings> settingsProvider, 
+			IRoleRepository roleRepository)
         {
 			this.OverrideSetDefaultValue(() => EmptyListMessage, () => "Click on \"Load tables, privileges and roles\" button to load the roles.");
 
@@ -25,7 +27,8 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.NewRoleFromBasicUserCommand = new NewRoleFromExistingCommand(this, "Basic User");
 			this.NewRoleFromCurrentCommand = new NewRoleFromCurrentCommand();
 			this.OpenRoleCommand = new OpenRoleCommand();
-
+			this.OpenMultipleRolesCommand = new OpenMultipleRolesCommand();
+			this.SearchByPrivilegeCommand = new SearchByPrivilegeCommand(this, roleRepository);
 
 
 			var settings = settingsProvider.GetSettings();
@@ -119,7 +122,21 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			return this.Environments.Find(x => x.Contains(this.SelectedRole));
 		}
 
-		public Role SelectedRole 
+		internal DataverseEnvironment[] GetRoleEnvironment(Role[] selectedRoles)
+		{
+			var environmentList = new List<DataverseEnvironment>();
+			foreach (var role in selectedRoles)
+			{
+				var environment = this.Environments.Find(x => x.Contains(role));
+				if (environment != null && !environmentList.Contains(environment))
+				{
+					environmentList.Add(environment);
+				}
+			}
+			return environmentList.ToArray();
+		}
+
+		public Role SelectedRole
 		{
 			get => Get<Role>();
 			set => Set(value);
@@ -157,5 +174,8 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 
 		public NewRoleFromCurrentCommand NewRoleFromCurrentCommand { get; }
 		public OpenRoleCommand OpenRoleCommand { get; }
+		public OpenMultipleRolesCommand OpenMultipleRolesCommand { get; }
+
+		public SearchByPrivilegeCommand SearchByPrivilegeCommand { get; }
 	}
 }

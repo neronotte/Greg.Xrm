@@ -39,6 +39,11 @@ namespace Greg.Xrm.RoleEditor.Model
 
 		public string LogicalName => table.LogicalName;
 
+		public IReadOnlyList<SecurityPrivilegeMetadata> GetAllPrivileges()
+		{
+			return this.privilegeDict.Values.ToList();
+		}
+
 		public IEnumerator<KeyValuePair<PrivilegeType, SecurityPrivilegeMetadata>> GetEnumerator()
 		{
 			return privilegeDict.GetEnumerator();

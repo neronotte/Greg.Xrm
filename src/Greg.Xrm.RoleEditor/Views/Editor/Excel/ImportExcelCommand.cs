@@ -36,8 +36,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 
 		protected override void ExecuteInternal(object arg)
 		{
-			var m = viewModel.Model;
-			var context = viewModel.Model.GetContext();
+			if (!(viewModel.Model is RoleModel m))
+				return;
+			var context = m.GetContext();
 			var messenger = context.Messenger;
 			var log = context.Log;
 
@@ -104,7 +105,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 
 		private ExcelMap ImportExcelFile(string fileName)
 		{
-			var m = viewModel.Model;
 			var context = viewModel.Model.GetContext();
 			var log = context.Log;
 

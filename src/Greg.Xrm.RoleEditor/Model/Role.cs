@@ -8,6 +8,7 @@ using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web.UI;
 
 namespace Greg.Xrm.RoleEditor.Model
 {
@@ -73,6 +74,8 @@ namespace Greg.Xrm.RoleEditor.Model
 			set => SetValue(value);
 		}
 
+
+		public string businessunitidFormatted => this.businessunitid?.Name ?? GetFormatted(nameof(businessunitid));
 
 
 		/// <summary>
@@ -235,6 +238,29 @@ namespace Greg.Xrm.RoleEditor.Model
 				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
 				query.AddOrder("name", OrderType.Ascending);
 				query.NoLock = true;
+
+				// each role carries around his own execution context.
+				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));
+			}
+
+			public IReadOnlyList<Role> GetRolesByPrivilege(IXrmToolboxPluginContext executionContext, string privilegeName, TemplateForRole template)
+			{
+				if (executionContext == null)
+					throw new ArgumentNullException(nameof(executionContext));
+				if (string.IsNullOrWhiteSpace(privilegeName))
+					throw new ArgumentNullException(nameof(privilegeName));
+
+
+				var query = new QueryExpression("role");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited");
+				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
+				
+				var rolePrivilegeLink = query.AddLink("roleprivileges", "roleid", "roleid");
+				var privilegeLink = rolePrivilegeLink.AddLink("privilege", "privilegeid", "privilegeid");
+				privilegeLink.LinkCriteria.AddCondition("name", ConditionOperator.Equal, privilegeName);
+
+				query.AddOrder("name", OrderType.Ascending);
+				
 
 				// each role carries around his own execution context.
 				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));

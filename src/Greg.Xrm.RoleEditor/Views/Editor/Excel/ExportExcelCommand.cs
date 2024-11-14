@@ -7,8 +7,6 @@ using OfficeOpenXml;
 using OfficeOpenXml.ConditionalFormatting;
 using System;
 using System.Diagnostics;
-using System.Security.Cryptography;
-using System.Text;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
@@ -25,8 +23,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
         protected override void ExecuteInternal(object arg)
 		{
-			var m = viewModel.Model;
-			var context = viewModel.Model.GetContext();
+			if (!(viewModel.Model is RoleModel m)) return;
+
+			var context = m.GetContext();
 			var log = context.Log;
 
 

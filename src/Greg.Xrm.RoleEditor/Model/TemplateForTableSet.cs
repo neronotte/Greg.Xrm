@@ -6,6 +6,10 @@ using System.Linq;
 
 namespace Greg.Xrm.RoleEditor.Model
 {
+	/// <summary>
+	/// This template represents a set of tables that share the same set of privileges.
+	/// (e.g. ActivityPointer, Appointment, Email, Fax, Letter, PhoneCall, Task, etc.)
+	/// </summary>
 	public class TemplateForTableSet : ITemplateForTable
 	{
 		private readonly EntityMetadata[] tableSet;
@@ -44,6 +48,11 @@ namespace Greg.Xrm.RoleEditor.Model
 		IEnumerator IEnumerable.GetEnumerator()
 		{
 			return GetEnumerator();
+		}
+
+		public IReadOnlyList<SecurityPrivilegeMetadata> GetAllPrivileges()
+		{
+			return this.privilegeDict.Values.ToList();
 		}
 	}
 }

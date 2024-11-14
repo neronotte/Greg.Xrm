@@ -168,9 +168,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		/// <returns>A string</returns>
 		public string GenerateConfigurationCommand()
 		{
-			var command = new Command();
-			command.Name = Command.CommandName;
-			command.Levels = new Dictionary<PrivilegeType, Level?>();
+			var command = new Command
+			{
+				Name = Command.CommandName,
+				Levels = new Dictionary<PrivilegeType, Level?>()
+			};
 			foreach (var privilegeType in this.preImage.Keys)
 			{
 				command.Levels[privilegeType] = Get(privilegeType);

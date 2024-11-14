@@ -92,7 +92,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private Level Get()
 		{
-			return target.HasValue ? target.Value : preImage;
+			return target ?? preImage;
 		}
 
 		private void Set(Level value)
@@ -112,9 +112,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		public string GenerateConfigurationCommand()
 		{
-			var command = new Command();
-			command.Name = Command.CommandName;
-			command.Level = Get();
+			var command = new Command
+			{
+				Name = Command.CommandName,
+				Level = Get()
+			};
 			return JsonConvert.SerializeObject(command);
 		}
 

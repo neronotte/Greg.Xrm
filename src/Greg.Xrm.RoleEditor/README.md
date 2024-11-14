@@ -22,13 +22,19 @@ It provides a rich set of features:
 - Possibility to configure several aspects of the UI (such as icons, default filters, and privilege grouping)
 - Contextual detailed help in all screens
 
-## To-do list
+## Release 2
+- Possibility to check which roles have a given privilege
+- Possibility to configure auto loading of roles when connection changes
+- Removed notification when applying snippet
 
+
+
+## To-do list
 This list contains the features that are planned to be implemented in the future.
 Order is irrelevant:
 
 - Possibility to check where a given role is actually used
 - Possibility to assign a given role to a set of users / teams
 - Possibility to show the set of permissions assigned to a given user (merging all the roles of the user, and all the roles assigned to user's teams).
-- Possibility to check which roles have a given privilege
 - Possibility to export the contents of the change summary in excel or markdown format
+- Possibility to add a privilege to role in bulk

@@ -234,6 +234,9 @@
     </Compile>
     <Compile Include="Views\CustomizableFloatWindowExtensions.cs" />
     <Compile Include="Views\CustomizableFloatWindowFactory.cs" />
+    <Compile Include="Views\ToolStripBindableTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="XrmToolboxPluginContext.cs" />
     <Compile Include="Extensions.cs" />
     <Compile Include="GitHubPluginConstants.cs" />

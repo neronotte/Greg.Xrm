@@ -4,13 +4,17 @@ namespace Greg.Xrm.RoleEditor.Views.Messages
 {
 	public class OpenRoleView
 	{
-		public OpenRoleView(Role role)
+		public OpenRoleView(params Role[] roles)
 		{
-			Role = role;
+			if (roles == null || roles.Length == 0) throw new System.ArgumentNullException(nameof(roles));
+
+			Roles = roles;
 		}
 
-		public Role Role { get; }
+		public Role[] Roles { get; }
 	}
+
+
 	public class CloseRoleView
 	{
 		public CloseRoleView(Role role)

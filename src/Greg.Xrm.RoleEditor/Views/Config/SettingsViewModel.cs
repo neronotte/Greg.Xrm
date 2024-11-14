@@ -33,6 +33,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.HideNotCustomizableRoles = settings.HideNotCustomizableRoles;
 			this.HideManagedRoles = settings.HideManagedRoles;
 			this.UseLegacyIcons = settings.UseLegacyPrivilegeIcons;
+			this.AutoLoadRolesWhenConnectonChanges = settings.AutoLoadRolesWhenConnectonChanges;
 			this.PrivilegeClassificationForTable = settings.PrivilegeClassificationForTable?.Replace("\n", Environment.NewLine);
 			this.PrivilegeClassificationForMisc = settings.PrivilegeClassificationForMisc?.Replace("\n", Environment.NewLine);
 			this.CanConfirm = true;
@@ -66,6 +67,11 @@ namespace Greg.Xrm.RoleEditor.Views
 		}
 
 		public bool UseLegacyIcons
+		{
+			get => Get<bool>();
+			set => Set(value);
+		}
+		public bool AutoLoadRolesWhenConnectonChanges
 		{
 			get => Get<bool>();
 			set => Set(value);
@@ -200,6 +206,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 			var settings = this.settingsProvider.GetSettings();
+			settings.AutoLoadRolesWhenConnectonChanges = this.AutoLoadRolesWhenConnectonChanges;
 			settings.HideNotCustomizableRoles = this.HideNotCustomizableRoles;
 			settings.HideManagedRoles = this.HideManagedRoles;
 			settings.UseLegacyPrivilegeIcons = this.UseLegacyIcons;
