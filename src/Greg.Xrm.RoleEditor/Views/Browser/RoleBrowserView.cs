@@ -144,6 +144,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 					&& selectedRoles.Length <= 10 
 					&& environmentList.Length == 1;
 				this.tNewCloneCurrent2.Visible = selectedRoles.Length == 1;
+				this.tInspectUsage.Visible = selectedRoles.Length == 1;
 
 				this.contextMenu.Show(this.roleTree, e.Location);
 			};
@@ -158,6 +159,12 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 				}
 
 				this.viewModel.OpenMultipleRolesCommand.Execute(roles);
+			};
+			this.tInspectUsage.Click += (s, e) =>
+			{
+				var roles = this.roleTree.SelectedObjects.OfType<Role>().ToArray();
+				if (roles.Length == 0) return;
+				this.viewModel.OpenUsageInspectorCommand.Execute(roles[0]);
 
 			};
 

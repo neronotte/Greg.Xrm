@@ -63,6 +63,16 @@ namespace Greg.Xrm.RoleEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap application_form_magnify {
+            get {
+                object obj = ResourceManager.GetObject("application_form_magnify", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap arrow_left {
             get {
                 object obj = ResourceManager.GetObject("arrow_left", resourceCulture);
@@ -166,6 +176,16 @@ namespace Greg.Xrm.RoleEditor.Properties {
         internal static System.Drawing.Bitmap page_white_code_red {
             get {
                 object obj = ResourceManager.GetObject("page_white_code_red", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap page_white_copy {
+            get {
+                object obj = ResourceManager.GetObject("page_white_copy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

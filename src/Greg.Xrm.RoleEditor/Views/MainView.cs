@@ -12,6 +12,7 @@ using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.BulkEditor;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
+using Greg.Xrm.RoleEditor.Views.UsageInspector;
 using Greg.Xrm.Theming;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
@@ -32,6 +33,7 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly IAsyncJobScheduler scheduler;
 		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
 		private readonly IPrivilegeSnippetRepository privilegeSnippetRepository;
+		private readonly IDependencyRepository dependencyRepository;
 
 		private readonly MainViewModel viewModel;
 
@@ -57,8 +59,10 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.settingsProvider = settingsProvider;
 			var privilegeRepository = new Privilege.Repository();
 			var roleRepository = new Role.Repository(this.outputView, this.messenger);
-			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
+			this.dependencyRepository = new Dependency.Repository(this.outputView);
 			var businessUnitRepository = new BusinessUnit.Repository();
+
+			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
 			this.privilegeClassificationProvider = new PrivilegeClassificationProvider(settingsProvider);
 			this.privilegeSnippetRepository = new PrivilegeSnippetRepository(outputView, settingsProvider);
 
@@ -109,6 +113,13 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.messenger.Register<ShowHelp>(m =>
 			{
 				helpView.Show();
+			});
+
+
+			this.messenger.Register<OpenUsageInspector>(m =>
+			{
+				var view = new UsageInspectorView(this.dependencyRepository, m.Role);
+				view.Show(this.dockPanel, DockState.Document);
 			});
 		}
 

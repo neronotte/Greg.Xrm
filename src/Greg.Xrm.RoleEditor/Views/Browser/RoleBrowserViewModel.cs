@@ -14,11 +14,11 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 	public class RoleBrowserViewModel : ViewModel
 	{
 		public RoleBrowserViewModel(
-			ILog log, 
-			IMessenger messenger, 
-			ISettingsProvider<Settings> settingsProvider, 
+			ILog log,
+			IMessenger messenger,
+			ISettingsProvider<Settings> settingsProvider,
 			IRoleRepository roleRepository)
-        {
+		{
 			this.OverrideSetDefaultValue(() => EmptyListMessage, () => "Click on \"Load tables, privileges and roles\" button to load the roles.");
 
 
@@ -29,6 +29,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.OpenRoleCommand = new OpenRoleCommand();
 			this.OpenMultipleRolesCommand = new OpenMultipleRolesCommand();
 			this.SearchByPrivilegeCommand = new SearchByPrivilegeCommand(this, roleRepository);
+			this.OpenUsageInspectorCommand = new OpenUsageInspectorCommand();
 
 
 			var settings = settingsProvider.GetSettings();
@@ -110,7 +111,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 
 		public bool IsEnabled
 		{
-			get =>Get<bool>();
+			get => Get<bool>();
 			private set => Set(value);
 		}
 
@@ -177,5 +178,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		public OpenMultipleRolesCommand OpenMultipleRolesCommand { get; }
 
 		public SearchByPrivilegeCommand SearchByPrivilegeCommand { get; }
+
+		public OpenUsageInspectorCommand OpenUsageInspectorCommand { get; }
 	}
 }

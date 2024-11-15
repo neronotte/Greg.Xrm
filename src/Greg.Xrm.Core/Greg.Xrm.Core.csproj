@@ -228,6 +228,7 @@
     <Compile Include="BindingExtensions.cs" />
     <Compile Include="CloneSettings.cs" />
     <Compile Include="CommandExecuteBehavior.cs" />
+    <Compile Include="ComponentType.cs" />
     <Compile Include="CrmComparer.cs" />
     <Compile Include="Views\CustomizableFloatWindow.cs">
       <SubType>Form</SubType>
