@@ -319,6 +319,7 @@
     <Compile Include="Services\IPrivilegeClassificationProvider.cs" />
     <Compile Include="Services\MarkdownWriter.cs" />
     <Compile Include="Services\PrivilegeClassificationProvider.cs" />
+    <Compile Include="Services\RequestLogger.cs" />
     <Compile Include="Services\RoleTemplateBuilder.cs" />
     <Compile Include="Services\Snippets\IPrivilegeSnippetRepository.cs" />
     <Compile Include="Services\Snippets\PrivilegeSnippet.cs" />

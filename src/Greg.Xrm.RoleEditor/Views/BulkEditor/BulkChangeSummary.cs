@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 {
@@ -43,7 +44,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 						o.Key,
 						$"{o.Count()} operations",
 						o.Key.ToLowerInvariant(), 
-						o.Select(c => new TreeNode(c.Text, icon: c.OperationType.ToLowerInvariant())))
+						o.OrderBy(c => c.Text).Select(c => new TreeNode(c.Text, icon: c.OperationType.ToLowerInvariant())))
 					)
 				))
 				.ToList();
@@ -76,6 +77,9 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 		public Dictionary<Role, List<OrganizationRequest>> CreateRequests()
 		{
+			const int PoolSize = 50;
+
+
 			var result = new Dictionary<Role, List<OrganizationRequest>>();
 			foreach (var changesByRole in this.changes.GroupBy(x => x.Role))
 			{
@@ -84,19 +88,22 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 
 				// mananging adds
-				var addList = changesByRole.OfType<ChangePrivilegeAdd>();
-				var addRequest = new AddPrivilegesRoleRequest
+				var addListPool = changesByRole.OfType<ChangePrivilegeAdd>().Pool(PoolSize);
+				foreach(var addList in addListPool)
 				{
-					RoleId = role.Id,
-					Privileges = addList.Select(x => new RolePrivilege
+					var addRequest = new AddPrivilegesRoleRequest
 					{
-						Depth = x.Value,
-						PrivilegeId = x.PrivilegeId,
-						PrivilegeName = x.PrivilegeName,
-					}).ToArray()
-				};
-				if (addRequest.Privileges.Length > 0)
+						RoleId = role.Id,
+						Privileges = addList.Select(x => new RolePrivilege
+						{
+							Depth = x.Value,
+							PrivilegeId = x.PrivilegeId,
+							PrivilegeName = x.PrivilegeName,
+						}).ToArray()
+					};
 					requestList.Add(addRequest);
+				}
+				
 
 
 				// managing removals
@@ -112,19 +119,23 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 
 				// managing replacements
-				var replaceList = changesByRole.OfType<ChangePrivilegeReplace>();
-				var replaceRequest = new ReplacePrivilegesRoleRequest
+				var replaceListPool = changesByRole.OfType<ChangePrivilegeReplace>().Pool(PoolSize);
+
+				foreach (var replaceList in replaceListPool)
 				{
-					RoleId = role.Id,
-					Privileges = replaceList.Select(x => new RolePrivilege
+					var replaceRequest = new AddPrivilegesRoleRequest
 					{
-						Depth = x.NewValue,
-						PrivilegeId = x.PrivilegeId,
-						PrivilegeName = x.PrivilegeName,
-					}).ToArray()
-				};
-				if (replaceRequest.Privileges.Length > 0)
+						RoleId = role.Id,
+						Privileges = replaceList.Select(x => new RolePrivilege
+						{
+							Depth = x.NewValue,
+							PrivilegeId = x.PrivilegeId,
+							PrivilegeName = x.PrivilegeName,
+						}).ToArray()
+					};
 					requestList.Add(replaceRequest);
+				}
+				
 
 
 				result[role] = requestList;
@@ -140,7 +151,13 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 				Role = role;
 				PrivilegeId = privilegeId;
 				PrivilegeName = privilegeName;
-				Value = value.ToPrivilegeDepth().GetValueOrDefault();
+
+				var valueX = value.ToPrivilegeDepth();
+				if (!valueX.HasValue)
+					throw new InvalidOperationException($"Invalid value {value} for privilege {privilegeName} on role {role.name}.");
+
+
+				Value = valueX.Value;
 			}
 
 			public string Text => $"Add privilege {PrivilegeName} with value {Value} onto role {Role.name}";
@@ -180,8 +197,18 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 				Role = role;
 				PrivilegeId = privilegeId;
 				PrivilegeName = privilegeName;
-				OldValue = oldValue.ToPrivilegeDepth().GetValueOrDefault();
-				NewValue = newValue.ToPrivilegeDepth().GetValueOrDefault();
+
+
+				var oldValueX = oldValue.ToPrivilegeDepth();
+				if (!oldValueX.HasValue)
+					throw new InvalidOperationException($"Invalid old value for privilege {privilegeName} on role {role.name}.");
+				var newValueX = newValue.ToPrivilegeDepth();
+				if (!newValueX.HasValue)
+					throw new InvalidOperationException($"Invalid new value for privilege {privilegeName} on role {role.name}.");
+
+
+				OldValue = oldValueX.Value;
+				NewValue = newValueX.Value;
 			}
 
 			public string Text => $"Change privilege {PrivilegeName} from {OldValue} to {NewValue} onto role {Role.name}";

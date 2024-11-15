@@ -127,12 +127,12 @@
 			// 
 			// tSave
 			// 
-			this.tSave.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
 			this.tSave.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.disk;
 			this.tSave.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.tSave.Name = "tSave";
-			this.tSave.Size = new System.Drawing.Size(23, 22);
-			this.tSave.Text = "toolStripBindableButton1";
+			this.tSave.Size = new System.Drawing.Size(51, 22);
+			this.tSave.Text = "Save";
+			this.tSave.ToolTipText = "Save roles";
 			// 
 			// toolStripSeparator1
 			// 

@@ -175,7 +175,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			if (this.privilegesToReplace.Count > 0)
 			{
-				var request1 = new ReplacePrivilegesRoleRequest
+				var request1 = new AddPrivilegesRoleRequest
 				{
 					RoleId = this.roleId,
 					Privileges = this.privilegesToReplace.ToArray()

@@ -5,6 +5,10 @@ using Microsoft.Xrm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using XrmToolBox.Extensibility;
 using System;
+using System.Linq;
+using Microsoft.Crm.Sdk.Messages;
+using Greg.Xrm.RoleEditor.Services;
+using XrmToolBox.Extensibility.Args;
 
 namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 {
@@ -44,6 +48,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 					var requestList = changes.CreateRequests();
 
+					RequestLogger.Clear();
+
 					var i = 0;
 					foreach (var kvp in requestList)
 					{
@@ -53,19 +59,53 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 						using (role.ExecutionContext.Log.Track($"Saving changes to role{role.name}"))
 						{
 							i++;
-							messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}), please wait..."));
 
 
-							var request = new ExecuteTransactionRequest
+
+							var addRequestList = requests.OfType<AddPrivilegesRoleRequest>().ToList();
+							var removeRequestList = requests.OfType<RemovePrivilegeRoleRequest>().Pool(10).ToList();
+							var replaceRequestList = requests.OfType<ReplacePrivilegesRoleRequest>().ToList();
+
+							var totalRequestCount = addRequestList.Count + removeRequestList.Count + replaceRequestList.Count;
+
+							var j = 0;
+							foreach (var request in addRequestList)
 							{
-								ReturnResponses = true,
-								Requests = new OrganizationRequestCollection()
-							};
-							request.Requests.AddRange(requests);
+								j++;
+								messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}) in blocks.{Environment.NewLine}Processing block {j}/{totalRequestCount}.{Environment.NewLine}Please wait..."));
+								messenger.Send(new StatusBarMessageEventArgs((j * 100) / totalRequestCount));
+								RequestLogger.Log(request); 
+								role.ExecutionContext.Execute(request);
+							}
 
-							var response = (ExecuteTransactionResponse)role.ExecutionContext.Execute(request);
+							foreach (var requestBlock in removeRequestList)
+							{
+								j++;
+								messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}) in blocks.{Environment.NewLine}Processing block {j}/{totalRequestCount}.{Environment.NewLine}Please wait..."));
+								messenger.Send(new StatusBarMessageEventArgs((j * 100) / totalRequestCount));
+								var request = new ExecuteTransactionRequest
+								{
+									ReturnResponses = false,
+									Requests = new OrganizationRequestCollection()
+								};
+								request.Requests.AddRange(requestBlock);
 
-							role.ExecutionContext.Log.Info($"Role {role.name} saved successfully, {response.Responses.Count} returned.");
+								RequestLogger.Log(request);
+								role.ExecutionContext.Execute(request);
+							}
+
+							foreach (var request in replaceRequestList)
+							{
+								j++;
+								messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}) in blocks.{Environment.NewLine}Processing block {j}/{totalRequestCount}.{Environment.NewLine}Please wait..."));
+								messenger.Send(new StatusBarMessageEventArgs((j * 100) / totalRequestCount));
+								RequestLogger.Log(request);
+								role.ExecutionContext.Execute(request);
+							}
+
+							
+
+							role.ExecutionContext.Log.Info($"Role {role.name} saved successfully.");
 						}
 
 						role.ReadPrivileges();
