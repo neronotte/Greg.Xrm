@@ -238,9 +238,4 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			return $"Remove privilege \"{PrivilegeName}\"";
 		}
 	}
-
-	public interface IChangeOperation
-	{
-		string Text { get; }
-	}
 }

@@ -18,13 +18,12 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 		{
 			this.viewModel = viewModel;
 
-			this.viewModel
-				.WhenChanges(() => this.viewModel.IsEnabled)
-				.Execute(_ => SetCanExecute());
-
-			this.viewModel
-				.WhenChanges(() => this.viewModel.IsCustomizable)
-				.Execute(_ => SetCanExecute());
+			this.viewModel.PropertyChanged += (s, e) => {
+				if (e.PropertyName == nameof(this.viewModel.IsEnabled) 
+					|| e.PropertyName == nameof(this.viewModel.IsCustomizable)) {
+					SetCanExecute();
+				}
+			};
 		}
 
 		private void SetCanExecute()

@@ -15,10 +15,15 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
         {
 			this.viewModel = viewModel;
 			this.roleRepository = roleRepository;
-			viewModel.WhenChanges(() => this.viewModel.IsEnabled).Execute(RefreshCanExecute);
+
+			this.viewModel.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(this.viewModel.IsEnabled))
+					RefreshCanExecute();
+			};
 		}
 
-		private void RefreshCanExecute(object obj)
+		private void RefreshCanExecute()
 		{
 			this.CanExecute = this.viewModel.IsEnabled;
 		}

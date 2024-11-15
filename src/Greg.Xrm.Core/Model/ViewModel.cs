@@ -33,7 +33,7 @@ namespace Greg.Xrm.Model
 		/// <typeparam name="TProperty">The type of the property that changes</typeparam>
 		/// <param name="propertyLambda">An expression representing the property that changes</param>
 		/// <returns>The fluent interface</returns>
-		public IChangeManagerFluent WhenChanges<TProperty>(Expression<Func<TProperty>> propertyLambda)
+		protected IChangeManagerFluent WhenChanges<TProperty>(Expression<Func<TProperty>> propertyLambda)
 		{
 			var property = GetPropertyInfo(propertyLambda);
 			return new ChangeManagerFluent(this, property.Name);

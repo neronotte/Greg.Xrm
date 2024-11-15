@@ -37,16 +37,9 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 				this.viewModel.SelectedTable = table;
 				e.Handled = true;
 			};
-			this.viewModel.WhenChanges(() => this.viewModel.SelectedTable)
-				.Execute(_ => this.txtTables.Text = this.viewModel.SelectedTable?.Key ?? string.Empty);
-
-
 			this.cmbPrivilegeType.Bind(x => x.Enabled, this.viewModel, vm => vm.IsTablePrivilegeTypesEnabled);
-			this.viewModel.WhenChanges(() => this.viewModel.TablePrivilegeTypes)
-			.Execute(_ =>
-			{
-				this.cmbPrivilegeType.DataSource = this.viewModel.TablePrivilegeTypes;
-			});
+
+
 			this.cmbPrivilegeType.SelectedIndexChanged += (s, e) =>
 			{
 				if (this.cmbPrivilegeType.SelectedItem == null)
@@ -69,8 +62,24 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 				this.viewModel.SelecteMiscPrivilege = misc;
 				e.Handled = true;
 			};
-			this.viewModel.WhenChanges(() => this.viewModel.SelecteMiscPrivilege)
-				.Execute(_ => this.txtMiscPrivilegeLabel.Text = this.viewModel.SelecteMiscPrivilege?.Name ?? string.Empty);
+
+
+
+			this.viewModel.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(this.viewModel.SelectedTable))
+				{
+					this.txtTables.Text = this.viewModel.SelectedTable?.Key ?? string.Empty;
+				}
+				if (e.PropertyName == nameof(this.viewModel.SelecteMiscPrivilege))
+				{
+					this.txtMiscPrivilegeLabel.Text = this.viewModel.SelecteMiscPrivilege?.Name ?? string.Empty;
+				}
+				if (e.PropertyName == nameof(this.viewModel.TablePrivilegeTypes))
+				{
+					this.cmbPrivilegeType.DataSource = this.viewModel.TablePrivilegeTypes;
+				}
+			};
 
 
 			this.btnOk.BindCommand(() => this.viewModel.SearchCommand, () => this);

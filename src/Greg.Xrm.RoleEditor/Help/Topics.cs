@@ -5,5 +5,6 @@
 		public static string Home => "home";
 		public static string Browser => "browser";
 		public static string Editor => "editor";
+		public static string BulkEditor => "editor_bulk";
 	}
 }

@@ -650,7 +650,7 @@
             this.mSet3,
             this.mSet4});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(215, 114);
+			this.contextMenu.Size = new System.Drawing.Size(215, 136);
 			// 
 			// mSet0
 			// 

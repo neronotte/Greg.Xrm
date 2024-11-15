@@ -101,7 +101,13 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			this.viewModel.Close += OnConfirmClose;
 
-			this.viewModel.WhenChanges(() => this.viewModel.UseLegacyIcons).Execute(RefreshIcons);
+			this.viewModel.PropertyChanged += (s, e) => 
+			{	
+				if (e.PropertyName == nameof(this.viewModel.UseLegacyIcons))
+				{
+					RefreshIcons();
+				}
+			};
 		}
 
 		private static void SetColumn(OLVColumn column, PrivilegeType privilegeType)
@@ -121,7 +127,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 
-		private void RefreshIcons(object arg = null)
+		private void RefreshIcons()
 		{
 			var imageList = this.viewModel.UseLegacyIcons ? this.imagesOld : this.imagesNew;
 

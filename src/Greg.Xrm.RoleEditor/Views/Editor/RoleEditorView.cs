@@ -6,6 +6,7 @@ using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
+using Greg.Xrm.RoleEditor.Views.Common;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
@@ -107,9 +108,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				this.treeMisc.CanExpandGetter =
 					x => (x is ICollection collection) && collection.Count > 0;
 
-			this.treeTables.ChildrenGetter =
-				this.treeMisc.ChildrenGetter =
-					x => (x is ICollection collection) ? collection : Array.Empty<object>();
+			this.treeTables.ChildrenGetter = this.treeMisc.ChildrenGetter = x => x as IEnumerable;
 
 			this.treeTables.CellToolTipShowing += (object sender, ToolTipShowingEventArgs e) =>
 			{
@@ -137,9 +136,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeTables.ColumnClick += OnTreeColumnClick;
 			this.treeTables.KeyDown += OnTreeTablesKeyDown;
 			this.treeTables.Roots = this.viewModel.Model?.TableGroups;
-			this.treeTables.UseCustomSelectionColors = true;
-			this.treeTables.HighlightBackgroundColor = Color.FromArgb(240, 240, 240);
-			this.treeTables.HighlightForegroundColor = Color.Black;
+			this.treeTables.UseLightSelection();
 			this.treeTables.CellRightClick += OnCellRightClick;
 			this.treeTables.ExpandAll();
 
@@ -151,9 +148,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeMisc.ColumnClick += OnTreeColumnClick;
 			this.treeMisc.KeyDown += OnTreeMiscKeyDown;
 			this.treeMisc.Roots = this.viewModel.Model?.MiscGroups;
-			this.treeMisc.UseCustomSelectionColors = true;
-			this.treeMisc.HighlightBackgroundColor = Color.FromArgb(240, 240, 240);
-			this.treeMisc.HighlightForegroundColor = Color.Black;
+			this.treeMisc.UseLightSelection();
 			this.treeMisc.CellRightClick += OnCellRightClick;
 			this.treeMisc.ExpandAll();
 
@@ -599,7 +594,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			{
 				// User pressed CTRL+SHIFT+ any digit from 4 to 9
 				int digit = e.KeyCode - Keys.D0;
-				this.viewModel.SaveSnippet(digit, tableList[0]);
+				this.viewModel.SaveSnippetCommand.Execute(new SaveSnippetArgs(digit, tableList[0]));
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 				return;
@@ -609,7 +604,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			{
 				// User pressed CTRL+SHIFT+ any digit from 0 to 9
 				int digit = e.KeyCode - Keys.D0;
-				this.viewModel.PasteSnippet(digit, tableList);
+				this.viewModel.PasteSnippetCommand.Execute(new PasteSnippetArgs(digit, tableList));
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}
@@ -687,20 +682,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				var changeSummary = this.viewModel.GetChangeSummary();
 				this.olvChangeSummary.SetObjects(changeSummary);
 			}
-		}
-
-
-
-
-
-		class PrivilegeColumnTag
-		{
-			public PrivilegeColumnTag(PrivilegeType privilegeType)
-			{
-				PrivilegeType = privilegeType;
-			}
-
-			public PrivilegeType PrivilegeType { get; }
 		}
 	}
 }

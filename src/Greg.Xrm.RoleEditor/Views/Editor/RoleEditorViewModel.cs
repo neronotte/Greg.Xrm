@@ -3,6 +3,7 @@ using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
+using Greg.Xrm.RoleEditor.Views.Common;
 using Greg.Xrm.RoleEditor.Views.Editor.Excel;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
@@ -45,7 +46,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.ExportExcelCommand = new ExportExcelCommand(this);
 			this.ExportMarkdownCommand = new ExportMarkdownCommand(this);
 			this.ImportExcelCommand = new ImportExcelCommand(this);
-
+			this.SaveSnippetCommand = new SaveSnippetCommand(snippetRepository, this);
+			this.PasteSnippetCommand = new PasteSnippetCommand(snippetRepository, this);
 
 			this.WhenChanges(() => IsEnabled)
 				.Refresh(this.ShowAllPrivilegesCommand)
@@ -164,43 +166,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public ExportMarkdownCommand ExportMarkdownCommand  { get; }
 
 
-		public void SaveSnippet(int index, TableModel table)
-		{
-			if (index < 0 || index >= 10) return;
-			if (table == null) return;
+		public ICommand SaveSnippetCommand { get; }
 
-			var snippet = PrivilegeSnippet.CreateFromTable(table);
-			if (this.snippetRepository[index] != null)
-			{
-				var result = MessageBox.Show($"Position {index} already contains a privilege snippet. Do you want to replace it?", "Save snippet", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-				if (result != DialogResult.Yes) return;
-			}
-
-			this.snippetRepository[index] = snippet;
-			this.SendNotification(NotificationType.Success, $"Snippet saved at position {index}!", 5);
-		}
-
-
-		public void PasteSnippet(int index, TableModel[] tableList)
-		{
-			if (index < 0 || index >= 10) return;
-			if (tableList.Length == 0) return;
-
-			var snippet = snippetRepository[index];
-			if (snippet == null)
-			{
-				MessageBox.Show($"No snippet found at position {index}.", "Paste snippet", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-				return;
-			}
-
-
-			foreach (var table in tableList)
-			{
-				snippet.ApplyTo(table);
-			}
-			var plural = tableList.Length > 1 ? "s" : "";
-			this.SendNotification(NotificationType.Success, $"Snippet applied to {tableList.Length} table{plural}.", 5);
-		}
+		public ICommand PasteSnippetCommand { get; }
 
 
 

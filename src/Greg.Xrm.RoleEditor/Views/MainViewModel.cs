@@ -9,7 +9,6 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 
 namespace Greg.Xrm.RoleEditor.Views
@@ -138,11 +137,22 @@ namespace Greg.Xrm.RoleEditor.Views
 		public event EventHandler<CloseRoleView> CloseRoleRequested;
 		private void OnCloseRoleRequested(CloseRoleView message)
 		{
-			if (!this.rolesCurrentlyOpened.Contains(message.Role)) return;
+			foreach (var role in message.Roles)
+			{
+				if (!this.rolesCurrentlyOpened.Contains(role)) continue;
 
-			this.rolesCurrentlyOpened.Remove(message.Role);
-			this.log.Debug($"Role editor closed for <{message.Role.name}>. Total #roles opened: {this.rolesCurrentlyOpened.Count}");
-			CloseRoleRequested?.Invoke(this, message);
+				this.rolesCurrentlyOpened.Remove(role);
+				CloseRoleRequested?.Invoke(this, message);
+			}
+
+			if (message.Roles.Length == 1)
+			{
+				this.log.Debug($"Role editor closed for <{message.Roles[0].name}>. Total #roles still opened: {this.rolesCurrentlyOpened.Count}");
+			}
+			else
+			{
+				this.log.Debug($"Role editor closed for <{message.Roles.Length}> roles. Total #roles still opened: {this.rolesCurrentlyOpened.Count}");
+			}
 		}
 	}
 }

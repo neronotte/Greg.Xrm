@@ -37,15 +37,15 @@
 			this.btnCancel = new System.Windows.Forms.Button();
 			this.btnOk = new System.Windows.Forms.Button();
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.txtMiscPrivilegeLabel = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtTables = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
+			this.cmbPrivilegeType = new Greg.Xrm.RoleEditor.Views.Search.EditableComboBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.rSearchType2 = new System.Windows.Forms.RadioButton();
 			this.txtPrivilegeName = new System.Windows.Forms.TextBox();
 			this.rSearchType1 = new System.Windows.Forms.RadioButton();
-			this.txtTables = new System.Windows.Forms.TextBox();
-			this.cmbPrivilegeType = new Greg.Xrm.RoleEditor.Views.Search.EditableComboBox();
-			this.txtMiscPrivilegeLabel = new System.Windows.Forms.TextBox();
-			this.label5 = new System.Windows.Forms.Label();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.pnlHeader.SuspendLayout();
 			this.pnlFooter.SuspendLayout();
@@ -66,7 +66,7 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(784, 461);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(624, 341);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// pnlHeader
@@ -78,7 +78,7 @@
 			this.pnlHeader.Location = new System.Drawing.Point(0, 0);
 			this.pnlHeader.Margin = new System.Windows.Forms.Padding(0);
 			this.pnlHeader.Name = "pnlHeader";
-			this.pnlHeader.Size = new System.Drawing.Size(784, 60);
+			this.pnlHeader.Size = new System.Drawing.Size(624, 60);
 			this.pnlHeader.TabIndex = 3;
 			// 
 			// label2
@@ -105,17 +105,17 @@
 			this.pnlFooter.Controls.Add(this.btnCancel);
 			this.pnlFooter.Controls.Add(this.btnOk);
 			this.pnlFooter.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.pnlFooter.Location = new System.Drawing.Point(0, 401);
+			this.pnlFooter.Location = new System.Drawing.Point(0, 281);
 			this.pnlFooter.Margin = new System.Windows.Forms.Padding(0);
 			this.pnlFooter.Name = "pnlFooter";
-			this.pnlFooter.Size = new System.Drawing.Size(784, 60);
+			this.pnlFooter.Size = new System.Drawing.Size(624, 60);
 			this.pnlFooter.TabIndex = 2;
 			// 
 			// btnCancel
 			// 
 			this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.btnCancel.Location = new System.Drawing.Point(600, 15);
+			this.btnCancel.Location = new System.Drawing.Point(440, 15);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(80, 30);
 			this.btnCancel.TabIndex = 1;
@@ -125,7 +125,7 @@
 			// btnOk
 			// 
 			this.btnOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnOk.Location = new System.Drawing.Point(690, 15);
+			this.btnOk.Location = new System.Drawing.Point(530, 15);
 			this.btnOk.Name = "btnOk";
 			this.btnOk.Size = new System.Drawing.Size(80, 30);
 			this.btnOk.TabIndex = 0;
@@ -147,18 +147,59 @@
 			this.panel1.Location = new System.Drawing.Point(0, 60);
 			this.panel1.Margin = new System.Windows.Forms.Padding(0);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(784, 341);
+			this.panel1.Size = new System.Drawing.Size(624, 221);
 			this.panel1.TabIndex = 4;
+			// 
+			// txtMiscPrivilegeLabel
+			// 
+			this.txtMiscPrivilegeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtMiscPrivilegeLabel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+			this.txtMiscPrivilegeLabel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+			this.txtMiscPrivilegeLabel.Location = new System.Drawing.Point(106, 143);
+			this.txtMiscPrivilegeLabel.Name = "txtMiscPrivilegeLabel";
+			this.txtMiscPrivilegeLabel.Size = new System.Drawing.Size(504, 20);
+			this.txtMiscPrivilegeLabel.TabIndex = 9;
+			// 
+			// label5
+			// 
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(23, 146);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(77, 13);
+			this.label5.TabIndex = 8;
+			this.label5.Text = "Misc. privilege:";
+			// 
+			// txtTables
+			// 
+			this.txtTables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtTables.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+			this.txtTables.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+			this.txtTables.Location = new System.Drawing.Point(106, 117);
+			this.txtTables.Name = "txtTables";
+			this.txtTables.Size = new System.Drawing.Size(309, 20);
+			this.txtTables.TabIndex = 7;
 			// 
 			// label4
 			// 
 			this.label4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.label4.AutoSize = true;
-			this.label4.Location = new System.Drawing.Point(596, 120);
+			this.label4.Location = new System.Drawing.Point(436, 120);
 			this.label4.Name = "label4";
 			this.label4.Size = new System.Drawing.Size(50, 13);
 			this.label4.TabIndex = 6;
 			this.label4.Text = "Privilege:";
+			// 
+			// cmbPrivilegeType
+			// 
+			this.cmbPrivilegeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbPrivilegeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbPrivilegeType.FormattingEnabled = true;
+			this.cmbPrivilegeType.Location = new System.Drawing.Point(489, 117);
+			this.cmbPrivilegeType.Name = "cmbPrivilegeType";
+			this.cmbPrivilegeType.Size = new System.Drawing.Size(121, 21);
+			this.cmbPrivilegeType.TabIndex = 5;
 			// 
 			// label3
 			// 
@@ -188,7 +229,7 @@
 			this.txtPrivilegeName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
 			this.txtPrivilegeName.Location = new System.Drawing.Point(32, 40);
 			this.txtPrivilegeName.Name = "txtPrivilegeName";
-			this.txtPrivilegeName.Size = new System.Drawing.Size(738, 20);
+			this.txtPrivilegeName.Size = new System.Drawing.Size(578, 20);
 			this.txtPrivilegeName.TabIndex = 1;
 			// 
 			// rSearchType1
@@ -204,54 +245,16 @@
 			this.rSearchType1.Text = "Search by privilege name:";
 			this.rSearchType1.UseVisualStyleBackColor = true;
 			// 
-			// txtTables
-			// 
-			this.txtTables.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtTables.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-			this.txtTables.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-			this.txtTables.Location = new System.Drawing.Point(106, 117);
-			this.txtTables.Name = "txtTables";
-			this.txtTables.Size = new System.Drawing.Size(469, 20);
-			this.txtTables.TabIndex = 7;
-			// 
-			// cmbPrivilegeType
-			// 
-			this.cmbPrivilegeType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.cmbPrivilegeType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cmbPrivilegeType.FormattingEnabled = true;
-			this.cmbPrivilegeType.Location = new System.Drawing.Point(649, 117);
-			this.cmbPrivilegeType.Name = "cmbPrivilegeType";
-			this.cmbPrivilegeType.Size = new System.Drawing.Size(121, 21);
-			this.cmbPrivilegeType.TabIndex = 5;
-			// 
-			// txtMiscPrivilegeLabel
-			// 
-			this.txtMiscPrivilegeLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.txtMiscPrivilegeLabel.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
-			this.txtMiscPrivilegeLabel.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
-			this.txtMiscPrivilegeLabel.Location = new System.Drawing.Point(106, 143);
-			this.txtMiscPrivilegeLabel.Name = "txtMiscPrivilegeLabel";
-			this.txtMiscPrivilegeLabel.Size = new System.Drawing.Size(664, 20);
-			this.txtMiscPrivilegeLabel.TabIndex = 9;
-			// 
-			// label5
-			// 
-			this.label5.AutoSize = true;
-			this.label5.Location = new System.Drawing.Point(23, 146);
-			this.label5.Name = "label5";
-			this.label5.Size = new System.Drawing.Size(77, 13);
-			this.label5.TabIndex = 8;
-			this.label5.Text = "Misc. privilege:";
-			// 
 			// SearchByPrivilegeDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(784, 461);
+			this.ClientSize = new System.Drawing.Size(624, 341);
 			this.Controls.Add(this.tableLayoutPanel1);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
 			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+			this.MaximizeBox = false;
+			this.MinimizeBox = false;
 			this.Name = "SearchByPrivilegeDialog";
 			this.Text = "Search roles by privilege";
 			this.tableLayoutPanel1.ResumeLayout(false);

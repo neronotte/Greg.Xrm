@@ -1,5 +1,4 @@
-﻿using Greg.Xrm.Messaging;
-using Greg.Xrm.RoleEditor.Views.Lookup;
+﻿using Greg.Xrm.RoleEditor.Views.Lookup;
 using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
@@ -18,7 +17,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
         {
 			this.viewModel = viewModel;
 
-			viewModel.WhenChanges(() => viewModel.Model).Execute(_ => CalculateCanExecute());
+			viewModel.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(viewModel.Model))
+				{
+					CalculateCanExecute();
+				}
+			};
 			this.CalculateCanExecute();
 		}
 

@@ -234,6 +234,7 @@
     </Compile>
     <Compile Include="Views\CustomizableFloatWindowExtensions.cs" />
     <Compile Include="Views\CustomizableFloatWindowFactory.cs" />
+    <Compile Include="Views\SetWorkingMessage.cs" />
     <Compile Include="Views\ToolStripBindableTextBox.cs">
       <SubType>Component</SubType>
     </Compile>

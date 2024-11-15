@@ -244,5 +244,10 @@ namespace Greg.Xrm.RoleEditor.Views
 				}
 			}
 		}
+
+		public void SendNotification(NotificationType type, string message, int? timerInSeconds = null)
+		{
+			this.Notify?.Invoke(this, new NotificationEventArgs(type, message, timerInSeconds));
+		}
 	}
 }

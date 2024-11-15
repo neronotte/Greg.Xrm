@@ -288,6 +288,7 @@
     <Compile Include="Model\DataverseEnvironment.cs" />
     <Compile Include="Model\Extensions.cs" />
     <Compile Include="Model\IBusinessUnitRepository.cs" />
+    <Compile Include="Model\IChangeOperation.cs" />
     <Compile Include="Model\IRoleRepository.cs" />
     <Compile Include="Model\ITemplateForTable.cs" />
     <Compile Include="Model\Privilege.cs" />
@@ -299,6 +300,7 @@
     <Compile Include="Model\TemplateForGenericPrivilege.cs" />
     <Compile Include="Model\TemplateForRole.cs" />
     <Compile Include="Model\TemplateForTable.cs" />
+    <Compile Include="Model\TreeNode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.Partial.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -328,6 +330,28 @@
     <Compile Include="Views\Browser\SearchResultView.Designer.cs">
       <DependentUpon>SearchResultView.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\BulkEditor\BulkChangeSummary.cs" />
+    <Compile Include="Views\BulkEditor\BulkEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkEditorView.Designer.cs">
+      <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkEditorViewModel.cs" />
+    <Compile Include="Views\BulkEditor\IBulkChangeOperation.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkGroupModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkMiscModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkTableModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\IEditorChild.cs" />
+    <Compile Include="Views\BulkEditor\SaveCommand.cs" />
+    <Compile Include="Views\Common\IPrivilegeHolder.cs" />
+    <Compile Include="Views\Common\IReadOnlyList.cs" />
+    <Compile Include="Views\Common\PasteSnippetCommand.cs" />
+    <Compile Include="Views\Common\PrivilegeConfigForMiscMemento.cs" />
+    <Compile Include="Views\Common\PrivilegeConfigForTableMemento.cs" />
+    <Compile Include="Views\Common\PrivilegeColumnExtensions.cs" />
+    <Compile Include="Views\Common\PrivilegeColumnTag.cs" />
+    <Compile Include="Views\Common\SaveSnippetCommand.cs" />
     <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
     <Compile Include="Views\Editor\ChangeSummary.cs" />
@@ -408,6 +432,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Browser\SearchResultView.resx">
       <DependentUpon>SearchResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BulkEditor\BulkEditorView.resx">
+      <DependentUpon>BulkEditorView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Editor\RoleEditorView.resx">
       <DependentUpon>RoleEditorView.cs</DependentUpon>
@@ -516,6 +543,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_bulk.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

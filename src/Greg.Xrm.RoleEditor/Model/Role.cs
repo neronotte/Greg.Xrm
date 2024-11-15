@@ -7,6 +7,7 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web.UI;
 
@@ -17,6 +18,8 @@ namespace Greg.Xrm.RoleEditor.Model
 	/// It carries around his own execution context to interact with the CRM service.
 	/// This allows to have simultaneously opened multiple roles belonging to different CRM environments.
 	/// </summary>
+
+	[DebuggerDisplay("{name}")]
 	public class Role : EntityWrapper
 	{
 

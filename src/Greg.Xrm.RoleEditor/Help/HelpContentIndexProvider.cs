@@ -25,7 +25,8 @@ namespace Greg.Xrm.RoleEditor.Help
 				{ "editor_save", "editor_save.html" },
 				{ "editor_export", "editor_export.html" },
 				{ "editor_import", "editor_import.html" },
-				{ "editor_addtosolution", "editor_addtosolution.html" }
+				{ "editor_addtosolution", "editor_addtosolution.html" },
+				{ Topics.BulkEditor, "editor_bulk.html" }
 			};
 		}
 
