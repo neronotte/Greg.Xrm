@@ -58,16 +58,6 @@ namespace Greg.Xrm.Core
 			return this.crm.Execute(request);
 		}
 
-		public Guid Register<T>(Action<T> callback)
-		{
-			throw new NotImplementedException();
-		}
-
-		public Guid Register<T>(IMessageHandler<T> callback)
-		{
-			throw new NotImplementedException();
-		}
-
 		public Entity Retrieve(string entityName, Guid id, ColumnSet columnSet)
 		{
 			return this.crm.Retrieve(entityName, id, columnSet);

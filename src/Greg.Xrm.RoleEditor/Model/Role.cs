@@ -25,7 +25,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 		private Role(Entity entity, IXrmToolboxPluginContext executionContext, TemplateForRole template) : base(entity)
 		{
-			this.ExecutionContext = executionContext;
+			this.ExecutionContext = new XrmToolboxPluginContextLoggingDecorator( executionContext);
 			this.Template = template;
 		}
 
@@ -33,7 +33,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		{
 			var preImage = ((IEntityWrapperInternal)this).GetPreImage();
 			preImage["iscustomizable"] = new BooleanManagedProperty(true);
-			this.ExecutionContext = executionContext;
+			this.ExecutionContext = new XrmToolboxPluginContextLoggingDecorator(executionContext);
 			this.Template = template;
 		}
 

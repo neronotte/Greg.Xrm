@@ -29,8 +29,7 @@ It provides a rich set of features:
 - Removed notification when applying snippet
 - Possibility to add a privilege to role in bulk
 - Possibility to check where a given role is actually used
-
-
+- Enable/disable request logging
 
 ## To-do list
 This list contains the features that are planned to be implemented in the future.

@@ -36,6 +36,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.AutoLoadRolesWhenConnectonChanges = settings.AutoLoadRolesWhenConnectonChanges;
 			this.PrivilegeClassificationForTable = settings.PrivilegeClassificationForTable?.Replace("\n", Environment.NewLine);
 			this.PrivilegeClassificationForMisc = settings.PrivilegeClassificationForMisc?.Replace("\n", Environment.NewLine);
+			this.IsRequestLoggingEnabled = settings.IsRequestLoggingEnabled;
 			this.CanConfirm = true;
 
 			this.ResetPrivilegeClassificationForTableCommand = new RelayCommand(OnResetPrivilegeClassificationForTable);
@@ -72,6 +73,11 @@ namespace Greg.Xrm.RoleEditor.Views
 			set => Set(value);
 		}
 		public bool AutoLoadRolesWhenConnectonChanges
+		{
+			get => Get<bool>();
+			set => Set(value);
+		}
+		public bool IsRequestLoggingEnabled
 		{
 			get => Get<bool>();
 			set => Set(value);
@@ -212,9 +218,12 @@ namespace Greg.Xrm.RoleEditor.Views
 			settings.UseLegacyPrivilegeIcons = this.UseLegacyIcons;
 			settings.PrivilegeClassificationForTable = this.PrivilegeClassificationForTable;
 			settings.PrivilegeClassificationForMisc = this.PrivilegeClassificationForMisc;
+			settings.IsRequestLoggingEnabled = this.IsRequestLoggingEnabled;
 			settings.Save();
 
 			this.messenger.Send(new ChangePrivilegeIcons(this.UseLegacyIcons));
+
+			RequestLogger.IsEnabled = this.IsRequestLoggingEnabled;
 
 			this.Close?.Invoke(this, EventArgs.Empty);
 		}

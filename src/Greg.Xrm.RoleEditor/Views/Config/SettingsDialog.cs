@@ -36,7 +36,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.btnResetTableGrouping.BindCommand(() => this.viewModel.ResetPrivilegeClassificationForTableCommand);
 			this.txtMiscGrouping.Bind(x => x.Text, this.viewModel, x => x.PrivilegeClassificationForMisc);
 			this.btnResetMiscGrouping.BindCommand(() => this.viewModel.ResetPrivilegeClassificationForMiscCommand);
-
+			this.chkIsRequestLoggingEnabled.Bind(x => x.Checked, this.viewModel, x => x.IsRequestLoggingEnabled);
 
 			// snippets grid
 

@@ -25,8 +25,11 @@ namespace Greg.Xrm.RoleEditor
 			this.AutoLoadRolesWhenConnectonChanges = false;
 			this.HideNotCustomizableRoles = true;
 			this.HideManagedRoles = false;
+			this.IsRequestLoggingEnabled = false;
 		}
 
+
+		public bool IsRequestLoggingEnabled { get; set; }
 
 		public bool AutoLoadRolesWhenConnectonChanges { get; set; }
 

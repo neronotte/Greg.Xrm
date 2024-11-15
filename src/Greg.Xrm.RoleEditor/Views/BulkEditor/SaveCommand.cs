@@ -7,7 +7,6 @@ using XrmToolBox.Extensibility;
 using System;
 using System.Linq;
 using Microsoft.Crm.Sdk.Messages;
-using Greg.Xrm.RoleEditor.Services;
 using XrmToolBox.Extensibility.Args;
 
 namespace Greg.Xrm.RoleEditor.Views.BulkEditor
@@ -48,8 +47,6 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 					var requestList = changes.CreateRequests();
 
-					RequestLogger.Clear();
-
 					var i = 0;
 					foreach (var kvp in requestList)
 					{
@@ -74,7 +71,6 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 								j++;
 								messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}) in blocks.{Environment.NewLine}Processing block {j}/{totalRequestCount}.{Environment.NewLine}Please wait..."));
 								messenger.Send(new StatusBarMessageEventArgs((j * 100) / totalRequestCount));
-								RequestLogger.Log(request); 
 								role.ExecutionContext.Execute(request);
 							}
 
@@ -90,7 +86,6 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 								};
 								request.Requests.AddRange(requestBlock);
 
-								RequestLogger.Log(request);
 								role.ExecutionContext.Execute(request);
 							}
 
@@ -99,7 +94,6 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 								j++;
 								messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}) in blocks.{Environment.NewLine}Processing block {j}/{totalRequestCount}.{Environment.NewLine}Please wait..."));
 								messenger.Send(new StatusBarMessageEventArgs((j * 100) / totalRequestCount));
-								RequestLogger.Log(request);
 								role.ExecutionContext.Execute(request);
 							}
 

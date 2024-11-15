@@ -10,6 +10,9 @@ namespace Greg.Xrm.RoleEditor.Services
 	{
 		static DirectoryInfo storageFolder;
 
+
+		public static bool IsEnabled { get; set; } = true;
+
 		static DirectoryInfo GetOrCreateStorageFolder()
 		{
 			if (storageFolder != null)
@@ -34,9 +37,10 @@ namespace Greg.Xrm.RoleEditor.Services
 
 		public static void Log(OrganizationRequest request)
 		{
+			if (!IsEnabled) return;
+
 			try
 			{
-
 				var fileName = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}_{request.RequestName}.JSON";
 
 				var requestJson = JsonConvert.SerializeObject(request, Formatting.Indented);

@@ -47,6 +47,10 @@
 			this.label4 = new System.Windows.Forms.Label();
 			this.chkHide1 = new System.Windows.Forms.CheckBox();
 			this.chkUseLegacyIcons = new System.Windows.Forms.CheckBox();
+			this.tabBehavior = new System.Windows.Forms.TabPage();
+			this.label9 = new System.Windows.Forms.Label();
+			this.label10 = new System.Windows.Forms.Label();
+			this.chkAutoLoad = new System.Windows.Forms.CheckBox();
 			this.tabGrouping = new System.Windows.Forms.TabPage();
 			this.btnResetTableGrouping = new System.Windows.Forms.Button();
 			this.txtTableGrouping = new System.Windows.Forms.TextBox();
@@ -80,22 +84,20 @@
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mSetNull = new System.Windows.Forms.ToolStripMenuItem();
-			this.tabBehavior = new System.Windows.Forms.TabPage();
-			this.label9 = new System.Windows.Forms.Label();
-			this.label10 = new System.Windows.Forms.Label();
-			this.chkAutoLoad = new System.Windows.Forms.CheckBox();
+			this.chkIsRequestLoggingEnabled = new System.Windows.Forms.CheckBox();
+			this.label11 = new System.Windows.Forms.Label();
 			this.tableLayout.SuspendLayout();
 			this.pnlHeader.SuspendLayout();
 			this.pnlFooter.SuspendLayout();
 			this.tableLayout2.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabUX.SuspendLayout();
+			this.tabBehavior.SuspendLayout();
 			this.tabGrouping.SuspendLayout();
 			this.tabSnippets.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.privilegeSnippetView)).BeginInit();
 			this.toolStrip1.SuspendLayout();
 			this.contextMenu.SuspendLayout();
-			this.tabBehavior.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tableLayout
@@ -304,6 +306,57 @@
 			this.chkUseLegacyIcons.Text = "Use legacy privilege icons";
 			this.chkUseLegacyIcons.UseVisualStyleBackColor = true;
 			// 
+			// tabBehavior
+			// 
+			this.tabBehavior.Controls.Add(this.label11);
+			this.tabBehavior.Controls.Add(this.chkIsRequestLoggingEnabled);
+			this.tabBehavior.Controls.Add(this.label9);
+			this.tabBehavior.Controls.Add(this.label10);
+			this.tabBehavior.Controls.Add(this.chkAutoLoad);
+			this.tabBehavior.Location = new System.Drawing.Point(4, 22);
+			this.tabBehavior.Margin = new System.Windows.Forms.Padding(0);
+			this.tabBehavior.Name = "tabBehavior";
+			this.tabBehavior.Padding = new System.Windows.Forms.Padding(10);
+			this.tabBehavior.Size = new System.Drawing.Size(966, 319);
+			this.tabBehavior.TabIndex = 4;
+			this.tabBehavior.Text = "Behavior";
+			this.tabBehavior.UseVisualStyleBackColor = true;
+			// 
+			// label9
+			// 
+			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label9.AutoSize = true;
+			this.label9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label9.Location = new System.Drawing.Point(14, 34);
+			this.label9.Name = "label9";
+			this.label9.Size = new System.Drawing.Size(525, 13);
+			this.label9.TabIndex = 6;
+			this.label9.Text = "Configure which roles are visible by default. It requires to close and reopen the" +
+    " plugin to take effect.";
+			// 
+			// label10
+			// 
+			this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.label10.AutoSize = true;
+			this.label10.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label10.Location = new System.Drawing.Point(14, 14);
+			this.label10.Name = "label10";
+			this.label10.Size = new System.Drawing.Size(90, 13);
+			this.label10.TabIndex = 5;
+			this.label10.Text = "Plugin behavior";
+			// 
+			// chkAutoLoad
+			// 
+			this.chkAutoLoad.AutoSize = true;
+			this.chkAutoLoad.Location = new System.Drawing.Point(16, 60);
+			this.chkAutoLoad.Name = "chkAutoLoad";
+			this.chkAutoLoad.Size = new System.Drawing.Size(265, 17);
+			this.chkAutoLoad.TabIndex = 4;
+			this.chkAutoLoad.Text = "Automatically load roles when connection changes";
+			this.chkAutoLoad.UseVisualStyleBackColor = true;
+			// 
 			// tabGrouping
 			// 
 			this.tabGrouping.AutoScroll = true;
@@ -324,7 +377,7 @@
 			// btnResetTableGrouping
 			// 
 			this.btnResetTableGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetTableGrouping.Location = new System.Drawing.Point(771, 451);
+			this.btnResetTableGrouping.Location = new System.Drawing.Point(754, 451);
 			this.btnResetTableGrouping.Name = "btnResetTableGrouping";
 			this.btnResetTableGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetTableGrouping.TabIndex = 5;
@@ -341,7 +394,7 @@
 			this.txtTableGrouping.Multiline = true;
 			this.txtTableGrouping.Name = "txtTableGrouping";
 			this.txtTableGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtTableGrouping.Size = new System.Drawing.Size(838, 157);
+			this.txtTableGrouping.Size = new System.Drawing.Size(821, 157);
 			this.txtTableGrouping.TabIndex = 4;
 			// 
 			// label8
@@ -351,7 +404,7 @@
 			this.label8.AutoEllipsis = true;
 			this.label8.Location = new System.Drawing.Point(13, 251);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(838, 34);
+			this.label8.Size = new System.Drawing.Size(821, 34);
 			this.label8.TabIndex = 3;
 			this.label8.Text = "The JSON dictionary below allows to configure the structure of the table privileg" +
     "es list.\r\nAny table not indicated in the configuration below will be put in a ge" +
@@ -360,7 +413,7 @@
 			// btnResetMiscGrouping
 			// 
 			this.btnResetMiscGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetMiscGrouping.Location = new System.Drawing.Point(771, 210);
+			this.btnResetMiscGrouping.Location = new System.Drawing.Point(754, 210);
 			this.btnResetMiscGrouping.Name = "btnResetMiscGrouping";
 			this.btnResetMiscGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetMiscGrouping.TabIndex = 2;
@@ -377,7 +430,7 @@
 			this.txtMiscGrouping.Multiline = true;
 			this.txtMiscGrouping.Name = "txtMiscGrouping";
 			this.txtMiscGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtMiscGrouping.Size = new System.Drawing.Size(838, 157);
+			this.txtMiscGrouping.Size = new System.Drawing.Size(821, 157);
 			this.txtMiscGrouping.TabIndex = 1;
 			// 
 			// label3
@@ -387,7 +440,7 @@
 			this.label3.AutoEllipsis = true;
 			this.label3.Location = new System.Drawing.Point(13, 10);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(838, 34);
+			this.label3.Size = new System.Drawing.Size(821, 34);
 			this.label3.TabIndex = 0;
 			this.label3.Text = resources.GetString("label3.Text");
 			// 
@@ -614,54 +667,28 @@
 			this.mSetNull.Size = new System.Drawing.Size(229, 22);
 			this.mSetNull.Text = "Remove privilege assignment";
 			// 
-			// tabBehavior
+			// chkIsRequestLoggingEnabled
 			// 
-			this.tabBehavior.Controls.Add(this.label9);
-			this.tabBehavior.Controls.Add(this.label10);
-			this.tabBehavior.Controls.Add(this.chkAutoLoad);
-			this.tabBehavior.Location = new System.Drawing.Point(4, 22);
-			this.tabBehavior.Margin = new System.Windows.Forms.Padding(0);
-			this.tabBehavior.Name = "tabBehavior";
-			this.tabBehavior.Padding = new System.Windows.Forms.Padding(10);
-			this.tabBehavior.Size = new System.Drawing.Size(966, 319);
-			this.tabBehavior.TabIndex = 4;
-			this.tabBehavior.Text = "Behavior";
-			this.tabBehavior.UseVisualStyleBackColor = true;
+			this.chkIsRequestLoggingEnabled.AutoSize = true;
+			this.chkIsRequestLoggingEnabled.Location = new System.Drawing.Point(16, 118);
+			this.chkIsRequestLoggingEnabled.Name = "chkIsRequestLoggingEnabled";
+			this.chkIsRequestLoggingEnabled.Size = new System.Drawing.Size(134, 17);
+			this.chkIsRequestLoggingEnabled.TabIndex = 7;
+			this.chkIsRequestLoggingEnabled.Text = "Enable request logging";
+			this.chkIsRequestLoggingEnabled.UseVisualStyleBackColor = true;
 			// 
-			// label9
+			// label11
 			// 
-			this.label9.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.label9.AutoSize = true;
-			this.label9.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label9.Location = new System.Drawing.Point(14, 34);
-			this.label9.Name = "label9";
-			this.label9.Size = new System.Drawing.Size(525, 13);
-			this.label9.TabIndex = 6;
-			this.label9.Text = "Configure which roles are visible by default. It requires to close and reopen the" +
-    " plugin to take effect.";
-			// 
-			// label10
-			// 
-			this.label10.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label10.AutoSize = true;
-			this.label10.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label10.Location = new System.Drawing.Point(14, 14);
-			this.label10.Name = "label10";
-			this.label10.Size = new System.Drawing.Size(90, 13);
-			this.label10.TabIndex = 5;
-			this.label10.Text = "Plugin behavior";
-			// 
-			// chkAutoLoad
-			// 
-			this.chkAutoLoad.AutoSize = true;
-			this.chkAutoLoad.Location = new System.Drawing.Point(16, 60);
-			this.chkAutoLoad.Name = "chkAutoLoad";
-			this.chkAutoLoad.Size = new System.Drawing.Size(265, 17);
-			this.chkAutoLoad.TabIndex = 4;
-			this.chkAutoLoad.Text = "Automatically load roles when connection changes";
-			this.chkAutoLoad.UseVisualStyleBackColor = true;
+			this.label11.AutoSize = true;
+			this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label11.Location = new System.Drawing.Point(14, 95);
+			this.label11.Name = "label11";
+			this.label11.Size = new System.Drawing.Size(761, 13);
+			this.label11.TabIndex = 8;
+			this.label11.Text = "Check the flag below to enable request logging. Request will be saved as json fil" +
+    "es under C:\\users\\<username\\AppData\\Local\\Greg.Xrm.RoleEditor";
 			// 
 			// SettingsDialog
 			// 
@@ -684,6 +711,8 @@
 			this.tabs.ResumeLayout(false);
 			this.tabUX.ResumeLayout(false);
 			this.tabUX.PerformLayout();
+			this.tabBehavior.ResumeLayout(false);
+			this.tabBehavior.PerformLayout();
 			this.tabGrouping.ResumeLayout(false);
 			this.tabGrouping.PerformLayout();
 			this.tabSnippets.ResumeLayout(false);
@@ -692,8 +721,6 @@
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.contextMenu.ResumeLayout(false);
-			this.tabBehavior.ResumeLayout(false);
-			this.tabBehavior.PerformLayout();
 			this.ResumeLayout(false);
 
 		}
@@ -754,5 +781,7 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.CheckBox chkAutoLoad;
+		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.CheckBox chkIsRequestLoggingEnabled;
 	}
 }

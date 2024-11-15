@@ -303,6 +303,7 @@
     <Compile Include="Model\TemplateForRole.cs" />
     <Compile Include="Model\TemplateForTable.cs" />
     <Compile Include="Model\TreeNode.cs" />
+    <Compile Include="Model\XrmToolboxPluginContextLoggingDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.Partial.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

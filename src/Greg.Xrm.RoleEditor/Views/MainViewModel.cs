@@ -39,6 +39,9 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.LoadDataButtonText = LoadButtonTextBase;
 
 
+			var settings = this.settingsProvider.GetSettings();
+			RequestLogger.IsEnabled = settings.IsRequestLoggingEnabled;
+
 			this.InitCommand = new LoadDataCommand(roleTemplateBuilder, roleRepository, businessUnitRepository);
 
 
