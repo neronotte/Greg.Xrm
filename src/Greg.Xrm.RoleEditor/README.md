@@ -24,7 +24,7 @@ It provides a rich set of features:
 
 ## Release 2
 
-- Possibility to check which roles have a given privilege
+- Possibility to search for roles having a given privilege
 - Possibility to configure auto loading of roles when connection changes
 - Removed notification when applying snippet
 - Possibility to add a privilege to role in bulk
