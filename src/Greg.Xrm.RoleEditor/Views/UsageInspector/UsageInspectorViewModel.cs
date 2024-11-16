@@ -77,7 +77,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 
 			this.messenger.Send(new WorkAsyncInfo
 			{
-				Message = "Starting inspection...",
+				Message = "Inspection started, please wait...",
 				Work = (worker, args) =>
 				{
 					var crm = this.role.ExecutionContext;

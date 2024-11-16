@@ -334,6 +334,7 @@
     <Compile Include="Views\Browser\OpenUsageInspectorCommand.cs" />
     <Compile Include="Views\Browser\RoleEventArgs.cs" />
     <Compile Include="Views\Browser\SearchByPrivilegeCommand.cs" />
+    <Compile Include="Views\Browser\SearchBySolutionCommand.cs" />
     <Compile Include="Views\Browser\SearchResultView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -577,6 +578,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\page_white_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_blue_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_first.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

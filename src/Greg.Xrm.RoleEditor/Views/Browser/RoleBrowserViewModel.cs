@@ -5,7 +5,6 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Views.Browser;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +28,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.OpenRoleCommand = new OpenRoleCommand();
 			this.OpenMultipleRolesCommand = new OpenMultipleRolesCommand();
 			this.SearchByPrivilegeCommand = new SearchByPrivilegeCommand(this, roleRepository);
+			this.SearchBySolutionCommand = new SearchBySolutionCommand(this, roleRepository);
 			this.OpenUsageInspectorCommand = new OpenUsageInspectorCommand();
 
 
@@ -178,6 +178,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		public OpenMultipleRolesCommand OpenMultipleRolesCommand { get; }
 
 		public SearchByPrivilegeCommand SearchByPrivilegeCommand { get; }
+		public SearchBySolutionCommand SearchBySolutionCommand { get; }
 
 		public OpenUsageInspectorCommand OpenUsageInspectorCommand { get; }
 	}

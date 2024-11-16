@@ -257,13 +257,35 @@ namespace Greg.Xrm.RoleEditor.Model
 				var query = new QueryExpression("role");
 				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited");
 				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
-				
+
 				var rolePrivilegeLink = query.AddLink("roleprivileges", "roleid", "roleid");
 				var privilegeLink = rolePrivilegeLink.AddLink("privilege", "privilegeid", "privilegeid");
 				privilegeLink.LinkCriteria.AddCondition("name", ConditionOperator.Equal, privilegeName);
 
 				query.AddOrder("name", OrderType.Ascending);
-				
+
+
+				// each role carries around his own execution context.
+				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));
+			}
+
+			public IReadOnlyList<Role> GetRolesBySolution(IXrmToolboxPluginContext executionContext, EntityReference solutionRef, TemplateForRole template)
+			{
+				if (executionContext == null)
+					throw new ArgumentNullException(nameof(executionContext));
+				if (solutionRef == null)
+					throw new ArgumentNullException(nameof(solutionRef));
+
+
+				var query = new QueryExpression("role");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited");
+				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
+
+				var solutioncomponent = query.AddLink("solutioncomponent", "roleid", "objectid");
+				solutioncomponent.LinkCriteria.AddCondition("solutionid", ConditionOperator.Equal, solutionRef.Id);
+
+				query.AddOrder("name", OrderType.Ascending);
+
 
 				// each role carries around his own execution context.
 				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));

@@ -6,11 +6,8 @@ using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Views.Browser;
 using Greg.Xrm.RoleEditor.Views.Messages;
-using Greg.Xrm.RoleEditor.Views.Search;
-using System;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
@@ -186,6 +183,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 
 
 			this.tSearchRoleByPrivilege.BindCommand(() => this.viewModel.SearchByPrivilegeCommand, () => this);
+			this.tSearchRoleBySolution.BindCommand(() => this.viewModel.SearchBySolutionCommand, () => this);
 			messenger.Register<SearchRoleCompleted>(m =>
 			{
 				if (m.Roles.Length == 0)

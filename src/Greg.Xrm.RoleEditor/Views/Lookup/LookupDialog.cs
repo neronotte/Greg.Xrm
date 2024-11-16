@@ -16,6 +16,9 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 		private readonly IOrganizationService crm;
 		private readonly QueryExpression query;
 
+		private int currentPage = 1;
+		private int pageToLoad = 1;
+
 		public LookupDialog(IOrganizationService crm, QueryExpression query)
 		{
 			if (crm == null)
@@ -35,10 +38,15 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 			this.query = query;
 			this.SelectedItem = null;
 
+			this.btnFirst.Enabled = false;
+			this.btnPrev.Enabled = false;
+			this.btnNext.Enabled = false;
+			this.lblPage.Text = String.Empty;
+
 			foreach (var columnName in query.ColumnSet.Columns)
 			{
 				var col = new OLVColumn();
-				col.Text = columnName;
+				col.Text = "Loading...";
 				col.Tag = columnName;
 				col.Width = 150;
 				col.AspectGetter = x =>
@@ -105,7 +113,7 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 
 		private void ExecuteQueryAsync()
 		{
-			this.grid.EmptyListMsg = "Loading, please wait...";
+			this.grid.EmptyListMsg = $"Loading page {this.pageToLoad}, please wait...";
 			this.grid.ClearObjects();
 
 
@@ -163,7 +171,7 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 			this.query.PageInfo = new PagingInfo
 			{
 				Count = 50,
-				PageNumber = 1,
+				PageNumber = this.pageToLoad,
 				PagingCookie = null,
 				ReturnTotalRecordCount = true
 			};
@@ -172,9 +180,9 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 
 			if (result.MoreRecords)
 			{
-				this.query.PageInfo.PageNumber++;
 				this.query.PageInfo.PagingCookie = result.PagingCookie;
 			}
+			this.currentPage = this.pageToLoad;
 
 			e.Result = result;
 		}
@@ -184,6 +192,7 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 		{
 			if (e.Error != null)
 			{
+				this.pageToLoad = this.currentPage;
 				this.messages.AddError(e.Error.Message);
 				this.grid.EmptyListMsg = "An error occurred while loading the data.";
 				this.grid.ClearObjects();
@@ -199,6 +208,10 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 
 			this.grid.SetObjects(result.Entities);
 			this.grid.EmptyListMsg = "No records found.";
+			this.btnFirst.Enabled = this.currentPage > 1;
+			this.btnPrev.Enabled = this.currentPage > 1;
+			this.btnNext.Enabled = result.MoreRecords;
+			this.lblPage.Text = $"Page {this.currentPage}";
 		}
 
 		private void OnCancelClick(object sender, EventArgs e)
@@ -212,6 +225,26 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 		{
 			this.DialogResult = DialogResult.OK;
 			Close();
+		}
+
+		private void btnNext_Click(object sender, EventArgs e)
+		{
+			this.pageToLoad = this.currentPage+1;
+			this.ExecuteQueryAsync();
+		}
+
+		private void btnPrev_Click(object sender, EventArgs e)
+		{
+			this.pageToLoad = this.currentPage - 1;
+			this.query.PageInfo.PagingCookie = null;
+			this.ExecuteQueryAsync();
+		}
+
+		private void btnFirst_Click(object sender, EventArgs e)
+		{
+			this.pageToLoad = 1;
+			this.query.PageInfo.PagingCookie = null;
+			this.ExecuteQueryAsync();
 		}
 	}
 }
