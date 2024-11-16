@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
 using Microsoft.Xrm.Sdk.Metadata;
+using Newtonsoft.Json;
 using System.Collections.Generic;
-using System.Text.Json.Serialization;
 
 namespace Greg.Xrm.RoleEditor.Views.Common
 {
