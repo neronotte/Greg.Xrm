@@ -22,11 +22,16 @@ namespace Greg.Xrm.RoleEditor
 			this.PrivilegeClassificationForTable = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForTable, Formatting.Indented);
 			this.PrivilegeSnippets = JsonConvert.SerializeObject(PrivilegeSnippet.DefaultSnippets, Formatting.Indented);
 			this.UseLegacyPrivilegeIcons = true;
-
+			this.AutoLoadRolesWhenConnectonChanges = false;
 			this.HideNotCustomizableRoles = true;
 			this.HideManagedRoles = false;
+			this.IsRequestLoggingEnabled = false;
 		}
 
+
+		public bool IsRequestLoggingEnabled { get; set; }
+
+		public bool AutoLoadRolesWhenConnectonChanges { get; set; }
 
 		public bool HideNotCustomizableRoles { get; set; }
 

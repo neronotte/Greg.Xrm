@@ -31,38 +31,114 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoleBrowserView));
 			this.tools = new System.Windows.Forms.ToolStrip();
+			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.tSearchText = new Greg.Xrm.Views.ToolStripBindableTextBox();
+			this.tMoreFilters = new System.Windows.Forms.ToolStripDropDownButton();
+			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.tMoreFilters_HideManagedRolesToolStripMenuItem = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tSearchRoleByPrivilege = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.tSearchRoleBySolution = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.tNew = new Greg.Xrm.Views.ToolStripBindableDropDownButton();
 			this.tNewFromBlank = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.tNewCloneCurrent = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.tNewFromBasicUser = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.tNewFromAppOpener = new Greg.Xrm.Views.ToolStripBindableMenuItem();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.tSearchText = new System.Windows.Forms.ToolStripTextBox();
-			this.tMoreFilters = new System.Windows.Forms.ToolStripDropDownButton();
-			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem = new Greg.Xrm.Views.ToolStripBindableMenuItem();
-			this.tMoreFilters_HideManagedRolesToolStripMenuItem = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.roleTree = new BrightIdeasSoftware.TreeListView();
 			this.cTreeName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.tNewCloneCurrent2 = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.tEditMultiple = new System.Windows.Forms.ToolStripMenuItem();
+			this.tInspectUsage = new System.Windows.Forms.ToolStripMenuItem();
 			this.tools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.roleTree)).BeginInit();
+			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tools
 			// 
 			this.tools.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tNew,
-            this.toolStripSeparator1,
             this.toolStripLabel1,
             this.tSearchText,
-            this.tMoreFilters});
+            this.tMoreFilters,
+            this.toolStripSeparator1,
+            this.tNew});
 			this.tools.LayoutStyle = System.Windows.Forms.ToolStripLayoutStyle.HorizontalStackWithOverflow;
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
 			this.tools.Size = new System.Drawing.Size(517, 25);
 			this.tools.TabIndex = 0;
 			this.tools.Text = "toolStrip1";
+			// 
+			// toolStripLabel1
+			// 
+			this.toolStripLabel1.AutoSize = false;
+			this.toolStripLabel1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.toolStripLabel1.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
+			this.toolStripLabel1.Name = "toolStripLabel1";
+			this.toolStripLabel1.Size = new System.Drawing.Size(22, 22);
+			this.toolStripLabel1.Text = "Search:";
+			// 
+			// tSearchText
+			// 
+			this.tSearchText.Font = new System.Drawing.Font("Segoe UI", 9F);
+			this.tSearchText.Name = "tSearchText";
+			this.tSearchText.Size = new System.Drawing.Size(150, 25);
+			this.tSearchText.Watermark = "Search role";
+			// 
+			// tMoreFilters
+			// 
+			this.tMoreFilters.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tMoreFilters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem,
+            this.tMoreFilters_HideManagedRolesToolStripMenuItem,
+            this.toolStripMenuItem1,
+            this.tSearchRoleByPrivilege,
+            this.tSearchRoleBySolution});
+			this.tMoreFilters.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.folder_explore;
+			this.tMoreFilters.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tMoreFilters.Name = "tMoreFilters";
+			this.tMoreFilters.Size = new System.Drawing.Size(29, 22);
+			this.tMoreFilters.Text = "Filter";
+			this.tMoreFilters.ToolTipText = "More filters";
+			// 
+			// tMoreFilters_HideNotCustomizableRolesToolStripMenuItem
+			// 
+			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Name = "tMoreFilters_HideNotCustomizableRolesToolStripMenuItem";
+			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Text = "Hide not customizable roles";
+			// 
+			// tMoreFilters_HideManagedRolesToolStripMenuItem
+			// 
+			this.tMoreFilters_HideManagedRolesToolStripMenuItem.Name = "tMoreFilters_HideManagedRolesToolStripMenuItem";
+			this.tMoreFilters_HideManagedRolesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+			this.tMoreFilters_HideManagedRolesToolStripMenuItem.Text = "Hide managed roles";
+			// 
+			// toolStripMenuItem1
+			// 
+			this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+			this.toolStripMenuItem1.Size = new System.Drawing.Size(218, 6);
+			// 
+			// tSearchRoleByPrivilege
+			// 
+			this.tSearchRoleByPrivilege.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.tag_blue_magnify;
+			this.tSearchRoleByPrivilege.Name = "tSearchRoleByPrivilege";
+			this.tSearchRoleByPrivilege.Size = new System.Drawing.Size(221, 22);
+			this.tSearchRoleByPrivilege.Text = "Search roles by privilege...";
+			// 
+			// tSearchRoleBySolution
+			// 
+			this.tSearchRoleBySolution.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.package_magnify;
+			this.tSearchRoleBySolution.Name = "tSearchRoleBySolution";
+			this.tSearchRoleBySolution.Size = new System.Drawing.Size(221, 22);
+			this.tSearchRoleBySolution.Text = "Search roles by solution...";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// tNew
 			// 
@@ -86,7 +162,7 @@
 			// 
 			// tNewCloneCurrent
 			// 
-			this.tNewCloneCurrent.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_stack;
+			this.tNewCloneCurrent.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_copy;
 			this.tNewCloneCurrent.Name = "tNewCloneCurrent";
 			this.tNewCloneCurrent.Size = new System.Drawing.Size(203, 22);
 			this.tNewCloneCurrent.Text = "Clone selected role";
@@ -104,49 +180,6 @@
 			this.tNewFromAppOpener.Name = "tNewFromAppOpener";
 			this.tNewFromAppOpener.Size = new System.Drawing.Size(203, 22);
 			this.tNewFromAppOpener.Text = "From \"App Opener\"";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripLabel1
-			// 
-			this.toolStripLabel1.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(61, 22);
-			this.toolStripLabel1.Text = "Search:";
-			// 
-			// tSearchText
-			// 
-			this.tSearchText.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.tSearchText.Name = "tSearchText";
-			this.tSearchText.Size = new System.Drawing.Size(150, 25);
-			// 
-			// tMoreFilters
-			// 
-			this.tMoreFilters.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tMoreFilters.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem,
-            this.tMoreFilters_HideManagedRolesToolStripMenuItem});
-			this.tMoreFilters.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.folder_explore;
-			this.tMoreFilters.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tMoreFilters.Name = "tMoreFilters";
-			this.tMoreFilters.Size = new System.Drawing.Size(29, 22);
-			this.tMoreFilters.Text = "Filter";
-			this.tMoreFilters.ToolTipText = "More filters";
-			// 
-			// tMoreFilters_HideNotCustomizableRolesToolStripMenuItem
-			// 
-			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Name = "tMoreFilters_HideNotCustomizableRolesToolStripMenuItem";
-			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Text = "Hide not customizable roles";
-			// 
-			// tMoreFilters_HideManagedRolesToolStripMenuItem
-			// 
-			this.tMoreFilters_HideManagedRolesToolStripMenuItem.Name = "tMoreFilters_HideManagedRolesToolStripMenuItem";
-			this.tMoreFilters_HideManagedRolesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-			this.tMoreFilters_HideManagedRolesToolStripMenuItem.Text = "Hide managed roles";
 			// 
 			// roleTree
 			// 
@@ -183,6 +216,36 @@
 			this.imageList1.Images.SetKeyName(1, "bu");
 			this.imageList1.Images.SetKeyName(2, "role");
 			// 
+			// contextMenu
+			// 
+			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tNewCloneCurrent2,
+            this.tEditMultiple,
+            this.tInspectUsage});
+			this.contextMenu.Name = "contextMenu";
+			this.contextMenu.Size = new System.Drawing.Size(175, 70);
+			// 
+			// tNewCloneCurrent2
+			// 
+			this.tNewCloneCurrent2.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_copy;
+			this.tNewCloneCurrent2.Name = "tNewCloneCurrent2";
+			this.tNewCloneCurrent2.Size = new System.Drawing.Size(174, 22);
+			this.tNewCloneCurrent2.Text = "Clone selected role";
+			// 
+			// tEditMultiple
+			// 
+			this.tEditMultiple.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_stack;
+			this.tEditMultiple.Name = "tEditMultiple";
+			this.tEditMultiple.Size = new System.Drawing.Size(174, 22);
+			this.tEditMultiple.Text = "Edit multiple roles";
+			// 
+			// tInspectUsage
+			// 
+			this.tInspectUsage.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.application_form_magnify;
+			this.tInspectUsage.Name = "tInspectUsage";
+			this.tInspectUsage.Size = new System.Drawing.Size(174, 22);
+			this.tInspectUsage.Text = "Inspect usage...";
+			// 
 			// RoleBrowserView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,6 +260,7 @@
 			this.tools.ResumeLayout(false);
 			this.tools.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.roleTree)).EndInit();
+			this.contextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -211,7 +275,7 @@
 		private Greg.Xrm.Views.ToolStripBindableMenuItem tNewFromBasicUser;
 		private Greg.Xrm.Views.ToolStripBindableMenuItem tNewFromAppOpener;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-		private System.Windows.Forms.ToolStripTextBox tSearchText;
+		private Greg.Xrm.Views.ToolStripBindableTextBox tSearchText;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private System.Windows.Forms.ToolStripDropDownButton tMoreFilters;
 		private Greg.Xrm.Views.ToolStripBindableMenuItem tMoreFilters_HideNotCustomizableRolesToolStripMenuItem;
@@ -219,5 +283,12 @@
 		private BrightIdeasSoftware.TreeListView roleTree;
 		private BrightIdeasSoftware.OLVColumn cTreeName;
 		private System.Windows.Forms.ImageList imageList1;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem tSearchRoleByPrivilege;
+		private System.Windows.Forms.ContextMenuStrip contextMenu;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem tNewCloneCurrent2;
+		private System.Windows.Forms.ToolStripMenuItem tEditMultiple;
+		private System.Windows.Forms.ToolStripMenuItem tInspectUsage;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem tSearchRoleBySolution;
 	}
 }

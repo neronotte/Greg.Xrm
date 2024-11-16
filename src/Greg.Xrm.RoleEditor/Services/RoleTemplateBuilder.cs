@@ -141,6 +141,7 @@ namespace Greg.Xrm.RoleEditor.Services
 "salesprocessinstance",
 "entitlementchannel",
 "entitlementtemplatechannel",
+"exchangesyncidmapping",
 "importdata",
 "importlog",
 "discounttype",

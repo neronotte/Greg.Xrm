@@ -1,4 +1,6 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Views.BulkEditor.Model;
+using Greg.Xrm.RoleEditor.Views.Common;
 using Greg.Xrm.RoleEditor.Views.Editor;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
@@ -12,10 +14,10 @@ namespace Greg.Xrm.RoleEditor.Services.Snippets
 	/// </summary>
 	public class PrivilegeSnippet : Dictionary<PrivilegeType, Level>
 	{
-        public PrivilegeSnippet(string description)
-        {
+		public PrivilegeSnippet(string description)
+		{
 			this.Description = description;
-        }
+		}
 
 		public PrivilegeSnippet()
 		{
@@ -27,16 +29,14 @@ namespace Greg.Xrm.RoleEditor.Services.Snippets
 		/// </summary>
 		public string Description { get; set; }
 
-
-
-		public static PrivilegeSnippet CreateFromTable(TableModel tableModel)
+		public static PrivilegeSnippet CreateFromTable(IPrivilegeHolder holder)
 		{
 			var snippet = new PrivilegeSnippet();
 
 			var privilegeList = Enum.GetValues(typeof(PrivilegeType));
 			foreach (PrivilegeType privilegeType in privilegeList)
 			{
-				var level = tableModel[privilegeType];
+				var level = holder[privilegeType];
 				if (level != null)
 				{
 					snippet[privilegeType] = level.Value;
@@ -47,11 +47,11 @@ namespace Greg.Xrm.RoleEditor.Services.Snippets
 		}
 
 
-		public void ApplyTo(TableModel tableModel)
+		public void ApplyTo(IPrivilegeHolder holder)
 		{
 			foreach (var kvp in this)
 			{
-				tableModel.Set(kvp.Key, kvp.Value);
+				holder[kvp.Key] = kvp.Value;
 			}
 		}
 

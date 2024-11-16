@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.Logging;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Views.Common;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk.Metadata;
 using Newtonsoft.Json;
@@ -9,7 +10,7 @@ using System.Linq;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
-	public class TableModel
+	public class TableModel : IPrivilegeHolder
 	{
 		private readonly Dictionary<PrivilegeType, Level> preImage = new Dictionary<PrivilegeType, Level>();
 		private readonly Dictionary<PrivilegeType, Level> target = new Dictionary<PrivilegeType, Level>();
@@ -168,9 +169,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		/// <returns>A string</returns>
 		public string GenerateConfigurationCommand()
 		{
-			var command = new Command();
-			command.Name = Command.CommandName;
-			command.Levels = new Dictionary<PrivilegeType, Level?>();
+			var command = PrivilegeConfigForTableMemento.CreateNew();
 			foreach (var privilegeType in this.preImage.Keys)
 			{
 				command.Levels[privilegeType] = Get(privilegeType);
@@ -184,7 +183,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		{
 			try
 			{
-				var command = JsonConvert.DeserializeObject<Command>(commandText);
+				var command = JsonConvert.DeserializeObject<PrivilegeConfigForTableMemento>(commandText);
 				if (!command.IsValid)
 					return;
 
@@ -221,21 +220,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					summary.ReplacePrivilege(template[privilegeType], original.ToPrivilegeDepth(), current.ToPrivilegeDepth());
 				}
 			}
-		}
-
-
-
-
-		class Command
-		{
-			public const string CommandName = "Greg.Xrm.RoleEditor-table";
-
-			public string Name { get; set; }
-			public Dictionary<PrivilegeType, Level?> Levels { get; set; }
-
-
-			[JsonIgnore]
-			public bool IsValid => CommandName.Equals(this.Name);
 		}
 	}
 }

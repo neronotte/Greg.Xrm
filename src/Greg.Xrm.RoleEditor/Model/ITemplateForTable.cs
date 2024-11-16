@@ -27,5 +27,11 @@ namespace Greg.Xrm.RoleEditor.Model
 		/// The logical name of the table.
 		/// </summary>
 		string LogicalName { get; }
+
+		/// <summary>
+		/// Returns the list of all the privileges that are valid for the table.
+		/// </summary>
+		/// <returns></returns>
+		IReadOnlyList<SecurityPrivilegeMetadata> GetAllPrivileges();
 	}
 }

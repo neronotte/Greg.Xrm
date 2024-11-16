@@ -4,8 +4,11 @@ using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Views.Browser;
+using Greg.Xrm.RoleEditor.Views.Messages;
 using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
@@ -15,13 +18,18 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		private readonly RoleBrowserViewModel viewModel;
 
 
-		public RoleBrowserView(ILog log, IMessenger messenger, ISettingsProvider<Settings> settingsProvider)
+		public RoleBrowserView(
+			ILog log, 
+			IMessenger messenger, 
+			ISettingsProvider<Settings> settingsProvider,
+			IRoleRepository roleRepository)
 		{
 			this.RegisterHelp(messenger, Topics.Browser);
 
 			this.DockHandler.CloseButton = false;
 			this.DockHandler.AllowEndUserDocking = false;
 			this.DockHandler.AllowEndUserDocking = false;
+
 
 			InitializeComponent();
 			this.Text = this.TabText = "Role Browser";
@@ -30,9 +38,10 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 
 			this.roleTree.UseFiltering = true;
 			this.roleTree.FullRowSelect = true;
+			this.roleTree.HideSelection = false;
 			this.cTreeName.Sortable = false;
 			this.tSearchText.Enabled = false;
-			this.viewModel = new RoleBrowserViewModel(log, messenger, settingsProvider);
+			this.viewModel = new RoleBrowserViewModel(log, messenger, settingsProvider, roleRepository);
 
 
 			this.tMoreFilters_HideNotCustomizableRolesToolStripMenuItem.Bind(
@@ -51,8 +60,6 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 
 			this.roleTree.Bind(x => x.Enabled, viewModel, vm => vm.IsEnabled);
 			this.roleTree.Bind(x => x.EmptyListMsg, this.viewModel, vm => vm.EmptyListMessage);
-
-
 
 			this.roleTree.CanExpandGetter = x =>
 			{
@@ -85,6 +92,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.tNewFromAppOpener.BindCommand(() => viewModel.NewRoleFromAppOpenerCommand);
 			this.tNewFromBasicUser.BindCommand(() => viewModel.NewRoleFromBasicUserCommand);
 			this.tNewCloneCurrent.BindCommand(() => viewModel.NewRoleFromCurrentCommand);
+			this.tNewCloneCurrent2.BindCommand(() => viewModel.NewRoleFromCurrentCommand);
 
 			this.viewModel.PropertyChanged += (s, e) =>
 			{
@@ -123,6 +131,39 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 				if (this.viewModel.SelectedRole == null) return;
 				this.viewModel.OpenRoleCommand.Execute(this.viewModel.SelectedRole);
 			};
+			this.roleTree.CellRightClick += (s, e) =>
+			{
+				var selectedRoles = this.roleTree.SelectedObjects.OfType<Role>().ToArray();
+				var environmentList = this.viewModel.GetRoleEnvironment(selectedRoles);
+
+				// the multiple edit is available only if roles to edit are in the same environment
+				this.tEditMultiple.Visible = selectedRoles.Length > 1 
+					&& selectedRoles.Length <= 10 
+					&& environmentList.Length == 1;
+				this.tNewCloneCurrent2.Visible = selectedRoles.Length == 1;
+				this.tInspectUsage.Visible = selectedRoles.Length == 1;
+
+				this.contextMenu.Show(this.roleTree, e.Location);
+			};
+			this.tEditMultiple.Click += (s, e) =>
+			{
+				var roles = this.roleTree.SelectedObjects.OfType<Role>().ToArray();
+				if (roles.Length == 0) return;
+				if (roles.Length == 1)
+				{
+					this.viewModel.OpenRoleCommand.Execute(this.viewModel.SelectedRole);
+					return;
+				}
+
+				this.viewModel.OpenMultipleRolesCommand.Execute(roles);
+			};
+			this.tInspectUsage.Click += (s, e) =>
+			{
+				var roles = this.roleTree.SelectedObjects.OfType<Role>().ToArray();
+				if (roles.Length == 0) return;
+				this.viewModel.OpenUsageInspectorCommand.Execute(roles[0]);
+
+			};
 
 			this.tSearchText.KeyUp += (s, e) =>
 			{
@@ -139,6 +180,49 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			textOverlay.BorderColor = Color.White;
 			textOverlay.BorderWidth = 1f;
 			textOverlay.Font = new Font(this.Font.FontFamily, 12f);
+
+
+			this.tSearchRoleByPrivilege.BindCommand(() => this.viewModel.SearchByPrivilegeCommand, () => this);
+			this.tSearchRoleBySolution.BindCommand(() => this.viewModel.SearchBySolutionCommand, () => this);
+			messenger.Register<SearchRoleCompleted>(m =>
+			{
+				if (m.Roles.Length == 0)
+				{
+					MessageBox.Show(this, "No roles found.", "Search", MessageBoxButtons.OK, MessageBoxIcon.Information);
+					return;
+				}
+
+				this.tools.Visible = false;
+				this.roleTree.Visible = false;
+
+				var control = new SearchResultView();
+				control.SearchDescription = m.SearchDescription;
+				control.Roles = m.Roles;
+				control.Dock = DockStyle.Fill;
+				control.SelectedRolesChanged += (s, e) =>
+				{
+					this.viewModel.SelectedRole = control.SelectedRoles.FirstOrDefault();
+				};
+				control.RoleDoubleClicked += (s, e) =>
+				{
+					this.viewModel.OpenRoleCommand.Execute(e.Role);
+				};
+				this.Controls.Add(control);
+
+				control.BackClicked += (s, e) =>
+				{
+					this.tools.Visible = true;
+					this.roleTree.Visible = true;
+					this.Controls.Remove(control);
+					control.Dispose();
+				};
+
+				control.CloneSelectedRoleClicked += (s, e) =>
+				{
+					this.viewModel.SelectedRole = e.Role;
+					this.viewModel.NewRoleFromCurrentCommand.Execute(null);
+				};
+			});
 		}
 
 

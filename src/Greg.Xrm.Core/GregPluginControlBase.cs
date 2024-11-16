@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Greg.Xrm.Core.Views;
+using Greg.Xrm.Messaging;
+using System;
 using System.ComponentModel.Composition;
 using System.Linq;
 using XrmToolBox.Extensibility;
@@ -33,6 +35,11 @@ namespace Greg.Xrm
 			}
 
 			return "Donation for your contribution to the XrmToolbox community!";
+		}
+
+		protected void Register(IMessenger messenger)
+		{
+			messenger.Register<SetWorkingMessage>(m => this.SetWorkingMessage(m.Message, m.Width, m.Heigth));
 		}
 	}
 }

@@ -286,8 +286,11 @@
     <Compile Include="Help\Topics.cs" />
     <Compile Include="Model\BusinessUnit.cs" />
     <Compile Include="Model\DataverseEnvironment.cs" />
+    <Compile Include="Model\DependencyList.cs" />
     <Compile Include="Model\Extensions.cs" />
     <Compile Include="Model\IBusinessUnitRepository.cs" />
+    <Compile Include="Model\IChangeOperation.cs" />
+    <Compile Include="Model\IDependencyRepository.cs" />
     <Compile Include="Model\IRoleRepository.cs" />
     <Compile Include="Model\ITemplateForTable.cs" />
     <Compile Include="Model\Privilege.cs" />
@@ -299,6 +302,8 @@
     <Compile Include="Model\TemplateForGenericPrivilege.cs" />
     <Compile Include="Model\TemplateForRole.cs" />
     <Compile Include="Model\TemplateForTable.cs" />
+    <Compile Include="Model\TreeNode.cs" />
+    <Compile Include="Model\XrmToolboxPluginContextLoggingDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.Partial.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
@@ -306,10 +311,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Services\ComponentResolvers\ComponentResolverFactory.cs" />
+    <Compile Include="Services\ComponentResolvers\IComponentResolver.cs" />
+    <Compile Include="Services\ComponentResolvers\IComponentResolverFactory.cs" />
+    <Compile Include="Services\ComponentResolvers\ResolverByQuery.cs" />
+    <Compile Include="Services\ComponentResolvers\ResolverForSystemForms.cs" />
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\IPrivilegeClassificationProvider.cs" />
     <Compile Include="Services\MarkdownWriter.cs" />
     <Compile Include="Services\PrivilegeClassificationProvider.cs" />
+    <Compile Include="Services\RequestLogger.cs" />
     <Compile Include="Services\RoleTemplateBuilder.cs" />
     <Compile Include="Services\Snippets\IPrivilegeSnippetRepository.cs" />
     <Compile Include="Services\Snippets\PrivilegeSnippet.cs" />
@@ -319,32 +330,65 @@
     <Compile Include="Views\Browser\NewRoleCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromCurrentCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromExistingCommand.cs" />
+    <Compile Include="Views\Browser\OpenMultipleRolesCommand.cs" />
+    <Compile Include="Views\Browser\OpenUsageInspectorCommand.cs" />
+    <Compile Include="Views\Browser\RoleEventArgs.cs" />
+    <Compile Include="Views\Browser\SearchByPrivilegeCommand.cs" />
+    <Compile Include="Views\Browser\SearchBySolutionCommand.cs" />
+    <Compile Include="Views\Browser\SearchResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Browser\SearchResultView.Designer.cs">
+      <DependentUpon>SearchResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkChangeSummary.cs" />
+    <Compile Include="Views\BulkEditor\BulkEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkEditorView.Designer.cs">
+      <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkEditorViewModel.cs" />
+    <Compile Include="Views\BulkEditor\IBulkChangeOperation.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkGroupModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkMiscModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkTableModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\IEditorChild.cs" />
+    <Compile Include="Views\BulkEditor\SaveCommand.cs" />
+    <Compile Include="Views\Common\IPrivilegeHolder.cs" />
+    <Compile Include="Views\Common\IReadOnlyList.cs" />
+    <Compile Include="Views\Common\PasteSnippetCommand.cs" />
+    <Compile Include="Views\Common\PrivilegeConfigForMiscMemento.cs" />
+    <Compile Include="Views\Common\PrivilegeConfigForTableMemento.cs" />
+    <Compile Include="Views\Common\PrivilegeColumnExtensions.cs" />
+    <Compile Include="Views\Common\PrivilegeColumnTag.cs" />
+    <Compile Include="Views\Common\SaveSnippetCommand.cs" />
     <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
+    <Compile Include="Views\Editor\ChangeSummary.cs" />
     <Compile Include="Views\Editor\Excel\Constants.cs" />
     <Compile Include="Views\Editor\Excel\ExcelExtensions.cs" />
     <Compile Include="Views\Editor\Excel\ExcelMap.cs" />
     <Compile Include="Views\Editor\Excel\ExportExcelCommand.cs" />
     <Compile Include="Views\Editor\Excel\ImportExcelCommand.cs" />
     <Compile Include="Views\Editor\ExportMarkdownCommand.cs" />
+    <Compile Include="Views\Editor\Model\RoleModel.cs" />
+    <Compile Include="Views\Editor\RoleEditorViewModel.cs" />
     <Compile Include="Views\LoadDataCommand.cs" />
     <Compile Include="Views\Messages\ChangePrivilegeIcons.cs" />
     <Compile Include="Views\Messages\ConnectionUpdated.cs" />
     <Compile Include="Views\Editor\ChangeBusinessUnitCommand.cs" />
-    <Compile Include="Views\Editor\ChangeSummary.cs" />
     <Compile Include="Views\Editor\Model\MiscGroupModel.cs" />
     <Compile Include="Views\Editor\Model\MiscModel.cs" />
     <Compile Include="Views\Editor\Model\TableGroupModel.cs" />
     <Compile Include="Views\Editor\IsInheritedValue.cs" />
     <Compile Include="Model\Level.cs" />
-    <Compile Include="Views\Editor\Model\RoleModel.cs" />
     <Compile Include="Views\Editor\RoleEditorView.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Editor\RoleEditorView.Designer.cs">
       <DependentUpon>RoleEditorView.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Editor\RoleEditorViewModel.cs" />
     <Compile Include="Views\Editor\Model\TableModel.cs" />
     <Compile Include="Views\Editor\SaveCommand.cs" />
     <Compile Include="Views\Lookup\LookupDialog.cs">
@@ -362,6 +406,7 @@
     <Compile Include="Views\MainViewModel.cs" />
     <Compile Include="Views\Messages\Freeze.cs" />
     <Compile Include="Views\Messages\OpenRoleView.cs" />
+    <Compile Include="Views\Messages\OpenUsageInspector.cs" />
     <Compile Include="Views\Messages\RefreshRoleBrowser.cs" />
     <Compile Include="Views\Messages\RoleListLoaded.cs" />
     <Compile Include="Views\Browser\OpenRoleCommand.cs" />
@@ -379,14 +424,41 @@
       <DependentUpon>SettingsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Config\SettingsViewModel.cs" />
+    <Compile Include="Views\Messages\SearchRoleCompleted.cs" />
+    <Compile Include="Views\Search\EditableComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Search\SearchByPrivilegeCommand.cs" />
+    <Compile Include="Views\Search\SearchByPrivilegeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Search\SearchByPrivilegeDialog.Designer.cs">
+      <DependentUpon>SearchByPrivilegeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\SearchByPrivilegeViewModel.cs" />
+    <Compile Include="Model\Dependency.cs" />
+    <Compile Include="Views\UsageInspector\UsageInspectorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UsageInspector\UsageInspectorView.Designer.cs">
+      <DependentUpon>UsageInspectorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsageInspector\UsageInspectorViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Browser\SearchResultView.resx">
+      <DependentUpon>SearchResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BulkEditor\BulkEditorView.resx">
+      <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Editor\RoleEditorView.resx">
       <DependentUpon>RoleEditorView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Lookup\LookupDialog.resx">
       <DependentUpon>LookupDialog.cs</DependentUpon>
@@ -399,6 +471,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Config\SettingsDialog.resx">
       <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Search\SearchByPrivilegeDialog.resx">
+      <DependentUpon>SearchByPrivilegeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UsageInspector\UsageInspectorView.resx">
+      <DependentUpon>UsageInspectorView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -485,6 +563,36 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\editor_import.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_bulk.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\inspector.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\application_form_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_blue_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_first.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_next.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -42,8 +42,14 @@ namespace Greg.Xrm.Core.Views
 				catch { }
 #pragma warning restore S2486 // Generic exceptions should not be ignored
 			};
-			timer.Elapsed += (s, e) => BeginInvoke(closeAll);
-
+			timer.Elapsed += (s, e) =>
+			{
+				try
+				{
+					BeginInvoke(closeAll);
+				}
+				catch { }
+			};
 
 			if (icon != null)
 			{

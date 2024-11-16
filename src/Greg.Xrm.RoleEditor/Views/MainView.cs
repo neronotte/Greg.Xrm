@@ -9,8 +9,10 @@ using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
+using Greg.Xrm.RoleEditor.Views.BulkEditor;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
+using Greg.Xrm.RoleEditor.Views.UsageInspector;
 using Greg.Xrm.Theming;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
@@ -31,11 +33,12 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly IAsyncJobScheduler scheduler;
 		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
 		private readonly IPrivilegeSnippetRepository privilegeSnippetRepository;
+		private readonly IDependencyRepository dependencyRepository;
 
 		private readonly MainViewModel viewModel;
 
 		private readonly OutputView outputView;
-		private readonly Dictionary<Role, Editor.RoleEditorView> roleViewDict = new Dictionary<Role, Editor.RoleEditorView>();
+		private readonly Dictionary<Role, DockContent> roleViewDict = new Dictionary<Role, DockContent>();
 		private readonly ISettingsProvider<Settings> settingsProvider;
 
 		public MainView(ISettingsProvider<Settings> settingsProvider, IThemeProvider themeProvider)
@@ -48,6 +51,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.dockPanel.CustomizaFloatWindow(x => x.MakeResizable().AllowAltTab());
 
 			this.messenger = new Messenger(this);
+			Register(messenger);
 			this.outputView = new OutputView(themeProvider, messenger);
 
 
@@ -55,14 +59,22 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.settingsProvider = settingsProvider;
 			var privilegeRepository = new Privilege.Repository();
 			var roleRepository = new Role.Repository(this.outputView, this.messenger);
-			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
+			this.dependencyRepository = new Dependency.Repository(this.outputView);
 			var businessUnitRepository = new BusinessUnit.Repository();
+
+			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
 			this.privilegeClassificationProvider = new PrivilegeClassificationProvider(settingsProvider);
 			this.privilegeSnippetRepository = new PrivilegeSnippetRepository(outputView, settingsProvider);
 
 			// ui initialization
 
-			this.viewModel = new MainViewModel(this.outputView, this.messenger, roleTemplateBuilder, roleRepository, businessUnitRepository);
+			this.viewModel = new MainViewModel(
+				this.outputView, 
+				this.messenger, 
+				settingsProvider,
+				roleTemplateBuilder, 
+				roleRepository, 
+				businessUnitRepository);
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
 			this.messenger.RegisterJobScheduler(scheduler);
 
@@ -78,7 +90,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;
 
-			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider);
+			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider, roleRepository);
 			roleBrowserView.Show(this.dockPanel, DockState.DockLeft);
 
 
@@ -101,6 +113,13 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.messenger.Register<ShowHelp>(m =>
 			{
 				helpView.Show();
+			});
+
+
+			this.messenger.Register<OpenUsageInspector>(m =>
+			{
+				var view = new UsageInspectorView(this.dependencyRepository, m.Role);
+				view.Show(this.dockPanel, DockState.Document);
 			});
 		}
 
@@ -131,20 +150,44 @@ namespace Greg.Xrm.RoleEditor.Views
 		{
 			lock(this.syncRoot)
 			{
-				var editor = new Editor.RoleEditorView(
-					this.settingsProvider,
-					this.privilegeSnippetRepository,
-					this.privilegeClassificationProvider,
-					e.Role);
-				this.roleViewDict[e.Role] = editor;
-				editor.Show(this.dockPanel, DockState.Document);
+				if (e.Roles.Length == 1)
+				{
+					var editor = new Editor.RoleEditorView(
+						this.settingsProvider,
+						this.privilegeSnippetRepository,
+						this.privilegeClassificationProvider,
+						e.Roles[0]);
+
+					foreach (var role in e.Roles)
+					{
+						this.roleViewDict[role] = editor;
+					}
+
+					editor.Show(this.dockPanel, DockState.Document);
+				}
+				else
+				{
+					var editor = new BulkEditorView(
+						this.settingsProvider,
+						this.privilegeSnippetRepository,
+						this.privilegeClassificationProvider,
+						e.Roles);
+
+					foreach (var role in e.Roles)
+					{
+						this.roleViewDict[role] = editor;
+					}
+
+					editor.Show(this.dockPanel, DockState.Document);
+				}			
 			}
 		}
+
 		private void OnShowRoleRequested(object sender, OpenRoleView e)
 		{
 			lock (this.syncRoot)
 			{
-				if (!this.roleViewDict.TryGetValue(e.Role, out var editor)) return;
+				if (!this.roleViewDict.TryGetValue(e.Roles[0], out var editor)) return;
 				editor.Show(this.dockPanel, DockState.Document);
 			}
 		}
@@ -153,7 +196,10 @@ namespace Greg.Xrm.RoleEditor.Views
 		{
 			lock(this.syncRoot)
 			{
-				this.roleViewDict.Remove(e.Role);
+				foreach (var role in e.Roles)
+				{
+					this.roleViewDict.Remove(role);
+				}
 			}
 		}
 

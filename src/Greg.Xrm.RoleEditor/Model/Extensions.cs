@@ -48,7 +48,7 @@ namespace Greg.Xrm.RoleEditor
 		}
 		public static PrivilegeDepth? ToPrivilegeDepth(this Level level)
 		{
-			switch(level)
+			switch (level)
 			{
 				case Level.None:
 					return null;
@@ -63,6 +63,10 @@ namespace Greg.Xrm.RoleEditor
 				default:
 					return null;
 			}
+		}
+		public static PrivilegeDepth? ToPrivilegeDepth(this Level? level)
+		{
+			return !level.HasValue ? null : ToPrivilegeDepth(level.Value);
 		}
 	}
 }

@@ -18,13 +18,12 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 		{
 			this.viewModel = viewModel;
 
-			this.viewModel
-				.WhenChanges(() => this.viewModel.IsEnabled)
-				.Execute(_ => SetCanExecute());
-
-			this.viewModel
-				.WhenChanges(() => this.viewModel.IsCustomizable)
-				.Execute(_ => SetCanExecute());
+			this.viewModel.PropertyChanged += (s, e) => {
+				if (e.PropertyName == nameof(this.viewModel.IsEnabled) 
+					|| e.PropertyName == nameof(this.viewModel.IsCustomizable)) {
+					SetCanExecute();
+				}
+			};
 		}
 
 		private void SetCanExecute()
@@ -36,8 +35,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 
 		protected override void ExecuteInternal(object arg)
 		{
-			var m = viewModel.Model;
-			var context = viewModel.Model.GetContext();
+			if (!(viewModel.Model is RoleModel m))
+				return;
+			var context = m.GetContext();
 			var messenger = context.Messenger;
 			var log = context.Log;
 
@@ -104,7 +104,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 
 		private ExcelMap ImportExcelFile(string fileName)
 		{
-			var m = viewModel.Model;
 			var context = viewModel.Model.GetContext();
 			var log = context.Log;
 

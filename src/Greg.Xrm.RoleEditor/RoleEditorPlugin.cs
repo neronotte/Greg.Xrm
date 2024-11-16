@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Info;
+using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views;
 using OfficeOpenXml;
 using System;
@@ -28,6 +29,7 @@ namespace Greg.Xrm.RoleEditor
 		public override IXrmToolBoxPluginControl GetControl()
 		{
 			ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+			RequestLogger.Clear();
 
 			var settingsProvider = new SettingsProvider<Settings, RoleEditorPlugin>();
 			var themeProvider = new Theming.ThemeProvider();

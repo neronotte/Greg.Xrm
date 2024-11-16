@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.Logging;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Views.Common;
 using Microsoft.Crm.Sdk.Messages;
 using Newtonsoft.Json;
 using System;
@@ -92,7 +93,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private Level Get()
 		{
-			return target.HasValue ? target.Value : preImage;
+			return target ?? preImage;
 		}
 
 		private void Set(Level value)
@@ -112,9 +113,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		public string GenerateConfigurationCommand()
 		{
-			var command = new Command();
-			command.Name = Command.CommandName;
-			command.Level = Get();
+			var command = PrivilegeConfigForMiscMemento.CreateNew();
+			command.Level = this.Value;
 			return JsonConvert.SerializeObject(command);
 		}
 
@@ -122,33 +122,16 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		{
 			try
 			{
-				var command = JsonConvert.DeserializeObject<Command>(commandText);
+				var command = JsonConvert.DeserializeObject<PrivilegeConfigForMiscMemento>(commandText);
 				if (!command.IsValid)
 					return;
 
-				Set(command.Level);
+				if (command.Level == null) return;
+				Set(command.Level.Value);
 			}
 			catch (Exception ex)
 			{
 				log.Error("Error while applying the configuration command: " + ex.Message, ex);
-			}
-		}
-
-
-		class Command
-		{
-			public const string CommandName = "Greg.Xrm.RoleEditor-misc";
-
-			public string Name { get; set; }
-			public Level Level { get; set; }
-
-			[Newtonsoft.Json.JsonIgnore]
-			public bool IsValid
-			{
-				get
-				{
-					return CommandName.Equals(this.Name);
-				}
 			}
 		}
 	}
