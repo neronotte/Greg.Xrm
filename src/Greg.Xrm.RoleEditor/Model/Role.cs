@@ -205,7 +205,13 @@ namespace Greg.Xrm.RoleEditor.Model
 
 
 
+		public override string ToString()
+		{
+			if (this.ExecutionContext == null)
+				return this.name;
 
+			return $"{this.name} ({this.ExecutionContext.Details.ConnectionName})";
+		}
 
 
 

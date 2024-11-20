@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Core.Views;
+using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
@@ -9,7 +10,6 @@ using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using System;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
@@ -21,6 +21,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly TemplateForRole template;
 
 		public RoleEditorViewModel(
+			IMessenger messenger,
 			IPrivilegeSnippetRepository snippetRepository,
 			IPrivilegeClassificationProvider privilegeClassificationProvider,
 			Role role)
@@ -66,7 +67,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.BindModel();
 			this.RefreshSaveCommand();
 
-			var messenger = this.role.ExecutionContext.Messenger;
 			messenger.Register<Freeze>(m => IsEnabled = false);
 			messenger.Register<Unfreeze>(m => IsEnabled = true);
 		}

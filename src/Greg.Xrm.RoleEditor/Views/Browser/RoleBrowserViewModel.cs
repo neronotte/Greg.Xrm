@@ -3,6 +3,7 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Views.Browser;
+using Greg.Xrm.RoleEditor.Views.Comparer;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using System.Collections.Generic;
@@ -30,7 +31,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.SearchByPrivilegeCommand = new SearchByPrivilegeCommand(this, roleRepository);
 			this.SearchBySolutionCommand = new SearchBySolutionCommand(this, roleRepository);
 			this.OpenUsageInspectorCommand = new OpenUsageInspectorCommand();
-
+			this.CompareRolesCommand = new CompareRolesCommand();
 
 			var settings = settingsProvider.GetSettings();
 			this.ShouldHideManagedRoles = settings.HideManagedRoles;
@@ -181,5 +182,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		public SearchBySolutionCommand SearchBySolutionCommand { get; }
 
 		public OpenUsageInspectorCommand OpenUsageInspectorCommand { get; }
+
+		public CompareRolesCommand CompareRolesCommand { get; }
 	}
 }

@@ -7,5 +7,6 @@
 		public static string Editor => "editor";
 		public static string BulkEditor => "editor_bulk";
 		public static string Inspector => "inspector";
+		public static string Comparer => "comparer";
 	}
 }

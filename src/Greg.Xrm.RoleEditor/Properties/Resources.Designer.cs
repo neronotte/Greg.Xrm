@@ -273,6 +273,16 @@ namespace Greg.Xrm.RoleEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap table_relationship {
+            get {
+                object obj = ResourceManager.GetObject("table_relationship", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap tag_blue_magnify {
             get {
                 object obj = ResourceManager.GetObject("tag_blue_magnify", resourceCulture);

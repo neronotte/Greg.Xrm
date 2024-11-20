@@ -26,13 +26,9 @@ namespace Greg.Xrm.RoleEditor
 			if (nextValue == Level.Organization && privilegeMetadata.CanBeGlobal) return true;
 			return false;
 		}
-
-
-		public static Level GetLevel(this RolePrivilege rolePrivilege)
+		public static Level GetLevel(this PrivilegeDepth? depth)
 		{
-			if (rolePrivilege == null) return Level.None;
-
-			var depth = rolePrivilege.Depth;
+			if (depth == null) return Level.None;
 			switch (depth)
 			{
 				case PrivilegeDepth.Basic:
@@ -45,6 +41,12 @@ namespace Greg.Xrm.RoleEditor
 					return Level.Organization;
 			}
 			return Level.None;
+		}
+
+		public static Level GetLevel(this RolePrivilege rolePrivilege)
+		{
+			if (rolePrivilege == null) return Level.None;
+			return GetLevel(rolePrivilege.Depth);
 		}
 		public static PrivilegeDepth? ToPrivilegeDepth(this Level level)
 		{

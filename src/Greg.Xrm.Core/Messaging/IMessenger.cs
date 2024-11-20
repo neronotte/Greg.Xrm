@@ -13,5 +13,8 @@ namespace Greg.Xrm.Messaging
 		Guid Register<T>(IMessageHandler<T> callback);
 
 		void Unregister(Guid registrationId);
+
+
+		IScopedMessenger CreateScope();
 	}
 }

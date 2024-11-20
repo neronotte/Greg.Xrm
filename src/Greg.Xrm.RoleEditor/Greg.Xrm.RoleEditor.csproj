@@ -360,6 +360,17 @@
     <Compile Include="Views\Common\PrivilegeColumnExtensions.cs" />
     <Compile Include="Views\Common\PrivilegeColumnTag.cs" />
     <Compile Include="Views\Common\SaveSnippetCommand.cs" />
+    <Compile Include="Views\Comparer\CompareRolesCommand.cs" />
+    <Compile Include="Views\Comparer\ExportExcelCommand.cs" />
+    <Compile Include="Views\Comparer\PrivilegeDifference.cs" />
+    <Compile Include="Views\Comparer\RoleComparer.cs" />
+    <Compile Include="Views\Comparer\RoleComparerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Comparer\RoleComparerView.Designer.cs">
+      <DependentUpon>RoleComparerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Comparer\RoleComparisonResult.cs" />
     <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
     <Compile Include="Views\Editor\ChangeSummary.cs" />
@@ -452,6 +463,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BulkEditor\BulkEditorView.resx">
       <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Comparer\RoleComparerView.resx">
+      <DependentUpon>RoleComparerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Editor\RoleEditorView.resx">
       <DependentUpon>RoleEditorView.cs</DependentUpon>
@@ -590,6 +604,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\resultset_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_relationship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\comparer.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

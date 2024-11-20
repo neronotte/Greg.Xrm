@@ -10,6 +10,7 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.BulkEditor;
+using Greg.Xrm.RoleEditor.Views.Comparer;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
 using Greg.Xrm.RoleEditor.Views.UsageInspector;
@@ -19,6 +20,7 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility.Args;
 using XrmToolBox.Extensibility.Interfaces;
@@ -119,6 +121,12 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.messenger.Register<OpenUsageInspector>(m =>
 			{
 				var view = new UsageInspectorView(this.dependencyRepository, m.Role);
+				view.Show(this.dockPanel, DockState.Document);
+			});
+
+			this.messenger.Register<RoleComparisonResult>(m =>
+			{
+				var view = new RoleComparerView(this.settingsProvider, m);
 				view.Show(this.dockPanel, DockState.Document);
 			});
 		}

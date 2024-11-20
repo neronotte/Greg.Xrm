@@ -18,10 +18,8 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 {
 	public class UsageInspectorViewModel : ViewModel, INotificationProvider, IDisposable
 	{
-		private readonly List<Guid> registrations = new List<Guid>();
-
 		private readonly ILog log;
-		private readonly IMessenger messenger;
+		private readonly IScopedMessenger messenger;
 		private readonly IDependencyRepository dependencyRepository;
 		private readonly Role role;
 		private bool disposedValue;
@@ -32,16 +30,14 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
         {
 			this.dependencyRepository = dependencyRepository;
 			this.role = role;
-			this.messenger = role.ExecutionContext.Messenger;
+			this.messenger = role.ExecutionContext.Messenger.CreateScope();
 			this.log = role.ExecutionContext.Log;
 			this.IsEnabled = true;
 
 			this.StartInspectionCommand = new RelayCommand(StartInspection, CanStartInspection);
 
-			var r1 = this.messenger.Register<Freeze>(m => this.IsEnabled = false);
-			var r2 = this.messenger.Register<Unfreeze>(m => this.IsEnabled = true);
-			registrations.Add(r1);
-			registrations.Add(r2);
+			this.messenger.Register<Freeze>(m => this.IsEnabled = false);
+			this.messenger.Register<Unfreeze>(m => this.IsEnabled = true);
 
 
 			this.WhenChanges(() => IsEnabled).Refresh(StartInspectionCommand);
@@ -291,11 +287,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 			{
 				if (disposing)
 				{
-					foreach (var id in this.registrations)
-					{
-						this.messenger.Unregister(id);
-					}
-					this.registrations.Clear();
+					this.messenger.Dispose();
 				}
 				disposedValue = true;
 			}
