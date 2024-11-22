@@ -9,6 +9,7 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace Greg.Xrm.RoleEditor.Views
@@ -20,7 +21,7 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly ILog log;
 		private readonly IMessenger messenger;
 		private readonly ISettingsProvider<Settings> settingsProvider;
-		private readonly List<Role> rolesCurrentlyOpened = new List<Role>();
+		private readonly List<Guid> rolesCurrentlyOpened = new List<Guid>();
 
 
 
@@ -31,7 +32,8 @@ namespace Greg.Xrm.RoleEditor.Views
 			ISettingsProvider<Settings> settingsProvider,
 			RoleTemplateBuilder roleTemplateBuilder,
 			IRoleRepository roleRepository,
-			IBusinessUnitRepository businessUnitRepository)
+			IBusinessUnitRepository businessUnitRepository,
+			ISystemUserRepository systemUserRepository)
 		{
 			this.log = log;
 			this.messenger = messenger;
@@ -42,7 +44,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			var settings = this.settingsProvider.GetSettings();
 			RequestLogger.IsEnabled = settings.IsRequestLoggingEnabled;
 
-			this.InitCommand = new LoadDataCommand(roleTemplateBuilder, roleRepository, businessUnitRepository);
+			this.InitCommand = new LoadDataCommand(roleTemplateBuilder, roleRepository, businessUnitRepository, systemUserRepository);
 
 
 			this.messenger.Register<OpenRoleView>(OnOpenRoleRequested);
@@ -104,7 +106,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			{
 				var role = message.Roles[0];
 
-				if (this.rolesCurrentlyOpened.Contains(role))
+				if (this.rolesCurrentlyOpened.Contains(role.Id))
 				{
 					// we should highlight the panel of the role if it is already opened
 					this.log.Debug("Role editor highlighted for: " + role.name);
@@ -112,7 +114,7 @@ namespace Greg.Xrm.RoleEditor.Views
 				}
 				else
 				{
-					this.rolesCurrentlyOpened.Add(role);
+					this.rolesCurrentlyOpened.Add(role.Id);
 
 					this.log.Debug($"Role editor opened for <{role.name}>. Total #roles opened: {this.rolesCurrentlyOpened.Count}");
 					OpenRoleRequested?.Invoke(this, message);
@@ -121,7 +123,7 @@ namespace Greg.Xrm.RoleEditor.Views
 				return;
 			}
 
-			var alreadyOpenedRole = Array.Find(message.Roles, x => this.rolesCurrentlyOpened.Contains(x));
+			var alreadyOpenedRole = Array.Find(message.Roles, x => this.rolesCurrentlyOpened.Contains(x.Id));
 			if (alreadyOpenedRole != null)
 			{
 				MessageBox.Show($"The role <{alreadyOpenedRole.name}> is already opened, cannot launch multiple edit.", "Role Editor", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -131,7 +133,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			}
 
 
-			this.rolesCurrentlyOpened.AddRange(message.Roles);
+			this.rolesCurrentlyOpened.AddRange(message.Roles.Select(x => x.Id));
 			this.log.Debug($"Role editor opened for multiple edit: <{message.Roles.Length}> roles will be affected. Total #roles opened: {this.rolesCurrentlyOpened.Count}");
 			OpenRoleRequested?.Invoke(this, message);
 		}
@@ -140,11 +142,11 @@ namespace Greg.Xrm.RoleEditor.Views
 		public event EventHandler<CloseRoleView> CloseRoleRequested;
 		private void OnCloseRoleRequested(CloseRoleView message)
 		{
-			foreach (var role in message.Roles)
+			foreach (var roleId in message.Roles.Select(x => x.Id))
 			{
-				if (!this.rolesCurrentlyOpened.Contains(role)) continue;
+				if (!this.rolesCurrentlyOpened.Contains(roleId)) continue;
 
-				this.rolesCurrentlyOpened.Remove(role);
+				this.rolesCurrentlyOpened.Remove(roleId);
 				CloseRoleRequested?.Invoke(this, message);
 			}
 

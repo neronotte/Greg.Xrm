@@ -289,12 +289,14 @@
     <Compile Include="Model\IChangeOperation.cs" />
     <Compile Include="Model\IDependencyRepository.cs" />
     <Compile Include="Model\IRoleRepository.cs" />
+    <Compile Include="Model\ISystemUserRepository.cs" />
     <Compile Include="Model\ITemplateForTable.cs" />
     <Compile Include="Model\Privilege.cs" />
     <Compile Include="Model\PrivilegeClassification.cs" />
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\RoleInheritance.cs" />
     <Compile Include="Model\RoleName.cs" />
+    <Compile Include="Model\SystemUser.cs" />
     <Compile Include="Model\TemplateForTableSet.cs" />
     <Compile Include="Model\TemplateForGenericPrivilege.cs" />
     <Compile Include="Model\TemplateForRole.cs" />
@@ -452,6 +454,17 @@
       <DependentUpon>UsageInspectorView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UsageInspector\UsageInspectorViewModel.cs" />
+    <Compile Include="Views\UserBrowser\Loader.cs" />
+    <Compile Include="Views\UserBrowser\OpenRoleFromUserCommand.cs" />
+    <Compile Include="Views\UserBrowser\RefreshUserEventArgs.cs" />
+    <Compile Include="Views\UserBrowser\UserBrowserView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserBrowser\UserBrowserView.Designer.cs">
+      <DependentUpon>UserBrowserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserBrowser\UserBrowserViewModel.cs" />
+    <Compile Include="Views\UserBrowser\UserGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -488,6 +501,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UsageInspector\UsageInspectorView.resx">
       <DependentUpon>UsageInspectorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserBrowser\UserBrowserView.resx">
+      <DependentUpon>UserBrowserView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -610,6 +626,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\comparer.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\user_browser.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

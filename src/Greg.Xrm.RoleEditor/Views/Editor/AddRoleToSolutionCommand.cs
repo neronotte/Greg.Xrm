@@ -29,7 +29,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private void CalculateCanExecute()
 		{
-			this.CanExecute = this.viewModel.Model != null && this.viewModel.Model.Id != Guid.Empty;
+			this.CanExecute = this.viewModel.Model != null 
+				&& this.viewModel.Model.Id != Guid.Empty 
+				&& this.viewModel.IsCustomizable;
 		}
 
 

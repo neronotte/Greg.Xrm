@@ -204,6 +204,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 			this.notificationPanel.Bind(this.viewModel);
+			this.viewModel.TriggerOnLoadNotifications();
 			this.FormClosed += (s, e) => this.messenger.Dispose();
 		}
 

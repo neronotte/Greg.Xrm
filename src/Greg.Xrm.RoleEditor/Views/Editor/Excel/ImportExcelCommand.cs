@@ -21,12 +21,13 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 			this.viewModel.PropertyChanged += (s, e) => {
 				if (e.PropertyName == nameof(this.viewModel.IsEnabled) 
 					|| e.PropertyName == nameof(this.viewModel.IsCustomizable)) {
-					SetCanExecute();
+					CalculateCanExecute();
 				}
 			};
+			CalculateCanExecute();
 		}
 
-		private void SetCanExecute()
+		private void CalculateCanExecute()
 		{
 			this.CanExecute = this.viewModel.IsEnabled && this.viewModel.IsCustomizable;
 		}

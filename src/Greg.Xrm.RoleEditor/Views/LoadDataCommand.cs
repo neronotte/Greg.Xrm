@@ -14,15 +14,19 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly RoleTemplateBuilder roleTemplateBuilder;
 		private readonly IRoleRepository roleRepository;
 		private readonly IBusinessUnitRepository businessUnitRepository;
+		private readonly ISystemUserRepository systemUserRepository;
 
 		public LoadDataCommand(
 			RoleTemplateBuilder roleTemplateBuilder, 
 			IRoleRepository roleRepository, 
-			IBusinessUnitRepository businessUnitRepository)
+			IBusinessUnitRepository businessUnitRepository,
+			ISystemUserRepository systemUserRepository)
         {
 			this.roleTemplateBuilder = roleTemplateBuilder;
 			this.roleRepository = roleRepository;
 			this.businessUnitRepository = businessUnitRepository;
+			this.systemUserRepository = systemUserRepository;
+
 			this.WhenChanges(() => Context)
 				.Execute(_ => this.CanExecute = this.Context != null);
 		}
@@ -51,7 +55,6 @@ namespace Greg.Xrm.RoleEditor.Views
 				Message = "Loading tables and privileges...",
 				Work = (worker, args) =>
 				{
-					// do some work here
 					messenger.Send<Freeze>();
 
 					var template = this.roleTemplateBuilder.CreateTemplate(this.Context);
@@ -59,10 +62,14 @@ namespace Greg.Xrm.RoleEditor.Views
 
 					var businessUnit = this.businessUnitRepository.GetTree(this.Context);
 
-					IReadOnlyList<Role> roleList;
+
+
+
+
+
 					using (log.Track("Retrieving roles..."))
 					{
-						roleList = this.roleRepository.GetParentRoles(Context, template);
+						var roleList = this.roleRepository.GetParentRoles(Context, template);
 						log.Info($"Found {roleList.Count} roles");
 
 						foreach (var role in roleList)
@@ -70,6 +77,19 @@ namespace Greg.Xrm.RoleEditor.Views
 							businessUnit.AddRole(role);
 						}
 					}
+
+					using(log.Track("Retrieving users..."))
+					{
+						var userList = this.systemUserRepository.GetActiveUsers(this.Context, template);
+						log.Info($"Found {userList.Count} users");
+
+						foreach (var user in userList)
+						{
+							businessUnit.AddUser(user);
+						}
+					}
+					
+
 
 					var environment = new DataverseEnvironment(this.Context, template)
 					{

@@ -14,6 +14,7 @@ using Greg.Xrm.RoleEditor.Views.Comparer;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
 using Greg.Xrm.RoleEditor.Views.UsageInspector;
+using Greg.Xrm.RoleEditor.Views.UserBrowser;
 using Greg.Xrm.Theming;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
@@ -63,6 +64,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			var roleRepository = new Role.Repository(this.outputView, this.messenger);
 			this.dependencyRepository = new Dependency.Repository(this.outputView);
 			var businessUnitRepository = new BusinessUnit.Repository();
+			var systemUserRepository = new SystemUser.Repository(this.outputView);
 
 			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
 			this.privilegeClassificationProvider = new PrivilegeClassificationProvider(settingsProvider);
@@ -76,7 +78,8 @@ namespace Greg.Xrm.RoleEditor.Views
 				settingsProvider,
 				roleTemplateBuilder, 
 				roleRepository, 
-				businessUnitRepository);
+				businessUnitRepository,
+				systemUserRepository);
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
 			this.messenger.RegisterJobScheduler(scheduler);
 
@@ -91,6 +94,10 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;
+
+			var userBrowserView = new UserBrowserView(this.outputView, messenger, roleRepository);
+			userBrowserView.Show(this.dockPanel, DockState.DockLeft);
+
 
 			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider, roleRepository);
 			roleBrowserView.Show(this.dockPanel, DockState.DockLeft);

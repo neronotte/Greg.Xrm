@@ -69,6 +69,16 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			messenger.Register<Freeze>(m => IsEnabled = false);
 			messenger.Register<Unfreeze>(m => IsEnabled = true);
+
+			
+		}
+
+		public void TriggerOnLoadNotifications()
+		{
+			if (role.parentroleid != null)
+			{
+				this.SendNotification(NotificationType.Warning, "This role is a child role. You can't edit it directly. Please edit the parent role instead.");
+			}
 		}
 
 		private void RefreshSaveCommand()
@@ -126,7 +136,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			private set => Set(value);
 		}
 
-		public bool IsCustomizable => this.role.iscustomizable;
+		public bool IsCustomizable => this.role.iscustomizable && role.parentroleid == null;
 
 
 		public bool ShouldShowOnlyAssignedPrivileges

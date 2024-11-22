@@ -46,6 +46,21 @@ namespace Greg.Xrm.RoleEditor.Model
 			}
 		}
 
+		public IReadOnlyList<SystemUser> GetAllUsers()
+		{
+			var userList = new List<SystemUser>();
+			GetAllUsersRecursive(userList, this);
+			return userList;
+		}
+
+		private void GetAllUsersRecursive(List<SystemUser> userList, IEnumerable<BusinessUnit> businessUnitList)
+		{
+			foreach (var businessUnit in businessUnitList)
+			{
+				userList.AddRange(businessUnit.Users);
+				GetAllUsersRecursive(userList, businessUnit.Children);
+			}
+		}
 
 
 		public BusinessUnit FindBusinessUnit(Guid? id)

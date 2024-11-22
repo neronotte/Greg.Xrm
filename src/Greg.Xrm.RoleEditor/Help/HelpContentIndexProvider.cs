@@ -28,7 +28,8 @@ namespace Greg.Xrm.RoleEditor.Help
 				{ "editor_addtosolution", "editor_addtosolution.html" },
 				{ Topics.BulkEditor, "editor_bulk.html" },
 				{ Topics.Inspector, "inspector.html" },
-				{ Topics.Comparer, "comparer.html" }
+				{ Topics.Comparer, "comparer.html" },
+				{ Topics.UserBrowser, "user_browser.html" }
 			};
 		}
 
