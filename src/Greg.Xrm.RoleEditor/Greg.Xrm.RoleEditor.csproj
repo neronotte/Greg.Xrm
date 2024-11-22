@@ -289,12 +289,14 @@
     <Compile Include="Model\IChangeOperation.cs" />
     <Compile Include="Model\IDependencyRepository.cs" />
     <Compile Include="Model\IRoleRepository.cs" />
+    <Compile Include="Model\ISystemUserRepository.cs" />
     <Compile Include="Model\ITemplateForTable.cs" />
     <Compile Include="Model\Privilege.cs" />
     <Compile Include="Model\PrivilegeClassification.cs" />
     <Compile Include="Model\Role.cs" />
     <Compile Include="Model\RoleInheritance.cs" />
     <Compile Include="Model\RoleName.cs" />
+    <Compile Include="Model\SystemUser.cs" />
     <Compile Include="Model\TemplateForTableSet.cs" />
     <Compile Include="Model\TemplateForGenericPrivilege.cs" />
     <Compile Include="Model\TemplateForRole.cs" />
@@ -360,6 +362,17 @@
     <Compile Include="Views\Common\PrivilegeColumnExtensions.cs" />
     <Compile Include="Views\Common\PrivilegeColumnTag.cs" />
     <Compile Include="Views\Common\SaveSnippetCommand.cs" />
+    <Compile Include="Views\Comparer\CompareRolesCommand.cs" />
+    <Compile Include="Views\Comparer\ExportExcelCommand.cs" />
+    <Compile Include="Views\Comparer\PrivilegeDifference.cs" />
+    <Compile Include="Views\Comparer\RoleComparer.cs" />
+    <Compile Include="Views\Comparer\RoleComparerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Comparer\RoleComparerView.Designer.cs">
+      <DependentUpon>RoleComparerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Comparer\RoleComparisonResult.cs" />
     <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
     <Compile Include="Views\Editor\ChangeSummary.cs" />
@@ -441,6 +454,17 @@
       <DependentUpon>UsageInspectorView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UsageInspector\UsageInspectorViewModel.cs" />
+    <Compile Include="Views\UserBrowser\Loader.cs" />
+    <Compile Include="Views\UserBrowser\OpenRoleFromUserCommand.cs" />
+    <Compile Include="Views\UserBrowser\RefreshUserEventArgs.cs" />
+    <Compile Include="Views\UserBrowser\UserBrowserView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserBrowser\UserBrowserView.Designer.cs">
+      <DependentUpon>UserBrowserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserBrowser\UserBrowserViewModel.cs" />
+    <Compile Include="Views\UserBrowser\UserGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -452,6 +476,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\BulkEditor\BulkEditorView.resx">
       <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Comparer\RoleComparerView.resx">
+      <DependentUpon>RoleComparerView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Editor\RoleEditorView.resx">
       <DependentUpon>RoleEditorView.cs</DependentUpon>
@@ -474,6 +501,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UsageInspector\UsageInspectorView.resx">
       <DependentUpon>UsageInspectorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserBrowser\UserBrowserView.resx">
+      <DependentUpon>UserBrowserView.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -590,6 +620,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\resultset_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_relationship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\comparer.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\user_browser.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

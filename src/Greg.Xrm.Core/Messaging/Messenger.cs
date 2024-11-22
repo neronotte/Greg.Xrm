@@ -78,5 +78,10 @@ namespace Greg.Xrm.Messaging
 				callback();
 			}
 		}
+
+		public IScopedMessenger CreateScope()
+		{
+			return new ScopedMessenger(this);
+		}
 	}
 }

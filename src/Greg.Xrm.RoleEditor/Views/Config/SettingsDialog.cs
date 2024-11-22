@@ -3,7 +3,6 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.Config;
-using Greg.Xrm.RoleEditor.Views.Editor;
 using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Drawing;

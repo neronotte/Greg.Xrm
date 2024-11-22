@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Core.Views;
+using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
@@ -9,7 +10,6 @@ using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using System;
 using System.Text;
-using System.Windows.Forms;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
@@ -21,6 +21,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly TemplateForRole template;
 
 		public RoleEditorViewModel(
+			IMessenger messenger,
 			IPrivilegeSnippetRepository snippetRepository,
 			IPrivilegeClassificationProvider privilegeClassificationProvider,
 			Role role)
@@ -66,9 +67,18 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.BindModel();
 			this.RefreshSaveCommand();
 
-			var messenger = this.role.ExecutionContext.Messenger;
 			messenger.Register<Freeze>(m => IsEnabled = false);
 			messenger.Register<Unfreeze>(m => IsEnabled = true);
+
+			
+		}
+
+		public void TriggerOnLoadNotifications()
+		{
+			if (role.parentroleid != null)
+			{
+				this.SendNotification(NotificationType.Warning, "This role is a child role. You can't edit it directly. Please edit the parent role instead.");
+			}
 		}
 
 		private void RefreshSaveCommand()
@@ -126,7 +136,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			private set => Set(value);
 		}
 
-		public bool IsCustomizable => this.role.iscustomizable;
+		public bool IsCustomizable => this.role.iscustomizable && role.parentroleid == null;
 
 
 		public bool ShouldShowOnlyAssignedPrivileges

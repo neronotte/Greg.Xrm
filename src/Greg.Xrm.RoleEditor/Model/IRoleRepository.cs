@@ -11,5 +11,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		IReadOnlyList<Role> GetRolesByPrivilege(IXrmToolboxPluginContext executionContext, string privilegeName, TemplateForRole template);
 
 		IReadOnlyList<Role> GetRolesBySolution(IXrmToolboxPluginContext executionContext, EntityReference solutionRef, TemplateForRole template);
+
+		IReadOnlyList<Role> GetRolesByUser(IXrmToolboxPluginContext executionContext, EntityReference userRef, TemplateForRole template);
 	}
 }

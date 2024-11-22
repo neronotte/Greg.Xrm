@@ -133,6 +133,16 @@ namespace Greg.Xrm.RoleEditor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap folder_user {
+            get {
+                object obj = ResourceManager.GetObject("folder_user", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap package_add {
             get {
                 object obj = ResourceManager.GetObject("package_add", resourceCulture);
@@ -266,6 +276,16 @@ namespace Greg.Xrm.RoleEditor.Properties {
         internal static System.Drawing.Bitmap settings {
             get {
                 object obj = ResourceManager.GetObject("settings", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap table_relationship {
+            get {
+                object obj = ResourceManager.GetObject("table_relationship", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

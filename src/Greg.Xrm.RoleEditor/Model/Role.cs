@@ -80,6 +80,14 @@ namespace Greg.Xrm.RoleEditor.Model
 
 		public string businessunitidFormatted => this.businessunitid?.Name ?? GetFormatted(nameof(businessunitid));
 
+		/// <summary>
+		/// For inherited roles, the parent role.
+		/// </summary>
+		public EntityReference parentroleid
+		{
+			get => Get<EntityReference>();
+			set => SetValue(value);
+		}
 
 		/// <summary>
 		/// 0 - Team privileges only
@@ -205,7 +213,13 @@ namespace Greg.Xrm.RoleEditor.Model
 
 
 
+		public override string ToString()
+		{
+			if (this.ExecutionContext == null)
+				return this.name;
 
+			return $"{this.name} ({this.ExecutionContext.Details.ConnectionName})";
+		}
 
 
 
@@ -237,7 +251,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 
 				var query = new QueryExpression("role");
-				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited", "parentroleid");
 				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
 				query.AddOrder("name", OrderType.Ascending);
 				query.NoLock = true;
@@ -255,7 +269,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 
 				var query = new QueryExpression("role");
-				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited", "parentroleid");
 				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
 
 				var rolePrivilegeLink = query.AddLink("roleprivileges", "roleid", "roleid");
@@ -278,7 +292,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 
 				var query = new QueryExpression("role");
-				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited", "parentroleid");
 				query.Criteria.AddCondition("parentroleid", ConditionOperator.Null);
 
 				var solutioncomponent = query.AddLink("solutioncomponent", "roleid", "objectid");
@@ -286,6 +300,26 @@ namespace Greg.Xrm.RoleEditor.Model
 
 				query.AddOrder("name", OrderType.Ascending);
 
+
+				// each role carries around his own execution context.
+				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));
+			}
+
+			public IReadOnlyList<Role> GetRolesByUser(IXrmToolboxPluginContext executionContext, EntityReference userRef, TemplateForRole template)
+			{
+				if (executionContext == null)
+					throw new ArgumentNullException(nameof(executionContext));
+				if (userRef == null)
+					throw new ArgumentNullException(nameof(userRef));
+
+
+				var query = new QueryExpression("role");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited","parentroleid");
+
+				var suLink = query.AddLink("systemuserroles", "roleid", "roleid");
+				suLink.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userRef.Id);
+
+				query.AddOrder("name", OrderType.Ascending);
 
 				// each role carries around his own execution context.
 				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));

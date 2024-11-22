@@ -10,15 +10,18 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.BulkEditor;
+using Greg.Xrm.RoleEditor.Views.Comparer;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
 using Greg.Xrm.RoleEditor.Views.UsageInspector;
+using Greg.Xrm.RoleEditor.Views.UserBrowser;
 using Greg.Xrm.Theming;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Windows.Media.Animation;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility.Args;
 using XrmToolBox.Extensibility.Interfaces;
@@ -61,6 +64,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			var roleRepository = new Role.Repository(this.outputView, this.messenger);
 			this.dependencyRepository = new Dependency.Repository(this.outputView);
 			var businessUnitRepository = new BusinessUnit.Repository();
+			var systemUserRepository = new SystemUser.Repository(this.outputView);
 
 			var roleTemplateBuilder = new RoleTemplateBuilder(this.outputView, privilegeRepository);
 			this.privilegeClassificationProvider = new PrivilegeClassificationProvider(settingsProvider);
@@ -74,7 +78,8 @@ namespace Greg.Xrm.RoleEditor.Views
 				settingsProvider,
 				roleTemplateBuilder, 
 				roleRepository, 
-				businessUnitRepository);
+				businessUnitRepository,
+				systemUserRepository);
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
 			this.messenger.RegisterJobScheduler(scheduler);
 
@@ -89,6 +94,10 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			helpView.Show(this.dockPanel, DockState.DockRight);
 			helpView.DockState = DockState.DockRightAutoHide;
+
+			var userBrowserView = new UserBrowserView(this.outputView, messenger, roleRepository);
+			userBrowserView.Show(this.dockPanel, DockState.DockLeft);
+
 
 			var roleBrowserView = new RoleBrowserView(this.outputView, messenger, settingsProvider, roleRepository);
 			roleBrowserView.Show(this.dockPanel, DockState.DockLeft);
@@ -119,6 +128,12 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.messenger.Register<OpenUsageInspector>(m =>
 			{
 				var view = new UsageInspectorView(this.dependencyRepository, m.Role);
+				view.Show(this.dockPanel, DockState.Document);
+			});
+
+			this.messenger.Register<RoleComparisonResult>(m =>
+			{
+				var view = new RoleComparerView(this.settingsProvider, m);
 				view.Show(this.dockPanel, DockState.Document);
 			});
 		}

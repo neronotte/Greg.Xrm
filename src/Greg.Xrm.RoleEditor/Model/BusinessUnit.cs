@@ -28,6 +28,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		}
 
 
+		#region Roles
 
 		private readonly List<Role> roles = new List<Role>();
 		public IReadOnlyList<Role> Roles => this.roles;
@@ -67,7 +68,63 @@ namespace Greg.Xrm.RoleEditor.Model
 			}
 		}
 
+		#endregion
 
+
+		#region Users
+
+		private readonly List<SystemUser> users = new List<SystemUser>();
+		public IReadOnlyList<SystemUser> Users => this.users;
+		public bool HasAnyUser()
+		{
+			if (this.users.Count > 0) return true;
+			return this.children.Exists(x => x.HasAnyUser());
+		}
+
+
+		public int CountUsers()
+		{
+			return this.users.Count + this.children.Sum(x => x.CountUsers());
+		}
+
+		public int CountUsers(string searchCriteria)
+		{
+			if (string.IsNullOrWhiteSpace(searchCriteria)) return CountUsers();
+			
+			return this.users.Count(x => x.Match(searchCriteria)) + this.children.Sum(x => x.CountUsers(searchCriteria));
+		}
+
+		public bool Contains(SystemUser user, bool recursive = false)
+		{
+			if (user == null) return false;
+
+			if (this.users.Contains(user)) return true;
+
+			if (recursive)
+			{
+				return this.children.Exists(x => x.Contains(user));
+			}
+			return false;
+		}
+
+		public void AddUser(SystemUser user)
+		{
+			if (user.businessunitid?.Id == this.Id)
+			{
+				this.users.Add(user);
+				this.users.Sort((a, b) => string.Compare(a.fullname, b.fullname));
+			}
+			else
+			{
+				foreach (var child in this.Children)
+				{
+					child.AddUser(user);
+				}
+			}
+		}
+
+
+		#endregion
 
 
 		public class Repository : IBusinessUnitRepository

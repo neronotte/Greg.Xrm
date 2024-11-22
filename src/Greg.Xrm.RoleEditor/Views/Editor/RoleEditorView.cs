@@ -21,7 +21,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 	public partial class RoleEditorView : DockContent
 	{
 		private readonly ILog log;
-		private readonly IMessenger messenger;
+		private readonly IScopedMessenger messenger;
 		private readonly Role role;
 		private readonly RoleEditorViewModel viewModel;
 
@@ -35,7 +35,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		{
 			this.role = role;
 			this.log = role.ExecutionContext.Log;
-			this.messenger = role.ExecutionContext.Messenger;
+			this.messenger = role.ExecutionContext.Messenger.CreateScope();
 
 			this.RegisterHelp(messenger, Topics.Editor);
 
@@ -61,7 +61,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.messenger.Register<ChangePrivilegeIcons>(m => SetIcons(m.UseLegacyIcons));
 
 
-			this.viewModel = new RoleEditorViewModel(snippetRepository, privilegeClassificationProvider, role);
+			this.viewModel = new RoleEditorViewModel(this.messenger, snippetRepository, privilegeClassificationProvider, role);
 			this.viewModel.PropertyChanged += (s, e) =>
 			{
 				if (e.PropertyName == nameof(RoleEditorViewModel.ShouldShowOnlyAssignedPrivileges))
@@ -204,6 +204,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 			this.notificationPanel.Bind(this.viewModel);
+			this.viewModel.TriggerOnLoadNotifications();
+			this.FormClosed += (s, e) => this.messenger.Dispose();
 		}
 
 		private void RefreshDataBindings()

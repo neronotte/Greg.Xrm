@@ -32,6 +32,10 @@ It provides a rich set of features:
 - Possibility to check where a given role is actually used
 - Enable/disable request logging
 
+## Release 3
+
+- Compare two roles to show differences
+
 ## To-do list
 This list contains the features that are planned to be implemented in the future.
 Order is irrelevant:

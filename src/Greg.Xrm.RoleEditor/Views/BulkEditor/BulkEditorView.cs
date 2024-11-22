@@ -21,7 +21,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 {
 	public partial class BulkEditorView : DockContent
 	{
-		private readonly IMessenger messenger;
+		private readonly IScopedMessenger messenger;
 		private readonly ILog log;
 		private readonly BulkEditorViewModel viewModel;
 
@@ -38,7 +38,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 				throw new ArgumentNullException(nameof(roleList));
 
 
-			this.messenger = roleList[0].ExecutionContext.Messenger;
+			this.messenger = roleList[0].ExecutionContext.Messenger.CreateScope();
 			this.log = roleList[0].ExecutionContext.Log;
 
 			InitializeComponent();
@@ -157,6 +157,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 			this.treeMisc.UseLightSelection();
 			this.roleList = roleList;
+
+			this.FormClosed += (s, e) => this.messenger.Dispose();
 		}
 
 		private static object GetImage(object model, PrivilegeType privilegeType)
