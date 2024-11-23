@@ -3,8 +3,7 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
-using System;
-using System.Collections.Generic;
+using System.Linq;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views
@@ -60,9 +59,7 @@ namespace Greg.Xrm.RoleEditor.Views
 					var template = this.roleTemplateBuilder.CreateTemplate(this.Context);
 
 
-					var businessUnit = this.businessUnitRepository.GetTree(this.Context);
-
-
+					var (businessUnit, buDict) = this.businessUnitRepository.GetTree(this.Context);
 
 
 
@@ -72,10 +69,7 @@ namespace Greg.Xrm.RoleEditor.Views
 						var roleList = this.roleRepository.GetParentRoles(Context, template);
 						log.Info($"Found {roleList.Count} roles");
 
-						foreach (var role in roleList)
-						{
-							businessUnit.AddRole(role);
-						}
+						roleList.GroupBy(x => x.businessunitid.Id).ToList().ForEach(x => buDict[x.Key].AddRoles(x));
 					}
 
 					using(log.Track("Retrieving users..."))
@@ -83,10 +77,7 @@ namespace Greg.Xrm.RoleEditor.Views
 						var userList = this.systemUserRepository.GetActiveUsers(this.Context, template);
 						log.Info($"Found {userList.Count} users");
 
-						foreach (var user in userList)
-						{
-							businessUnit.AddUser(user);
-						}
+						userList.GroupBy(x => x.businessunitid.Id).ToList().ForEach(x => buDict[x.Key].AddUsers(x));
 					}
 					
 

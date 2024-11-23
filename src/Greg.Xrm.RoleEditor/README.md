@@ -35,6 +35,7 @@ It provides a rich set of features:
 ## Release 3
 
 - Compare two roles to show differences
+- User browser: show the hierarchy of users and roles assigned to them
 
 ## To-do list
 This list contains the features that are planned to be implemented in the future.
