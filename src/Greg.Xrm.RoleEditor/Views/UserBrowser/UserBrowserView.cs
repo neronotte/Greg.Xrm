@@ -49,7 +49,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				}
 				if (x is SystemUser user)
 				{
-					return user.Roles.Count > 0 || !user.AreRolesLoaded;
+					return true;
 				}
 
 				return false;
@@ -87,6 +87,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				{
 					return ug;
 				}
+
 				if (x is SystemUser user)
 				{
 					if (!user.AreRolesLoaded)
@@ -95,10 +96,14 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 						return new[] { Loader.Instance };
 					}
 
+					if (user.Roles.Count == 0)
+					{
+						return new[] { NoRole.Instance };
+					}
 					return user.Roles;
 				}
 
-				return null;
+				return new object[0];
 			};
 
 			this.cName.AspectGetter = x =>
@@ -127,6 +132,10 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				{
 					return "Loading... please wait";
 				}
+				if (x is NoRole)
+				{
+					return "The current user has no roles";
+				}
 
 				return string.Empty;
 			};
@@ -138,6 +147,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				if (x is SystemUser) return "user";
 				if (x is UserRole) return "role";
 				if (x is Loader) return "loading";
+				if (x is NoRole) return "role";
 
 				return null;
 			};
@@ -186,9 +196,15 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 
 		private void OnViewModelRefreshUser(object sender, RefreshUserEventArgs e)
 		{
-			this.userTree.RefreshObject(e.User);
-			this.userTree.Expand(e.User);
+			try
+			{
+				this.userTree.RefreshObject(e.User);
+				//this.userTree.Expand(e.User);
 
+			}
+			catch
+			{
+			}
 		}
 
 		private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)

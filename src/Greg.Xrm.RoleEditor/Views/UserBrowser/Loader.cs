@@ -8,4 +8,13 @@
         {
         }
     }
+
+    public class NoRole
+    {
+		public static NoRole Instance { get; } = new NoRole();
+
+		public NoRole()
+		{
+		}
+	}
 }

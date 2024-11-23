@@ -2,6 +2,7 @@
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -68,6 +69,11 @@ namespace Greg.Xrm.RoleEditor.Model
 			}
 		}
 
+		public void AddRoles(IEnumerable<Role> roleList)
+		{
+			this.roles.AddRange(roleList.OrderBy(x => x.name));
+		}
+
 		#endregion
 
 
@@ -123,13 +129,18 @@ namespace Greg.Xrm.RoleEditor.Model
 			}
 		}
 
+		public void AddUsers(IEnumerable<SystemUser> userList)
+		{
+			this.users.AddRange(userList.OrderBy(x => x.fullname));
+		}
+
 
 		#endregion
 
 
 		public class Repository : IBusinessUnitRepository
 		{
-			public BusinessUnit GetTree(IXrmToolboxPluginContext context)
+			public (BusinessUnit, Dictionary<Guid, BusinessUnit>) GetTree(IXrmToolboxPluginContext context)
 			{
 				using (context.Log.Track($"Reading list of business units from <{context.Details.ConnectionName}>"))
 				{
@@ -154,9 +165,8 @@ namespace Greg.Xrm.RoleEditor.Model
 							parent.AddChild(bu);
 						}
 					}
-					return root;
+					return (root, buDict);
 				}
-
 			}
 		}
 	}
