@@ -1,10 +1,12 @@
 ﻿using Greg.Xrm.RoleEditor.Views.Lookup;
+using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Windows.Forms;
+using System.Workflow.ComponentModel.Design;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
@@ -54,7 +56,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			var userlink = query.AddLink("systemuser", "createdby", "systemuserid");
 			userlink.LinkCriteria.AddCondition("fullname", ConditionOperator.NotEqual, "SYSTEM");
 
-			EntityReference solutionRef;
+			Entity solution;
 			using (var dialog = new LookupDialog(context, query))
 			{
 				dialog.Text = "Add Role to Solution";
@@ -62,10 +64,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				dialog.StartPosition = FormStartPosition.CenterParent;
 
 				if (dialog.ShowDialog(owner) != DialogResult.OK) return;
-				solutionRef = dialog.SelectedItem;
+				solution = dialog.SelectedItem;
 			}
 
-
+			messenger.Send<Freeze>();
 			messenger.Send(new WorkAsyncInfo
 			{
 				Message = "Adding role to solution...",
@@ -74,7 +76,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					var request = new AddSolutionComponentRequest
 					{
 						ComponentType = 20, // role
-						SolutionUniqueName = solutionRef.Name,
+						SolutionUniqueName = solution.GetAttributeValue<string>("uniquename"),
 						ComponentId = roleId
 					};
 
@@ -82,6 +84,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				},
 				PostWorkCallBack = args =>
 				{
+					messenger.Send<Unfreeze>();
 					if (args.Error != null)
 					{
 						this.viewModel.SendNotification(Core.Views.NotificationType.Error, "Error adding role to solution: " + args.Error.Message);

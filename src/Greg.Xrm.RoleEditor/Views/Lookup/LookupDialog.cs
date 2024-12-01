@@ -77,11 +77,12 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 			this.grid.SelectedIndexChanged += (s, e) =>
 			{
 				var entity = this.grid.SelectedObject as Entity;
-				this.SelectedItem = entity?.ToEntityReference();
+				this.SelectedItem = entity;
+				this.SelectedItemReference = entity?.ToEntityReference();
 
-				if (this.SelectedItem != null && this.SelectedItem.Name == null)
+				if (this.SelectedItemReference != null && this.SelectedItemReference.Name == null)
 				{
-					this.SelectedItem.Name = entity.GetFormattedValue(entityMetadata.PrimaryNameAttribute);
+					this.SelectedItemReference.Name = entity.GetFormattedValue(entityMetadata.PrimaryNameAttribute);
 				}
 
 				this.btnOk.Enabled = this.SelectedItem != null;
@@ -103,7 +104,10 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 			set => this.lblDescription.Text = value;
 		}
 
-		public EntityReference SelectedItem { get; private set; }
+		public Entity SelectedItem { get; private set; }
+		public EntityReference SelectedItemReference { get; private set; }
+
+
 
 		protected override void OnLoad(EventArgs e)
 		{

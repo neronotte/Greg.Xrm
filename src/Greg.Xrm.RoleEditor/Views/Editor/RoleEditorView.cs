@@ -607,6 +607,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				// User pressed CTRL+SHIFT+ any digit from 0 to 9
 				int digit = e.KeyCode - Keys.D0;
 				this.viewModel.PasteSnippetCommand.Execute(new PasteSnippetArgs(digit, tableList));
+				this.viewModel.EvaluateDirty();
 				e.Handled = true;
 				e.SuppressKeyPress = true;
 			}
