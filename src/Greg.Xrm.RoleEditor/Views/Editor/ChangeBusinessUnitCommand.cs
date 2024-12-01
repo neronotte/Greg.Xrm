@@ -24,8 +24,6 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			var query = new QueryExpression("businessunit");
 			query.ColumnSet.AddColumns("name", "parentbusinessunitid");
 
-
-
 			using (var dialog = new LookupDialog(crm, query))
 			{
 				dialog.Text = "Business Unit";
@@ -34,7 +32,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 				if (dialog.ShowDialog(parent) != DialogResult.OK) return;
 
-				this.model.BusinessUnit = dialog.SelectedItem;
+				this.model.BusinessUnit = dialog.SelectedItemReference;
 			}
 		}
 	}

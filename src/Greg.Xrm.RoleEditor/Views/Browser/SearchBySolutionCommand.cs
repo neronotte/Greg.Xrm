@@ -59,7 +59,7 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
 				dialog.StartPosition = FormStartPosition.CenterParent;
 
 				if (dialog.ShowDialog(owner) != DialogResult.OK) return;
-				solutionRef = dialog.SelectedItem;
+				solutionRef = dialog.SelectedItemReference;
 			}
 
 			messenger.Send<Freeze>();
