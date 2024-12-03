@@ -138,7 +138,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 
 				// the multiple edit is available only if roles to edit are in the same environment
 				this.tEditMultiple.Visible = selectedRoles.Length > 1 
-					&& selectedRoles.Length <= 10 
+					&& selectedRoles.Length <= 15 
 					&& environmentList.Length == 1;
 				this.tNewCloneCurrent2.Visible = selectedRoles.Length == 1;
 				this.tInspectUsage.Visible = selectedRoles.Length == 1;
