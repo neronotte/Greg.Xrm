@@ -136,6 +136,7 @@ namespace Greg.Xrm.RoleEditor.Views
 				var view = new RoleComparerView(this.settingsProvider, m);
 				view.Show(this.dockPanel, DockState.Document);
 			});
+
 		}
 
 

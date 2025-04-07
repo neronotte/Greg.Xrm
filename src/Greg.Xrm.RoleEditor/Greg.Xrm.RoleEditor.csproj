@@ -454,6 +454,7 @@
       <DependentUpon>UsageInspectorView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\UsageInspector\UsageInspectorViewModel.cs" />
+    <Compile Include="Views\UserBrowser\ChangeBusinessUnitCommand.cs" />
     <Compile Include="Views\UserBrowser\Loader.cs" />
     <Compile Include="Views\UserBrowser\OpenRoleFromUserCommand.cs" />
     <Compile Include="Views\UserBrowser\RefreshUserEventArgs.cs" />

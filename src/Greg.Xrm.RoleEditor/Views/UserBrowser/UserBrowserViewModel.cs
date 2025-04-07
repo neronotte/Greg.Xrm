@@ -5,6 +5,7 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.UserBrowser
@@ -23,6 +24,9 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 
 
 			this.OpenRoleCommand = new OpenRoleFromUserCommand(this);
+			this.ChangeBusinessUnitCommand = new ChangeBusinessUnitCommand(this, roleRepository);
+
+
 
 			messenger.Register<RoleListLoaded>(x =>
 			{
@@ -73,6 +77,25 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 			});
 		}
 
+
+		/// <summary>
+		/// Given a set of users, returns the list of environments where those users belong to
+		/// </summary>
+		/// <param name="systemUserList">The list of users</param>
+		/// <returns>
+		/// The list of environments where the users belong to.
+		/// </returns>
+
+		public DataverseEnvironment[] FindEnvironmentsByUsers(SystemUser[] systemUserList)
+		{
+			var environmentList = (from u in systemUserList
+								   let env = this.Environments.FirstOrDefault(x => x.Contains(u))
+								   where env != null
+								   select env).Distinct().ToArray();
+
+			return environmentList;
+		}
+
 		public event EventHandler<RefreshUserEventArgs> RefreshUser;
 
 
@@ -95,5 +118,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 			set => this.Set(value);
 		}
 		public OpenRoleFromUserCommand OpenRoleCommand { get; }
+
+		public ChangeBusinessUnitCommand ChangeBusinessUnitCommand { get; }
 	}
 }

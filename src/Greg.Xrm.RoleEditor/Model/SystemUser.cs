@@ -43,6 +43,36 @@ namespace Greg.Xrm.RoleEditor.Model
 
 		public List<UserRole> Roles { get; } = new List<UserRole>();
 
+		
+		/// <summary>
+		/// Reloads all the info of the current system user.
+		/// Is invoked after changing the business unit, or whenever we perform an administrative operation 
+		/// onto the current user.
+		/// </summary>
+		public void Reload(IRoleRepository roleRepository)
+		{
+			if (ExecutionContext == null)
+				throw new InvalidOperationException(nameof(ExecutionContext) + " cannot be null!");
+
+			var preImage = ExecutionContext.Retrieve(this.ToEntityReference(), "fullname", "domainname", "businessunitid");
+
+			var me = (IEntityWrapperInternal)this;
+
+			me.GetPostImage().Attributes.Clear();
+			var target = me.GetTarget();
+			foreach (var kvp in preImage.Attributes)
+			{
+				target[kvp.Key] = kvp.Value;
+			}
+			foreach (var kvp in preImage.FormattedValues)
+			{
+				target.FormattedValues[kvp.Key] = kvp.Value;
+			}
+
+			LoadRoles(roleRepository);
+		}
+
+
 		public void LoadRoles(IRoleRepository roleRepository)
 		{
 			var roleList = roleRepository.GetRolesByUser(this.ExecutionContext, this.ToEntityReference(), template);
@@ -50,7 +80,7 @@ namespace Greg.Xrm.RoleEditor.Model
 			var rolesInCurrentBusinessUnit = roleList.Where(x => x.businessunitid.Id == this.businessunitid.Id).ToArray();
 			var otherRoles = roleList.Except(rolesInCurrentBusinessUnit).ToArray();
 
-
+			this.Roles.Clear();
 			this.Roles.AddRange(rolesInCurrentBusinessUnit
 				.OrderBy(x => x.name)
 				.Select(x => new UserRole(this, x)));

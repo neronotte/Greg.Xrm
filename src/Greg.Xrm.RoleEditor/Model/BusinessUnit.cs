@@ -108,7 +108,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 			if (recursive)
 			{
-				return this.children.Exists(x => x.Contains(user));
+				return this.children.Exists(x => x.Contains(user, true));
 			}
 			return false;
 		}
@@ -132,6 +132,11 @@ namespace Greg.Xrm.RoleEditor.Model
 		public void AddUsers(IEnumerable<SystemUser> userList)
 		{
 			this.users.AddRange(userList.OrderBy(x => x.fullname));
+		}
+
+		public void RemoveUser(SystemUser user)
+		{
+			this.users.Remove(user);
 		}
 
 
