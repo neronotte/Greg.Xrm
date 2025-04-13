@@ -32,6 +32,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.SearchBySolutionCommand = new SearchBySolutionCommand(this, roleRepository);
 			this.OpenUsageInspectorCommand = new OpenUsageInspectorCommand();
 			this.CompareRolesCommand = new CompareRolesCommand();
+			this.OpenAddUserRoleViewCommand = new OpenAddUserRoleViewCommand(messenger);
 
 			var settings = settingsProvider.GetSettings();
 			this.ShouldHideManagedRoles = settings.HideManagedRoles;
@@ -184,5 +185,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		public OpenUsageInspectorCommand OpenUsageInspectorCommand { get; }
 
 		public CompareRolesCommand CompareRolesCommand { get; }
+
+		public OpenAddUserRoleViewCommand OpenAddUserRoleViewCommand { get; }
 	}
 }

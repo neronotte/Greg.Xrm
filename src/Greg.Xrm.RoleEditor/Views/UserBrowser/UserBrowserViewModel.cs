@@ -43,7 +43,10 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 
 				this.OnPropertyChanged(nameof(Environments), this.Environments);
 			});
-
+			this.messenger.Register<RefreshUserRequest>(m =>
+			{
+				this.RefreshUser?.Invoke(this, new RefreshUserEventArgs(m.User));
+			});
 			this.messenger.Register<Freeze>(m => this.IsEnabled = false);
 			this.messenger.Register<Unfreeze>(m => this.IsEnabled = true);
 			this.IsEnabled = false;

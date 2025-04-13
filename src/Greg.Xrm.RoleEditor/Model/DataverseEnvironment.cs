@@ -1,7 +1,9 @@
 ﻿using Greg.Xrm.Core;
+using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace Greg.Xrm.RoleEditor.Model
 {
@@ -129,6 +131,53 @@ namespace Greg.Xrm.RoleEditor.Model
 			{
 				businessUnit.AddUser(user);
 			}
+		}
+
+
+		/// <summary>
+		/// Checks the value of the security model flags on the organization table,
+		/// as described here https://dev.to/_neronotte/record-ownership-across-business-units-under-the-hood-2l15
+		/// </summary>
+		/// <returns>
+		/// The security model settings fields
+		/// </returns>
+		public SecurityModelSettings VerifySecurityModelSettings()
+		{
+			var settings = new SecurityModelSettings();
+
+
+			var query = new QueryExpression("organization");
+			query.ColumnSet.AddColumns("orgdborgsettings");
+			query.TopCount = 1;
+			query.NoLock = true;
+
+			var org = this.Context.RetrieveMultiple(query).Entities.FirstOrDefault();
+			if (org == null) return settings;
+
+			var orgSettings = org.GetAttributeValue<string>("orgdborgsettings");
+			if (string.IsNullOrWhiteSpace(orgSettings)) return settings;
+
+			var xml = XDocument.Parse(orgSettings);
+
+			var node = xml.Root?.Element("EnableOwnershipAcrossBusinessUnits");
+			if (node != null)
+			{
+				settings.IsRecordOwnershipAcrossBusinessUnitsEnabled = bool.Parse(node.Value);
+			}
+
+			node = xml.Root?.Element("AlwaysMoveRecordToOwnerBusinessUnit");
+			if (node != null)
+			{
+				settings.AlwaysMoveRecordToOwnerBusinessUnit = bool.Parse(node.Value);
+			}
+
+			node = xml.Root?.Element("DoNotRemoveRolesOnChangeBusinessUnit");
+			if (node != null)
+			{
+				settings.DoNotRemoveRolesOnChangeBusinessUnit = bool.Parse(node.Value);
+			}
+
+			return settings;
 		}
 	}
 }

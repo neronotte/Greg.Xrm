@@ -9,6 +9,7 @@ using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
+using Greg.Xrm.RoleEditor.Views.AddUserRoles;
 using Greg.Xrm.RoleEditor.Views.BulkEditor;
 using Greg.Xrm.RoleEditor.Views.Comparer;
 using Greg.Xrm.RoleEditor.Views.Messages;
@@ -37,12 +38,18 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
 		private readonly IPrivilegeSnippetRepository privilegeSnippetRepository;
 		private readonly IDependencyRepository dependencyRepository;
+		private readonly IRoleRepository roleRepository;
 
 		private readonly MainViewModel viewModel;
 
 		private readonly OutputView outputView;
 		private readonly Dictionary<Role, DockContent> roleViewDict = new Dictionary<Role, DockContent>();
 		private readonly ISettingsProvider<Settings> settingsProvider;
+
+		private readonly Dictionary<DataverseEnvironment, UserRolesView> userRolesViewDict = new Dictionary<DataverseEnvironment, UserRolesView>();
+
+
+
 
 		public MainView(ISettingsProvider<Settings> settingsProvider, IThemeProvider themeProvider)
 		{
@@ -61,7 +68,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			// initialization of model and services
 			this.settingsProvider = settingsProvider;
 			var privilegeRepository = new Privilege.Repository();
-			var roleRepository = new Role.Repository(this.outputView, this.messenger);
+			this.roleRepository = new Role.Repository(this.outputView, this.messenger);
 			this.dependencyRepository = new Dependency.Repository(this.outputView);
 			var businessUnitRepository = new BusinessUnit.Repository();
 			var systemUserRepository = new SystemUser.Repository(this.outputView);
@@ -118,6 +125,9 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.viewModel.OpenRoleRequested += OnOpenRoleRequested;
 			this.viewModel.ShowRoleRequested += OnShowRoleRequested;
 			this.viewModel.CloseRoleRequested += OnCloseRoleRequested;
+			this.viewModel.ShowUserRolesView += OnShowUserRolesView;
+			this.viewModel.UserRolesViewClosed += OnCloseUserRolesView;
+
 
 			this.messenger.Register<ShowHelp>(m =>
 			{
@@ -196,6 +206,44 @@ namespace Greg.Xrm.RoleEditor.Views
 
 					editor.Show(this.dockPanel, DockState.Document);
 				}			
+			}
+		}
+
+		private void OnShowUserRolesView(object sender, UserRolesViewOpen e)
+		{
+			lock(this.syncRoot)
+			{
+				if (!this.userRolesViewDict.TryGetValue(e.Environment, out var view))
+				{
+					view = new UserRolesView(e.Environment, this.roleRepository);
+					this.userRolesViewDict[e.Environment] = view;
+				}
+
+				view.Show(this.dockPanel, DockState.Document);
+			}
+		}
+
+		private void OnCloseUserRolesView(object sender, UserRolesViewClosed e)
+		{
+			if (InvokeRequired)
+			{
+				BeginInvoke(new Action(() => OnCloseUserRolesView(sender, e)));
+				return;
+			}
+
+			lock (this.syncRoot)
+			{
+				if (!this.userRolesViewDict.TryGetValue(e.Environment, out var view))
+				{
+					return;		
+				}
+
+				if (!view.IsDisposed)
+				{
+					view.Dispose();
+				}
+
+				this.userRolesViewDict.Remove(e.Environment);
 			}
 		}
 

@@ -324,6 +324,38 @@ namespace Greg.Xrm.RoleEditor.Model
 				// each role carries around his own execution context.
 				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));
 			}
+
+
+
+			public IReadOnlyList<Role> GetRolesByNamesAndBusinessUnit(IXrmToolboxPluginContext executionContext, List<Tuple<string, EntityReference>> tuplesToFetch, TemplateForRole template)
+			{
+				if (executionContext == null)
+					throw new ArgumentNullException(nameof(executionContext));
+				if (tuplesToFetch == null)
+					throw new ArgumentNullException(nameof(tuplesToFetch));
+				if (tuplesToFetch.Count == 0)
+					throw new ArgumentException("The list of tuples to fetch cannot be empty", nameof(tuplesToFetch));
+
+				if (tuplesToFetch.Any(x => string.IsNullOrWhiteSpace(x.Item1) || x.Item2 == null))
+					throw new ArgumentException("The list of tuples to fetch cannot contain null values", nameof(tuplesToFetch));
+
+				var query = new QueryExpression("role");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited", "parentroleid");
+
+				query.Criteria.FilterOperator = LogicalOperator.Or;
+				foreach (var tuple in tuplesToFetch)
+				{
+					var subFilter = query.Criteria.AddFilter(LogicalOperator.And);
+					subFilter.AddCondition("name", ConditionOperator.Equal, tuple.Item1);
+					subFilter.AddCondition("businessunitid", ConditionOperator.Equal, tuple.Item2.Id);
+				}
+
+				query.AddOrder("name", OrderType.Ascending);
+				query.AddOrder("businessunitid", OrderType.Ascending);
+
+				// each role carries around his own execution context.
+				return executionContext.RetrieveAll(query, x => new Role(x, executionContext, template));
+			}
 		}
 	}
 }

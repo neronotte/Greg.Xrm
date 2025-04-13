@@ -28,6 +28,18 @@ namespace Greg.Xrm.RoleEditor.Model
 			this.children.Sort((a, b) => string.Compare(a.name, b.name));
 		}
 
+		public IEnumerable<BusinessUnit> GetAllChildren()
+		{
+			foreach (var child in this.children)
+			{
+				yield return child;
+				foreach (var grandChild in child.GetAllChildren())
+				{
+					yield return grandChild;
+				}
+			}
+		}
+
 
 		#region Roles
 

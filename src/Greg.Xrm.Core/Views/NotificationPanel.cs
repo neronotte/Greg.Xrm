@@ -93,8 +93,6 @@ namespace Greg.Xrm.Core.Views
 			tooltip.SetToolTip(label, message);
 
 			this.Controls.Add(panel);
-
-
 		}
 
 
