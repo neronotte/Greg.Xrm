@@ -91,6 +91,7 @@
 			this.mSet2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
+			this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -136,7 +137,7 @@
             this.tShowAllPrivileges});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
-			this.tools.Size = new System.Drawing.Size(870, 25);
+			this.tools.Size = new System.Drawing.Size(920, 25);
 			this.tools.TabIndex = 3;
 			this.tools.Text = "toolStrip1";
 			// 
@@ -164,7 +165,7 @@
 			// toolStripLabel1
 			// 
 			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(44, 22);
+			this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
 			this.toolStripLabel1.Text = "Export:";
 			// 
 			// tExportExcel
@@ -237,7 +238,7 @@
 			this.tabs.Location = new System.Drawing.Point(0, 25);
 			this.tabs.Name = "tabs";
 			this.tabs.SelectedIndex = 0;
-			this.tabs.Size = new System.Drawing.Size(870, 503);
+			this.tabs.Size = new System.Drawing.Size(920, 503);
 			this.tabs.TabIndex = 4;
 			// 
 			// tabTables
@@ -247,7 +248,7 @@
 			this.tabTables.Location = new System.Drawing.Point(4, 22);
 			this.tabTables.Name = "tabTables";
 			this.tabTables.Padding = new System.Windows.Forms.Padding(3);
-			this.tabTables.Size = new System.Drawing.Size(862, 477);
+			this.tabTables.Size = new System.Drawing.Size(912, 477);
 			this.tabTables.TabIndex = 0;
 			this.tabTables.Text = "Table related privileges";
 			this.tabTables.UseVisualStyleBackColor = true;
@@ -285,7 +286,7 @@
 			this.treeTables.Name = "treeTables";
 			this.treeTables.OwnerDraw = true;
 			this.treeTables.ShowGroups = false;
-			this.treeTables.Size = new System.Drawing.Size(856, 446);
+			this.treeTables.Size = new System.Drawing.Size(906, 446);
 			this.treeTables.SmallImageList = this.privilegeImagesNew;
 			this.treeTables.TabIndex = 1;
 			this.treeTables.UseCompatibleStateImageBehavior = false;
@@ -362,10 +363,11 @@
 			// 
 			this.tools2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripLabel3,
-            this.tSearchTableText});
+            this.tSearchTableText,
+            this.toolStripLabel5});
 			this.tools2.Location = new System.Drawing.Point(3, 3);
 			this.tools2.Name = "tools2";
-			this.tools2.Size = new System.Drawing.Size(856, 25);
+			this.tools2.Size = new System.Drawing.Size(906, 25);
 			this.tools2.TabIndex = 0;
 			this.tools2.Text = "toolStrip1";
 			// 
@@ -638,7 +640,7 @@
 			this.notificationPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.notificationPanel.Location = new System.Drawing.Point(0, 0);
 			this.notificationPanel.Name = "notificationPanel";
-			this.notificationPanel.Size = new System.Drawing.Size(870, 0);
+			this.notificationPanel.Size = new System.Drawing.Size(914, 0);
 			this.notificationPanel.TabIndex = 2;
 			// 
 			// contextMenu
@@ -687,11 +689,19 @@
 			this.mSet4.Tag = "4";
 			this.mSet4.Text = "Organization";
 			// 
+			// toolStripLabel5
+			// 
+			this.toolStripLabel5.ForeColor = System.Drawing.Color.Gray;
+			this.toolStripLabel5.Name = "toolStripLabel5";
+			this.toolStripLabel5.Size = new System.Drawing.Size(638, 22);
+			this.toolStripLabel5.Text = "Type CTRL+0-9 to apply privilege snippets. Type CTRL+SHIFT+5-9 or enter the Setti" +
+    "ngs dialog to configure the snippets.";
+			// 
 			// RoleEditorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(870, 528);
+			this.ClientSize = new System.Drawing.Size(920, 528);
 			this.Controls.Add(this.tabs);
 			this.Controls.Add(this.tools);
 			this.Controls.Add(this.notificationPanel);
@@ -783,5 +793,6 @@
 		private Xrm.Views.ToolStripBindableButton tAddToSolution;
 		private Xrm.Views.ToolStripBindableButton tImportExcel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+		private System.Windows.Forms.ToolStripLabel toolStripLabel5;
 	}
 }
