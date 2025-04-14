@@ -48,7 +48,7 @@
 			this.chkHide1 = new System.Windows.Forms.CheckBox();
 			this.chkUseLegacyIcons = new System.Windows.Forms.CheckBox();
 			this.tabBehavior = new System.Windows.Forms.TabPage();
-			this.label11 = new System.Windows.Forms.Label();
+			this.lblLogs = new System.Windows.Forms.Label();
 			this.chkIsRequestLoggingEnabled = new System.Windows.Forms.CheckBox();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
@@ -308,7 +308,7 @@
 			// 
 			// tabBehavior
 			// 
-			this.tabBehavior.Controls.Add(this.label11);
+			this.tabBehavior.Controls.Add(this.lblLogs);
 			this.tabBehavior.Controls.Add(this.chkIsRequestLoggingEnabled);
 			this.tabBehavior.Controls.Add(this.label9);
 			this.tabBehavior.Controls.Add(this.label10);
@@ -322,18 +322,18 @@
 			this.tabBehavior.Text = "Behavior";
 			this.tabBehavior.UseVisualStyleBackColor = true;
 			// 
-			// label11
+			// lblLogs
 			// 
-			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+			this.lblLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.label11.AutoSize = true;
-			this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.Location = new System.Drawing.Point(14, 95);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(761, 13);
-			this.label11.TabIndex = 8;
-			this.label11.Text = "Check the flag below to enable request logging. Request will be saved as json fil" +
-    "es under C:\\users\\<username\\AppData\\Local\\Greg.Xrm.RoleEditor";
+			this.lblLogs.AutoSize = true;
+			this.lblLogs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblLogs.Location = new System.Drawing.Point(14, 95);
+			this.lblLogs.Name = "lblLogs";
+			this.lblLogs.Size = new System.Drawing.Size(471, 13);
+			this.lblLogs.TabIndex = 8;
+			this.lblLogs.Text = "Check the flag below to enable request logging. Request will be saved as json fil" +
+    "es under ";
 			// 
 			// chkIsRequestLoggingEnabled
 			// 
@@ -400,7 +400,7 @@
 			// btnResetTableGrouping
 			// 
 			this.btnResetTableGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetTableGrouping.Location = new System.Drawing.Point(737, 451);
+			this.btnResetTableGrouping.Location = new System.Drawing.Point(720, 451);
 			this.btnResetTableGrouping.Name = "btnResetTableGrouping";
 			this.btnResetTableGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetTableGrouping.TabIndex = 5;
@@ -417,7 +417,7 @@
 			this.txtTableGrouping.Multiline = true;
 			this.txtTableGrouping.Name = "txtTableGrouping";
 			this.txtTableGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtTableGrouping.Size = new System.Drawing.Size(804, 157);
+			this.txtTableGrouping.Size = new System.Drawing.Size(787, 157);
 			this.txtTableGrouping.TabIndex = 4;
 			// 
 			// label8
@@ -427,7 +427,7 @@
 			this.label8.AutoEllipsis = true;
 			this.label8.Location = new System.Drawing.Point(13, 251);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(804, 34);
+			this.label8.Size = new System.Drawing.Size(787, 34);
 			this.label8.TabIndex = 3;
 			this.label8.Text = "The JSON dictionary below allows to configure the structure of the table privileg" +
     "es list.\r\nAny table not indicated in the configuration below will be put in a ge" +
@@ -436,7 +436,7 @@
 			// btnResetMiscGrouping
 			// 
 			this.btnResetMiscGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetMiscGrouping.Location = new System.Drawing.Point(737, 210);
+			this.btnResetMiscGrouping.Location = new System.Drawing.Point(720, 210);
 			this.btnResetMiscGrouping.Name = "btnResetMiscGrouping";
 			this.btnResetMiscGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetMiscGrouping.TabIndex = 2;
@@ -453,7 +453,7 @@
 			this.txtMiscGrouping.Multiline = true;
 			this.txtMiscGrouping.Name = "txtMiscGrouping";
 			this.txtMiscGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtMiscGrouping.Size = new System.Drawing.Size(804, 157);
+			this.txtMiscGrouping.Size = new System.Drawing.Size(787, 157);
 			this.txtMiscGrouping.TabIndex = 1;
 			// 
 			// label3
@@ -463,7 +463,7 @@
 			this.label3.AutoEllipsis = true;
 			this.label3.Location = new System.Drawing.Point(13, 10);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(804, 34);
+			this.label3.Size = new System.Drawing.Size(787, 34);
 			this.label3.TabIndex = 0;
 			this.label3.Text = resources.GetString("label3.Text");
 			// 
@@ -781,7 +781,7 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.CheckBox chkAutoLoad;
-		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Label lblLogs;
 		private System.Windows.Forms.CheckBox chkIsRequestLoggingEnabled;
 	}
 }

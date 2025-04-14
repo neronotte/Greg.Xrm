@@ -69,6 +69,12 @@ namespace Greg.Xrm.RoleEditor.Model
 		{
 			if (role.businessunitid?.Id == this.Id)
 			{
+				var existingRole = this.roles.FirstOrDefault(x => x.Id == role.Id);
+				if (existingRole != null) 
+				{
+					this.roles.Remove(existingRole);
+				}
+
 				this.roles.Add(role);
 				this.roles.Sort((a, b) => string.Compare(a.name, b.name));
 			}

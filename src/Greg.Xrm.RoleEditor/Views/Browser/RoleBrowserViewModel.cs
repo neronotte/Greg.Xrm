@@ -78,6 +78,18 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 				}
 			});
 
+			messenger.Register<RoleAdded>(x =>
+			{
+				var role = x.Role;
+
+				var environment = this.Environments.Find(e => e.Context.Details.ConnectionId == role.ExecutionContext.Details.ConnectionId);
+
+				if (environment == null) return;
+
+				environment.AddRole(role);
+				OnPropertyChanged(nameof(Environments), this.Environments);
+			});
+
 
 			this.WhenChanges(() => Environments)
 				.Refresh(ShouldHideNotCustomizableRolesCommand)

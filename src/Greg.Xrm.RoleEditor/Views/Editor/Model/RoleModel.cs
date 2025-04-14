@@ -206,7 +206,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.Initialize();
 		}
 
-
+		public Role GetRole()
+		{
+			return this.role;
+		}
 
 
 		public void CalculateChanges(ChangeSummary summary)

@@ -350,6 +350,7 @@
     <Compile Include="Views\AddUserRoles\OpenAddUserRoleViewCommand.cs" />
     <Compile Include="Views\Browser\OpenMultipleRolesCommand.cs" />
     <Compile Include="Views\Browser\OpenUsageInspectorCommand.cs" />
+    <Compile Include="Views\Browser\RoleAdded.cs" />
     <Compile Include="Views\Browser\RoleEventArgs.cs" />
     <Compile Include="Views\Browser\SearchByPrivilegeCommand.cs" />
     <Compile Include="Views\Browser\SearchBySolutionCommand.cs" />

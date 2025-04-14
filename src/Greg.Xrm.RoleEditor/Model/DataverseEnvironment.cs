@@ -133,6 +133,15 @@ namespace Greg.Xrm.RoleEditor.Model
 			}
 		}
 
+		public void AddRole(Role role)
+		{
+			if (role == null) return;
+			foreach (var businessUnit in this)
+			{
+				businessUnit.AddRole(role);
+			}
+		}
+
 
 		/// <summary>
 		/// Checks the value of the security model flags on the organization table,

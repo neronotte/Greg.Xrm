@@ -21,15 +21,18 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
-using System.Windows.Media.Animation;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility.Args;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.RoleEditor.Views
 {
-	public partial class MainView : GregPluginControlBase<RoleEditorPlugin>, IStatusBarMessenger, ISettingsPlugin
+	public partial class MainView : 
+		GregPluginControlBase<RoleEditorPlugin>, 
+		IStatusBarMessenger, 
+		ISettingsPlugin
 	{
 		private readonly object syncRoot = new object();
 
@@ -64,6 +67,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			Register(messenger);
 			this.outputView = new OutputView(themeProvider, messenger);
 
+			RequestLogger.SetRequestLogPath(this.LogFilePath);
 
 			// initialization of model and services
 			this.settingsProvider = settingsProvider;

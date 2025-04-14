@@ -6,7 +6,6 @@ using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.Windows.Forms;
-using System.Workflow.ComponentModel.Design;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
