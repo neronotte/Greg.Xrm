@@ -13,7 +13,19 @@ namespace Greg.Xrm.RoleEditor.Services
 
 		public static bool IsEnabled { get; set; } = true;
 
-		static DirectoryInfo GetOrCreateStorageFolder()
+		public static void SetRequestLogPath(string logFilePath)
+		{
+			if (string.IsNullOrWhiteSpace(logFilePath)) return;
+
+			var file = new FileInfo(logFilePath);
+			if (file.Directory != null && !file.Directory.Exists)
+			{
+				file.Directory.Create();
+			}
+			storageFolder = file.Directory;
+		}
+
+		public static DirectoryInfo GetOrCreateStorageFolder()
 		{
 			if (storageFolder != null)
 				return storageFolder;
@@ -41,7 +53,7 @@ namespace Greg.Xrm.RoleEditor.Services
 
 			try
 			{
-				var fileName = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}_{request.RequestName}.JSON";
+				var fileName = $"Greg.Xrm.RoleEditor.{DateTime.Now:yyyy-MM-dd_HH-mm-ss}_{request.RequestName}.JSON";
 
 				var requestJson = JsonConvert.SerializeObject(request, Formatting.Indented);
 

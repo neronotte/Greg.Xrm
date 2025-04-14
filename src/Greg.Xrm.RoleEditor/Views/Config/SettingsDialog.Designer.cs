@@ -48,6 +48,8 @@
 			this.chkHide1 = new System.Windows.Forms.CheckBox();
 			this.chkUseLegacyIcons = new System.Windows.Forms.CheckBox();
 			this.tabBehavior = new System.Windows.Forms.TabPage();
+			this.lblLogs = new System.Windows.Forms.Label();
+			this.chkIsRequestLoggingEnabled = new System.Windows.Forms.CheckBox();
 			this.label9 = new System.Windows.Forms.Label();
 			this.label10 = new System.Windows.Forms.Label();
 			this.chkAutoLoad = new System.Windows.Forms.CheckBox();
@@ -84,8 +86,6 @@
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
 			this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
 			this.mSetNull = new System.Windows.Forms.ToolStripMenuItem();
-			this.chkIsRequestLoggingEnabled = new System.Windows.Forms.CheckBox();
-			this.label11 = new System.Windows.Forms.Label();
 			this.tableLayout.SuspendLayout();
 			this.pnlHeader.SuspendLayout();
 			this.pnlFooter.SuspendLayout();
@@ -308,7 +308,7 @@
 			// 
 			// tabBehavior
 			// 
-			this.tabBehavior.Controls.Add(this.label11);
+			this.tabBehavior.Controls.Add(this.lblLogs);
 			this.tabBehavior.Controls.Add(this.chkIsRequestLoggingEnabled);
 			this.tabBehavior.Controls.Add(this.label9);
 			this.tabBehavior.Controls.Add(this.label10);
@@ -321,6 +321,29 @@
 			this.tabBehavior.TabIndex = 4;
 			this.tabBehavior.Text = "Behavior";
 			this.tabBehavior.UseVisualStyleBackColor = true;
+			// 
+			// lblLogs
+			// 
+			this.lblLogs.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lblLogs.AutoSize = true;
+			this.lblLogs.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblLogs.Location = new System.Drawing.Point(14, 95);
+			this.lblLogs.Name = "lblLogs";
+			this.lblLogs.Size = new System.Drawing.Size(471, 13);
+			this.lblLogs.TabIndex = 8;
+			this.lblLogs.Text = "Check the flag below to enable request logging. Request will be saved as json fil" +
+    "es under ";
+			// 
+			// chkIsRequestLoggingEnabled
+			// 
+			this.chkIsRequestLoggingEnabled.AutoSize = true;
+			this.chkIsRequestLoggingEnabled.Location = new System.Drawing.Point(16, 118);
+			this.chkIsRequestLoggingEnabled.Name = "chkIsRequestLoggingEnabled";
+			this.chkIsRequestLoggingEnabled.Size = new System.Drawing.Size(134, 17);
+			this.chkIsRequestLoggingEnabled.TabIndex = 7;
+			this.chkIsRequestLoggingEnabled.Text = "Enable request logging";
+			this.chkIsRequestLoggingEnabled.UseVisualStyleBackColor = true;
 			// 
 			// label9
 			// 
@@ -377,7 +400,7 @@
 			// btnResetTableGrouping
 			// 
 			this.btnResetTableGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetTableGrouping.Location = new System.Drawing.Point(754, 451);
+			this.btnResetTableGrouping.Location = new System.Drawing.Point(720, 451);
 			this.btnResetTableGrouping.Name = "btnResetTableGrouping";
 			this.btnResetTableGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetTableGrouping.TabIndex = 5;
@@ -394,7 +417,7 @@
 			this.txtTableGrouping.Multiline = true;
 			this.txtTableGrouping.Name = "txtTableGrouping";
 			this.txtTableGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtTableGrouping.Size = new System.Drawing.Size(821, 157);
+			this.txtTableGrouping.Size = new System.Drawing.Size(787, 157);
 			this.txtTableGrouping.TabIndex = 4;
 			// 
 			// label8
@@ -404,7 +427,7 @@
 			this.label8.AutoEllipsis = true;
 			this.label8.Location = new System.Drawing.Point(13, 251);
 			this.label8.Name = "label8";
-			this.label8.Size = new System.Drawing.Size(821, 34);
+			this.label8.Size = new System.Drawing.Size(787, 34);
 			this.label8.TabIndex = 3;
 			this.label8.Text = "The JSON dictionary below allows to configure the structure of the table privileg" +
     "es list.\r\nAny table not indicated in the configuration below will be put in a ge" +
@@ -413,7 +436,7 @@
 			// btnResetMiscGrouping
 			// 
 			this.btnResetMiscGrouping.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnResetMiscGrouping.Location = new System.Drawing.Point(754, 210);
+			this.btnResetMiscGrouping.Location = new System.Drawing.Point(720, 210);
 			this.btnResetMiscGrouping.Name = "btnResetMiscGrouping";
 			this.btnResetMiscGrouping.Size = new System.Drawing.Size(80, 30);
 			this.btnResetMiscGrouping.TabIndex = 2;
@@ -430,7 +453,7 @@
 			this.txtMiscGrouping.Multiline = true;
 			this.txtMiscGrouping.Name = "txtMiscGrouping";
 			this.txtMiscGrouping.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-			this.txtMiscGrouping.Size = new System.Drawing.Size(821, 157);
+			this.txtMiscGrouping.Size = new System.Drawing.Size(787, 157);
 			this.txtMiscGrouping.TabIndex = 1;
 			// 
 			// label3
@@ -440,7 +463,7 @@
 			this.label3.AutoEllipsis = true;
 			this.label3.Location = new System.Drawing.Point(13, 10);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(821, 34);
+			this.label3.Size = new System.Drawing.Size(787, 34);
 			this.label3.TabIndex = 0;
 			this.label3.Text = resources.GetString("label3.Text");
 			// 
@@ -572,8 +595,8 @@
 			// 
 			this.toolStripLabel1.ForeColor = System.Drawing.Color.Gray;
 			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(867, 22);
-			this.toolStripLabel1.Text = "Custom snippets from 4 to 9 can be freely updated. You can also type CTRL+SHIFT+d" +
+			this.toolStripLabel1.Size = new System.Drawing.Size(869, 22);
+			this.toolStripLabel1.Text = "Custom snippets from 5 to 9 can be freely updated. You can also type CTRL+SHIFT+d" +
     "igit in the Role Editor to create a snippet from the selected table configuratio" +
     "n.";
 			// 
@@ -667,29 +690,6 @@
 			this.mSetNull.Size = new System.Drawing.Size(229, 22);
 			this.mSetNull.Text = "Remove privilege assignment";
 			// 
-			// chkIsRequestLoggingEnabled
-			// 
-			this.chkIsRequestLoggingEnabled.AutoSize = true;
-			this.chkIsRequestLoggingEnabled.Location = new System.Drawing.Point(16, 118);
-			this.chkIsRequestLoggingEnabled.Name = "chkIsRequestLoggingEnabled";
-			this.chkIsRequestLoggingEnabled.Size = new System.Drawing.Size(134, 17);
-			this.chkIsRequestLoggingEnabled.TabIndex = 7;
-			this.chkIsRequestLoggingEnabled.Text = "Enable request logging";
-			this.chkIsRequestLoggingEnabled.UseVisualStyleBackColor = true;
-			// 
-			// label11
-			// 
-			this.label11.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.label11.AutoSize = true;
-			this.label11.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label11.Location = new System.Drawing.Point(14, 95);
-			this.label11.Name = "label11";
-			this.label11.Size = new System.Drawing.Size(761, 13);
-			this.label11.TabIndex = 8;
-			this.label11.Text = "Check the flag below to enable request logging. Request will be saved as json fil" +
-    "es under C:\\users\\<username\\AppData\\Local\\Greg.Xrm.RoleEditor";
-			// 
 			// SettingsDialog
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -781,7 +781,7 @@
 		private System.Windows.Forms.Label label9;
 		private System.Windows.Forms.Label label10;
 		private System.Windows.Forms.CheckBox chkAutoLoad;
-		private System.Windows.Forms.Label label11;
+		private System.Windows.Forms.Label lblLogs;
 		private System.Windows.Forms.CheckBox chkIsRequestLoggingEnabled;
 	}
 }

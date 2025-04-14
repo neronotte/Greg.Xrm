@@ -32,6 +32,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.SearchBySolutionCommand = new SearchBySolutionCommand(this, roleRepository);
 			this.OpenUsageInspectorCommand = new OpenUsageInspectorCommand();
 			this.CompareRolesCommand = new CompareRolesCommand();
+			this.OpenAddUserRoleViewCommand = new OpenAddUserRoleViewCommand(messenger);
 
 			var settings = settingsProvider.GetSettings();
 			this.ShouldHideManagedRoles = settings.HideManagedRoles;
@@ -75,6 +76,18 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 				{
 					this.EmptyListMessage = "No roles found matching the specified filters. You can change the filters in the toolbar above this panel.";
 				}
+			});
+
+			messenger.Register<RoleAdded>(x =>
+			{
+				var role = x.Role;
+
+				var environment = this.Environments.Find(e => e.Context.Details.ConnectionId == role.ExecutionContext.Details.ConnectionId);
+
+				if (environment == null) return;
+
+				environment.AddRole(role);
+				OnPropertyChanged(nameof(Environments), this.Environments);
 			});
 
 
@@ -184,5 +197,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 		public OpenUsageInspectorCommand OpenUsageInspectorCommand { get; }
 
 		public CompareRolesCommand CompareRolesCommand { get; }
+
+		public OpenAddUserRoleViewCommand OpenAddUserRoleViewCommand { get; }
 	}
 }

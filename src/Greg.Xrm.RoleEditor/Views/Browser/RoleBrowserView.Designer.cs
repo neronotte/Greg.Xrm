@@ -53,6 +53,7 @@
 			this.tEditMultiple = new System.Windows.Forms.ToolStripMenuItem();
 			this.tInspectUsage = new System.Windows.Forms.ToolStripMenuItem();
 			this.tCompareRoles = new System.Windows.Forms.ToolStripMenuItem();
+			this.tAddUserRoles = new System.Windows.Forms.ToolStripMenuItem();
 			this.tools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.roleTree)).BeginInit();
 			this.contextMenu.SuspendLayout();
@@ -223,37 +224,45 @@
             this.tNewCloneCurrent2,
             this.tEditMultiple,
             this.tInspectUsage,
-            this.tCompareRoles});
+            this.tCompareRoles,
+            this.tAddUserRoles});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(181, 114);
+			this.contextMenu.Size = new System.Drawing.Size(191, 136);
 			// 
 			// tNewCloneCurrent2
 			// 
 			this.tNewCloneCurrent2.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_copy;
 			this.tNewCloneCurrent2.Name = "tNewCloneCurrent2";
-			this.tNewCloneCurrent2.Size = new System.Drawing.Size(180, 22);
+			this.tNewCloneCurrent2.Size = new System.Drawing.Size(190, 22);
 			this.tNewCloneCurrent2.Text = "Clone selected role";
 			// 
 			// tEditMultiple
 			// 
 			this.tEditMultiple.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_stack;
 			this.tEditMultiple.Name = "tEditMultiple";
-			this.tEditMultiple.Size = new System.Drawing.Size(180, 22);
+			this.tEditMultiple.Size = new System.Drawing.Size(190, 22);
 			this.tEditMultiple.Text = "Edit multiple roles";
 			// 
 			// tInspectUsage
 			// 
 			this.tInspectUsage.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.application_form_magnify;
 			this.tInspectUsage.Name = "tInspectUsage";
-			this.tInspectUsage.Size = new System.Drawing.Size(180, 22);
+			this.tInspectUsage.Size = new System.Drawing.Size(190, 22);
 			this.tInspectUsage.Text = "Inspect usage...";
 			// 
 			// tCompareRoles
 			// 
 			this.tCompareRoles.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.table_relationship;
 			this.tCompareRoles.Name = "tCompareRoles";
-			this.tCompareRoles.Size = new System.Drawing.Size(180, 22);
+			this.tCompareRoles.Size = new System.Drawing.Size(190, 22);
 			this.tCompareRoles.Text = "Compare roles...";
+			// 
+			// tAddUserRoles
+			// 
+			this.tAddUserRoles.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.user_go;
+			this.tAddUserRoles.Name = "tAddUserRoles";
+			this.tAddUserRoles.Size = new System.Drawing.Size(190, 22);
+			this.tAddUserRoles.Text = "Assign roles to users...";
 			// 
 			// RoleBrowserView
 			// 
@@ -300,5 +309,6 @@
 		private System.Windows.Forms.ToolStripMenuItem tInspectUsage;
 		private Greg.Xrm.Views.ToolStripBindableMenuItem tSearchRoleBySolution;
 		private System.Windows.Forms.ToolStripMenuItem tCompareRoles;
+		private System.Windows.Forms.ToolStripMenuItem tAddUserRoles;
 	}
 }

@@ -4,7 +4,9 @@ using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
+using Greg.Xrm.RoleEditor.Views.AddUserRoles;
 using Greg.Xrm.RoleEditor.Views.Messages;
+using Greg.Xrm.Views;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
@@ -22,9 +24,6 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly IMessenger messenger;
 		private readonly ISettingsProvider<Settings> settingsProvider;
 		private readonly List<Guid> rolesCurrentlyOpened = new List<Guid>();
-
-
-
 
 		public MainViewModel(
 			ILog log,
@@ -46,11 +45,21 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			this.InitCommand = new LoadDataCommand(roleTemplateBuilder, roleRepository, businessUnitRepository, systemUserRepository);
 
-
 			this.messenger.Register<OpenRoleView>(OnOpenRoleRequested);
 			this.messenger.Register<CloseRoleView>(OnCloseRoleRequested);
+
+			this.messenger.Register<UserRolesViewOpen>(OnUserRolesViewOpenRequested);
+			this.messenger.Register<UserRolesViewClosed>(OnUserRolesViewCloseRequested);
+			this.messenger.Register<Freeze>(_ => Freeze = true);
+			this.messenger.Register<Unfreeze>(_ => Freeze = false);
 		}
 
+
+		public bool Freeze
+		{
+			get => base.Get<bool>();
+			private set => base.Set(value);
+		}
 
 
 
@@ -92,8 +101,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		#endregion
 
-
-
+		
 
 
 		public event EventHandler<OpenRoleView> OpenRoleRequested;
@@ -159,5 +167,22 @@ namespace Greg.Xrm.RoleEditor.Views
 				this.log.Debug($"Role editor closed for <{message.Roles.Length}> roles. Total #roles still opened: {this.rolesCurrentlyOpened.Count}");
 			}
 		}
+
+
+		public event EventHandler<UserRolesViewOpen> ShowUserRolesView;
+
+		private void OnUserRolesViewOpenRequested(UserRolesViewOpen message)
+		{
+			if (this.Freeze) return;
+			ShowUserRolesView?.Invoke(this, message);
+		}
+
+
+		public event EventHandler<UserRolesViewClosed> UserRolesViewClosed;
+		private void OnUserRolesViewCloseRequested(UserRolesViewClosed message)
+		{
+			this.UserRolesViewClosed?.Invoke(this, message);
+		}
+
 	}
 }

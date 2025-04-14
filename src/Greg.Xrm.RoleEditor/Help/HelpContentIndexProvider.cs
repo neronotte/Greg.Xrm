@@ -29,7 +29,8 @@ namespace Greg.Xrm.RoleEditor.Help
 				{ Topics.BulkEditor, "editor_bulk.html" },
 				{ Topics.Inspector, "inspector.html" },
 				{ Topics.Comparer, "comparer.html" },
-				{ Topics.UserBrowser, "user_browser.html" }
+				{ Topics.UserBrowser, "user_browser.html" },
+				{ Topics.AddUserRoles, "add_roles_to_users.html" }
 			};
 		}
 

@@ -64,5 +64,24 @@ namespace Greg.Xrm.RoleEditor.Model
 		{
 			inner.Update(entity);
 		}
+
+
+
+		public static bool AreEqual(IXrmToolboxPluginContext a, IXrmToolboxPluginContext b)
+		{
+			if (a == null && b == null)
+			{
+				return true;
+			}
+
+			if (a == null || b == null)
+			{
+				return false;
+			}
+			
+			return a.Details == b.Details &&
+				a.Messenger == b.Messenger &&
+				a.Log == b.Log;
+		}
 	}
 }

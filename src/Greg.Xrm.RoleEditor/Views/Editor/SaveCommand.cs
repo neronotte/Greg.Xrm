@@ -1,4 +1,6 @@
 ﻿using Greg.Xrm.Core.Views;
+using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Views.Browser;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
@@ -117,10 +119,12 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 					// now, if everything'sg good, we should reload role privil
 					model.CommitChanges(id);
+
+					e.Result = model.GetRole();
 				},
 				PostWorkCallBack = e => 
 				{
-					messenger.Send<Unfreeze>();
+					messenger.Unfreeze();
 
 					if (e.Error != null)
 					{
@@ -133,6 +137,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 					// refresh the viewmodel and reload the view
 					this.viewModel.RefreshView();
+
+					if (e.Result is Role role)
+						messenger.Send(new RoleAdded(role));
 				}
 			});
 

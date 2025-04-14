@@ -28,6 +28,18 @@ namespace Greg.Xrm.RoleEditor.Model
 			this.children.Sort((a, b) => string.Compare(a.name, b.name));
 		}
 
+		public IEnumerable<BusinessUnit> GetAllChildren()
+		{
+			foreach (var child in this.children)
+			{
+				yield return child;
+				foreach (var grandChild in child.GetAllChildren())
+				{
+					yield return grandChild;
+				}
+			}
+		}
+
 
 		#region Roles
 
@@ -57,6 +69,12 @@ namespace Greg.Xrm.RoleEditor.Model
 		{
 			if (role.businessunitid?.Id == this.Id)
 			{
+				var existingRole = this.roles.FirstOrDefault(x => x.Id == role.Id);
+				if (existingRole != null) 
+				{
+					this.roles.Remove(existingRole);
+				}
+
 				this.roles.Add(role);
 				this.roles.Sort((a, b) => string.Compare(a.name, b.name));
 			}
@@ -108,7 +126,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 			if (recursive)
 			{
-				return this.children.Exists(x => x.Contains(user));
+				return this.children.Exists(x => x.Contains(user, true));
 			}
 			return false;
 		}
@@ -132,6 +150,11 @@ namespace Greg.Xrm.RoleEditor.Model
 		public void AddUsers(IEnumerable<SystemUser> userList)
 		{
 			this.users.AddRange(userList.OrderBy(x => x.fullname));
+		}
+
+		public void RemoveUser(SystemUser user)
+		{
+			this.users.Remove(user);
 		}
 
 

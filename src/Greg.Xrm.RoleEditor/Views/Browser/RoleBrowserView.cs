@@ -39,6 +39,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			this.roleTree.UseFiltering = true;
 			this.roleTree.FullRowSelect = true;
 			this.roleTree.HideSelection = false;
+			this.roleTree.IsSimpleDragSource = true;
 			this.cTreeName.Sortable = false;
 			this.tSearchText.Enabled = false;
 			this.viewModel = new RoleBrowserViewModel(log, messenger, settingsProvider, roleRepository);
@@ -144,6 +145,10 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 				this.tInspectUsage.Visible = selectedRoles.Length == 1;
 				this.tCompareRoles.Visible = selectedRoles.Length == 2;
 
+				var selectedEnvironment = this.roleTree.SelectedObjects.OfType<DataverseEnvironment>().ToArray();
+				this.tAddUserRoles.Visible = selectedEnvironment.Length == 1;
+				this.tAddUserRoles.Tag = selectedEnvironment.FirstOrDefault();
+
 				this.contextMenu.Show(this.roleTree, e.Location);
 			};
 			this.tEditMultiple.Click += (s, e) =>
@@ -169,6 +174,12 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 				var roles = this.roleTree.SelectedObjects.OfType<Role>().ToArray();
 				if (roles.Length != 2) return;
 				this.viewModel.CompareRolesCommand.Execute((roles[0], roles[1]));
+			};
+			this.tAddUserRoles.Click += (s, e) =>
+			{
+				var environment = this.tAddUserRoles.Tag as DataverseEnvironment;
+				if (environment == null) return;
+				this.viewModel.OpenAddUserRoleViewCommand.Execute(environment);
 			};
 
 			this.tSearchText.KeyUp += (s, e) =>

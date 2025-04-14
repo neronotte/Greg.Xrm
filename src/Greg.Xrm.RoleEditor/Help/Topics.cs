@@ -9,5 +9,6 @@
 		public static string Inspector => "inspector";
 		public static string Comparer => "comparer";
 		public static string UserBrowser => "user_browser";
+		public static string AddUserRoles => "add_roles_to_users";
 	}
 }

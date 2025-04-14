@@ -1,6 +1,7 @@
 ﻿using BrightIdeasSoftware;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.Config;
 using Microsoft.Xrm.Sdk.Metadata;
@@ -36,6 +37,8 @@ namespace Greg.Xrm.RoleEditor.Views
 			this.txtMiscGrouping.Bind(x => x.Text, this.viewModel, x => x.PrivilegeClassificationForMisc);
 			this.btnResetMiscGrouping.BindCommand(() => this.viewModel.ResetPrivilegeClassificationForMiscCommand);
 			this.chkIsRequestLoggingEnabled.Bind(x => x.Checked, this.viewModel, x => x.IsRequestLoggingEnabled);
+
+			this.lblLogs.Text += RequestLogger.GetOrCreateStorageFolder().FullName;
 
 			// snippets grid
 
