@@ -143,7 +143,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 				if (role != null)
 				{
 					log.Debug("Add roles to user: CTRL+V found role " + role.name);
-					this.Roles.Add(new TreeNodeRole(this.Environment, role));
+					this.Roles.Add(new TreeNodeRole(this.Environment, role, this.IsRecordOwnershipAcrossBusinessUnitEnabled));
 					found = true;
 					continue;
 				}
@@ -158,7 +158,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 						role = allRoles.FirstOrDefault(x => roleName.Equals(x.name, StringComparison.OrdinalIgnoreCase));
 						if (role != null)
 						{
-							var roleNode = new TreeNodeRole(this.Environment, role);
+							var roleNode = new TreeNodeRole(this.Environment, role, this.IsRecordOwnershipAcrossBusinessUnitEnabled);
 							var businessUnit = roleNode.ValidBusinessUnits.FirstOrDefault(x => x.Name.Equals(buName, StringComparison.OrdinalIgnoreCase));
 							if (businessUnit != null)
 							{

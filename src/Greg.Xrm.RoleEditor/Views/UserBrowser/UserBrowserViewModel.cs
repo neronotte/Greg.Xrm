@@ -2,6 +2,7 @@
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Views.Browser;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 
 
 			this.OpenRoleCommand = new OpenRoleFromUserCommand(this);
+			this.OpenAddUserRoleViewCommand = new OpenAddUserRoleViewCommand(messenger);
 			this.ChangeBusinessUnitCommand = new ChangeBusinessUnitCommand(this, roleRepository);
 
 
@@ -123,5 +125,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 		public OpenRoleFromUserCommand OpenRoleCommand { get; }
 
 		public ChangeBusinessUnitCommand ChangeBusinessUnitCommand { get; }
+
+		public OpenAddUserRoleViewCommand OpenAddUserRoleViewCommand { get; }
 	}
 }

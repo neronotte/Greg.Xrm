@@ -1,4 +1,6 @@
 ﻿using BrightIdeasSoftware;
+using Greg.Xrm.Core.Views.Help;
+using Greg.Xrm.RoleEditor.Help;
 using Greg.Xrm.RoleEditor.Model;
 using Microsoft.Xrm.Sdk;
 using System.Collections;
@@ -16,8 +18,11 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 		public UserRolesView(DataverseEnvironment environment, IRoleRepository roleRepository)
         {
             InitializeComponent();
+
+			this.RegisterHelp(environment.Context.Messenger, Topics.AddUserRoles);
+
 			this.viewModel = new UserRolesViewModel(environment, roleRepository);
-			this.Text = this.TabText = $"Add roles to users ({this.viewModel.EnvironmentName})";
+			this.Text = this.TabText = $"Assign roles to users ({this.viewModel.EnvironmentName})";
 
 			this.Load += (s, e) => this.viewModel.Initialize();
 			this.FormClosed += (s, e) => this.viewModel.Terminate();
@@ -185,7 +190,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 			if (roleList.Length > 0)
 			{
 				this.viewModel.Roles.AddRange(roleList
-					.Select(x => new TreeNodeRole(this.environment, x))
+					.Select(x => new TreeNodeRole(this.environment, x, this.viewModel.IsRecordOwnershipAcrossBusinessUnitEnabled))
 					.OrderBy(x => x.Name)
 					.ToList());
 				this.treeListView1.RefreshObject(this.viewModel.Roles);
@@ -200,10 +205,22 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 			if (e.Control && e.KeyCode.Equals(Keys.V))
 			{
 				var text = Clipboard.GetText();
+				var initialUserCount = this.viewModel.Users.Count;
+				var initialRoleCount = this.viewModel.Roles.Count;
+
 				if (this.viewModel.PasteFrom(text))
 				{
 					this.treeListView1.RefreshObject(this.viewModel.Users);
 					this.treeListView1.RefreshObject(this.viewModel.Roles);
+
+					if (this.viewModel.Users.Count != initialUserCount)
+					{
+						this.treeListView1.Expand(this.viewModel.Users);
+					}
+					if (this.viewModel.Roles.Count != initialRoleCount)
+					{
+						this.treeListView1.Expand(this.viewModel.Roles);
+					}
 				}
 				e.Handled = true;
 				e.SuppressKeyPress = true;

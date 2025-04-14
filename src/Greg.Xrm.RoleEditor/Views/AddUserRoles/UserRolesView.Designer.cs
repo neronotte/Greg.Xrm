@@ -31,6 +31,9 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserRolesView));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.tApply = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tMatrixVisibility = new System.Windows.Forms.ToolStripLabel();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.lblDrop = new System.Windows.Forms.Label();
 			this.treeListView1 = new BrightIdeasSoftware.TreeListView();
@@ -38,9 +41,6 @@
 			this.cBusinessUnit = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cDomainName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.images = new System.Windows.Forms.ImageList(this.components);
-			this.tMatrixVisibility = new System.Windows.Forms.ToolStripLabel();
-			this.tApply = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStrip1.SuspendLayout();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.treeListView1)).BeginInit();
@@ -58,6 +58,30 @@
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
+			// tApply
+			// 
+			this.tApply.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.lightning;
+			this.tApply.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tApply.Name = "tApply";
+			this.tApply.Size = new System.Drawing.Size(58, 22);
+			this.tApply.Text = "Apply";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tMatrixVisibility
+			// 
+			this.tMatrixVisibility.BackColor = System.Drawing.SystemColors.Control;
+			this.tMatrixVisibility.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.tMatrixVisibility.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.information;
+			this.tMatrixVisibility.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.tMatrixVisibility.Name = "tMatrixVisibility";
+			this.tMatrixVisibility.Size = new System.Drawing.Size(288, 22);
+			this.tMatrixVisibility.Text = "Record ownership across Business Units is enabled.";
+			this.tMatrixVisibility.Visible = false;
+			// 
 			// tableLayoutPanel1
 			// 
 			this.tableLayoutPanel1.ColumnCount = 1;
@@ -68,7 +92,7 @@
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 25);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.RowCount = 2;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 60F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(900, 410);
 			this.tableLayoutPanel1.TabIndex = 1;
@@ -78,10 +102,10 @@
 			this.lblDrop.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lblDrop.Location = new System.Drawing.Point(3, 0);
 			this.lblDrop.Name = "lblDrop";
-			this.lblDrop.Size = new System.Drawing.Size(894, 60);
+			this.lblDrop.Size = new System.Drawing.Size(894, 50);
 			this.lblDrop.TabIndex = 0;
 			this.lblDrop.Text = resources.GetString("lblDrop.Text");
-			this.lblDrop.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.lblDrop.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// treeListView1
 			// 
@@ -94,11 +118,11 @@
             this.cDomainName});
 			this.treeListView1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.treeListView1.HideSelection = false;
-			this.treeListView1.Location = new System.Drawing.Point(3, 63);
+			this.treeListView1.Location = new System.Drawing.Point(3, 53);
 			this.treeListView1.Name = "treeListView1";
 			this.treeListView1.OwnerDraw = true;
 			this.treeListView1.ShowGroups = false;
-			this.treeListView1.Size = new System.Drawing.Size(894, 344);
+			this.treeListView1.Size = new System.Drawing.Size(894, 354);
 			this.treeListView1.SmallImageList = this.images;
 			this.treeListView1.TabIndex = 1;
 			this.treeListView1.UseCompatibleStateImageBehavior = false;
@@ -138,30 +162,6 @@
 			this.images.Images.SetKeyName(4, "loading");
 			this.images.Images.SetKeyName(5, "env");
 			this.images.Images.SetKeyName(6, "rolelist");
-			// 
-			// tMatrixVisibility
-			// 
-			this.tMatrixVisibility.BackColor = System.Drawing.SystemColors.Control;
-			this.tMatrixVisibility.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.tMatrixVisibility.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.information;
-			this.tMatrixVisibility.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.tMatrixVisibility.Name = "tMatrixVisibility";
-			this.tMatrixVisibility.Size = new System.Drawing.Size(288, 22);
-			this.tMatrixVisibility.Text = "Record ownership across Business Units is enabled.";
-			this.tMatrixVisibility.Visible = false;
-			// 
-			// tApply
-			// 
-			this.tApply.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.lightning;
-			this.tApply.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tApply.Name = "tApply";
-			this.tApply.Size = new System.Drawing.Size(58, 22);
-			this.tApply.Text = "Apply";
-			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
 			// 
 			// UserRolesView
 			// 

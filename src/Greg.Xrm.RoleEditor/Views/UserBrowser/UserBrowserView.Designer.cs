@@ -38,8 +38,11 @@
 			this.cName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cBusinessUnit = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.userTree = new BrightIdeasSoftware.TreeListView();
+			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.tAddUserRoles = new System.Windows.Forms.ToolStripMenuItem();
 			this.tools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.userTree)).BeginInit();
+			this.contextMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// notifications
@@ -127,6 +130,20 @@
 			this.userTree.View = System.Windows.Forms.View.Details;
 			this.userTree.VirtualMode = true;
 			// 
+			// contextMenu
+			// 
+			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tAddUserRoles});
+			this.contextMenu.Name = "contextMenu";
+			this.contextMenu.Size = new System.Drawing.Size(191, 26);
+			// 
+			// tAddUserRoles
+			// 
+			this.tAddUserRoles.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.user_go;
+			this.tAddUserRoles.Name = "tAddUserRoles";
+			this.tAddUserRoles.Size = new System.Drawing.Size(190, 22);
+			this.tAddUserRoles.Text = "Assign roles to users...";
+			// 
 			// UserBrowserView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -142,6 +159,7 @@
 			this.tools.ResumeLayout(false);
 			this.tools.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.userTree)).EndInit();
+			this.contextMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -157,5 +175,7 @@
 		private BrightIdeasSoftware.OLVColumn cName;
 		private BrightIdeasSoftware.OLVColumn cBusinessUnit;
 		private BrightIdeasSoftware.TreeListView userTree;
+		private System.Windows.Forms.ContextMenuStrip contextMenu;
+		private System.Windows.Forms.ToolStripMenuItem tAddUserRoles;
 	}
 }

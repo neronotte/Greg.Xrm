@@ -8,10 +8,12 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 	public class TreeNodeRole : TreeNode
 	{
 		private readonly Role role;
+		private readonly bool isRecordOwnershipAcrossBusinessUnitEnabled;
 
-		public TreeNodeRole(DataverseEnvironment environment, Role role)
+		public TreeNodeRole(DataverseEnvironment environment, Role role, bool isRecordOwnershipAcrossBusinessUnitEnabled)
 		{
 			this.role = role;
+			this.isRecordOwnershipAcrossBusinessUnitEnabled = isRecordOwnershipAcrossBusinessUnitEnabled;
 			this.Name = role.name;
 			this.BusinessUnit = role.businessunitidFormatted;
 
@@ -59,19 +61,30 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 		{
 			unchecked
 			{
-				return this.role.name.GetHashCode() ^ this.role.businessunitid.Id.GetHashCode();
+				if (this.isRecordOwnershipAcrossBusinessUnitEnabled)
+					return base.GetHashCode();
+
+				return this.Name.GetHashCode() ^ this.CurrentBusinessUnit.Id.GetHashCode();
 			}
 		}
 
 		public override bool Equals(object obj)
-		{
+		{	
+			// when matrix visibility is enabled, i want to be able to add the same role to multiple business units
+			// to do that without side effects, i need to ensure that instances of this class are considered different
+			if (this.isRecordOwnershipAcrossBusinessUnitEnabled)
+				return object.Equals(this, obj);
+
+
 			if (obj == null) return false;
 			if (ReferenceEquals(obj, this)) return true;
 			if (!(obj is TreeNodeRole other)) return false;
 
+			
+
 			return 
-				this.role.name == other.role.name && 
-				this.role.businessunitid.Id == other.role.businessunitid.Id;
+				this.Name == other.Name && 
+				this.CurrentBusinessUnit.Id == other.CurrentBusinessUnit.Id;
 		}
 
 

@@ -200,7 +200,20 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				if (this.viewModel.SelectedRole == null) return;
 				this.viewModel.OpenRoleCommand.Execute(this.viewModel.SelectedRole);
 			};
+			this.userTree.CellRightClick += (s, e) =>
+			{
+				var selectedEnvironment = this.userTree.SelectedObjects.OfType<DataverseEnvironment>().ToArray();
+				this.tAddUserRoles.Visible = selectedEnvironment.Length == 1;
+				this.tAddUserRoles.Tag = selectedEnvironment.FirstOrDefault();
 
+				this.contextMenu.Show(this.userTree, e.Location);
+			};
+			this.tAddUserRoles.Click += (s, e) =>
+			{
+				var environment = this.tAddUserRoles.Tag as DataverseEnvironment;
+				if (environment == null) return;
+				this.viewModel.OpenAddUserRoleViewCommand.Execute(environment);
+			};
 
 			this.tSearchText.KeyUp += (s, e) =>
 			{

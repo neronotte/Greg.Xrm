@@ -347,7 +347,7 @@
     <Compile Include="Views\Browser\NewRoleCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromCurrentCommand.cs" />
     <Compile Include="Views\Browser\NewRoleFromExistingCommand.cs" />
-    <Compile Include="Views\Browser\OpenAddUserRoleViewCommand.cs" />
+    <Compile Include="Views\AddUserRoles\OpenAddUserRoleViewCommand.cs" />
     <Compile Include="Views\Browser\OpenMultipleRolesCommand.cs" />
     <Compile Include="Views\Browser\OpenUsageInspectorCommand.cs" />
     <Compile Include="Views\Browser\RoleEventArgs.cs" />
@@ -665,6 +665,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\lightning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\add_roles_to_users.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
