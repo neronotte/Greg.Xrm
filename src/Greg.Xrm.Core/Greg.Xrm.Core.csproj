@@ -230,6 +230,9 @@
     <Compile Include="CommandExecuteBehavior.cs" />
     <Compile Include="ComponentType.cs" />
     <Compile Include="CrmComparer.cs" />
+    <Compile Include="Messaging\Common\Freeze.cs" />
+    <Compile Include="Messaging\Common\FreezeMessengerExtensions.cs" />
+    <Compile Include="Messaging\Common\Unfreeze.cs" />
     <Compile Include="Messaging\IScopedMessenger.cs" />
     <Compile Include="Messaging\ScopedMessenger.cs" />
     <Compile Include="Views\CustomizableFloatWindow.cs">

@@ -3,6 +3,7 @@ using Greg.Xrm.EnvironmentSolutionsComparer.Messaging;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
+using Greg.Xrm.Views;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
@@ -11,11 +12,13 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 {
-	public class SolutionsViewModel : ViewModel
+	public class SolutionsViewModel : PluginViewModelBase
 	{
 		private readonly ILog log;
 		private readonly IMessenger messenger;
@@ -30,27 +33,25 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.Grid = new SolutionGrid();
 			this.AllowRequests = true;
 
+			this.RefreshCommand = new RelayCommand(RefreshSolutionGrid, CanRefreshSolutionGrid);
+
 			this.messenger.WhenObject<MainViewModel>()
 				.ChangesProperty(_ => _.AllowRequests)
 				.Execute(m => this.AllowRequests = (bool)m.NewValue);
 
-			this.WhenChanges(() => this.AllowRequests).ChangesAlso(() => CanExport);
+			this.WhenChanges(() => this.AllowRequests)
+				.ChangesAlso(() => CanExport)
+				.Refresh(this.RefreshCommand);
+
 			this.WhenChanges(() => this.ShowOnlyVisibleSolutions)
 				.ChangesAlso(() => this.ShowOnlyVisibleSolutionsText)
 				.Execute(o => this.RefreshGrid?.Invoke(this, EventArgs.Empty));
 
-			this.RefreshGrid += (s, e) => this.OnPropertyChanged(nameof(CanExport), CanExport);
 
+			this.RefreshGrid += (s, e) => this.OnPropertyChanged(nameof(CanExport), CanExport);
 
 			this.messenger.Register<ConnectionAddedMessage>(OnConnectionAdded);
 			this.messenger.Register<ConnectionRemovedMessage>(OnConnectionRemoved);
-
-		}
-
-		public bool AllowRequests
-		{
-			get => Get<bool>();
-			private set => Set<bool>(value);
 		}
 
 		public bool ShowOnlyVisibleSolutions
@@ -71,6 +72,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			}
 		}
 
+		public RelayCommand RefreshCommand { get; }
+
 		public SolutionGrid Grid { get; }
 
 		public bool CanExport
@@ -87,7 +90,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		{
 			var repository = Solution.GetRepository(this.log, obj.Model.Crm, obj.Model.Detail.ConnectionName);
 
-			this.scheduler.Enqueue(new XrmToolBox.Extensibility.WorkAsyncInfo
+			this.scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Loading solution list from environment " + obj.Model.Detail.ConnectionName,
 				Work = (w, e) =>
@@ -107,6 +110,62 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				}
 			});
 		}
+
+		private bool CanRefreshSolutionGrid()
+		{
+			return AllowRequests;
+		}
+
+		private void RefreshSolutionGrid()
+		{
+			var environmentList = this.Grid.Environments;
+
+			this.scheduler.Enqueue(new WorkAsyncInfo
+			{
+				Message = "Loading solution list from all environments, please wait... ",
+				Work = (w, e) =>
+				{
+					var result = new List<dynamic>();
+
+
+					for(var index = 0; index < environmentList.Count; index++)
+					{
+						var model = environmentList[index];
+						var repository = Solution.GetRepository(this.log, model.Crm, model.Detail.ConnectionName);
+						var solutionList = repository.GetSolutions();
+
+						result.Add(new
+						{
+							Index = index,
+							Model = model,
+							SolutionList = solutionList
+						});
+					}
+
+					this.Grid.Environments.Clear();
+					this.Grid.Rows.Clear();
+
+					foreach (var item in result)
+					{
+						AnalyzeSolutions(item.SolutionList, item.Index, item.Model);
+					}
+				},
+				PostWorkCallBack = e =>
+				{
+					if (e.Error != null)
+					{
+						this.log.Error(e.Error.Message, e.Error);
+						return;
+					}
+
+					this.RefreshGrid?.Invoke(this, EventArgs.Empty);
+				}
+			});
+		}
+
+
+
+
 
 		private void AnalyzeSolutions(IReadOnlyCollection<Solution> solutionList, int solutionIndex, ConnectionModel model)
 		{
