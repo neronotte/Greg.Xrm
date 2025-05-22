@@ -2,8 +2,8 @@
 {
 	public class IsInheritedValue
 	{
-        public IsInheritedValue(int isInherited, string label)
-        {
+		public IsInheritedValue(int isInherited, string label)
+		{
 			Value = isInherited;
 			Label = label;
 		}

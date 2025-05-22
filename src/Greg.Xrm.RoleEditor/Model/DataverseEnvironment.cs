@@ -9,9 +9,9 @@ namespace Greg.Xrm.RoleEditor.Model
 {
 	public class DataverseEnvironment : List<BusinessUnit>
 	{
-        public DataverseEnvironment(IXrmToolboxPluginContext context, TemplateForRole template)
-        {
-            this.Context = context;
+		public DataverseEnvironment(IXrmToolboxPluginContext context, TemplateForRole template)
+		{
+			this.Context = context;
 			this.Template = template;
 		}
 
@@ -20,7 +20,7 @@ namespace Greg.Xrm.RoleEditor.Model
 #pragma warning restore IDE1006 // Naming Styles
 
 		public IXrmToolboxPluginContext Context { get; }
-		
+
 		public TemplateForRole Template { get; }
 
 
@@ -84,7 +84,7 @@ namespace Greg.Xrm.RoleEditor.Model
 			foreach (var businessUnit in businessUnitList)
 			{
 				if (businessUnit.Id == id) return businessUnit;
-				
+
 				var found = FindRecursive(id, businessUnit.Children);
 				if (found != null) return found;
 			}

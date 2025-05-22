@@ -38,7 +38,7 @@ namespace Greg.Xrm.SolutionManager.Views.Timeline
 			series1.ChartType = SeriesChartType.Spline;
 			series1.ChartArea = chart.Name;
 			series1.BorderWidth = 2;
-			
+
 			var series2 = this.chart1.Series.Add("Total");
 			series2.ChartType = SeriesChartType.Spline;
 			series2.ChartArea = chart.Name;

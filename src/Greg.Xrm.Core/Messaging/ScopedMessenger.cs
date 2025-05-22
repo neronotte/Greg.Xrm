@@ -10,7 +10,7 @@ namespace Greg.Xrm.Messaging
 		private bool disposedValue;
 
 		public ScopedMessenger(IMessenger messenger)
-        {
+		{
 			this.messenger = messenger;
 		}
 

@@ -12,7 +12,7 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
 		private readonly IMessenger messenger;
 
 		public NewRoleCommand(IMessenger messenger, RoleBrowserViewModel viewModel)
-        {
+		{
 			this.messenger = messenger;
 
 			viewModel.PropertyChanged += (s, e) =>
@@ -25,7 +25,7 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
 		}
 
 
-        protected override void ExecuteInternal(DataverseEnvironment arg)
+		protected override void ExecuteInternal(DataverseEnvironment arg)
 		{
 			if (arg == null) return;
 

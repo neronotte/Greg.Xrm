@@ -2,7 +2,6 @@
 using Greg.Xrm.RoleEditor.Views.Lookup;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.RoleEditor.Views.RoleBrowser;
-using Greg.Xrm.RoleEditor.Views.Search;
 using Greg.Xrm.Views;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;

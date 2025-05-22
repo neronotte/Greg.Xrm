@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-
-namespace Greg.Xrm.Model
+﻿namespace Greg.Xrm.Model
 {
 	public abstract class PluginViewModelBase : ViewModel
 	{

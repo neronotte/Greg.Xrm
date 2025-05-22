@@ -61,7 +61,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions.ComponentResolut
 						idList.Remove(entityId);
 
 						var leaf = group.OfType<SolutionComponentLeaf>().First(_ => _.ObjectId == entityId);
-						leaf.SetLabel( this.LabelExtractor(entity) );
+						leaf.SetLabel(this.LabelExtractor(entity));
 					}
 				}
 			}

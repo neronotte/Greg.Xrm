@@ -17,10 +17,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly IPrivilegeClassificationProvider privilegeClassificationProvider;
 
 		public RoleModel(
-			Role role, 
-			TemplateForRole template, 
+			Role role,
+			TemplateForRole template,
 			IPrivilegeClassificationProvider privilegeClassificationProvider)
-        {
+		{
 			this.role = role;
 			this.template = template;
 			this.privilegeClassificationProvider = privilegeClassificationProvider;
@@ -154,7 +154,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public Guid Id => this.role.Id;
 
 
-		public string Name 
+		public string Name
 		{
 			get => Get<string>();
 			set => Set(value);
@@ -195,7 +195,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		public List<MiscGroupModel> MiscGroups { get; } = new List<MiscGroupModel>();
 
-		
+
 
 
 
@@ -245,7 +245,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			}
 
 
-			if ( entity.Attributes.Count > 0)
+			if (entity.Attributes.Count > 0)
 			{
 				summary.Add(entity);
 			}
@@ -256,9 +256,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.OnPropertyChanged(nameof(IsDirty), IsDirty);
 		}
 
-		public bool IsDirty => 
+		public bool IsDirty =>
 			this.role.IsNew
-			|| this.TableGroups.Exists(x => x.IsDirty) 
+			|| this.TableGroups.Exists(x => x.IsDirty)
 			|| this.MiscGroups.Exists(x => x.IsDirty)
 			|| this.Name != this.role.name
 			|| this.Description != this.role.description

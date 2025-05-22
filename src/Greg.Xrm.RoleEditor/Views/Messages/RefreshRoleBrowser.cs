@@ -4,8 +4,8 @@ namespace Greg.Xrm.RoleEditor.Views.Messages
 {
 	public class RefreshRoleBrowser
 	{
-        public RefreshRoleBrowser(Role role)
-        {
+		public RefreshRoleBrowser(Role role)
+		{
 			Role = role;
 		}
 

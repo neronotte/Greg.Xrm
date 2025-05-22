@@ -104,11 +104,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 						writer.WriteHeader2("Miscellaneous privileges");
 
-						foreach (var g in m.MiscGroups.Where(x=> x.Exists(p => p.IsAssigned)))
+						foreach (var g in m.MiscGroups.Where(x => x.Exists(p => p.IsAssigned)))
 						{
 							writer.WriteHeader3(g.Name);
 
-							writer.WriteTable(g.Where(x=> x.Value != Level.None ).ToArray(),
+							writer.WriteTable(g.Where(x => x.Value != Level.None).ToArray(),
 								() => new string[] {
 									"Operation",
 									"Do action?",

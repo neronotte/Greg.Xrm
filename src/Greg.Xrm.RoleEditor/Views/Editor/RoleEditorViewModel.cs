@@ -33,7 +33,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			this.OverrideSetDefaultValue(() => IsEnabled, () => true);
 
-			this.ShowAllPrivilegesCommand = new RelayCommand(() => {
+			this.ShowAllPrivilegesCommand = new RelayCommand(() =>
+			{
 				this.ShouldShowOnlyAssignedPrivileges = false;
 			}, () => IsEnabled && ShouldShowOnlyAssignedPrivileges);
 			this.ShowOnlyAssignedPrivilegesCommand = new RelayCommand(() =>
@@ -70,7 +71,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			messenger.Register<Freeze>(m => IsEnabled = false);
 			messenger.Register<Unfreeze>(m => IsEnabled = true);
 
-			
+
 		}
 
 		public void TriggerOnLoadNotifications()
@@ -115,9 +116,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.role.ExecutionContext.Messenger.Send(new RefreshRoleBrowser(this.role));
 		}
 
-		public string ViewTitle 
+		public string ViewTitle
 		{
-			get 
+			get
 			{
 				var sb = new StringBuilder();
 				sb.Append(this.Model.Name).Append(" (");
@@ -173,7 +174,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		public ExportExcelCommand ExportExcelCommand { get; }
 		public ImportExcelCommand ImportExcelCommand { get; }
-		public ExportMarkdownCommand ExportMarkdownCommand  { get; }
+		public ExportMarkdownCommand ExportMarkdownCommand { get; }
 
 
 		public ICommand SaveSnippetCommand { get; }

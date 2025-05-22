@@ -44,7 +44,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions.ComponentResolut
 
 						solutionComponent.SetLabel(response.OptionSetMetadata.Name);
 					}
-					catch(FaultException<OrganizationServiceFault> ex)
+					catch (FaultException<OrganizationServiceFault> ex)
 					{
 						log.Error($"Error fetching option set {solutionComponent.ObjectId} : {ex.Message}", ex);
 					}

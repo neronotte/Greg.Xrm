@@ -31,9 +31,9 @@ namespace Greg.Xrm.DataModelWikiEditor.Views
 
 		public string ConnectionName { get => this.Env?.ConnectionName; }
 
-		public bool IsConnectToEnvirnmentVisible 
+		public bool IsConnectToEnvirnmentVisible
 		{
-			get => string.IsNullOrWhiteSpace( this.ConnectionName );
+			get => string.IsNullOrWhiteSpace(this.ConnectionName);
 		}
 
 		public bool IsEnvironmentNameVisible

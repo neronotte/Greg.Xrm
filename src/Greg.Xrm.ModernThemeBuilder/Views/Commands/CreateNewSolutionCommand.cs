@@ -7,7 +7,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 		private readonly MainViewModel viewModel;
 
 		public CreateNewSolutionCommand(MainViewModel viewModel)
-        {
+		{
 			this.viewModel = viewModel;
 		}
 

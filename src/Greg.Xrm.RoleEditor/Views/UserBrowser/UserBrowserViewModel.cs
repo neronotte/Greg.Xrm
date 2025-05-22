@@ -61,7 +61,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 
 
 		public void LoadRolesFor(SystemUser user)
-		{	
+		{
 			this.messenger.Send(new WorkAsyncInfo
 			{
 				Message = $"Loading roles of {user.fullname}...",

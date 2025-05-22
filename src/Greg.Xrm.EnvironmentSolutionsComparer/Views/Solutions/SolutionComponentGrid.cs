@@ -26,7 +26,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 						catch // casting exception may be caused by a missing component type
 						{
 							name = "Component type: " + componentType;
-						} 
+						}
 #pragma warning restore CA1031 // Do not catch general exception types
 					}
 

@@ -1,7 +1,6 @@
 ﻿using Greg.Xrm.EnvironmentSolutionsComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
-using System;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;

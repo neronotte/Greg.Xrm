@@ -1,13 +1,13 @@
 ﻿using Greg.Xrm.Logging;
+using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
-using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using XrmToolBox.Extensibility;
-using Greg.Xrm.Views;
 
 namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 {

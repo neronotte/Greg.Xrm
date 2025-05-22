@@ -23,8 +23,8 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 		private Guid lastImportJobId;
 
 		public SolutionProgressView(
-			IAsyncJobScheduler scheduler, 
-			IImportJobRepository importJobRepository, 
+			IAsyncJobScheduler scheduler,
+			IImportJobRepository importJobRepository,
 			PluginViewModel viewModel,
 			TimelineView timeline)
 		{
@@ -216,7 +216,7 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 
 		private void OnFindKeyDown(object sender, KeyEventArgs e)
 		{
-			
+
 		}
 
 		private void OnFindKeyUp(object sender, KeyEventArgs e)

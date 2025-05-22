@@ -150,7 +150,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				}
 			}
 
-			if (this.privilegesToAdd.Count >0)
+			if (this.privilegesToAdd.Count > 0)
 			{
 				var request1 = new AddPrivilegesRoleRequest
 				{

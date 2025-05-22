@@ -77,7 +77,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				{
 					var children = new List<object>();
 					children.AddRange(bu.Children.OrderBy(u => u.name));
-					
+
 					var businessUsers = bu.Users.Where(u => !u.IsTechnicalUser).ToArray();
 					if (businessUsers.Length > 0)
 					{
@@ -87,7 +87,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 					}
 
 					var technicalUsers = bu.Users.Where(u => u.IsTechnicalUser).ToArray();
-					if(technicalUsers.Length > 0)
+					if (technicalUsers.Length > 0)
 					{
 						var techGroup = new UserGroup("Technical Users", false);
 						techGroup.AddRange(technicalUsers.OrderBy(u => u.fullname));
@@ -127,7 +127,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				}
 				if (x is BusinessUnit bu)
 				{
-					return $"{bu.name} (Users: {bu.CountUsers()})";		
+					return $"{bu.name} (Users: {bu.CountUsers()})";
 				}
 				if (x is UserGroup ug)
 				{
@@ -299,7 +299,7 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 
 			var message = $"Do you really want to move {text} to business unit \"{businessUnit.name}\"?"
 				+ Environment.NewLine
-				+ Environment.NewLine 
+				+ Environment.NewLine
 				+ "This operation will remove all the user roles, you will need to reassign them manually.";
 
 			var result = MessageBox.Show(message, "Change Business Unit", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

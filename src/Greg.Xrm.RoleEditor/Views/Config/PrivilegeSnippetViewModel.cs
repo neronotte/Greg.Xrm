@@ -10,7 +10,7 @@ namespace Greg.Xrm.RoleEditor.Views.Config
 		private readonly PrivilegeSnippet snippet;
 
 		public PrivilegeSnippetViewModel(int index, PrivilegeSnippet snippet)
-        {
+		{
 			this.Index = index;
 			this.snippet = snippet ?? new PrivilegeSnippet();
 		}
@@ -69,7 +69,7 @@ namespace Greg.Xrm.RoleEditor.Views.Config
 			if (next == 5)
 			{
 				this.Set(privilegeType, null);
-				return;	
+				return;
 			}
 
 			this.Set(privilegeType, (Level)next);

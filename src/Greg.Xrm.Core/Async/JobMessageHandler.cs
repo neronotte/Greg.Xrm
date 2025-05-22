@@ -10,12 +10,12 @@ namespace Greg.Xrm.Core.Async
 		private readonly IAsyncJobScheduler asyncJobScheduler;
 
 		public JobMessageHandler(IAsyncJobScheduler asyncJobScheduler)
-        {
+		{
 			this.asyncJobScheduler = asyncJobScheduler ?? throw new ArgumentNullException(nameof(asyncJobScheduler));
 		}
 
 
-        public void Handle(WorkAsyncInfo message)
+		public void Handle(WorkAsyncInfo message)
 		{
 			if (message == null)
 				throw new ArgumentNullException(nameof(message), "The async job to process cannot be null.");

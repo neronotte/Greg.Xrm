@@ -9,12 +9,12 @@ namespace Greg.Xrm.Model
 	public static class Extensions
 	{
 		public static Guid OnPropertyChanged(
-			this IMessenger messenger, 
-			Type objectType, 
-			string propertyName, 
+			this IMessenger messenger,
+			Type objectType,
+			string propertyName,
 			Action<NotifyPropertyChangedMessage> callback)
 		{
-			var registrationId = messenger.Register<NotifyPropertyChangedMessage>(m => 
+			var registrationId = messenger.Register<NotifyPropertyChangedMessage>(m =>
 			{
 				if (m.SourceObjectType != objectType) return;
 				if (!string.Equals(propertyName, m.PropertyName, StringComparison.OrdinalIgnoreCase)) return;
@@ -31,7 +31,7 @@ namespace Greg.Xrm.Model
 		}
 
 
-		class PropertyChangedHandler<T> : 
+		class PropertyChangedHandler<T> :
 			IMessengerPropertyChangedFluentInterface<T>,
 			IMessengerPropertyChangedFluentInterfaceExecuteMethod<T>
 		{

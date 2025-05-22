@@ -57,7 +57,7 @@ namespace Greg.Xrm.DataModelWikiEditor.Model
 			return this.FieldExclusions
 				.Split(',')
 				.Select(_ => _.Trim())
-				.Where(_ =>!string.IsNullOrWhiteSpace(_))
+				.Where(_ => !string.IsNullOrWhiteSpace(_))
 				.Any(_ => string.Equals(_, logicalName, System.StringComparison.OrdinalIgnoreCase));
 		}
 	}

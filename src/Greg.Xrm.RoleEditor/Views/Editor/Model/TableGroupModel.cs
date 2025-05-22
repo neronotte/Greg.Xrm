@@ -1,15 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
 	public class TableGroupModel : List<TableModel>
 	{
-        public TableGroupModel(string name = null)
-        {
-            this.Name = name;
-        }
+		public TableGroupModel(string name = null)
+		{
+			this.Name = name;
+		}
 
 
 		public string Name { get; set; }

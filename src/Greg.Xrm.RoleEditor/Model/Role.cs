@@ -9,7 +9,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Web.UI;
 
 namespace Greg.Xrm.RoleEditor.Model
 {
@@ -25,7 +24,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 		private Role(Entity entity, IXrmToolboxPluginContext executionContext, TemplateForRole template) : base(entity)
 		{
-			this.ExecutionContext = new XrmToolboxPluginContextLoggingDecorator( executionContext);
+			this.ExecutionContext = new XrmToolboxPluginContextLoggingDecorator(executionContext);
 			this.Template = template;
 		}
 
@@ -314,7 +313,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 
 				var query = new QueryExpression("role");
-				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited","parentroleid");
+				query.ColumnSet.AddColumns("name", "description", "businessunitid", "iscustomizable", "ismanaged", "isinherited", "parentroleid");
 
 				var suLink = query.AddLink("systemuserroles", "roleid", "roleid");
 				suLink.LinkCriteria.AddCondition("systemuserid", ConditionOperator.Equal, userRef.Id);

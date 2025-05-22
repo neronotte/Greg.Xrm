@@ -9,7 +9,7 @@ namespace Greg.Xrm.RoleEditor.Model
 	public class Privilege : EntityWrapper
 	{
 		private readonly Lazy<IReadOnlyList<Level>> allowedValues;
-		
+
 		protected Privilege(Entity entity) : base(entity)
 		{
 			this.allowedValues = new Lazy<IReadOnlyList<Level>>(CalculateAllowedValues);

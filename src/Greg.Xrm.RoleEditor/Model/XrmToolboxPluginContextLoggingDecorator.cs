@@ -14,7 +14,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		private readonly IXrmToolboxPluginContext inner;
 
 		public XrmToolboxPluginContextLoggingDecorator(IXrmToolboxPluginContext inner)
-        {
+		{
 			this.inner = inner;
 		}
 
@@ -78,7 +78,7 @@ namespace Greg.Xrm.RoleEditor.Model
 			{
 				return false;
 			}
-			
+
 			return a.Details == b.Details &&
 				a.Messenger == b.Messenger &&
 				a.Log == b.Log;

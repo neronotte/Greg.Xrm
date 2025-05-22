@@ -10,20 +10,20 @@ namespace Greg.Xrm.RoleEditor.Services
 		private readonly ISettingsProvider<Settings> settingsProvider;
 
 		public PrivilegeClassificationProvider(ISettingsProvider<Settings> settingsProvider)
-        {
+		{
 			this.settingsProvider = settingsProvider;
 		}
 
 		public Dictionary<string, string[]> GetForMiscPrivileges()
 		{
-			lock(syncRoot)
+			lock (syncRoot)
 			{
 				var settings = this.settingsProvider.GetSettings();
-				
+
 
 				if (settings.PrivilegeClassificationForMisc == null)
 				{
-					settings.PrivilegeClassificationForMisc = JsonConvert.SerializeObject( PrivilegeClassification.DefaultForMisc );
+					settings.PrivilegeClassificationForMisc = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForMisc);
 					settings.Save();
 
 					return PrivilegeClassification.DefaultForMisc;
@@ -40,7 +40,7 @@ namespace Greg.Xrm.RoleEditor.Services
 					return PrivilegeClassification.DefaultForMisc;
 				}
 			}
-			
+
 		}
 
 		public Dictionary<string, string[]> GetForTablePrivileges()

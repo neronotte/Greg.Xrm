@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
+﻿namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 {
 	public abstract class TreeNode
 	{

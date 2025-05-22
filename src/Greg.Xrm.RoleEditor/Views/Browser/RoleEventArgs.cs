@@ -5,11 +5,11 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
 {
 	public class RoleEventArgs : EventArgs
 	{
-        public RoleEventArgs(Role role)
-        {
+		public RoleEventArgs(Role role)
+		{
 			Role = role;
 		}
 
-        public Role Role { get; }
+		public Role Role { get; }
 	}
 }

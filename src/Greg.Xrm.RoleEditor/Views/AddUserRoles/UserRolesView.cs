@@ -10,14 +10,14 @@ using WeifenLuo.WinFormsUI.Docking;
 
 namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 {
-    public partial class UserRolesView: DockContent
-    {
+	public partial class UserRolesView : DockContent
+	{
 		private readonly UserRolesViewModel viewModel;
 		private readonly DataverseEnvironment environment;
 
 		public UserRolesView(DataverseEnvironment environment, IRoleRepository roleRepository)
-        {
-            InitializeComponent();
+		{
+			InitializeComponent();
 
 			this.RegisterHelp(environment.Context.Messenger, Topics.AddUserRoles);
 
@@ -76,7 +76,8 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 
 		private void OnBusinessUnitEditStarting(object sender, CellEditEventArgs e)
 		{
-			if (!(e.ListViewItem.RowObject is TreeNodeRole role)){
+			if (!(e.ListViewItem.RowObject is TreeNodeRole role))
+			{
 				e.Cancel = true;
 				return;
 			}
@@ -89,7 +90,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 				control.SelectedItem = role.CurrentBusinessUnit;
 				control.DisplayMember = "Name";
 				control.Bounds = e.CellBounds;
-				e.Control = control;			
+				e.Control = control;
 				e.Cancel = false;
 				return;
 			}

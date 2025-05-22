@@ -5,12 +5,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 {
-	public class BulkChangeSummary: IEnumerable<IBulkChangeOperation>
+	public class BulkChangeSummary : IEnumerable<IBulkChangeOperation>
 	{
 		private readonly List<IBulkChangeOperation> changes = new List<IBulkChangeOperation>();
 
@@ -37,13 +35,13 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 		{
 			return this.changes.GroupBy(r => r.Role)
 				.Select(r => new TreeNode(
-					"Role: " + r.Key.name, 
-					r.Key.description, 
-					"role", 
+					"Role: " + r.Key.name,
+					r.Key.description,
+					"role",
 					r.GroupBy(o => o.OperationType).Select(o => new TreeNode(
 						o.Key,
 						$"{o.Count()} operations",
-						o.Key.ToLowerInvariant(), 
+						o.Key.ToLowerInvariant(),
 						o.OrderBy(c => c.Text).Select(c => new TreeNode(c.Text, icon: c.OperationType.ToLowerInvariant())))
 					)
 				))
@@ -51,8 +49,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 		}
 
 
-			#region IEnumerable implementation
-			public IEnumerator<IBulkChangeOperation> GetEnumerator()
+		#region IEnumerable implementation
+		public IEnumerator<IBulkChangeOperation> GetEnumerator()
 		{
 			return this.changes.GetEnumerator();
 		}
@@ -89,7 +87,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 				// mananging adds
 				var addListPool = changesByRole.OfType<ChangePrivilegeAdd>().Pool(PoolSize);
-				foreach(var addList in addListPool)
+				foreach (var addList in addListPool)
 				{
 					var addRequest = new AddPrivilegesRoleRequest
 					{
@@ -103,7 +101,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 					};
 					requestList.Add(addRequest);
 				}
-				
+
 
 
 				// managing removals
@@ -135,7 +133,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 					};
 					requestList.Add(replaceRequest);
 				}
-				
+
 
 
 				result[role] = requestList;

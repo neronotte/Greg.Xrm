@@ -53,7 +53,7 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 			private set => this.Set(value);
 		}
 
-		public override bool CanExecute 
+		public override bool CanExecute
 		{
 			get => this.Crm != null && this.AllowRequests;
 		}
@@ -65,7 +65,8 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 			this.scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Retrieving entity list",
-				Work = (w, e) => {
+				Work = (w, e) =>
+				{
 					var request = new RetrieveAllEntitiesRequest
 					{
 						EntityFilters = EntityFilters.Entity,
@@ -76,7 +77,8 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 					var response = (RetrieveAllEntitiesResponse)this.Crm.Execute(request);
 					e.Result = response;
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 					if (e.Error != null)
 					{
 						this.log.Error("Error fetching entity list: " + e.Error.Message, e.Error);

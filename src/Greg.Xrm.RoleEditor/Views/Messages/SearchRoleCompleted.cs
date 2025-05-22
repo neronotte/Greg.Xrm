@@ -4,8 +4,8 @@ namespace Greg.Xrm.RoleEditor.Views.Messages
 {
 	public class SearchRoleCompleted
 	{
-        public SearchRoleCompleted(Role[] roles, string searchDescription)
-        {
+		public SearchRoleCompleted(Role[] roles, string searchDescription)
+		{
 			Roles = roles;
 			SearchDescription = searchDescription;
 		}

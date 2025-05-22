@@ -12,7 +12,7 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
 		private readonly IRoleRepository roleRepository;
 
 		public SearchByPrivilegeCommand(RoleBrowserViewModel viewModel, IRoleRepository roleRepository)
-        {
+		{
 			this.viewModel = viewModel;
 			this.roleRepository = roleRepository;
 

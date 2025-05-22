@@ -13,14 +13,14 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 {
 	public class SolutionComponent
 	{
-        public SolutionComponent(WebResource webResource, Guid? id = null)
-        {
+		public SolutionComponent(WebResource webResource, Guid? id = null)
+		{
 			this.WebResource = webResource;
 			this.Id = id ?? Guid.Empty;
 		}
 
 
-        public Guid Id { get; private set; }
+		public Guid Id { get; private set; }
 		public WebResource WebResource { get; }
 
 		public bool IsDirty { get; set; }
@@ -50,31 +50,31 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 
 				var serializer = new System.Xml.Serialization.XmlSerializer(typeof(AppHeaderColors));
 				this.Palette = (AppHeaderColors)serializer.Deserialize(new StringReader(xml));
-				
+
 				if (Palette != null)
 				{
 					var context = new ValidationContext(Palette);
 
 					var validationResults = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
 					var isValid = Validator.TryValidateObject(Palette, context, validationResults, true);
-					
+
 					if (!isValid)
 					{
-						foreach(var error in validationResults)
+						foreach (var error in validationResults)
 							log.LogWarning("Failed to deserialize web resource {0}: {1}", this.WebResource.name, error.ErrorMessage);
 						this.Palette = null;
 					}
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
-				log.LogError("Failed to deserialize web resource {0}: {1}{2}{3}", this.WebResource.name, ex.Message,Environment.NewLine, ex.ToString());
+				log.LogError("Failed to deserialize web resource {0}: {1}{2}{3}", this.WebResource.name, ex.Message, Environment.NewLine, ex.ToString());
 			}
 			return this;
 		}
 
 
-        public override string ToString()
+		public override string ToString()
 		{
 			return this.WebResource.name;
 		}
@@ -120,7 +120,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 				query.Criteria.AddCondition("componenttype", ConditionOperator.Equal, 61);
 
 				var entities = this.crm.RetrieveMultiple(query);
-				if (entities.Entities.Count == 0) 
+				if (entities.Entities.Count == 0)
 					return new List<SolutionComponent>();
 
 

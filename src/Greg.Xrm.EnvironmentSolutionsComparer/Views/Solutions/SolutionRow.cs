@@ -23,7 +23,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 				if (this.solutionDict.TryGetValue(environmentName, out Solution solution)) return solution;
 				return null;
 			}
-			set 
+			set
 			{
 				if (value == null)
 					this.solutionDict.Remove(environmentName);
@@ -35,7 +35,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		public bool AllSameVersion
 		{
-			get 
+			get
 			{
 				return this.solutionDict.Values.Select(_ => _.version).Distinct().Count() <= 1;
 			}
@@ -43,7 +43,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		public bool IsAnyInvisible
 		{
-			get 
+			get
 			{
 				return this.solutionDict.Values.Any(_ => !_.isvisible);
 			}

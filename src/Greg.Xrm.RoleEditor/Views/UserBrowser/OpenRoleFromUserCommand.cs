@@ -16,12 +16,12 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 		private readonly UserBrowserViewModel viewModel;
 
 		public OpenRoleFromUserCommand(UserBrowserViewModel viewModel)
-        {
+		{
 			this.viewModel = viewModel;
 		}
 
 
-        protected override void ExecuteInternal(UserRole userRole)
+		protected override void ExecuteInternal(UserRole userRole)
 		{
 			if (userRole == null) return;
 

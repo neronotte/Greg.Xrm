@@ -1,5 +1,5 @@
-﻿using System.Runtime.InteropServices;
-using System;
+﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace Greg.Xrm.Views
@@ -21,15 +21,15 @@ namespace Greg.Xrm.Views
 		{
 			this.Control.HandleCreated += Control_HandleCreated;
 		}
-		
-		
+
+
 		private void Control_HandleCreated(object sender, EventArgs e)
 		{
 			if (!string.IsNullOrEmpty(watermark))
 				UpdateCueBanner();
 		}
-		
-		
+
+
 		public string Watermark
 		{
 			get { return this.watermark; }

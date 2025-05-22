@@ -36,7 +36,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			InitializeComponent();
 
 			this.messenger = new Messenger(this);
-			
+
 			this.settingsView = new SettingsView(themeProvider, messenger);
 			this.settingsView.Show(this.dockPanel, DockState.DockLeft);
 			this.dockPanel.DockLeftPortion = 400;
@@ -44,8 +44,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			var helpContentIndexProvider = new HelpContentIndexProvider();
 			var helpContentIndex = helpContentIndexProvider.GetIndex();
 			var helpRepository = new HelpRepository(helpContentIndex, GetType().Assembly);
-			
-			
+
+
 			this.outputView = new OutputView(themeProvider, messenger);
 
 			var helpView = new HelpView(this.messenger, this.outputView, helpRepository, Topics.Home);
@@ -115,14 +115,14 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 				{
 					var constantsExtractorManager = new ConstantExtractorManager(
 						this.outputView,
-						this.Service, 
+						this.Service,
 						settings.SolutionName,
-						settings.ExtractTypes, 
-						settings.ExtractDescriptions, 
-						settings.CsFolder, 
-						settings.JsFolder, 
-						settings.NamespaceCs, 
-						settings.NamespaceJs, 
+						settings.ExtractTypes,
+						settings.ExtractDescriptions,
+						settings.CsFolder,
+						settings.JsFolder,
+						settings.NamespaceCs,
+						settings.NamespaceJs,
 						settings.JsHeaderLines);
 
 					constantsExtractorManager.ExtractConstants();

@@ -1,7 +1,5 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
-using Greg.Xrm.RoleEditor.Views.Editor;
 using Microsoft.Xrm.Sdk.Metadata;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,16 +15,19 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 
 			var tableNodes = new TreeNode("Table-Related Privileges");
 
-			var tableList = role1.Template.Tables.Values.Select(x => new {
+			var tableList = role1.Template.Tables.Values.Select(x => new
+			{
 				x.Name,
 				x.LogicalName
 			})
-			.Union(role2.Template.Tables.Values.Select(y => new {
+			.Union(role2.Template.Tables.Values.Select(y => new
+			{
 				y.Name,
 				y.LogicalName
 			}))
 			.GroupBy(x => x.LogicalName)
-			.Select(x => new {
+			.Select(x => new
+			{
 				LogicalName = x.Key,
 				DisplayName = string.Join(", ", x.Select(y => y.Name))
 			}).ToList();
@@ -42,7 +43,7 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 				var privileges = new List<dynamic>();
 				if (template1 != null)
 				{
-					privileges.AddRange(template1.GetAllPrivileges().Select(x => new {x.Name, x.PrivilegeType, Order = GetOrder(x.PrivilegeType) }));
+					privileges.AddRange(template1.GetAllPrivileges().Select(x => new { x.Name, x.PrivilegeType, Order = GetOrder(x.PrivilegeType) }));
 				}
 				if (template2 != null)
 				{
@@ -56,11 +57,11 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 					var privilege1 = role1.Privileges.FirstOrDefault(x => x.PrivilegeName == privilege.Name);
 					var privilege2 = role2.Privileges.FirstOrDefault(x => x.PrivilegeName == privilege.Name);
 
-                    if (privilege1?.Depth != privilege2?.Depth)
+					if (privilege1?.Depth != privilege2?.Depth)
 					{
 						tableNode.Add(new PrivilegeDifference(privilege.PrivilegeType.ToString(), privilege1?.Depth, privilege2?.Depth, privilege.Name));
 					}
-                }
+				}
 
 				if (tableNode.Count > 0)
 				{
@@ -78,16 +79,19 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 
 
 			var miscNodes = new TreeNode("Miscellaneous privileges");
-			var miscList = role1.Template.Misc.Values.Select(x => new {
+			var miscList = role1.Template.Misc.Values.Select(x => new
+			{
 				x.Name,
 				x.PrivilegeName
 			})
-			.Union(role2.Template.Misc.Values.Select(y => new {
+			.Union(role2.Template.Misc.Values.Select(y => new
+			{
 				y.Name,
 				y.PrivilegeName
 			}))
 			.GroupBy(x => x.PrivilegeName)
-			.Select(x => new {
+			.Select(x => new
+			{
 				LogicalName = x.Key,
 				DisplayName = string.Join(", ", x.Select(y => y.Name))
 			}).ToList();
@@ -105,7 +109,7 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 			}
 			if (miscNodes.Count > 0)
 			{
-				miscNodes.Sort((a,b) => string.Compare(a.Text, b.Text));
+				miscNodes.Sort((a, b) => string.Compare(a.Text, b.Text));
 				result.Add(miscNodes);
 			}
 

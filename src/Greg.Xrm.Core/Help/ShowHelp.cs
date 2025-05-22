@@ -7,6 +7,6 @@
 			this.TopicId = topicId;
 		}
 
-		public string TopicId { get;}
+		public string TopicId { get; }
 	}
 }

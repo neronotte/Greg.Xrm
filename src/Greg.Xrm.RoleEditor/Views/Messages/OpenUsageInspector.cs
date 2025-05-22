@@ -4,8 +4,8 @@ namespace Greg.Xrm.RoleEditor.Views.Messages
 {
 	public class OpenUsageInspector
 	{
-        public OpenUsageInspector(Role role)
-        {
+		public OpenUsageInspector(Role role)
+		{
 			this.Role = role;
 		}
 

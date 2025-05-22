@@ -19,7 +19,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 		public SettingsDialog(
-			IMessenger messenger, 
+			IMessenger messenger,
 			ISettingsProvider<Settings> settingsProvider,
 			IPrivilegeSnippetRepository privilegeSnippetRepository)
 		{
@@ -72,7 +72,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			{
 				if (!(e.Model is PrivilegeSnippetViewModel snippet)) return;
 				if (snippet.IsEditable) return;
-				
+
 				e.SubItem.BackColor = Color.FromArgb(245, 245, 245);
 				e.SubItem.ForeColor = Color.Black;
 			};
@@ -95,7 +95,8 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			// footer
 			this.btnOk.BindCommand(() => this.viewModel.ConfirmCommand);
-			this.btnCancel.Click += (s, e) => {
+			this.btnCancel.Click += (s, e) =>
+			{
 				this.DialogResult = DialogResult.Cancel;
 				this.Close();
 			};
@@ -103,8 +104,8 @@ namespace Greg.Xrm.RoleEditor.Views
 
 			this.viewModel.Close += OnConfirmClose;
 
-			this.viewModel.PropertyChanged += (s, e) => 
-			{	
+			this.viewModel.PropertyChanged += (s, e) =>
+			{
 				if (e.PropertyName == nameof(this.viewModel.UseLegacyIcons))
 				{
 					RefreshIcons();
@@ -181,7 +182,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			var selectedLevel = (Level?)menu.Tag;
 
 			if (!(e.Model is PrivilegeSnippetViewModel snippet)) return;
-			
+
 			var column = e.Column;
 			if (column == null) return;
 
@@ -190,7 +191,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			snippet.Set(privilegeType, selectedLevel);
 			this.privilegeSnippetView.RefreshObject(snippet);
 			e.Handled = true;
-			
+
 		}
 
 

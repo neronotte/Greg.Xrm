@@ -55,7 +55,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 
 			if (KeyUseGuid)
 			{
-				if (KeyAttributeNames !=null && KeyAttributeNames.Count > 0)
+				if (KeyAttributeNames != null && KeyAttributeNames.Count > 0)
 				{
 					yield return new ValidationResult($"[Entity {index}] KeyAttributeNames should not be specified if KeyUseGuid = true.");
 				}

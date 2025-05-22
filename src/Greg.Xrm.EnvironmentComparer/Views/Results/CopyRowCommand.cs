@@ -49,8 +49,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 		private void RecalculateCanExecute(object obj = null)
 		{
-			this.CanExecute = SelectedResults != null 
-				&& !string.IsNullOrWhiteSpace(this.env1) 
+			this.CanExecute = SelectedResults != null
+				&& !string.IsNullOrWhiteSpace(this.env1)
 				&& !string.IsNullOrWhiteSpace(this.env2)
 				&& SelectedResults.Any(_ => !_.IsActioned())
 				&& additionalCriteriaOnSelectedResults(this.SelectedResults);

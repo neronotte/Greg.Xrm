@@ -1,8 +1,9 @@
 ﻿using Greg.Xrm.Async;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Help;
-using Greg.Xrm.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
@@ -11,7 +12,6 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
-using Greg.Xrm.Core.Views.Help;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {

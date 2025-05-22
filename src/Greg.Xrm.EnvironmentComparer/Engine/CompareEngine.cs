@@ -49,7 +49,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 			}
 
 			var result = previousResults.Clone();
-			foreach (var comparer in this.comparerList.Where(c => entitiesToCompare.Contains( c.EntityName )))
+			foreach (var comparer in this.comparerList.Where(c => entitiesToCompare.Contains(c.EntityName)))
 			{
 				var comparisonResult = Compare(comparer);
 				result[comparer.EntityName] = comparisonResult;
@@ -66,7 +66,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 				list1 = comparer.GetEntitiesFrom(this.crm1, this.log, "CRM1");
 				isEntityValidForCrm1 = true;
 			}
-			catch(EntityNotFoundException)
+			catch (EntityNotFoundException)
 			{
 				list1 = new List<Entity>();
 				isEntityValidForCrm1 = false;

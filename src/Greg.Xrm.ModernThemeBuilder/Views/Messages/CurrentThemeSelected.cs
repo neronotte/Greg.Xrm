@@ -2,8 +2,8 @@
 {
 	public class CurrentThemeSelected
 	{
-        public CurrentThemeSelected(string themeName)
-        {
+		public CurrentThemeSelected(string themeName)
+		{
 			this.ThemeName = themeName;
 		}
 

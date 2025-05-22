@@ -2,8 +2,8 @@
 
 namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 {
-    public class RefreshUserRequest
-    {
+	public class RefreshUserRequest
+	{
 		public RefreshUserRequest(SystemUser user)
 		{
 			User = user;

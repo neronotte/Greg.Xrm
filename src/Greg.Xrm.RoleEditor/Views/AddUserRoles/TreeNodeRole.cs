@@ -31,9 +31,9 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 
 		private EntityReference currentBusinessUnit;
 
-		public EntityReference CurrentBusinessUnit 
+		public EntityReference CurrentBusinessUnit
 		{
-			get => this.currentBusinessUnit; 
+			get => this.currentBusinessUnit;
 			set
 			{
 				this.currentBusinessUnit = value;
@@ -69,7 +69,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 		}
 
 		public override bool Equals(object obj)
-		{	
+		{
 			// when matrix visibility is enabled, i want to be able to add the same role to multiple business units
 			// to do that without side effects, i need to ensure that instances of this class are considered different
 			if (this.isRecordOwnershipAcrossBusinessUnitEnabled)
@@ -80,10 +80,10 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 			if (ReferenceEquals(obj, this)) return true;
 			if (!(obj is TreeNodeRole other)) return false;
 
-			
 
-			return 
-				this.Name == other.Name && 
+
+			return
+				this.Name == other.Name &&
 				this.CurrentBusinessUnit.Id == other.CurrentBusinessUnit.Id;
 		}
 

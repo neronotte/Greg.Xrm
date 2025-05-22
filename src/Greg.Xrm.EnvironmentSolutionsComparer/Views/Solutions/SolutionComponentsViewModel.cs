@@ -3,10 +3,7 @@ using Greg.Xrm.EnvironmentSolutionsComparer.Messaging;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
-using Microsoft.Xrm.Sdk.Query;
-using System;
 using System.Collections.ObjectModel;
-using System.Linq;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 {
@@ -87,13 +84,15 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.scheduler.Enqueue(new XrmToolBox.Extensibility.WorkAsyncInfo
 			{
 				Message = "Fetching solution components",
-				Work = (w, e) => {
+				Work = (w, e) =>
+				{
 
 					var builder = new SolutionComponentGridBuilder(this.log);
 					var grid = builder.Create(this.Connections, this.Solution);
 					e.Result = grid;
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 
 					if (e.Error != null)
 					{

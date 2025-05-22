@@ -7,14 +7,11 @@ using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Services.Snippets;
 using Greg.Xrm.RoleEditor.Views.BulkEditor.Model;
 using Greg.Xrm.RoleEditor.Views.Common;
-using Greg.Xrm.RoleEditor.Views.Editor;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 {
@@ -29,8 +26,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 			IPrivilegeSnippetRepository snippetRepository,
 			Role[] roleList
 			)
-        {
-            if (roleList == null || roleList.Length == 0)
+		{
+			if (roleList == null || roleList.Length == 0)
 				throw new ArgumentException("Role list cannot be null or empty", nameof(roleList));
 
 
@@ -45,7 +42,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 			this.ShouldShowOnlyAssignedPrivileges = false;
 			this.IsEnabled = true;
 
-			this.ShowAllPrivilegesCommand = new RelayCommand(() => {
+			this.ShowAllPrivilegesCommand = new RelayCommand(() =>
+			{
 				this.ShouldShowOnlyAssignedPrivileges = false;
 			}, () => IsEnabled && ShouldShowOnlyAssignedPrivileges);
 			this.ShowOnlyAssignedPrivilegesCommand = new RelayCommand(() =>
@@ -171,7 +169,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 			private set => Set(value);
 		}
 
-		public string Title 
+		public string Title
 		{
 			get => Get<string>();
 			private set => Set(value);

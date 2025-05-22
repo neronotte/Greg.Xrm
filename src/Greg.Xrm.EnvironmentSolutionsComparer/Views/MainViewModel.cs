@@ -24,7 +24,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 
 
 		public ObservableCollection<ConnectionModel> EnvironmentList { get; }
-		
+
 
 		public void AddDefaultEnvironment(ConnectionDetail connectionDetail, IOrganizationService crm)
 		{
@@ -38,7 +38,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 
 
 			// if the current environment is still there, removeit
-			var oldCurrentEnvironment = this.EnvironmentList.FirstOrDefault(_ => string.Equals( _.Detail.ConnectionId, connectionDetail.ConnectionId));
+			var oldCurrentEnvironment = this.EnvironmentList.FirstOrDefault(_ => string.Equals(_.Detail.ConnectionId, connectionDetail.ConnectionId));
 			if (oldCurrentEnvironment != null)
 			{
 				this.EnvironmentList.Remove(oldCurrentEnvironment);

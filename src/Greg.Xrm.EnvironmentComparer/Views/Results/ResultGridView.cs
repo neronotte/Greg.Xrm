@@ -109,7 +109,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					}
 					else
 					{
-						this.listView1.SelectedIndices.Add(this.listView1.Items.Count -1);
+						this.listView1.SelectedIndices.Add(this.listView1.Items.Count - 1);
 					}
 					return;
 				}
@@ -213,7 +213,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 
 
 
-		
+
 
 		private void OnRecordSelectionChanged(object sender, EventArgs e)
 		{

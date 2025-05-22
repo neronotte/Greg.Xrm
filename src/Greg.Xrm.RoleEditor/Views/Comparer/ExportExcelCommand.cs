@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
 
@@ -49,7 +48,8 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 
 					ExportToExcel(arg, fileName, log);
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 					messenger.Send<Unfreeze>();
 				}
 			});
@@ -72,7 +72,7 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 					ws.Cells[row, ++col].SetValue("Privilege");
 					ws.Cells[row, ++col].SetValue(diff.Role1).Center();
 					ws.Cells[row, ++col].SetValue(diff.Role2).Center();
-					ws.Cells[row, ++col].SetValue( "Privilege name");
+					ws.Cells[row, ++col].SetValue("Privilege name");
 
 					foreach (var item in diff.SelectMany(x => Flatten(x)))
 					{
@@ -114,7 +114,7 @@ namespace Greg.Xrm.RoleEditor.Views.Comparer
 					package.SaveAs(fileName);
 				}
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				MessageBox.Show("Error exporting role to excel file. See output window for details.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				log.Error("Error exporting role to excel file: " + ex.Message, ex);

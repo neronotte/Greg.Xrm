@@ -9,7 +9,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		protected readonly List<SolutionComponentNode> children = new List<SolutionComponentNode>();
 
 		public SolutionComponentComposite(string label, int componentTypeCode)
-			:base(label)
+			: base(label)
 		{
 			this.ComponentTypeCode = componentTypeCode;
 		}
@@ -21,7 +21,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		public IEnumerator<SolutionComponentNode> GetEnumerator()
 		{
-			return children.OrderBy(_=>_.Label).GetEnumerator();
+			return children.OrderBy(_ => _.Label).GetEnumerator();
 		}
 
 		IEnumerator IEnumerable.GetEnumerator()

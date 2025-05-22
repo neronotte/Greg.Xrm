@@ -3,7 +3,7 @@ using System;
 
 namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 {
-    public class UserRolesViewClosed
+	public class UserRolesViewClosed
 	{
 
 		public UserRolesViewClosed(DataverseEnvironment env)

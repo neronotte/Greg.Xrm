@@ -43,7 +43,7 @@ namespace Greg.Xrm.RoleEditor.Model
 
 		public List<UserRole> Roles { get; } = new List<UserRole>();
 
-		
+
 		/// <summary>
 		/// Reloads all the info of the current system user.
 		/// Is invoked after changing the business unit, or whenever we perform an administrative operation 
@@ -128,15 +128,15 @@ namespace Greg.Xrm.RoleEditor.Model
 
 	public class UserRole
 	{
-        public UserRole(SystemUser user, Role role)
-        {
+		public UserRole(SystemUser user, Role role)
+		{
 			this.User = user;
 			this.Role = role.ToEntityReference();
 			this.Role.Name = role.name;
 			this.BusinessUnit = role.businessunitid;
 		}
 
-        public EntityReference Role { get; }
+		public EntityReference Role { get; }
 
 		public SystemUser User { get; }
 

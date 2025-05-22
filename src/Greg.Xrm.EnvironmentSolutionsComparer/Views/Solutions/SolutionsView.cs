@@ -3,10 +3,10 @@ using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Theming;
 using System;
-using HorizontalAlignment = System.Windows.Forms.HorizontalAlignment;
-using WeifenLuo.WinFormsUI.Docking;
 using System.Linq;
 using System.Windows.Forms;
+using WeifenLuo.WinFormsUI.Docking;
+using HorizontalAlignment = System.Windows.Forms.HorizontalAlignment;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 {

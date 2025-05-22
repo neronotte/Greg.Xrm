@@ -12,14 +12,14 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly RoleModel model;
 
 		public ChangeBusinessUnitCommand(IOrganizationService crm, RoleModel model, bool canChange)
-        {
+		{
 			this.crm = crm;
 			this.model = model;
 			this.CanExecute = canChange;
 		}
 
 
-        protected override void ExecuteInternal(RoleEditorView parent)
+		protected override void ExecuteInternal(RoleEditorView parent)
 		{
 			var query = new QueryExpression("businessunit");
 			query.ColumnSet.AddColumns("name", "parentbusinessunitid");

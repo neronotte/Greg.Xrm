@@ -2,7 +2,6 @@
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -67,7 +66,7 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 			{
 				var node = this.tree.Nodes.Add(entity.LogicalName);
 				node.Tag = entity;
-				
+
 				node.Nodes.Add("Loading...");
 			}
 

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
 using System.Runtime.CompilerServices;
-using System.Windows.Forms.VisualStyles;
 using static Greg.Xrm.Extensions;
 
 namespace Greg.Xrm.Model
@@ -361,7 +360,7 @@ namespace Greg.Xrm.Model
 					this.preImage.FormattedValues[kvp.Key] = kvp.Value;
 				}
 			}
-			
+
 			if (entity.KeyAttributes != null)
 			{
 				this.preImage.KeyAttributes = new KeyAttributeCollection();

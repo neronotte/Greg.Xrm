@@ -790,15 +790,15 @@ namespace Greg.Xrm
 
 			return propInfo.Name;
 		}
-		
-		
+
+
 		/// <summary>
-		 /// Via reflection, returns the name of the property wrapped in the expression function passed as parameter
-		 /// </summary>
-		 /// <typeparam name="TObject"></typeparam>
-		 /// <typeparam name="TProperty"></typeparam>
-		 /// <param name="propertyLambda"></param>
-		 /// <returns></returns>
+		/// Via reflection, returns the name of the property wrapped in the expression function passed as parameter
+		/// </summary>
+		/// <typeparam name="TObject"></typeparam>
+		/// <typeparam name="TProperty"></typeparam>
+		/// <param name="propertyLambda"></param>
+		/// <returns></returns>
 		public static string GetMemberName<TObject, TProperty>(this Expression<Func<TObject, TProperty>> propertyLambda)
 		{
 			if (!(propertyLambda.Body is MemberExpression member))

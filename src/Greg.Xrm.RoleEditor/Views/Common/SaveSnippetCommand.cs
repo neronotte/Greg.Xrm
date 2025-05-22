@@ -11,15 +11,15 @@ namespace Greg.Xrm.RoleEditor.Views.Common
 		private readonly INotificationProvider notificationProvider;
 
 		public SaveSnippetCommand(
-			IPrivilegeSnippetRepository snippetRepository, 
+			IPrivilegeSnippetRepository snippetRepository,
 			INotificationProvider notificationProvider)
-        {
+		{
 			this.snippetRepository = snippetRepository;
 			this.notificationProvider = notificationProvider;
 		}
 
 
-        protected override void ExecuteInternal(SaveSnippetArgs arg)
+		protected override void ExecuteInternal(SaveSnippetArgs arg)
 		{
 			var index = arg.Index;
 			var table = arg.Holder;
@@ -45,8 +45,8 @@ namespace Greg.Xrm.RoleEditor.Views.Common
 
 	public class SaveSnippetArgs
 	{
-        public SaveSnippetArgs(int index, IPrivilegeHolder holder)
-        {
+		public SaveSnippetArgs(int index, IPrivilegeHolder holder)
+		{
 			Index = index;
 			Holder = holder;
 		}

@@ -19,11 +19,11 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor.Model
 
 
 		public BulkTableModel(ITemplateForTable tableTemplate, Role[] roleList)
-        {
+		{
 			this.template = tableTemplate ?? throw new ArgumentNullException(nameof(tableTemplate));
 			this.roleList = roleList ?? throw new ArgumentNullException(nameof(roleList));
 
-			foreach(var metadata in this.template.GetAllPrivileges())
+			foreach (var metadata in this.template.GetAllPrivileges())
 			{
 				this.currentPrivilegeValues[metadata.PrivilegeType] = null;
 			}
@@ -141,7 +141,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor.Model
 		public void Set(PrivilegeType privilegeType, Level? level)
 		{
 			if (!this.currentPrivilegeValues.ContainsKey(privilegeType)) return;
-			
+
 			this.currentPrivilegeValues[privilegeType] = level;
 			this.OnPropertyChanged(nameof(IsDirty), this.IsDirty);
 		}

@@ -1,12 +1,12 @@
 ﻿using Greg.Xrm.Core.Views;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
-using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
-using XrmToolBox.Extensibility;
+using Microsoft.Xrm.Sdk.Messages;
 using System;
 using System.Linq;
-using Microsoft.Crm.Sdk.Messages;
+using XrmToolBox.Extensibility;
 using XrmToolBox.Extensibility.Args;
 
 namespace Greg.Xrm.RoleEditor.Views.BulkEditor
@@ -16,7 +16,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 		private readonly BulkEditorViewModel viewModel;
 
 		public SaveCommand(BulkEditorViewModel viewModel)
-        {
+		{
 			this.viewModel = viewModel;
 		}
 
@@ -97,7 +97,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 								role.ExecutionContext.Execute(request);
 							}
 
-							
+
 
 							role.ExecutionContext.Log.Info($"Role {role.name} saved successfully.");
 						}

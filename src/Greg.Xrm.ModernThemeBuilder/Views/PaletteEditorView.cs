@@ -123,10 +123,10 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		}
 
 
-		public AppHeaderColors Palette 
+		public AppHeaderColors Palette
 		{
 			get => this.palette;
-			set 
+			set
 			{
 				this.palette = value;
 				RefreshView();

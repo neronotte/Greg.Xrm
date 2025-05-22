@@ -147,9 +147,9 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 
 		class RunArgs
 		{
-            public Solution Solution { get; set; }
-            public string ThemeName { get; set; }
-        }
+			public Solution Solution { get; set; }
+			public string ThemeName { get; set; }
+		}
 
 
 

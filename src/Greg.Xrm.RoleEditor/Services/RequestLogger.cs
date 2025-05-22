@@ -59,7 +59,7 @@ namespace Greg.Xrm.RoleEditor.Services
 
 				File.WriteAllText(Path.Combine(GetOrCreateStorageFolder().FullName, fileName), requestJson);
 			}
-			catch(Exception ex)
+			catch (Exception ex)
 			{
 				Debug.WriteLine(ex);
 			}

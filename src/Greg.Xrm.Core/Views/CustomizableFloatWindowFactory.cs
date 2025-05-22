@@ -9,13 +9,13 @@ namespace Greg.Xrm.Core.Views
 		private readonly Action<FloatWindow> customizationCallback;
 
 		public CustomizableFloatWindowFactory(Action<FloatWindow> customizationCallback = null)
-        {
+		{
 			this.customizationCallback = customizationCallback ?? (fw => { });
 		}
 
 
 
-        public FloatWindow CreateFloatWindow(DockPanel dockPanel, DockPane pane, Rectangle bounds)
+		public FloatWindow CreateFloatWindow(DockPanel dockPanel, DockPane pane, Rectangle bounds)
 		{
 			return new CustomizableFloatWindow(dockPanel, pane, bounds, customizationCallback);
 		}

@@ -31,7 +31,7 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 			this.Entities = obj.EntityMetadataList
 				.Select(_ => new NodeForEntity(_))
 				.OrderBy(_ => _.LogicalName)
-				.ToList();	
+				.ToList();
 		}
 
 

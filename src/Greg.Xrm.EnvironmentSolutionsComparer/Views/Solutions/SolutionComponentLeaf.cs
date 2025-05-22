@@ -20,7 +20,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		public Guid ObjectId => component.objectid;
 
 		public string ComponentTypeName => this.component.ComponentTypeName;
-		
+
 		public int ComponentType => this.component.componenttype?.Value ?? 0;
 
 

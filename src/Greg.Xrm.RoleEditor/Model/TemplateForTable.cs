@@ -14,7 +14,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		private readonly Dictionary<PrivilegeType, SecurityPrivilegeMetadata> privilegeDict;
 
 
-        public TemplateForTable(EntityMetadata table)
+		public TemplateForTable(EntityMetadata table)
 		{
 			this.table = table ?? throw new ArgumentNullException(nameof(table));
 
@@ -34,7 +34,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		}
 
 
-        public string Name => table.DisplayName?.UserLocalizedLabel?.Label ?? LogicalName;
+		public string Name => table.DisplayName?.UserLocalizedLabel?.Label ?? LogicalName;
 
 
 		public string LogicalName => table.LogicalName;

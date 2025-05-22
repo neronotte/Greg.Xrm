@@ -15,12 +15,12 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor.Model
 		private Level? currentValue;
 
 		public BulkMiscModel(TemplateForGenericPrivilege template, Role[] roleList)
-        {
+		{
 			this.template = template;
 			this.roleList = roleList;
 		}
 
-        public object Parent { get; set; }
+		public object Parent { get; set; }
 
 		public string Name => this.template.Name;
 

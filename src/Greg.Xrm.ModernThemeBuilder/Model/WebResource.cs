@@ -10,15 +10,15 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 {
 	public class WebResource : EntityWrapper
 	{
-        private WebResource(Entity entity) : base(entity)
-        {
-        }
+		private WebResource(Entity entity) : base(entity)
+		{
+		}
 
 		public WebResource() : base("webresource")
 		{
 		}
 
-        public string name
+		public string name
 		{
 			get => Get<string>();
 			set => SetValue(value);
@@ -33,7 +33,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 			get => Get<string>();
 			set => SetValue(value);
 		}
-		public string content 
+		public string content
 		{
 			get => Get<string>();
 			set => SetValue(value);

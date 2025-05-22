@@ -8,7 +8,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Greg.Xrm.ConstantsExtractor.Core
 {
@@ -102,7 +101,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		public void ExtractConstants()
 		{
-			using(Log.Track("Reading info from Dataverse"))
+			using (Log.Track("Reading info from Dataverse"))
 			{
 				this.GetEntities();
 				this.GetGlobalOptionSets();
@@ -115,7 +114,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		private void GetEntities()
 		{
-			using(Log.Track("Reading entities"))
+			using (Log.Track("Reading entities"))
 			{
 				this.EntitiesMetadata = ((RetrieveAllEntitiesResponse)this.Service.Execute(new RetrieveAllEntitiesRequest
 				{
@@ -128,7 +127,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		private void GetGlobalOptionSets()
 		{
-			using(Log.Track("Reading global option sets"))
+			using (Log.Track("Reading global option sets"))
 			{
 				var optionSetsResponse = (RetrieveAllOptionSetsResponse)this.Service.Execute(new RetrieveAllOptionSetsRequest());
 
@@ -152,9 +151,9 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			{
 				var query = new QueryExpression("solution");
 				query.Criteria.AddCondition(new ConditionExpression("uniquename", ConditionOperator.Equal, SolutionName));
-				var solution = this.Service.RetrieveMultiple(query).Entities.FirstOrDefault() 
+				var solution = this.Service.RetrieveMultiple(query).Entities.FirstOrDefault()
 					?? throw new InvalidOperationException("Invalid solution name: " + SolutionName);
-				
+
 				query = new QueryExpression("solutioncomponent");
 				query.ColumnSet.AllColumns = true;
 				query.Criteria.AddCondition(new ConditionExpression("solutionid", ConditionOperator.Equal, solution.Id));
@@ -170,7 +169,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		private void CheckActivityEntities()
 		{
-			using(Log.Track("Checking for activity entities"))
+			using (Log.Track("Checking for activity entities"))
 			{
 				var activityPointerMetadata = this.EntitiesMetadata.FirstOrDefault(ent => ent.LogicalName == "activitypointer");
 
@@ -184,7 +183,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		private void ParallelExtractData()
 		{
-			using(Log.Track("Transforming metadata"))
+			using (Log.Track("Transforming metadata"))
 			{
 				var entitiesMetadata = this.EntitiesMetadata;
 				var parallelOptions = new ParallelOptions

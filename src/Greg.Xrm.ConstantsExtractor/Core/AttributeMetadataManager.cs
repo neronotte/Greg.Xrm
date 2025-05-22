@@ -18,7 +18,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		public string EntityLogicalName { get; }
 
-		public string DisplayNameConstant { get;  }
+		public string DisplayNameConstant { get; }
 
 		public string LogicalNameConstant { get; }
 

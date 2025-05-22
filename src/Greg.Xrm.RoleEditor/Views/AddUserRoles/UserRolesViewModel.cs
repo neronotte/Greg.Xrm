@@ -12,13 +12,13 @@ using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 {
-    public class UserRolesViewModel : ViewModel
-    {
+	public class UserRolesViewModel : ViewModel
+	{
 		private readonly ILog log;
 		private readonly IMessenger messenger;
 
 		public UserRolesViewModel(
-			DataverseEnvironment environment, 
+			DataverseEnvironment environment,
 			IRoleRepository roleRepository)
 		{
 			this.Environment = environment;
@@ -113,7 +113,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 				return false;
 			}
 
-			
+
 
 			var separators = (System.Environment.NewLine + ";,|").ToCharArray();
 
@@ -130,7 +130,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 				var user = allUsers.FirstOrDefault(x => line.Equals(x.domainname, StringComparison.OrdinalIgnoreCase));
 				if (user == null) user = allUsers.FirstOrDefault(x => line.Equals(x.fullname, StringComparison.OrdinalIgnoreCase));
 				if (user == null) user = allUsers.FirstOrDefault(x => x.domainname?.StartsWith(line + "@", StringComparison.OrdinalIgnoreCase) ?? false);
-				if ( user != null )
+				if (user != null)
 				{
 					log.Debug("Add roles to user: CTRL+V found user " + user.domainname);
 					this.Users.Add(new TreeNodeUser(user));

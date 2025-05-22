@@ -31,7 +31,7 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 			this.txtTables.Bind(x => x.Enabled, this.viewModel, vm => vm.IsSearchByLabel);
 			this.txtTables.AutoCompleteCustomSource = new AutoCompleteStringCollection();
 			this.txtTables.AutoCompleteCustomSource.AddRange(this.viewModel.Tables.Select(x => x.Key).ToArray());
-			this.txtTables.KeyUp+= (s, e) =>
+			this.txtTables.KeyUp += (s, e) =>
 			{
 				var table = this.viewModel.Tables.FirstOrDefault(x => x.Key == this.txtTables.Text);
 				this.viewModel.SelectedTable = table;
