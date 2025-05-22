@@ -5,8 +5,8 @@ using System.Linq;
 
 namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 {
-    public class RoleDto
-    {
+	public class RoleDto
+	{
 		private readonly DataverseEnvironment environment;
 		private readonly Role role;
 

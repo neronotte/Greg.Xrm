@@ -16,11 +16,11 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly ISystemUserRepository systemUserRepository;
 
 		public LoadDataCommand(
-			RoleTemplateBuilder roleTemplateBuilder, 
-			IRoleRepository roleRepository, 
+			RoleTemplateBuilder roleTemplateBuilder,
+			IRoleRepository roleRepository,
 			IBusinessUnitRepository businessUnitRepository,
 			ISystemUserRepository systemUserRepository)
-        {
+		{
 			this.roleTemplateBuilder = roleTemplateBuilder;
 			this.roleRepository = roleRepository;
 			this.businessUnitRepository = businessUnitRepository;
@@ -41,7 +41,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 
 
-        protected override void ExecuteInternal(object arg)
+		protected override void ExecuteInternal(object arg)
 		{
 			if (this.Context == null) return;
 
@@ -72,14 +72,14 @@ namespace Greg.Xrm.RoleEditor.Views
 						roleList.GroupBy(x => x.businessunitid.Id).ToList().ForEach(x => buDict[x.Key].AddRoles(x));
 					}
 
-					using(log.Track("Retrieving users..."))
+					using (log.Track("Retrieving users..."))
 					{
 						var userList = this.systemUserRepository.GetActiveUsers(this.Context, template);
 						log.Info($"Found {userList.Count} users");
 
 						userList.GroupBy(x => x.businessunitid.Id).ToList().ForEach(x => buDict[x.Key].AddUsers(x));
 					}
-					
+
 
 
 					var environment = new DataverseEnvironment(this.Context, template)

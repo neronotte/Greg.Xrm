@@ -70,7 +70,7 @@ namespace Greg.Xrm.RoleEditor.Model
 			if (role.businessunitid?.Id == this.Id)
 			{
 				var existingRole = this.roles.FirstOrDefault(x => x.Id == role.Id);
-				if (existingRole != null) 
+				if (existingRole != null)
 				{
 					this.roles.Remove(existingRole);
 				}
@@ -114,7 +114,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		public int CountUsers(string searchCriteria)
 		{
 			if (string.IsNullOrWhiteSpace(searchCriteria)) return CountUsers();
-			
+
 			return this.users.Count(x => x.Match(searchCriteria)) + this.children.Sum(x => x.CountUsers(searchCriteria));
 		}
 

@@ -28,7 +28,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 		/// Gets the name of the current comparer.
 		/// </summary>
 		public string Name { get; }
-		
+
 
 		/// <summary>
 		/// Compares two collections of objects of type <typeparamref name="T"/>.

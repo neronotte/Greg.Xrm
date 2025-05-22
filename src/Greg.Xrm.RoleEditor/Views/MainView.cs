@@ -21,7 +21,6 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility.Args;
@@ -29,9 +28,9 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.RoleEditor.Views
 {
-	public partial class MainView : 
-		GregPluginControlBase<RoleEditorPlugin>, 
-		IStatusBarMessenger, 
+	public partial class MainView :
+		GregPluginControlBase<RoleEditorPlugin>,
+		IStatusBarMessenger,
 		ISettingsPlugin
 	{
 		private readonly object syncRoot = new object();
@@ -84,11 +83,11 @@ namespace Greg.Xrm.RoleEditor.Views
 			// ui initialization
 
 			this.viewModel = new MainViewModel(
-				this.outputView, 
-				this.messenger, 
+				this.outputView,
+				this.messenger,
 				settingsProvider,
-				roleTemplateBuilder, 
-				roleRepository, 
+				roleTemplateBuilder,
+				roleRepository,
 				businessUnitRepository,
 				systemUserRepository);
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
@@ -178,7 +177,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		private void OnOpenRoleRequested(object sender, OpenRoleView e)
 		{
-			lock(this.syncRoot)
+			lock (this.syncRoot)
 			{
 				if (e.Roles.Length == 1)
 				{
@@ -209,13 +208,13 @@ namespace Greg.Xrm.RoleEditor.Views
 					}
 
 					editor.Show(this.dockPanel, DockState.Document);
-				}			
+				}
 			}
 		}
 
 		private void OnShowUserRolesView(object sender, UserRolesViewOpen e)
 		{
-			lock(this.syncRoot)
+			lock (this.syncRoot)
 			{
 				if (!this.userRolesViewDict.TryGetValue(e.Environment, out var view))
 				{
@@ -239,7 +238,7 @@ namespace Greg.Xrm.RoleEditor.Views
 			{
 				if (!this.userRolesViewDict.TryGetValue(e.Environment, out var view))
 				{
-					return;		
+					return;
 				}
 
 				if (!view.IsDisposed)
@@ -262,7 +261,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		private void OnCloseRoleRequested(object sender, CloseRoleView e)
 		{
-			lock(this.syncRoot)
+			lock (this.syncRoot)
 			{
 				foreach (var role in e.Roles)
 				{

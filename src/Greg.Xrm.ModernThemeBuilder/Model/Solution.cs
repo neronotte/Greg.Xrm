@@ -2,7 +2,6 @@
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Greg.Xrm.ModernThemeBuilder.Model
 {

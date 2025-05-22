@@ -1,7 +1,6 @@
 ﻿using Greg.Xrm.Views;
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Greg.Xrm.DataModelWikiEditor.Views

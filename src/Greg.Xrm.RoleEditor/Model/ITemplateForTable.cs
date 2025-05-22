@@ -21,7 +21,7 @@ namespace Greg.Xrm.RoleEditor.Model
 		/// <summary>
 		/// The display name of the table.
 		/// </summary>
-		string Name { get;  }
+		string Name { get; }
 
 		/// <summary>
 		/// The logical name of the table.

@@ -1,6 +1,5 @@
 ﻿using Greg.Xrm.Core.Help;
 using System;
-using System.Collections.Generic;
 
 namespace Greg.Xrm.EnvironmentComparer.Help
 {

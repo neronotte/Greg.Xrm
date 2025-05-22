@@ -1,7 +1,7 @@
 ﻿using Greg.Xrm.Async;
 using Greg.Xrm.EnvironmentComparer.Actions;
-using Greg.Xrm.Logging;
 using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
@@ -37,7 +37,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.WhenChanges(() => this.Crm2)
 				.ChangesAlso(() => CanApplyActions);
 
-			this.Actions.ListChanged += (s,e) => OnListChanged();
+			this.Actions.ListChanged += (s, e) => OnListChanged();
 			this.OnListChanged();
 
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
@@ -147,11 +147,12 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			this.scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Executing actions, please wait...",
-				Work = (s, e) => {
+				Work = (s, e) =>
+				{
 					var result = new ApplyActionsResult();
 
 					var index = 0;
-					foreach(var action in actionList)
+					foreach (var action in actionList)
 					{
 						index++;
 						var percent = (index * 100) / actionList.Count;
@@ -178,7 +179,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 						e.Result = result;
 					}
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 					var result = (ApplyActionsResult)e.Result;
 
 					var succeededCount = result.SucceededCount;

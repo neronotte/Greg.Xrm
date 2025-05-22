@@ -84,7 +84,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 					Text = connection.Detail.ConnectionName,
 					Width = 150,
 					TextAlign = System.Windows.Forms.HorizontalAlignment.Center,
-					AspectGetter = _ => {
+					AspectGetter = _ =>
+					{
 						if (_ is SolutionComponentLeaf leaf)
 						{
 							return leaf.Environments.Contains(connection) ? "YEP" : string.Empty;

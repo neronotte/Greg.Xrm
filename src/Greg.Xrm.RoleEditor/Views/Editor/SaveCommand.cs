@@ -19,7 +19,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 
 		public SaveCommand(RoleEditorViewModel viewModel)
-        {
+		{
 			this.viewModel = viewModel;
 			this.CanExecute = this.viewModel.IsCustomizable;
 		}
@@ -41,7 +41,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			var log = crm.Log;
 			var messenger = crm.Messenger;
 
-			if (!model.IsDirty) 
+			if (!model.IsDirty)
 			{
 				log.Warn($"Save on role <{model.Name}> has no effect, the role is not dirty.");
 				return;
@@ -70,7 +70,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			messenger.Send(new WorkAsyncInfo
 			{
 				Message = $"Saving role \"{model.Name}\", please wait...",
-				Work = (worker, e) => 
+				Work = (worker, e) =>
 				{
 					messenger.Send<Freeze>();
 
@@ -89,7 +89,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					}
 					else
 					{
-						
+
 						// we need to process the creation first, then the rest
 						var createResponse = (CreateResponse)crm.Execute(createRequest);
 						id = createResponse.id;
@@ -108,7 +108,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 							otherRequest.RoleId = id.Value;
 							request.Requests.Add(otherRequest);
 						}
-						foreach (var otherRequest in requestList.OfType<ReplacePrivilegesRoleRequest>() )
+						foreach (var otherRequest in requestList.OfType<ReplacePrivilegesRoleRequest>())
 						{
 							otherRequest.RoleId = id.Value;
 							request.Requests.Add(otherRequest);
@@ -122,7 +122,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 					e.Result = model.GetRole();
 				},
-				PostWorkCallBack = e => 
+				PostWorkCallBack = e =>
 				{
 					messenger.Unfreeze();
 

@@ -1,12 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentSolutionsComparer.Messaging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Environments
 {

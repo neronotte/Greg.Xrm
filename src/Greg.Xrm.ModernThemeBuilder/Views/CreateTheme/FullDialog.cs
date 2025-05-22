@@ -145,7 +145,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.CreateTheme
 			this.btnOk.Enabled = false;
 			this.txtName.Enabled = false;
 
-			if (this.SelectedSolution == null) {
+			if (this.SelectedSolution == null)
+			{
 
 				errorProvider.SetError(this.grid, "Please select a solution");
 

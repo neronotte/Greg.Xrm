@@ -3,7 +3,7 @@
 namespace Greg.Xrm.Views
 {
 	public class ToolStripBindableSplitButton : ToolStripSplitButton, IBindableComponent
-    {
+	{
 		private ControlBindingsCollection dataBindings;
 
 		private BindingContext bindingContext;

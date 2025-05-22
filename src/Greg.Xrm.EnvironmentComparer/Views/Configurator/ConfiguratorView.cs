@@ -1,19 +1,19 @@
 ﻿using Greg.Xrm.Async;
-using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.Core.Views.Help;
 using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+using Greg.Xrm.EnvironmentComparer.Help;
+using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Views.Actions;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
+using Greg.Xrm.Model;
 using Greg.Xrm.Theming;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
 using XrmToolBox.Extensibility;
-using Greg.Xrm.EnvironmentComparer.Help;
-using Greg.Xrm.Model;
-using Greg.Xrm.Logging;
-using System.Linq;
-using System.Collections.Generic;
-using Greg.Xrm.Core.Views.Help;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -279,15 +279,17 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			ExecuteComparison();
 		}
 
-		private void ExecuteComparison( IReadOnlyCollection<string> entitiesToCompare = null)
+		private void ExecuteComparison(IReadOnlyCollection<string> entitiesToCompare = null)
 		{
 			this.asyncJobScheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Executing comparison, please wait...",
-				Work = (w, e1) => {
+				Work = (w, e1) =>
+				{
 					this.viewModel.ExecuteComparison(entitiesToCompare);
 				},
-				PostWorkCallBack = e1 => {
+				PostWorkCallBack = e1 =>
+				{
 					if (e1.Error != null)
 					{
 						this.log.Error("Error while executing comparison: " + e1.Error.Message, e1.Error);

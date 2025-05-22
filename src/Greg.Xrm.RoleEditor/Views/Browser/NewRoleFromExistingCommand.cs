@@ -14,8 +14,8 @@ namespace Greg.Xrm.RoleEditor.Views.Browser
 		private readonly RoleBrowserViewModel viewModel;
 		private readonly string existingRoleName;
 
-		public NewRoleFromExistingCommand( RoleBrowserViewModel viewModel, string existingRoleName)
-        {
+		public NewRoleFromExistingCommand(RoleBrowserViewModel viewModel, string existingRoleName)
+		{
 			this.viewModel = viewModel;
 			this.existingRoleName = existingRoleName;
 			this.GetRole();

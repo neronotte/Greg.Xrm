@@ -31,7 +31,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 		public BulkEditorView(
 			ISettingsProvider<Settings> settingsProvider,
 			IPrivilegeSnippetRepository privilegeSnippetRepository,
-			IPrivilegeClassificationProvider privilegeClassificationProvider, 
+			IPrivilegeClassificationProvider privilegeClassificationProvider,
 			Role[] roleList)
 		{
 			if (roleList == null || roleList.Length == 0)
@@ -47,7 +47,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 
 			this.viewModel = new BulkEditorViewModel(
-				privilegeClassificationProvider, 
+				privilegeClassificationProvider,
 				privilegeSnippetRepository,
 				roleList);
 			this.viewModel.PropertyChanged += (s, e) =>
@@ -139,7 +139,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 
 
 			RoleEditor.Model.TreeNode.Bind(this.treeChangeSummary);
-			this.tabs.SelectedIndexChanged += (s, e) => {
+			this.tabs.SelectedIndexChanged += (s, e) =>
+			{
 
 				if (this.tabs.SelectedTab == this.tabChangeSummary)
 				{

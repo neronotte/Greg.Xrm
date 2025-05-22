@@ -45,7 +45,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				var result = m.Action.Result;
 				result.ClearActioned();
 
-				this.messenger.Send(new ResultUpdatedMessage( m.Action.Result));
+				this.messenger.Send(new ResultUpdatedMessage(m.Action.Result));
 			});
 
 			this.messenger.Register<ResultUpdatedMessage>(o =>
@@ -79,7 +79,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 		public CopyRowCommand CopyToEnv2Command { get; }
 
 		public DeleteRowCommand DeleteFromEnv1Command { get; }
-			   
+
 		public DeleteRowCommand DeleteFromEnv2Command { get; }
 
 		public OpenRecordCommand OpenRecord1Command { get; }

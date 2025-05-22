@@ -1,6 +1,5 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
 using Microsoft.Xrm.Sdk.Metadata;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -21,7 +20,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 		public void Add(string tableName, PrivilegeType type, int? value)
 		{
 			if (value == null) return;
-			if (value < 0 || value > 4) 
+			if (value < 0 || value > 4)
 				throw new System.ArgumentOutOfRangeException(nameof(value), $"Value of privilege {type} for table {tableName} must be between 0 and 4.");
 
 
@@ -46,7 +45,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 			if (value < 0 || value > 4)
 				throw new System.ArgumentOutOfRangeException(nameof(value), $"Value of privilege {privilegeName} must be between 0 and 4.");
 
-			lock(this.syncRoot)
+			lock (this.syncRoot)
 			{
 				this.miscMap[privilegeName] = (Level)value.Value;
 			}

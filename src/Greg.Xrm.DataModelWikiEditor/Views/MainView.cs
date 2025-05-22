@@ -7,7 +7,6 @@ using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
 using WeifenLuo.WinFormsUI.Docking;
-using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.DataModelWikiEditor.Views
 {

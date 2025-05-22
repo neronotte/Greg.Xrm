@@ -1,6 +1,6 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
-using Greg.Xrm.Views;
 using Greg.Xrm.RoleEditor.Views.Messages;
+using Greg.Xrm.Views;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
@@ -8,7 +8,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 	public class OpenRoleCommand : CommandBase<Role>
 	{
 		public OpenRoleCommand()
-        {
+		{
 			this.CanExecute = false;
 		}
 

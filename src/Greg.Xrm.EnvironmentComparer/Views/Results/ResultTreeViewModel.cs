@@ -1,5 +1,4 @@
 ﻿using Greg.Xrm.Async;
-using Greg.Xrm.EnvironmentComparer.Actions;
 using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.Logging;
@@ -10,7 +9,6 @@ using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using static Greg.Xrm.Extensions;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Results
 {
@@ -30,7 +28,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.CopyToEnv2Command = new CopyRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
 			this.DeleteFromEnv1Command = new DeleteRowCommand(messenger, o => o.AreAllRightMissingOrDifferentAndNotActioned(), log);
 			this.DeleteFromEnv2Command = new DeleteRowCommand(messenger, o => o.AreAllLeftMissingOrDifferentAndNotActioned(), log);
-		
+
 			this.WhenChanges(() => SelectedNode)
 				.ChangesAlso(() => IsMarkOKEnabled)
 				.ChangesAlso(() => IsUnmrkOKEnabled);

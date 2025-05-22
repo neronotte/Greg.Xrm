@@ -12,7 +12,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 		{
 			get
 			{
-				switch(index)
+				switch (index)
 				{
 					case 0: return Background.ToColor();
 					case 1: return Foreground.ToColor();
@@ -25,9 +25,9 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 					default: throw new ArgumentOutOfRangeException(nameof(index));
 				}
 			}
-			private set 
+			private set
 			{
-				switch(index)
+				switch (index)
 				{
 					case 0: Background = value.ToHtml(); break;
 					case 1: Foreground = value.ToHtml(); break;
@@ -53,27 +53,27 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 		[Required]
 		[XmlAttribute("background")]
 		public string Background { get; set; }
-		
+
 		[Required]
 		[XmlAttribute("foreground")]
 		public string Foreground { get; set; }
-		
+
 		[Required]
 		[XmlAttribute("backgroundHover")]
 		public string BackgroundHover { get; set; }
-		
+
 		[Required]
 		[XmlAttribute("foregroundHover")]
 		public string ForegroundHover { get; set; }
-		
+
 		[Required]
 		[XmlAttribute("backgroundPressed")]
 		public string BackgroundPressed { get; set; }
-		
+
 		[Required]
 		[XmlAttribute("foregroundPressed")]
 		public string ForegroundPressed { get; set; }
-		
+
 		[Required]
 		[XmlAttribute("backgroundSelected")]
 		public string BackgroundSelected { get; set; }

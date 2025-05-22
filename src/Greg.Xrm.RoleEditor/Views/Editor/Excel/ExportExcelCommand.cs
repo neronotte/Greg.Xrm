@@ -17,11 +17,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private readonly RoleEditorViewModel viewModel;
 
 		public ExportExcelCommand(RoleEditorViewModel viewModel)
-        {
+		{
 			this.viewModel = viewModel;
 		}
 
-        protected override void ExecuteInternal(object arg)
+		protected override void ExecuteInternal(object arg)
 		{
 			if (!(viewModel.Model is RoleModel m)) return;
 
@@ -37,7 +37,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			};
 
 			string fileName = null;
-			using(dialog)
+			using (dialog)
 			{
 				if (dialog.ShowDialog() != DialogResult.OK)
 					return;
@@ -54,10 +54,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 					ExportToExcel(m, fileName, log);
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 					context.Messenger.Send<Unfreeze>();
 				}
-				
+
 			});
 		}
 

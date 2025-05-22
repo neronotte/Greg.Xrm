@@ -13,13 +13,13 @@ namespace Greg.Xrm.RoleEditor.Views.Common
 		public PasteSnippetCommand(
 			IPrivilegeSnippetRepository snippetRepository,
 			INotificationProvider notificationProvider)
-        {
+		{
 			this.snippetRepository = snippetRepository;
 			this.notificationProvider = notificationProvider;
 		}
 
 
-        protected override void ExecuteInternal(PasteSnippetArgs arg)
+		protected override void ExecuteInternal(PasteSnippetArgs arg)
 		{
 			var index = arg.Index;
 			var tableList = arg.HolderList;
@@ -45,8 +45,8 @@ namespace Greg.Xrm.RoleEditor.Views.Common
 
 	public class PasteSnippetArgs
 	{
-        public PasteSnippetArgs(int index, IPrivilegeHolder[] holderList)
-        {
+		public PasteSnippetArgs(int index, IPrivilegeHolder[] holderList)
+		{
 			Index = index;
 			HolderList = holderList;
 		}

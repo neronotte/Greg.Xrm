@@ -105,14 +105,14 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			this.WriteLine("\t/// " + entityConstants.EntityDisplayName + " constants.");
 			this.WriteLine("\t/// </summary>");
 			if (entityConstants.IsActivity)
-				this.WriteLine($"\tpublic sealed class {entityConstants.EntityLogicalName} : activitypointer{Environment.NewLine }\t{{");
+				this.WriteLine($"\tpublic sealed class {entityConstants.EntityLogicalName} : activitypointer{Environment.NewLine}\t{{");
 			else if (entityConstants.EntityLogicalName == "EntityGenericConstants")
 				this.WriteLine("\tpublic class " + entityConstants.EntityLogicalName + Environment.NewLine + "\t{");
 			else if (entityConstants.EntityLogicalName == "activitypointer")
 				this.WriteLine("\tpublic class " + entityConstants.EntityLogicalName + " : EntityGenericConstants" + Environment.NewLine + "\t{");
 			else
 				this.WriteLine("\tpublic sealed class " + entityConstants.EntityLogicalName + " : EntityGenericConstants" + Environment.NewLine + "\t{");
-			if (!(entityConstants.EntityLogicalName != "EntityGenericConstants"))
+			if (string.Equals(entityConstants.EntityLogicalName, "EntityGenericConstants", StringComparison.OrdinalIgnoreCase))
 				return;
 
 			this.WriteLine("\t\t/// <summary>");
@@ -138,7 +138,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 					{
 						this.WriteLine(line);
 					}
-					
+
 				}
 				if (this.ExtractDescriptions)
 					this.WriteLine("\t\t/// Description: " + attribute.Description);

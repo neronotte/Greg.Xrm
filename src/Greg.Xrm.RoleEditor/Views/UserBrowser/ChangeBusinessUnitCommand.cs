@@ -4,7 +4,6 @@ using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
 using System;
-using System.Linq;
 using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.UserBrowser
@@ -36,7 +35,8 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 			messenger.Send(new WorkAsyncInfo
 			{
 				Message = "Assigning user(s) to business unit...",
-				Work = (worker, args) => {
+				Work = (worker, args) =>
+				{
 					foreach (var user in systemUserList)
 					{
 						messenger.Send(new SetWorkingMessage($"Assigning {user.fullname} to business unit {businessUnit.name}..."));

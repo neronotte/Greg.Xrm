@@ -4,8 +4,6 @@ using Greg.Xrm.ModernThemeBuilder.Model;
 using Microsoft.Xrm.Sdk;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 
 namespace Greg.Xrm.ModernThemeBuilder.Views

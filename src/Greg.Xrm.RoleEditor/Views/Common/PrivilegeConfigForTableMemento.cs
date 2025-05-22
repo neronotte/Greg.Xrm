@@ -18,7 +18,7 @@ namespace Greg.Xrm.RoleEditor.Views.Common
 			};
 		}
 
-        public string Name { get; set; }
+		public string Name { get; set; }
 		public Dictionary<PrivilegeType, Level?> Levels { get; set; }
 
 

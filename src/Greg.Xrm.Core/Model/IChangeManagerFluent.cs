@@ -25,8 +25,8 @@ namespace Greg.Xrm.Model
 		/// <param name="callback">The method to call. The argument of the method is the new value of the property</param>
 		/// <returns>The fluent interface</returns>
 		IChangeManagerFluent Execute(Action<object> callback);
-		
-		
+
+
 		/// <summary>
 		/// Instructs the viewmodel to send a message when this property changes
 		/// </summary>

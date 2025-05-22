@@ -2,12 +2,7 @@
 using Greg.Xrm.Info;
 using Greg.Xrm.Theming;
 using OfficeOpenXml;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.Composition;
-using System.IO;
-using System.Linq;
-using System.Reflection;
 using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer

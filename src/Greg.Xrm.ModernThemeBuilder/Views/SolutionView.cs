@@ -4,10 +4,8 @@ using Greg.Xrm.ModernThemeBuilder.Model;
 using Greg.Xrm.ModernThemeBuilder.Views.Messages;
 using Microsoft.Xrm.Sdk;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
-using System.Xml.Linq;
 using WeifenLuo.WinFormsUI.Docking;
 
 namespace Greg.Xrm.ModernThemeBuilder.Views
@@ -26,7 +24,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.TabText = this.Text = "Solution browser";
 			this.CloseButtonVisible = false;
 			this.Icon = Core.Properties.Resources.Icon;
-			
+
 			this.messenger = messenger;
 			this.scheduler = scheduler;
 
@@ -63,8 +61,8 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			var node = this.tree.Nodes.Find(msg.SolutionComponent.WebResource.name, true).FirstOrDefault();
 			if (node == null) return;
 
-			node.NodeFont = msg.SolutionComponent.IsDirty ? 
-				new System.Drawing.Font(this.tree.Font, System.Drawing.FontStyle.Bold) : 
+			node.NodeFont = msg.SolutionComponent.IsDirty ?
+				new System.Drawing.Font(this.tree.Font, System.Drawing.FontStyle.Bold) :
 				this.tree.Font;
 		}
 
@@ -124,7 +122,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 				var part = parts[i];
 				var key = (i == parts.Count - 1) ? solutionComponent.WebResource.name : "PART:" + string.Join("/", parts.Take(i + 1));
 
-				var nodeCollection = i== 0 ? this.tree.Nodes : parentNode.Nodes;
+				var nodeCollection = i == 0 ? this.tree.Nodes : parentNode.Nodes;
 				currentNode = nodeCollection.Find(key, false).FirstOrDefault();
 
 				if (currentNode != null)
@@ -146,7 +144,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 				currentNode.Tag = (i == parts.Count - 1) ? solutionComponent : null;
 				currentNode.ToolTipText = (i == parts.Count - 1) ? solutionComponent.WebResource.name : null;
 
-				if (i == parts.Count-1 && solutionComponent.IsDirty)
+				if (i == parts.Count - 1 && solutionComponent.IsDirty)
 				{
 					currentNode.NodeFont = new System.Drawing.Font(this.tree.Font, System.Drawing.FontStyle.Bold);
 				}

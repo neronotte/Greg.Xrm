@@ -171,7 +171,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			{
 				this.CurrentTheme = null;
 				return;
-			}	
+			}
 
 			this.CurrentTheme = settingDetail.Value;
 		}

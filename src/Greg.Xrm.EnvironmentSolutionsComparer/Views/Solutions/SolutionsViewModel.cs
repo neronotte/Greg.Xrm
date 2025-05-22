@@ -90,12 +90,15 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.scheduler.Enqueue(new XrmToolBox.Extensibility.WorkAsyncInfo
 			{
 				Message = "Loading solution list from environment " + obj.Model.Detail.ConnectionName,
-				Work = (w, e) => {
+				Work = (w, e) =>
+				{
 					var solutionList = repository.GetSolutions();
 					AnalyzeSolutions(solutionList, obj.Index, obj.Model);
 				},
-				PostWorkCallBack = e => {
-					if (e.Error != null){
+				PostWorkCallBack = e =>
+				{
+					if (e.Error != null)
+					{
 						this.log.Error(e.Error.Message, e.Error);
 						return;
 					}
@@ -165,10 +168,12 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.scheduler.Enqueue(new XrmToolBox.Extensibility.WorkAsyncInfo
 			{
 				Message = "Generating excel report, please wait... ",
-				Work = (w, e) => {
+				Work = (w, e) =>
+				{
 					GenerateExcelReport(fileName);
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 					if (e.Error != null)
 					{
 						this.log.Error(e.Error.Message, e.Error);
@@ -183,7 +188,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 		private void GenerateExcelReport(string fileName)
 		{
-			using(var package = new ExcelPackage())
+			using (var package = new ExcelPackage())
 			{
 				var ws = package.Workbook.Worksheets.Add("Solutions");
 

@@ -11,7 +11,7 @@ namespace Greg.Xrm.RoleEditor.Services.Snippets
 		private readonly ISettingsProvider<Settings> settingsProvider;
 
 		public PrivilegeSnippetRepository(ILog log, ISettingsProvider<Settings> settingsProvider)
-        {
+		{
 			this.log = log;
 			this.settingsProvider = settingsProvider ?? throw new ArgumentNullException(nameof(settingsProvider));
 		}
@@ -27,7 +27,7 @@ namespace Greg.Xrm.RoleEditor.Services.Snippets
 
 		public PrivilegeSnippet Get(int index)
 		{
-			lock(this.syncRoot)
+			lock (this.syncRoot)
 			{
 				var settings = this.settingsProvider.GetSettings();
 
@@ -70,7 +70,7 @@ namespace Greg.Xrm.RoleEditor.Services.Snippets
 				{
 					snippets = JsonConvert.DeserializeObject<PrivilegeSnippet[]>(settings.PrivilegeSnippets);
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					this.log.Error("Error deserializing privilege snippets: " + ex.Message, ex);
 					snippets = PrivilegeSnippet.DefaultSnippets;

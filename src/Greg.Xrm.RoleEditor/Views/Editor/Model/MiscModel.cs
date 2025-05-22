@@ -22,10 +22,10 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			{
 				// if the privilege is new, then the pre-image is None
 				this.preImage = Level.None;
-				Set( rolePrivilege.GetLevel());
+				Set(rolePrivilege.GetLevel());
 			}
 			else
-			{ 
+			{
 				// if the privilege is not new, then the pre-image is the current level
 				this.preImage = rolePrivilege.GetLevel();
 				this.target = null;
@@ -85,7 +85,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			{
 				summary.AddPrivilege(this.template, target.Value.ToPrivilegeDepth());
 			}
-			else 
+			else
 			{
 				summary.ReplacePrivilege(this.template, this.preImage.ToPrivilegeDepth(), this.target.Value.ToPrivilegeDepth());
 			}

@@ -18,7 +18,7 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		/// <summary>
 		/// Returns the name of the entity to whom this actions applies
 		/// </summary>
-		string EntityName { get; } 	
+		string EntityName { get; }
 
 		/// <summary>
 		/// Applies the action

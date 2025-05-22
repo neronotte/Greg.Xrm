@@ -1,5 +1,4 @@
 ﻿using Greg.Xrm.Logging;
-using Greg.Xrm.ModernThemeBuilder.Views.Messages;
 using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
@@ -22,7 +21,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 		private readonly ILog log;
 
 		public SetAsCurrentThemeCommand(MainViewModel viewModel, ILog log)
-        {
+		{
 			this.viewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
 			this.log = log ?? throw new ArgumentNullException(nameof(log));
 
@@ -43,7 +42,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 
 		private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName != nameof(MainViewModel.Crm) 
+			if (e.PropertyName != nameof(MainViewModel.Crm)
 				&& e.PropertyName != nameof(MainViewModel.CurrentSolution)
 				&& e.PropertyName != nameof(MainViewModel.CurrentSolutionComponent)
 				&& e.PropertyName != nameof(MainViewModel.CurrentTheme))

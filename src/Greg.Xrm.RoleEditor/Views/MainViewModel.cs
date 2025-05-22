@@ -6,7 +6,6 @@ using Greg.Xrm.RoleEditor.Model;
 using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.AddUserRoles;
 using Greg.Xrm.RoleEditor.Views.Messages;
-using Greg.Xrm.Views;
 using McTools.Xrm.Connection;
 using Microsoft.Xrm.Sdk;
 using System;
@@ -101,7 +100,7 @@ namespace Greg.Xrm.RoleEditor.Views
 
 		#endregion
 
-		
+
 
 
 		public event EventHandler<OpenRoleView> OpenRoleRequested;

@@ -1,8 +1,8 @@
 ﻿using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using McTools.Xrm.Connection;
-using Microsoft.Xrm.Sdk.Query;
 using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Query;
 using System;
 
 namespace Greg.Xrm.Core

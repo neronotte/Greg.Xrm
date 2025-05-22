@@ -15,8 +15,8 @@ namespace Greg.Xrm.RoleEditor
 	[Serializable]
 	public class Settings : SettingsBase<RoleEditorPlugin>
 	{
-        public Settings()
-        {
+		public Settings()
+		{
 			// set default values
 			this.PrivilegeClassificationForMisc = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForMisc, Formatting.Indented);
 			this.PrivilegeClassificationForTable = JsonConvert.SerializeObject(PrivilegeClassification.DefaultForTable, Formatting.Indented);

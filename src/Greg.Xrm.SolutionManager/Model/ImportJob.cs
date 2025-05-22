@@ -46,10 +46,10 @@ namespace Greg.Xrm.SolutionManager.Model
 					NoLock = true
 				};
 				query.ColumnSet.AddColumns(
-					nameof(solutionname), 
-					nameof(progress), 
-					nameof(startedon), 
-					nameof(completedon), 
+					nameof(solutionname),
+					nameof(progress),
+					nameof(startedon),
+					nameof(completedon),
 					nameof(createdon),
 					nameof(createdby),
 					nameof(data));
@@ -58,9 +58,9 @@ namespace Greg.Xrm.SolutionManager.Model
 				solutionLink.EntityAlias = "s";
 				solutionLink.Columns.AddColumns(
 					nameof(uniquename),
-					nameof(friendlyname), 
-					nameof(description), 
-					nameof(publisherid), 
+					nameof(friendlyname),
+					nameof(description),
+					nameof(publisherid),
 					nameof(version));
 
 				query.AddOrder(nameof(startedon), OrderType.Descending);

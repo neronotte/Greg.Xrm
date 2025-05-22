@@ -1,7 +1,4 @@
 ﻿using Greg.Xrm.Logging;
-using Microsoft.Xrm.Sdk.Query;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions.ComponentResolution
 {

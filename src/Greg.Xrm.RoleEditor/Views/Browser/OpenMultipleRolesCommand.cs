@@ -1,16 +1,16 @@
 ﻿using Greg.Xrm.RoleEditor.Model;
-using Greg.Xrm.Views;
 using Greg.Xrm.RoleEditor.Views.Messages;
-using XrmToolBox.Extensibility;
-using System.Linq;
+using Greg.Xrm.Views;
 using System;
+using System.Linq;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 {
 	public class OpenMultipleRolesCommand : CommandBase<Role[]>
 	{
 		public OpenMultipleRolesCommand()
-        {
+		{
 			this.CanExecute = false;
 		}
 
@@ -22,7 +22,7 @@ namespace Greg.Xrm.RoleEditor.Views.RoleBrowser
 			var messenger = roles[0].ExecutionContext.Messenger;
 			var log = roles[0].ExecutionContext.Log;
 
-			if (Array.TrueForAll(roles, x=> x.Privileges.Count > 0))
+			if (Array.TrueForAll(roles, x => x.Privileges.Count > 0))
 			{
 				messenger.Send(new OpenRoleView(roles));
 				return;

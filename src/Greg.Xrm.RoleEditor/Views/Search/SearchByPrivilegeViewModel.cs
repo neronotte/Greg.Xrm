@@ -87,7 +87,7 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 			this.WhenChanges(() => SelecteMiscPrivilege)
 				.Execute(_ =>
 				{
-						if (this.SelecteMiscPrivilege != null)
+					if (this.SelecteMiscPrivilege != null)
 					{
 						this.SelectedTable = null;
 					}

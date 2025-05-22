@@ -36,7 +36,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.CreateTheme
 			this.btnOk.Enabled = false;
 			this.txtName.Enabled = false;
 
-			var name= this.txtName.Text;
+			var name = this.txtName.Text;
 			if (string.IsNullOrWhiteSpace(name))
 			{
 				errorProvider.SetError(this.txtName, "Please enter a name");

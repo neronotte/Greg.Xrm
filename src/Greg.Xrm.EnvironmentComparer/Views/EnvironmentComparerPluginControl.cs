@@ -44,7 +44,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 		public EnvironmentComparerPluginControl(IThemeProvider themeProvider)
 		{
-			if (themeProvider == null) 
+			if (themeProvider == null)
 				throw new ArgumentNullException(nameof(themeProvider));
 
 
@@ -175,7 +175,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			this.WorkAsync(new WorkAsyncInfo
 			{
 				Message = "Loading entities, please wait...",
-				Work = (bw, e1) => {
+				Work = (bw, e1) =>
+				{
 					var request = new RetrieveAllEntitiesRequest
 					{
 						EntityFilters = EntityFilters.Attributes
@@ -184,7 +185,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 					var response = (RetrieveAllEntitiesResponse)this.Service.Execute(request);
 					e1.Result = response.EntityMetadata;
 				},
-				PostWorkCallBack = e1 => {
+				PostWorkCallBack = e1 =>
+				{
 					if (e1.Error != null)
 					{
 						return;

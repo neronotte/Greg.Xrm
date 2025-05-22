@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Greg.Xrm.ConstantsExtractor.Core
 {
@@ -10,7 +8,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 
 		internal string EntityDisplayNameWithoutSpecialChar { get; }
 
-		internal string EntityLogicalName { get;  }
+		internal string EntityLogicalName { get; }
 
 		internal bool IsActivity { get; }
 
@@ -43,10 +41,10 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 		{
 			if (!this.CommonFields.Contains(attributeElem.LogicalNameConstant))
 				this.Attributes.Add(attributeElem);
-			
+
 			if (attributeElem is AttributeMetadataManagerForPicklist manager)
 				this.OptionSetAttributes.Add(manager);
-			
+
 			if (attributeElem is AttributeMetadataManagerForStatus manager1)
 				this.StatusAttribute = manager1;
 

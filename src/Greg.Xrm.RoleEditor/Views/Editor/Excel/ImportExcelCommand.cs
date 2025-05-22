@@ -18,9 +18,11 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 		{
 			this.viewModel = viewModel;
 
-			this.viewModel.PropertyChanged += (s, e) => {
-				if (e.PropertyName == nameof(this.viewModel.IsEnabled) 
-					|| e.PropertyName == nameof(this.viewModel.IsCustomizable)) {
+			this.viewModel.PropertyChanged += (s, e) =>
+			{
+				if (e.PropertyName == nameof(this.viewModel.IsEnabled)
+					|| e.PropertyName == nameof(this.viewModel.IsCustomizable))
+				{
 					CalculateCanExecute();
 				}
 			};
@@ -67,7 +69,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor.Excel
 					args.Result = ImportExcelFile(fileName);
 				},
 				PostWorkCallBack = e =>
-				{	
+				{
 					try
 					{
 						if (e.Error != null)

@@ -56,7 +56,8 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 			this.scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Retrieving attribute list",
-				Work = (w, e) => {
+				Work = (w, e) =>
+				{
 					var query = new EntityQueryExpression();
 					query.Criteria.Conditions.Add(new MetadataConditionExpression("LogicalName", MetadataConditionOperator.Equals, nodeForEntity.LogicalName));
 					query.Properties = new MetadataPropertiesExpression("Attributes");
@@ -69,7 +70,8 @@ namespace Greg.Xrm.DataModelWikiEditor.Views.EntityTree
 					var response = (RetrieveMetadataChangesResponse)this.Crm.Execute(request);
 					e.Result = response.EntityMetadata.Select(_ => _.Attributes).FirstOrDefault();
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 					if (e.Error != null)
 					{
 						this.log.Error("Error fetching attribute list: " + e.Error.Message, e.Error);

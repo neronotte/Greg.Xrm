@@ -81,7 +81,7 @@ namespace Greg.Xrm.Model
 				parent.dependentPropertyDict[sourcePropertyName].Add(targetPropertyName);
 				return this;
 			}
-			
+
 
 
 
@@ -119,7 +119,7 @@ namespace Greg.Xrm.Model
 			/// <param name="messenger">The messenger that will be used to send the message</param>
 			public void NotifyOthers(IMessenger messenger)
 			{
-				void notificationDelegate(object newValue) 
+				void notificationDelegate(object newValue)
 				{
 					messenger.Send(new NotifyPropertyChangedMessage(parent, sourcePropertyName, newValue));
 				}

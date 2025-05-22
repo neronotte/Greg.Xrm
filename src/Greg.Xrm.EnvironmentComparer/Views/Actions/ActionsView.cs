@@ -109,7 +109,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Actions
 			if (action == null) return;
 
 			this.viewModel.RemoveAction(action);
-			
+
 		}
 	}
 }

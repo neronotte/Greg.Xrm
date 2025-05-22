@@ -113,7 +113,7 @@ namespace Greg.Xrm.Logging
 			var logEntry = new LogEntry
 			{
 				Timestamp = DateTime.Now,
-				ForeColor =color,
+				ForeColor = color,
 				Level = level,
 				Message = message,
 				Exception = ex
@@ -202,7 +202,7 @@ namespace Greg.Xrm.Logging
 
 		private void OnExportLogs(object sender, EventArgs e)
 		{
-			var logEntryToExportList= this.listView1.Items.Cast<ListViewItem>().Select(x => x.Tag).OfType<LogEntry>().ToList();
+			var logEntryToExportList = this.listView1.Items.Cast<ListViewItem>().Select(x => x.Tag).OfType<LogEntry>().ToList();
 			if (logEntryToExportList.Count == 0)
 			{
 				MessageBox.Show("Nothing to export!", "Export logs", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -231,7 +231,7 @@ namespace Greg.Xrm.Logging
 
 					Process.Start(dialog.FileName);
 				}
-				catch(Exception ex)
+				catch (Exception ex)
 				{
 					this.Error("Error exporting logs: " + ex.Message, ex);
 				}

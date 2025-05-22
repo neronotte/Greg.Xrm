@@ -12,7 +12,7 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 {
 	public partial class LookupDialog : Form
 	{
-		private EntityMetadata entityMetadata = null; 
+		private EntityMetadata entityMetadata = null;
 		private readonly IOrganizationService crm;
 		private readonly QueryExpression query;
 
@@ -233,7 +233,7 @@ namespace Greg.Xrm.RoleEditor.Views.Lookup
 
 		private void btnNext_Click(object sender, EventArgs e)
 		{
-			this.pageToLoad = this.currentPage+1;
+			this.pageToLoad = this.currentPage + 1;
 			this.ExecuteQueryAsync();
 		}
 

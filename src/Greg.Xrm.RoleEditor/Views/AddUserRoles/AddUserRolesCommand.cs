@@ -31,9 +31,9 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 			if (viewModel.Users.Count == 0)
 			{
 				MessageBox.Show(
-					"Please select at least one user.", 
-					"Assign roles to users", 
-					MessageBoxButtons.OK, 
+					"Please select at least one user.",
+					"Assign roles to users",
+					MessageBoxButtons.OK,
 					MessageBoxIcon.Warning);
 
 				return;
@@ -138,7 +138,7 @@ namespace Greg.Xrm.RoleEditor.Views.AddUserRoles
 
 					messenger.Send(new SetWorkingMessage($"Operation completed!"));
 				},
-				PostWorkCallBack =(e) =>
+				PostWorkCallBack = (e) =>
 				{
 					messenger.Unfreeze();
 

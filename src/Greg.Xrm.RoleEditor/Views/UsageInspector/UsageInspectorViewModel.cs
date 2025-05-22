@@ -27,7 +27,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 		public event EventHandler<NotificationEventArgs> Notify;
 
 		public UsageInspectorViewModel(IDependencyRepository dependencyRepository, Role role)
-        {
+		{
 			this.dependencyRepository = dependencyRepository;
 			this.role = role;
 			this.messenger = role.ExecutionContext.Messenger.CreateScope();
@@ -48,7 +48,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 			get => Get<bool>();
 			private set => Set(value);
 		}
-		
+
 		public string Output
 		{
 			get => Get<string>();
@@ -84,7 +84,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 					List<Guid> roleIdList;
 
 
-					using(this.log.Track("Retrieving hierarchy of roles"))
+					using (this.log.Track("Retrieving hierarchy of roles"))
 					{
 						roleIdList = ReadRoleRecursive(crm, this.role.Id);
 					}
@@ -104,9 +104,9 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 
 						systemUserList = crm.RetrieveAll(query);
 					}
-					
 
-					using(this.log.Track($"Fetching teams with role {this.role.name}"))
+
+					using (this.log.Track($"Fetching teams with role {this.role.name}"))
 					{
 						var query = new QueryExpression("team");
 						query.ColumnSet.AddColumns("name");
@@ -121,7 +121,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 					}
 
 
-					using(this.log.Track($"Retrieving other dependencies for role {this.role.name}"))
+					using (this.log.Track($"Retrieving other dependencies for role {this.role.name}"))
 					{
 						otherDependencies = this.dependencyRepository.GetRoleDependencies(crm, role);
 					}
@@ -134,7 +134,7 @@ namespace Greg.Xrm.RoleEditor.Views.UsageInspector
 					var headerLen = Math.Min(header.Length + 2, 80);
 
 					sb.Append("+").Append('-', headerLen).Append("+").AppendLine();
-					sb.Append($"| ").Append(header.PadRight(headerLen-1)).AppendLine("|");
+					sb.Append($"| ").Append(header.PadRight(headerLen - 1)).AppendLine("|");
 					sb.Append("+").Append('-', headerLen).Append("+").AppendLine();
 					sb.AppendLine();
 

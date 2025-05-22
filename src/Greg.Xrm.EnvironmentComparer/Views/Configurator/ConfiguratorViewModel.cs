@@ -1,7 +1,8 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Engine.Config;
-using Greg.Xrm.EnvironmentComparer.Messaging;
 using Greg.Xrm.EnvironmentComparer.Engine.Memento;
+using Greg.Xrm.EnvironmentComparer.Messaging;
+using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
 using Microsoft.Xrm.Sdk;
@@ -10,12 +11,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Windows.Forms;
 using XrmToolBox.Extensibility;
-using Greg.Xrm.Logging;
-using System.Linq;
 
 namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
@@ -289,7 +289,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		{
 			if (memento == null) return;
 			if (string.IsNullOrWhiteSpace(fileName)) return;
-			
+
 
 
 			try
@@ -323,7 +323,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		{
 			if (this.Memento == null)
 				throw new InvalidOperationException("Comparison cannot be performed without memento!");
-			
+
 			if (this.Memento.Entities.Count == 0)
 			{
 				MessageBox.Show("Please configure at least one entity to perform the comparison", "Compare", MessageBoxButtons.OK, MessageBoxIcon.Information);

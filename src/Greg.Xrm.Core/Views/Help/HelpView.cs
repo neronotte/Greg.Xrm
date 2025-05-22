@@ -21,7 +21,8 @@ namespace Greg.Xrm.Core.Views.Help
 			this.webBrowser1.Navigating += OnNavigating;
 
 			this.messenger = messenger;
-			this.messenger.Register<ShowHelp>(m => { 
+			this.messenger.Register<ShowHelp>(m =>
+			{
 				this.VisibleState = DockState.DockRight;
 			});
 

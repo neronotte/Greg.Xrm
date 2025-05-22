@@ -47,7 +47,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 					var env1name = e.GetNewValue<string>();
 					this.lblEnv1.Text = (string.IsNullOrWhiteSpace(env1name) ? "ENV1" : env1name);
 					this.OnResultRecordSelected(null);
-				}); 
+				});
 			this.messenger.WhenObject<EnvironmentComparerViewModel>()
 				 .ChangesProperty(_ => _.ConnectionName2)
 				 .Execute(e =>
@@ -125,7 +125,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 			this.txtValue2.Visible = record.Result != ObjectComparisonResult.Equals;
 
 			this.cmbAttributes.Items.Clear();
-			foreach(var property in record.DifferentProperties)
+			foreach (var property in record.DifferentProperties)
 			{
 				this.cmbAttributes.Items.Add(property);
 			}

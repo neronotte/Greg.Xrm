@@ -2,8 +2,8 @@
 {
 	public class SetWorkingMessage
 	{
-        public SetWorkingMessage(string message, int width = 340, int heigth = 150)
-        {
+		public SetWorkingMessage(string message, int width = 340, int heigth = 150)
+		{
 			Message = message;
 			Width = width;
 			Heigth = heigth;

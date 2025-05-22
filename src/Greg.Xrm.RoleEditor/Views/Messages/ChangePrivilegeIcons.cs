@@ -5,8 +5,8 @@
 	/// </summary>
 	public class ChangePrivilegeIcons
 	{
-        public ChangePrivilegeIcons(bool useLegacyIcons)
-        {
+		public ChangePrivilegeIcons(bool useLegacyIcons)
+		{
 			UseLegacyIcons = useLegacyIcons;
 		}
 

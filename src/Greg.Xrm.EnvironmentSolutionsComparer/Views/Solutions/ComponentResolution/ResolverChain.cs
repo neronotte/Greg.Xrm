@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions.ComponentResolution
 {
-	public class ResolverChain 
+	public class ResolverChain
 	{
 		private readonly IReadOnlyCollection<IResolver> resolverList;
 

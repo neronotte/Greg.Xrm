@@ -1,6 +1,4 @@
-﻿using XrmToolBox.Extensibility;
-
-namespace Greg.Xrm.DataModelWikiEditor
+﻿namespace Greg.Xrm.DataModelWikiEditor
 {
 	/// <summary>
 	/// This class can help you to store settings for your plugin

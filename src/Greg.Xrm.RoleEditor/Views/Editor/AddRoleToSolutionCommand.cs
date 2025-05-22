@@ -10,12 +10,12 @@ using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
-	public class AddRoleToSolutionCommand: CommandBase
+	public class AddRoleToSolutionCommand : CommandBase
 	{
 		private readonly RoleEditorViewModel viewModel;
 
 		public AddRoleToSolutionCommand(RoleEditorViewModel viewModel)
-        {
+		{
 			this.viewModel = viewModel;
 
 			viewModel.PropertyChanged += (s, e) =>
@@ -30,8 +30,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 		private void CalculateCanExecute()
 		{
-			this.CanExecute = this.viewModel.Model != null 
-				&& this.viewModel.Model.Id != Guid.Empty 
+			this.CanExecute = this.viewModel.Model != null
+				&& this.viewModel.Model.Id != Guid.Empty
 				&& this.viewModel.IsCustomizable;
 		}
 
@@ -90,7 +90,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					}
 					else
 					{
-						this.viewModel.SendNotification( Core.Views.NotificationType.Success, "Role added to solution!");
+						this.viewModel.SendNotification(Core.Views.NotificationType.Success, "Role added to solution!");
 					}
 				}
 			});

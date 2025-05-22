@@ -4,7 +4,7 @@ using System;
 
 namespace Greg.Xrm.EnvironmentComparer.Actions
 {
-	public class ActionDeleteRecord :IAction
+	public class ActionDeleteRecord : IAction
 	{
 		public ActionDeleteRecord(ObjectComparison<Entity> result, Entity entity, int sourceEnvironmentIndex, string sourceEnvironmentName)
 		{

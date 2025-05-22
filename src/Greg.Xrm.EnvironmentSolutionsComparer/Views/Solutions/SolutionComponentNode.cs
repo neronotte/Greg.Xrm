@@ -10,7 +10,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		}
 
 		protected SolutionComponentNode(string label, SolutionComponentNode parent)
-			:this(label)
+			: this(label)
 		{
 			this.Parent = parent ?? throw new ArgumentNullException(nameof(parent));
 		}

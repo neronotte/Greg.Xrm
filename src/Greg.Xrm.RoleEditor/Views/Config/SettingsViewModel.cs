@@ -22,7 +22,7 @@ namespace Greg.Xrm.RoleEditor.Views
 		private readonly IPrivilegeSnippetRepository snippetRepository;
 
 		public SettingsViewModel(
-			IMessenger messenger, 
+			IMessenger messenger,
 			ISettingsProvider<Settings> settingsProvider,
 			IPrivilegeSnippetRepository snippetRepository)
 		{

@@ -32,7 +32,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 			int index = 0;
 			foreach (var entityMemento in Entities)
 			{
-				foreach(var result in entityMemento.Validate(new ValidationContext(entityMemento, new Dictionary<object, object> { { "index", index } })))
+				foreach (var result in entityMemento.Validate(new ValidationContext(entityMemento, new Dictionary<object, object> { { "index", index } })))
 				{
 					yield return result;
 				}

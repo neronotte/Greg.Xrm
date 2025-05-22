@@ -25,7 +25,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 			var fileFullName = Path.Combine(this.localFolder.FullName, fileName);
 
 
-			using(var wb = new ExcelPackage())
+			using (var wb = new ExcelPackage())
 			{
 				GenerateSummary(wb, compareResult, crm1name, crm2name);
 
@@ -190,7 +190,7 @@ namespace Greg.Xrm.EnvironmentComparer.Model
 
 		private Color GetColor(ObjectComparisonResult result)
 		{
-			switch(result)
+			switch (result)
 			{
 				case ObjectComparisonResult.Equals:
 					return Color.FromArgb(198, 239, 206);

@@ -15,16 +15,16 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 		private readonly IRoleRepository roleRepository;
 
 		public SearchByPrivilegeCommand(
-			SearchByPrivilegeViewModel viewModel, 
+			SearchByPrivilegeViewModel viewModel,
 			DataverseEnvironment environment,
 			IRoleRepository roleRepository)
-        {
+		{
 			this.viewModel = viewModel;
 			this.environment = environment;
 			this.roleRepository = roleRepository;
 		}
 
-        protected override void ExecuteInternal(SearchByPrivilegeDialog owner)
+		protected override void ExecuteInternal(SearchByPrivilegeDialog owner)
 		{
 			var messenger = this.environment.Context.Messenger;
 			var crm = this.environment.Context;
@@ -54,20 +54,21 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 						var foundRoleIds = roles.Select(x => x.Id).ToList();
 
 						var environmentRoles = this.environment.GetAllRoles();
-						var result = environmentRoles.Where(role => foundRoleIds.Contains( role.Id ) ).ToArray();
+						var result = environmentRoles.Where(role => foundRoleIds.Contains(role.Id)).ToArray();
 						e.Result = new SearchRoleCompleted(result, searchDescription);
 					}
-					catch(Exception ex)
+					catch (Exception ex)
 					{
 						log.Error("Error while searching for roles: " + ex.Message, ex);
-						e.Result = new SearchRoleCompleted(new Role[0], searchDescription) ;
+						e.Result = new SearchRoleCompleted(new Role[0], searchDescription);
 					}
 					finally
 					{
 						messenger.Send<Unfreeze>();
 					}
 				},
-				PostWorkCallBack = e => {
+				PostWorkCallBack = e =>
+				{
 
 					this.CanExecute = true;
 					var result = (e.Result as SearchRoleCompleted);
@@ -86,7 +87,7 @@ namespace Greg.Xrm.RoleEditor.Views.Search
 			{
 				return this.viewModel.SelectedPrivilegeName;
 			}
-			
+
 
 			if (this.viewModel.SelecteMiscPrivilege != null)
 			{

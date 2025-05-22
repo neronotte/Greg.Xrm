@@ -67,7 +67,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 			public IReadOnlyCollection<Solution> GetSolutions()
 			{
-				using(log.Track("Loading solution list from environment " + environmentName))
+				using (log.Track("Loading solution list from environment " + environmentName))
 				{
 					var query = new QueryExpression("solution");
 					query.ColumnSet.AddColumns(

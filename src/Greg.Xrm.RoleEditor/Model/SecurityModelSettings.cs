@@ -4,7 +4,7 @@
 	/// Check: https://dev.to/_neronotte/record-ownership-across-business-units-under-the-hood-2l15
 	/// </summary>
 	public class SecurityModelSettings
-    {
+	{
 		/// <summary>
 		/// Indicates if the matrix visibility is enabled or not
 		/// If enabled, the logic to assign roles to users is different

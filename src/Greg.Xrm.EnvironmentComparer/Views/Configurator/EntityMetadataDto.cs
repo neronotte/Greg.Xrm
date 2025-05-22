@@ -1,5 +1,4 @@
-﻿using Greg.Xrm.EnvironmentComparer.Model;
-using Microsoft.Xrm.Sdk.Metadata;
+﻿using Microsoft.Xrm.Sdk.Metadata;
 using System;
 using System.Collections;
 using System.Collections.Generic;

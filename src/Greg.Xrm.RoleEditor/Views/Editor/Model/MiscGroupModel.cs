@@ -1,12 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace Greg.Xrm.RoleEditor.Views.Editor
 {
 	public class MiscGroupModel : List<MiscModel>
 	{
-		
+
 		public MiscGroupModel(string name = null)
 		{
 			this.Name = name;

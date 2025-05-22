@@ -8,7 +8,7 @@ namespace Greg.Xrm.RoleEditor.Model
 	{
 		private readonly string name;
 
-		public TreeNode(string name, string tooltip = null, string icon = null, IEnumerable<TreeNode> children = null)	
+		public TreeNode(string name, string tooltip = null, string icon = null, IEnumerable<TreeNode> children = null)
 		{
 			this.name = name;
 			this.Tooltip = tooltip;
@@ -48,11 +48,11 @@ namespace Greg.Xrm.RoleEditor.Model
 				var model = e.Model as TreeNode;
 				if (model == null) return;
 
-                if ( model.Count > 0)
-                {
+				if (model.Count > 0)
+				{
 					e.SubItem.ForeColor = Color.FromArgb(2, 53, 158);
-                }
-            };
+				}
+			};
 
 
 			var column = tree.Columns[0] as OLVColumn;

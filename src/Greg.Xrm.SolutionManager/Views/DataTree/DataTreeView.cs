@@ -20,7 +20,7 @@ namespace Greg.Xrm.SolutionManager.Views.DataTree
 
 		private void OnViewModelPropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (string.Equals(e.PropertyName,nameof(this.viewModel.CurrentImportJobData)))
+			if (string.Equals(e.PropertyName, nameof(this.viewModel.CurrentImportJobData)))
 			{
 				this.Document = this.viewModel.CurrentImportJobData;
 			}
@@ -29,9 +29,9 @@ namespace Greg.Xrm.SolutionManager.Views.DataTree
 		private XDocument document;
 		private readonly PluginViewModel viewModel;
 
-		public XDocument Document 
+		public XDocument Document
 		{
-			get => this.document; 
+			get => this.document;
 			set
 			{
 				var currentDocumentText = this.document?.ToString();
@@ -72,7 +72,8 @@ namespace Greg.Xrm.SolutionManager.Views.DataTree
 					&& "warning".Equals(attribute.Value, System.StringComparison.OrdinalIgnoreCase))
 				{
 					childNode.ForeColor = Color.Orange;
-					RecourseReverse(childNode.Parent, n => { 
+					RecourseReverse(childNode.Parent, n =>
+					{
 						if (n.ForeColor == tree.ForeColor)
 						{
 							n.ForeColor = Color.Orange;

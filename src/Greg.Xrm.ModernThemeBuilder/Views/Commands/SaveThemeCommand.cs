@@ -14,7 +14,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 		private readonly ILog log;
 
 		public SaveThemeCommand(MainViewModel viewModel, ILog log)
-        {
+		{
 			this.viewModel = viewModel ?? throw new System.ArgumentNullException(nameof(viewModel));
 			this.log = log ?? throw new System.ArgumentNullException(nameof(log));
 			this.viewModel.PropertyChanged += OnViewModelPropertyChanged;
@@ -38,7 +38,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 
 
 			this.CanExecute = this.viewModel.Crm != null
-				&& this.viewModel.CurrentSolution != null 
+				&& this.viewModel.CurrentSolution != null
 				&& this.viewModel.CurrentSolutionComponent != null
 				&& this.viewModel.CurrentSolutionComponent.IsDirty;
 		}
@@ -78,7 +78,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views.Commands
 				var request2 = new PublishAllXmlRequest();
 				this.viewModel.Crm.Execute(request2);
 			}
-			
+
 
 			args.Result = solutionComponent;
 		}

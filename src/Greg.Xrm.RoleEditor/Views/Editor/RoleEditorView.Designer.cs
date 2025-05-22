@@ -61,6 +61,7 @@
 			this.tools2 = new System.Windows.Forms.ToolStrip();
 			this.toolStripLabel3 = new System.Windows.Forms.ToolStripLabel();
 			this.tSearchTableText = new System.Windows.Forms.ToolStripTextBox();
+			this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
 			this.tabMisc = new System.Windows.Forms.TabPage();
 			this.treeMisc = new BrightIdeasSoftware.TreeListView();
 			this.cMiscName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -91,7 +92,6 @@
 			this.mSet2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
-			this.toolStripLabel5 = new System.Windows.Forms.ToolStripLabel();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -383,6 +383,14 @@
 			this.tSearchTableText.Name = "tSearchTableText";
 			this.tSearchTableText.Size = new System.Drawing.Size(150, 25);
 			// 
+			// toolStripLabel5
+			// 
+			this.toolStripLabel5.ForeColor = System.Drawing.Color.Gray;
+			this.toolStripLabel5.Name = "toolStripLabel5";
+			this.toolStripLabel5.Size = new System.Drawing.Size(638, 22);
+			this.toolStripLabel5.Text = "Type CTRL+0-9 to apply privilege snippets. Type CTRL+SHIFT+5-9 or enter the Setti" +
+    "ngs dialog to configure the snippets.";
+			// 
 			// tabMisc
 			// 
 			this.tabMisc.Controls.Add(this.treeMisc);
@@ -390,7 +398,7 @@
 			this.tabMisc.Location = new System.Drawing.Point(4, 22);
 			this.tabMisc.Name = "tabMisc";
 			this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMisc.Size = new System.Drawing.Size(862, 477);
+			this.tabMisc.Size = new System.Drawing.Size(912, 477);
 			this.tabMisc.TabIndex = 1;
 			this.tabMisc.Text = "Miscellaneous Privileges";
 			this.tabMisc.UseVisualStyleBackColor = true;
@@ -414,7 +422,7 @@
 			this.treeMisc.Name = "treeMisc";
 			this.treeMisc.OwnerDraw = true;
 			this.treeMisc.ShowGroups = false;
-			this.treeMisc.Size = new System.Drawing.Size(856, 446);
+			this.treeMisc.Size = new System.Drawing.Size(906, 446);
 			this.treeMisc.SmallImageList = this.privilegeImagesOld;
 			this.treeMisc.TabIndex = 2;
 			this.treeMisc.UseCompatibleStateImageBehavior = false;
@@ -450,7 +458,7 @@
             this.txtSearchMisc});
 			this.tools3.Location = new System.Drawing.Point(3, 3);
 			this.tools3.Name = "tools3";
-			this.tools3.Size = new System.Drawing.Size(856, 25);
+			this.tools3.Size = new System.Drawing.Size(906, 25);
 			this.tools3.TabIndex = 0;
 			this.tools3.Text = "toolStrip1";
 			// 
@@ -472,7 +480,7 @@
 			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tabGeneral.Name = "tabGeneral";
 			this.tabGeneral.Padding = new System.Windows.Forms.Padding(10);
-			this.tabGeneral.Size = new System.Drawing.Size(862, 477);
+			this.tabGeneral.Size = new System.Drawing.Size(912, 477);
 			this.tabGeneral.TabIndex = 2;
 			this.tabGeneral.Text = "General information";
 			this.tabGeneral.UseVisualStyleBackColor = true;
@@ -502,7 +510,7 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(842, 205);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(892, 205);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// label1
@@ -556,7 +564,7 @@
 			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleName, 2);
 			this.txtRoleName.Location = new System.Drawing.Point(203, 3);
 			this.txtRoleName.Name = "txtRoleName";
-			this.txtRoleName.Size = new System.Drawing.Size(636, 20);
+			this.txtRoleName.Size = new System.Drawing.Size(686, 20);
 			this.txtRoleName.TabIndex = 4;
 			// 
 			// txtRoleBusinessUnit
@@ -566,7 +574,7 @@
 			this.txtRoleBusinessUnit.Enabled = false;
 			this.txtRoleBusinessUnit.Location = new System.Drawing.Point(203, 33);
 			this.txtRoleBusinessUnit.Name = "txtRoleBusinessUnit";
-			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(596, 20);
+			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(646, 20);
 			this.txtRoleBusinessUnit.TabIndex = 5;
 			// 
 			// txtRoleDescription
@@ -576,7 +584,7 @@
 			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleDescription, 2);
 			this.txtRoleDescription.Location = new System.Drawing.Point(203, 63);
 			this.txtRoleDescription.Name = "txtRoleDescription";
-			this.txtRoleDescription.Size = new System.Drawing.Size(636, 20);
+			this.txtRoleDescription.Size = new System.Drawing.Size(686, 20);
 			this.txtRoleDescription.TabIndex = 6;
 			// 
 			// cmbRoleInheritance
@@ -587,13 +595,13 @@
 			this.cmbRoleInheritance.FormattingEnabled = true;
 			this.cmbRoleInheritance.Location = new System.Drawing.Point(203, 93);
 			this.cmbRoleInheritance.Name = "cmbRoleInheritance";
-			this.cmbRoleInheritance.Size = new System.Drawing.Size(636, 21);
+			this.cmbRoleInheritance.Size = new System.Drawing.Size(686, 21);
 			this.cmbRoleInheritance.TabIndex = 7;
 			// 
 			// btnRoleBusinessUnitLookup
 			// 
 			this.btnRoleBusinessUnitLookup.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
-			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(805, 33);
+			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(855, 33);
 			this.btnRoleBusinessUnitLookup.Name = "btnRoleBusinessUnitLookup";
 			this.btnRoleBusinessUnitLookup.Size = new System.Drawing.Size(34, 23);
 			this.btnRoleBusinessUnitLookup.TabIndex = 8;
@@ -605,7 +613,7 @@
 			this.tabChangeSummary.Location = new System.Drawing.Point(4, 22);
 			this.tabChangeSummary.Name = "tabChangeSummary";
 			this.tabChangeSummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabChangeSummary.Size = new System.Drawing.Size(862, 477);
+			this.tabChangeSummary.Size = new System.Drawing.Size(912, 477);
 			this.tabChangeSummary.TabIndex = 3;
 			this.tabChangeSummary.Text = "Change Summary";
 			this.tabChangeSummary.UseVisualStyleBackColor = true;
@@ -619,7 +627,7 @@
 			this.olvChangeSummary.HideSelection = false;
 			this.olvChangeSummary.Location = new System.Drawing.Point(3, 3);
 			this.olvChangeSummary.Name = "olvChangeSummary";
-			this.olvChangeSummary.Size = new System.Drawing.Size(856, 471);
+			this.olvChangeSummary.Size = new System.Drawing.Size(906, 471);
 			this.olvChangeSummary.SmallImageList = this.privilegeImagesOld;
 			this.olvChangeSummary.TabIndex = 0;
 			this.olvChangeSummary.UseCompatibleStateImageBehavior = false;
@@ -640,7 +648,7 @@
 			this.notificationPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.notificationPanel.Location = new System.Drawing.Point(0, 0);
 			this.notificationPanel.Name = "notificationPanel";
-			this.notificationPanel.Size = new System.Drawing.Size(914, 0);
+			this.notificationPanel.Size = new System.Drawing.Size(920, 0);
 			this.notificationPanel.TabIndex = 2;
 			// 
 			// contextMenu
@@ -688,14 +696,6 @@
 			this.mSet4.Size = new System.Drawing.Size(214, 22);
 			this.mSet4.Tag = "4";
 			this.mSet4.Text = "Organization";
-			// 
-			// toolStripLabel5
-			// 
-			this.toolStripLabel5.ForeColor = System.Drawing.Color.Gray;
-			this.toolStripLabel5.Name = "toolStripLabel5";
-			this.toolStripLabel5.Size = new System.Drawing.Size(638, 22);
-			this.toolStripLabel5.Text = "Type CTRL+0-9 to apply privilege snippets. Type CTRL+SHIFT+5-9 or enter the Setti" +
-    "ngs dialog to configure the snippets.";
 			// 
 			// RoleEditorView
 			// 

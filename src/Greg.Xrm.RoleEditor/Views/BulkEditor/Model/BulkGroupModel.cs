@@ -10,8 +10,8 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor.Model
 	{
 		private readonly List<T> tables = new List<T>();
 
-        public BulkGroupModel(string name)
-        {
+		public BulkGroupModel(string name)
+		{
 			this.Name = name;
 		}
 
