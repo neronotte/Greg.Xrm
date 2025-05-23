@@ -83,7 +83,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Results
 				}
 				else
 				{
-					environment.OpenUrlWithBrowserProfile(new Uri($"{environment.WebApplicationUrl}main.aspx?etn={entity.LogicalName}&pagetype=entityrecord&id=%7B{entity.Id}%7D"));
+					var webApplicationUrl = environment.WebApplicationUrl.TrimEnd('/');
+					environment.OpenUrlWithBrowserProfile(new Uri($"{webApplicationUrl}/main.aspx?etn={entity.LogicalName}&pagetype=entityrecord&id=%7B{entity.Id}%7D"));
 				}
 				this.messenger.Send(new ResultUpdatedMessage(result));
 			}
