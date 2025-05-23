@@ -51,7 +51,6 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 
 			this.solutionsView.Show();
 
-
 			messenger.Register<AddNewConnectionMessage>(m => this.AddAdditionalOrganization());
 			messenger.Register<RemoveConnectionMessage>(m => this.RemoveAdditionalOrganization(m.Detail));
 		}

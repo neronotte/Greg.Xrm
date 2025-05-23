@@ -9,40 +9,24 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		{
 			foreach (var solutionComponent in resultList)
 			{
-				var componentType = solutionComponent.componenttype.Value;
+				var componentType = solutionComponent.TypeLabel;
 
-				var componentTypeModel = this.FirstOrDefault(_ => _.ComponentTypeCode == componentType);
-				if (componentTypeModel == null)
+				var componentTypeNode = this.FirstOrDefault(_ => _.Label == componentType);
+				if (componentTypeNode == null)
 				{
-					var name = solutionComponent.ComponentTypeName;
-					if (string.IsNullOrWhiteSpace(name))
-					{
-						try
-						{
-							var componentTypeEnum = (SolutionComponentType)componentType;
-							name = componentTypeEnum.ToString();
-						}
-#pragma warning disable CA1031 // Do not catch general exception types
-						catch // casting exception may be caused by a missing component type
-						{
-							name = "Component type: " + componentType;
-						}
-#pragma warning restore CA1031 // Do not catch general exception types
-					}
-
-					componentTypeModel = new SolutionComponentComposite(name, componentType);
-					this.Add(componentTypeModel);
+					componentTypeNode = new SolutionComponentComposite(componentType, solutionComponent.ismetadata);
+					this.Add(componentTypeNode);
 				}
 
-				var model = componentTypeModel
+				var model = componentTypeNode
 					.OfType<SolutionComponentLeaf>()
-					.FirstOrDefault(_ => _.ObjectId == solutionComponent.objectid);
+					.FirstOrDefault(_ => _.Label == solutionComponent.Label);
 				if (model == null)
 				{
-					model = componentTypeModel.AddModel(solutionComponent);
+					model = componentTypeNode.AddModel(solutionComponent);
 				}
 
-				model.Environments.Add(env);
+				model.Environments[env] = solutionComponent;
 			}
 		}
 	}

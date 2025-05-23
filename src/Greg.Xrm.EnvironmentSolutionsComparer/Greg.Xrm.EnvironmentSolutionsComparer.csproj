@@ -277,25 +277,15 @@
       <DependentUpon>MainView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\MainViewModel.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\IResolver.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverChain.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverCommon.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForAppModules.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForCustomControls.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForDisplayStrings.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForEmailTemplates.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForEntities.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForEntityRelationships.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForFieldSecurityProfiles.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForOptionSets.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForPluginAssemblies.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForRibbonCustomizations.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForRoles.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForSavedQueries.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForSdkMessageProcessingSteps.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForSystemForms.cs" />
-    <Compile Include="Views\Solutions\ComponentResolution\ResolverForWebResources.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\ComponentResolverEngine.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\IComponentResolver.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\IComponentResolverEngine.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\ResolverForGlobalOptionSets.cs" />
     <Compile Include="Views\Solutions\ComponentResolution\ResolverForWorkflows.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\ResolverByQuery.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\ResolverForEntitiesAndAttributes.cs" />
+    <Compile Include="Views\Solutions\ComponentResolution\ResolverForSystemForms.cs" />
+    <Compile Include="Views\Solutions\ExportSolutionComponentGridCommand.cs" />
     <Compile Include="Views\Solutions\ISolutionRepository.cs" />
     <Compile Include="Views\Solutions\Solution.cs" />
     <Compile Include="Views\Solutions\SolutionComponent.cs" />
@@ -372,6 +362,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\arrow_refresh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_link.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -224,7 +224,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			}
 
 
-			this.scheduler.Enqueue(new XrmToolBox.Extensibility.WorkAsyncInfo
+			this.scheduler.Enqueue(new WorkAsyncInfo
 			{
 				Message = "Generating excel report, please wait... ",
 				Work = (w, e) =>
@@ -344,7 +344,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 
 
 				var table = ws.Tables.Add(ws.Cells[1, 1, row, col], "Table1");
-				table.TableStyle = OfficeOpenXml.Table.TableStyles.Medium6;
+				table.TableStyle = OfficeOpenXml.Table.TableStyles.Medium2;
 
 				for (int i = 1; i <= col; i++)
 				{
@@ -358,6 +358,12 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 					package.SaveAs(stream);
 				}
 			}
+
+			Process.Start(new ProcessStartInfo
+			{
+				FileName = fileName,
+				UseShellExecute = true
+			});
 		}
 	}
 }
