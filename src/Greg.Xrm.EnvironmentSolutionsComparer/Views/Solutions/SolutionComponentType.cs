@@ -92,6 +92,6 @@
 		AIConfiguration = 402,
 		EntityAnalyticsConfiguration = 430,
 		AttributeImageConfiguration = 431,
-		EntityImageConfiguration = 432
+		EntityImageConfiguration = 432,
 	}
 }

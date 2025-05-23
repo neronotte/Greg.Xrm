@@ -35,6 +35,8 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 
 			var scheduler = new AsyncJobScheduler(this, this.viewModel);
 
+			this.dockPanel.Theme = new VS2015BlueTheme();
+
 			this.outputView = new OutputView(themeProvider, messenger);
 			this.outputView.Show(this.dockPanel, DockState.DockBottom);
 
@@ -48,7 +50,6 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 			this.solutionComponentsView.Show(this.dockPanel, DockState.Document);
 
 			this.solutionsView.Show();
-
 
 			messenger.Register<AddNewConnectionMessage>(m => this.AddAdditionalOrganization());
 			messenger.Register<RemoveConnectionMessage>(m => this.RemoveAdditionalOrganization(m.Detail));
@@ -65,7 +66,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views
 		{
 			base.UpdateConnection(newService, detail, actionName, parameter);
 
-			if (string.Empty.Equals(actionName))
+			if (string.IsNullOrWhiteSpace(actionName))
 			{
 				this.viewModel.AddDefaultEnvironment(detail, newService);
 			}

@@ -8,15 +8,15 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 	{
 		protected readonly List<SolutionComponentNode> children = new List<SolutionComponentNode>();
 
-		public SolutionComponentComposite(string label, int componentTypeCode)
+		public SolutionComponentComposite(string label, bool isMetadata)
 			: base(label)
 		{
-			this.ComponentTypeCode = componentTypeCode;
+			this.IsMetadata = isMetadata;
 		}
 
 		public int Count => this.children.Count;
 
-		public int ComponentTypeCode { get; }
+		public bool IsMetadata { get; }
 
 
 		public IEnumerator<SolutionComponentNode> GetEnumerator()
