@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.IO;
 using System.Xml.Serialization;
+using XrmToolBox.Extensibility;
 
 namespace Greg.Xrm.ModernThemeBuilder.Model
 {
@@ -25,27 +28,23 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 					default: throw new ArgumentOutOfRangeException(nameof(index));
 				}
 			}
-			private set
-			{
-				switch (index)
-				{
-					case 0: Background = value.ToHtml(); break;
-					case 1: Foreground = value.ToHtml(); break;
-					case 2: BackgroundHover = value.ToHtml(); break;
-					case 3: ForegroundHover = value.ToHtml(); break;
-					case 4: BackgroundPressed = value.ToHtml(); break;
-					case 5: ForegroundPressed = value.ToHtml(); break;
-					case 6: BackgroundSelected = value.ToHtml(); break;
-					case 7: ForegroundSelected = value.ToHtml(); break;
-					default: throw new ArgumentOutOfRangeException(nameof(index));
-				}
-			}
 		}
 
 		public AppHeaderColors SetColor(int index, Color color)
 		{
 			var other = (AppHeaderColors)this.Clone();
-			other[index] = color;
+			switch (index)
+			{
+				case 0: Background = color.ToHtml(); break;
+				case 1: Foreground = color.ToHtml(); break;
+				case 2: BackgroundHover = color.ToHtml(); break;
+				case 3: ForegroundHover = color.ToHtml(); break;
+				case 4: BackgroundPressed = color.ToHtml(); break;
+				case 5: ForegroundPressed = color.ToHtml(); break;
+				case 6: BackgroundSelected = color.ToHtml(); break;
+				case 7: ForegroundSelected = color.ToHtml(); break;
+				default: throw new ArgumentOutOfRangeException(nameof(index));
+			}
 			return other;
 		}
 
@@ -164,6 +163,40 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 				serializer.Serialize(textWriter, this);
 				return textWriter.ToString();
 			}
+		}
+
+
+		public static AppHeaderColors FromXmlString(string xmlString)
+		{
+			var log = new LogManager(typeof(AppHeaderColors));
+			try
+			{
+
+				var serializer = new XmlSerializer(typeof(AppHeaderColors));
+				var palette = (AppHeaderColors)serializer.Deserialize(new StringReader(xmlString));
+
+				if (palette != null)
+				{
+					var context = new ValidationContext(palette);
+
+					var validationResults = new List<System.ComponentModel.DataAnnotations.ValidationResult>();
+					var isValid = Validator.TryValidateObject(palette, context, validationResults, true);
+
+					if (!isValid)
+					{
+						foreach (var error in validationResults)
+							log.LogWarning("Failed to deserialize: {message}", error.ErrorMessage);
+						palette = null;
+					}
+				}
+
+				return palette;
+			}
+			catch (Exception ex)
+			{
+				log.LogError("Failed to deserialize: {ex.Message}", ex.ToString());
+			}
+			return null;
 		}
 	}
 }

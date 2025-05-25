@@ -38,6 +38,12 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Azure.AI.OpenAI, Version=2.1.0.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Azure.AI.OpenAI.2.1.0\lib\netstandard2.0\Azure.AI.OpenAI.dll</HintPath>
+    </Reference>
+    <Reference Include="Azure.Core, Version=1.44.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Azure.Core.1.44.1\lib\net472\Azure.Core.dll</HintPath>
+    </Reference>
     <Reference Include="Cyotek.Windows.Forms.ColorPicker, Version=1.0.0.0, Culture=neutral, PublicKeyToken=58daa28b0b2de221, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Cyotek.Windows.Forms.ColorPicker.1.7.2\lib\net35\Cyotek.Windows.Forms.ColorPicker.dll</HintPath>
     </Reference>
@@ -113,6 +119,9 @@
     <Reference Include="NuGet.Versioning, Version=6.11.1.2, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NuGet.Versioning.6.11.1\lib\net472\NuGet.Versioning.dll</HintPath>
     </Reference>
+    <Reference Include="OpenAI, Version=2.1.0.0, Culture=neutral, PublicKeyToken=b4187f3e65366280, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\OpenAI.2.1.0\lib\netstandard2.0\OpenAI.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -124,10 +133,16 @@
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
+    <Reference Include="System.ClientModel, Version=1.2.1.0, Culture=neutral, PublicKeyToken=92742159e12e44c8, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ClientModel.1.2.1\lib\netstandard2.0\System.ClientModel.dll</HintPath>
+    </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=6.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.6.0.1\lib\net461\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.DirectoryServices.AccountManagement" />
     <Reference Include="System.Drawing" />
@@ -140,6 +155,9 @@
     <Reference Include="System.IO.Compression" />
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory.Data, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.Data.6.0.0\lib\net461\System.Memory.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
@@ -234,6 +252,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AIEngine\AIProvider.cs" />
+    <Compile Include="AIEngine\AzureOpenAIImageAnalyzer.cs" />
+    <Compile Include="AIEngine\ClaudeImageAnalyzer.cs" />
+    <Compile Include="AIEngine\IImageAnalyzer.cs" />
+    <Compile Include="AIEngine\ImageAnalyzerFactory.cs" />
+    <Compile Include="AIEngine\OpenAIImageAnalyzer.cs" />
+    <Compile Include="AIEngine\Prompt.cs" />
     <Compile Include="Model\AppHeaderColors.cs" />
     <Compile Include="Model\ColorExtensions.cs" />
     <Compile Include="Model\ISolutionComponentRepository.cs" />
@@ -257,6 +282,7 @@
     <Compile Include="Views\Commands\ResetDefaultThemeCommand.cs" />
     <Compile Include="Views\Commands\SaveThemeCommand.cs" />
     <Compile Include="Views\Commands\SetAsCurrentThemeCommand.cs" />
+    <Compile Include="Views\Config\ConfigUpdated.cs" />
     <Compile Include="Views\CreateTheme\FullDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -288,6 +314,12 @@
     <Compile Include="Views\Messages\SolutionComponentLoaded.cs" />
     <Compile Include="Views\Messages\SolutionComponentChanged.cs" />
     <Compile Include="Views\Messages\SolutionComponentSelected.cs" />
+    <Compile Include="Views\Config\ConfigDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Config\ConfigDialog.Designer.cs">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\SolutionDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -324,6 +356,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PaletteEditorView.resx">
       <DependentUpon>PaletteEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Config\ConfigDialog.resx">
+      <DependentUpon>ConfigDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\SolutionDialog.resx">
       <DependentUpon>SolutionDialog.cs</DependentUpon>
@@ -362,6 +397,9 @@
   <ItemGroup>
     <None Include="Resources\powerplatform.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cog.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
@@ -378,7 +416,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
-..\..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /target:library /out:"Plugins\Greg.Xrm.ModernThemeBuilder.dll" Greg.Xrm.ModernThemeBuilder.dll Greg.Xrm.Core.dll Microsoft.Web.WebView2.Core.dll Microsoft.Web.WebView2.WinForms.dll Microsoft.Web.WebView2.Wpf.dll Cyotek.Windows.Forms.ColorPicker.dll</PostBuildEvent>
+..\..\..\..\packages\ILRepack.2.0.18\tools\ILRepack.exe /target:library /out:"Plugins\Greg.Xrm.ModernThemeBuilder.dll" Greg.Xrm.ModernThemeBuilder.dll Greg.Xrm.Core.dll Microsoft.Web.WebView2.Core.dll Microsoft.Web.WebView2.WinForms.dll Microsoft.Web.WebView2.Wpf.dll Cyotek.Windows.Forms.ColorPicker.dll System.Diagnostics.DiagnosticSource.dll System.Memory.Data.dll System.ClientModel.dll Azure.Core.dll OpenAI.dll Azure.AI.OpenAI.dll System.Buffers.dll System.Text.Json.dll System.Text.Encodings.Web.dll Microsoft.Bcl.AsyncInterfaces.dll</PostBuildEvent>
   </PropertyGroup>
   <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.2849.39\build\Microsoft.Web.WebView2.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

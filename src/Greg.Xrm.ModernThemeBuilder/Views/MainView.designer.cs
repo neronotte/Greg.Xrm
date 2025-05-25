@@ -42,6 +42,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.dockPanel1 = new WeifenLuo.WinFormsUI.Docking.DockPanel();
 			this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
 			this.tClose = new System.Windows.Forms.ToolStripButton();
+			this.tSettings = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
 			this.tLoadSolutions = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.tCreateNewSolution = new Greg.Xrm.Views.ToolStripBindableMenuItem();
@@ -58,6 +59,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.toolStripMenu.ImageScalingSize = new System.Drawing.Size(24, 24);
 			this.toolStripMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tClose,
+			this.tSettings,
             this.tssSeparator1,
             this.toolStripDropDownButton1,
             this.toolStripSeparator2,
@@ -181,6 +183,17 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 			this.tSetAsCurrentTheme.Size = new System.Drawing.Size(135, 22);
 			this.tSetAsCurrentTheme.Text = "Set as current theme";
 			// 
+			// tSettings
+			// 
+			this.tSettings.Image = global::Greg.Xrm.ModernThemeBuilder.Properties.Resources.cog;
+			this.tSettings.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+			this.tSettings.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tSettings.Name = "tSettings";
+			this.tSettings.Size = new System.Drawing.Size(23, 22);
+			this.tSettings.Text = "Settings";
+			this.tSettings.ToolTipText = "Open the settings dialog";
+			this.tSettings.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			// 
 			// tResetDefaults
 			// 
 			this.tResetDefaults.Enabled = false;
@@ -236,6 +249,7 @@ namespace Greg.Xrm.ModernThemeBuilder.Views
 		private ToolStripBindableMenuItem tCreateNewSolution;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private ToolStripBindableLabel tCurrentTheme;
+		private Greg.Xrm.Views.ToolStripBindableButton tSettings;
 		private ToolStripBindableButton tResetDefaultTheme;
 	}
 }

@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PaletteEditorView));
 			this.hex08 = new System.Windows.Forms.Label();
 			this.hex07 = new System.Windows.Forms.Label();
 			this.hex06 = new System.Windows.Forms.Label();
@@ -54,6 +55,12 @@
 			this.label01 = new System.Windows.Forms.LinkLabel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
+			this.label3 = new System.Windows.Forms.Label();
+			this.lblAIText = new System.Windows.Forms.Label();
+			this.btnSelectImage = new System.Windows.Forms.Button();
+			this.cmbAiEngine = new System.Windows.Forms.ComboBox();
+			this.btnRunAI = new System.Windows.Forms.Button();
+			this.label4 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
 			// 
 			// hex08
@@ -368,9 +375,9 @@
 			this.label1.ForeColor = System.Drawing.Color.RoyalBlue;
 			this.label1.Location = new System.Drawing.Point(12, 90);
 			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(408, 32);
+			this.label1.Size = new System.Drawing.Size(423, 32);
 			this.label1.TabIndex = 34;
-			this.label1.Text = "Select the color component to update";
+			this.label1.Text = "Select the color component to update...";
 			// 
 			// label2
 			// 
@@ -382,14 +389,86 @@
 			this.label2.Text = "You can preview the theme colors by hovering or clicking the buttons in the above" +
     " sample.";
 			// 
+			// label3
+			// 
+			this.label3.AutoSize = true;
+			this.label3.BackColor = System.Drawing.Color.White;
+			this.label3.Font = new System.Drawing.Font("Segoe UI Semilight", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label3.ForeColor = System.Drawing.Color.RoyalBlue;
+			this.label3.Location = new System.Drawing.Point(595, 90);
+			this.label3.Name = "label3";
+			this.label3.Size = new System.Drawing.Size(227, 32);
+			this.label3.TabIndex = 60;
+			this.label3.Text = "...or get help from AI";
+			// 
+			// lblAIText
+			// 
+			this.lblAIText.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.lblAIText.Location = new System.Drawing.Point(598, 134);
+			this.lblAIText.Name = "lblAIText";
+			this.lblAIText.Size = new System.Drawing.Size(577, 61);
+			this.lblAIText.TabIndex = 61;
+			this.lblAIText.Text = resources.GetString("lblAIText.Text");
+			// 
+			// btnSelectImage
+			// 
+			this.btnSelectImage.Image = global::Greg.Xrm.ModernThemeBuilder.Properties.Resources.folder_explore;
+			this.btnSelectImage.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+			this.btnSelectImage.Location = new System.Drawing.Point(618, 239);
+			this.btnSelectImage.Name = "btnSelectImage";
+			this.btnSelectImage.Size = new System.Drawing.Size(505, 23);
+			this.btnSelectImage.TabIndex = 62;
+			this.btnSelectImage.Text = "Select an image...";
+			this.btnSelectImage.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.btnSelectImage.UseVisualStyleBackColor = true;
+			// 
+			// cmbAiEngine
+			// 
+			this.cmbAiEngine.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cmbAiEngine.FormattingEnabled = true;
+			this.cmbAiEngine.Items.AddRange(new object[] {
+            "Select the engine..."});
+			this.cmbAiEngine.Location = new System.Drawing.Point(770, 210);
+			this.cmbAiEngine.Name = "cmbAiEngine";
+			this.cmbAiEngine.Size = new System.Drawing.Size(353, 21);
+			this.cmbAiEngine.TabIndex = 63;
+			// 
+			// btnRunAI
+			// 
+			this.btnRunAI.Location = new System.Drawing.Point(1048, 268);
+			this.btnRunAI.Name = "btnRunAI";
+			this.btnRunAI.Size = new System.Drawing.Size(75, 23);
+			this.btnRunAI.TabIndex = 64;
+			this.btnRunAI.Text = "Run";
+			this.btnRunAI.UseVisualStyleBackColor = true;
+			// 
+			// label4
+			// 
+			this.label4.BackColor = System.Drawing.Color.White;
+			this.label4.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label4.Location = new System.Drawing.Point(623, 210);
+			this.label4.Margin = new System.Windows.Forms.Padding(5);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(139, 23);
+			this.label4.TabIndex = 65;
+			this.label4.Tag = "2";
+			this.label4.Text = "Select your preferred AI:";
+			this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// PaletteEditorView
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.White;
-			this.ClientSize = new System.Drawing.Size(944, 513);
+			this.ClientSize = new System.Drawing.Size(1225, 714);
 			this.CloseButton = false;
 			this.CloseButtonVisible = false;
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.btnRunAI);
+			this.Controls.Add(this.cmbAiEngine);
+			this.Controls.Add(this.btnSelectImage);
+			this.Controls.Add(this.lblAIText);
+			this.Controls.Add(this.label3);
 			this.Controls.Add(this.label2);
 			this.Controls.Add(this.hex08);
 			this.Controls.Add(this.hex07);
@@ -450,5 +529,11 @@
 		private System.Windows.Forms.LinkLabel label01;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.Label label3;
+		private System.Windows.Forms.Label lblAIText;
+		private System.Windows.Forms.Button btnSelectImage;
+		private System.Windows.Forms.ComboBox cmbAiEngine;
+		private System.Windows.Forms.Button btnRunAI;
+		private System.Windows.Forms.Label label4;
 	}
 }
