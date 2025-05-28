@@ -35,14 +35,14 @@ namespace Greg.Xrm.ModernThemeBuilder.Model
 			var other = (AppHeaderColors)this.Clone();
 			switch (index)
 			{
-				case 0: Background = color.ToHtml(); break;
-				case 1: Foreground = color.ToHtml(); break;
-				case 2: BackgroundHover = color.ToHtml(); break;
-				case 3: ForegroundHover = color.ToHtml(); break;
-				case 4: BackgroundPressed = color.ToHtml(); break;
-				case 5: ForegroundPressed = color.ToHtml(); break;
-				case 6: BackgroundSelected = color.ToHtml(); break;
-				case 7: ForegroundSelected = color.ToHtml(); break;
+				case 0: other.Background = color.ToHtml(); break;
+				case 1: other.Foreground = color.ToHtml(); break;
+				case 2: other.BackgroundHover = color.ToHtml(); break;
+				case 3: other.ForegroundHover = color.ToHtml(); break;
+				case 4: other.BackgroundPressed = color.ToHtml(); break;
+				case 5: other.ForegroundPressed = color.ToHtml(); break;
+				case 6: other.BackgroundSelected = color.ToHtml(); break;
+				case 7: other.ForegroundSelected = color.ToHtml(); break;
 				default: throw new ArgumentOutOfRangeException(nameof(index));
 			}
 			return other;
