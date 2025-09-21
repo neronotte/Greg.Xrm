@@ -93,6 +93,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.tExportExcel.BindCommand(() => this.viewModel.ExportExcelCommand);
 			this.tExportMarkdown.BindCommand(() => this.viewModel.ExportMarkdownCommand);
 			this.tImportExcel.BindCommand(() => this.viewModel.ImportExcelCommand);
+			this.tCopyAllPrivileges.BindCommand(() => this.viewModel.CopyAllPrivilegesCommand);
+			this.tPasteAllPrivileges.BindCommand(() => this.viewModel.PasteAllPrivilegesCommand);
 
 			SetColumn(this.cCreate, PrivilegeType.Create);
 			SetColumn(this.cRead, PrivilegeType.Read);

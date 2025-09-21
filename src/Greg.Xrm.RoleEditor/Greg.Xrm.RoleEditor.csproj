@@ -396,13 +396,18 @@
     <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
     <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
     <Compile Include="Views\Editor\ChangeSummary.cs" />
+    <Compile Include="Views\Editor\CopyAllPrivilegesCommand.cs" />
     <Compile Include="Views\Editor\Excel\Constants.cs" />
     <Compile Include="Views\Editor\Excel\ExcelExtensions.cs" />
     <Compile Include="Views\Editor\Excel\ExcelMap.cs" />
     <Compile Include="Views\Editor\Excel\ExportExcelCommand.cs" />
     <Compile Include="Views\Editor\Excel\ImportExcelCommand.cs" />
     <Compile Include="Views\Editor\ExportMarkdownCommand.cs" />
+    <Compile Include="Views\Editor\Model\MementoMergeResult.cs" />
+    <Compile Include="Views\Editor\Model\RoleMementoRowParseResult.cs" />
+    <Compile Include="Views\Editor\Model\RoleMementoProvider.cs" />
     <Compile Include="Views\Editor\Model\RoleModel.cs" />
+    <Compile Include="Views\Editor\PasteAllPrivilegesCommand.cs" />
     <Compile Include="Views\Editor\RoleEditorViewModel.cs" />
     <Compile Include="Views\LoadDataCommand.cs" />
     <Compile Include="Views\Messages\ChangePrivilegeIcons.cs" />
@@ -669,6 +674,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Help\Content\add_roles_to_users.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_copypasteall.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

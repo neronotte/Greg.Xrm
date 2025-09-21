@@ -230,6 +230,7 @@
     <Compile Include="CommandExecuteBehavior.cs" />
     <Compile Include="ComponentType.cs" />
     <Compile Include="CrmComparer.cs" />
+    <Compile Include="MemoryClipboard.cs" />
     <Compile Include="Messaging\Common\Freeze.cs" />
     <Compile Include="Messaging\Common\FreezeMessengerExtensions.cs" />
     <Compile Include="Messaging\Common\Unfreeze.cs" />
