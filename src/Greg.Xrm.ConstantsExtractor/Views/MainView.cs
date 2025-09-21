@@ -32,8 +32,10 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			if (themeProvider == null)
 				throw new ArgumentNullException(nameof(themeProvider));
 
-
 			InitializeComponent();
+			
+			this.dockPanel.DocumentStyle = DocumentStyle.DockingWindow;
+			this.dockPanel.Theme = new VS2015BlueTheme();
 
 			this.messenger = new Messenger(this);
 

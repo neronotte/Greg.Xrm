@@ -325,13 +325,20 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 			{
 				var trueOption = boolOptions.TrueOption;
 				var falseOption = boolOptions.FalseOption;
+				
+				if (trueOption == null 
+					|| falseOption == null 
+					|| trueOption.Value == null 
+					|| falseOption.Value == null)
+					return optionsetValues;
+
 				var dictionary1 = optionsetValues;
-				int? nullable = trueOption.Value;
+				int? nullable = trueOption?.Value;
 				int key1 = nullable.Value;
 				string label1 = trueOption.Label.LocalizedLabels[0].Label;
 				dictionary1.Add(key1, label1);
 				Dictionary<int, string> dictionary2 = optionsetValues;
-				nullable = falseOption.Value;
+				nullable = falseOption?.Value;
 				int key2 = nullable.Value;
 				string label2 = falseOption.Label.LocalizedLabels[0].Label;
 				dictionary2.Add(key2, label2);
