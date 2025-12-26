@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<package >
+<package>
 	<metadata>
 		<id>Greg.Xrm.SolutionManager</id>
 		<version>$version$</version>
@@ -9,7 +9,7 @@
 		<license type="expression">MIT</license>
 		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
 		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
-		<icon>images\Logo_80.png</icon>
+		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>GUI to manage solution import process and see import results</description>
 		<releaseNotes>
@@ -25,7 +25,6 @@
 		</dependencies>
 	</metadata>
 	<files>
-		<file src="..\..\Logo_80.png" target="images\" />
 		<file src="bin\Release\Plugins\Greg.Xrm.SolutionManager.dll" target="lib\net462\Plugins" />
 	</files>
 </package>

@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<package >
+<package>
 	<metadata>
 		<id>Greg.Xrm.DataModelWikiEditor</id>
 		<version>$version$</version>
@@ -9,11 +9,11 @@
 		<license type="expression">MIT</license>
 		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
 		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
-		<icon>images\Logo_80.png</icon>
+		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Creates and manages wiki (markdown) documentation for Dataverse data model.</description>
 		<releaseNotes>
-			eates and manages wiki (markdown) documentation for Dataverse data model.
+			Creates and manages wiki (markdown) documentation for Dataverse data model.
 
 			* For older releases go here: https://github.com/neronotte/Greg.Xrm/releases
 		</releaseNotes>
