@@ -112,24 +112,27 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 
 			this.treeTables.ChildrenGetter = this.treeMisc.ChildrenGetter = x => x as IEnumerable;
 
-			this.treeTables.CellToolTipShowing += (object sender, ToolTipShowingEventArgs e) =>
-			{
-				if (!(e.Model is TableModel table)) return;
+			//this.treeTables.CellToolTipShowing += (object sender, ToolTipShowingEventArgs e) =>
+			//{
+			//	if (!(e.Model is TableModel table))
+			//	{
+			//		return;
+			//	}
 
-				if (e.ColumnIndex == 0)
-				{
-					e.Text = table.Tooltip;
-				}
-				else
-				{
-					if (e.Column.Tag is PrivilegeColumnTag tag
-						&& table.TryGetPrivilegeName(tag.PrivilegeType, out var tooltip))
-					{
-						e.Text = tooltip;
-					}
-				}
-				e.Handled = true;
-			};
+			//	if (e.ColumnIndex == 0)
+			//	{
+			//		e.Text = table.Tooltip;
+			//	}
+			//	else if (e.Column.Tag is PrivilegeColumnTag tag
+			//			&& table.TryGetPrivilegeName(tag.PrivilegeType, out var tooltip))
+			//	{
+			//		e.Text = tooltip;
+			//	}
+			//	else
+			//	{
+			//	}
+			//	e.Handled = true;
+			//};
 
 			this.treeTables.UseFiltering = true;
 			this.treeTables.UseCellFormatEvents = true;
@@ -141,7 +144,37 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeTables.UseLightSelection();
 			this.treeTables.CellRightClick += OnCellRightClick;
 			this.treeTables.ExpandAll();
+			this.treeTables.CellToolTipGetter = (OLVColumn c, object model) =>
+			{
+				if (!(model is TableModel table))
+				{
+					return null;
+				}
 
+				if (c.Index == 0)
+				{
+					return table.Tooltip;
+				}
+				
+				if (c.Tag is PrivilegeColumnTag tag
+						&& table.TryGetPrivilegeName(tag.PrivilegeType, out var tooltip))
+				{
+					return tooltip;
+				}
+
+				return null;
+			};
+			this.treeTables.CellOver += (s, e) =>
+			{
+				if (e.Model is TableModel && (e.ColumnIndex == 0 || e.Column?.Tag is PrivilegeColumnTag))
+				{
+					this.treeTables.Cursor = Cursors.Hand;
+				}
+				else
+				{
+					this.treeTables.Cursor = Cursors.Default;
+				}
+			};
 
 			this.treeMisc.UseFiltering = true;
 			this.treeMisc.UseCellFormatEvents = true;
@@ -153,6 +186,17 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.treeMisc.UseLightSelection();
 			this.treeMisc.CellRightClick += OnCellRightClick;
 			this.treeMisc.ExpandAll();
+			this.treeMisc.CellOver += (s, e) =>
+			{
+				if (e.Model is MiscModel && e.ColumnIndex == 1)
+				{
+					this.treeMisc.Cursor = Cursors.Hand;
+				}
+				else
+				{
+					this.treeMisc.Cursor = Cursors.Default;
+				}
+			};
 
 
 

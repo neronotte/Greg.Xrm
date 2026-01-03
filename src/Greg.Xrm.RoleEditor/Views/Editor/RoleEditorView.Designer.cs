@@ -32,12 +32,21 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RoleEditorView));
 			this.privilegeImagesOld = new System.Windows.Forms.ImageList(this.components);
 			this.tools = new System.Windows.Forms.ToolStrip();
+			this.tSave = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tAddToSolution = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.tExportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tExportMarkdown = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+			this.tImportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
+			this.tShowOnlyAssignedPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tShowAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			this.tCopyAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tPasteAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tabs = new System.Windows.Forms.TabControl();
 			this.tabTables = new System.Windows.Forms.TabPage();
 			this.treeTables = new BrightIdeasSoftware.TreeListView();
@@ -74,6 +83,7 @@
 			this.txtRoleBusinessUnit = new System.Windows.Forms.TextBox();
 			this.txtRoleDescription = new System.Windows.Forms.TextBox();
 			this.cmbRoleInheritance = new System.Windows.Forms.ComboBox();
+			this.btnRoleBusinessUnitLookup = new System.Windows.Forms.Button();
 			this.tabChangeSummary = new System.Windows.Forms.TabPage();
 			this.olvChangeSummary = new BrightIdeasSoftware.ObjectListView();
 			this.cSummaryText = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
@@ -85,16 +95,6 @@
 			this.mSet2 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet3 = new System.Windows.Forms.ToolStripMenuItem();
 			this.mSet4 = new System.Windows.Forms.ToolStripMenuItem();
-			this.btnRoleBusinessUnitLookup = new System.Windows.Forms.Button();
-			this.tSave = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tAddToSolution = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tExportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tExportMarkdown = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tImportExcel = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tShowOnlyAssignedPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tShowAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tCopyAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tPasteAllPrivileges = new Xrm.Views.ToolStripBindableButton();
 			this.tools.SuspendLayout();
 			this.tabs.SuspendLayout();
 			this.tabTables.SuspendLayout();
@@ -147,6 +147,22 @@
 			this.tools.TabIndex = 3;
 			this.tools.Text = "toolStrip1";
 			// 
+			// tSave
+			// 
+			this.tSave.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.disk;
+			this.tSave.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tSave.Name = "tSave";
+			this.tSave.Size = new System.Drawing.Size(51, 22);
+			this.tSave.Text = "Save";
+			// 
+			// tAddToSolution
+			// 
+			this.tAddToSolution.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.package_add;
+			this.tAddToSolution.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tAddToSolution.Name = "tAddToSolution";
+			this.tAddToSolution.Size = new System.Drawing.Size(141, 22);
+			this.tAddToSolution.Text = "Add role to solution...";
+			// 
 			// toolStripSeparator2
 			// 
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
@@ -158,10 +174,36 @@
 			this.toolStripLabel1.Size = new System.Drawing.Size(43, 22);
 			this.toolStripLabel1.Text = "Export:";
 			// 
+			// tExportExcel
+			// 
+			this.tExportExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tExportExcel.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_excel;
+			this.tExportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tExportExcel.Name = "tExportExcel";
+			this.tExportExcel.Size = new System.Drawing.Size(23, 22);
+			this.tExportExcel.Text = "Excel";
+			// 
+			// tExportMarkdown
+			// 
+			this.tExportMarkdown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tExportMarkdown.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_text;
+			this.tExportMarkdown.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tExportMarkdown.Name = "tExportMarkdown";
+			this.tExportMarkdown.Size = new System.Drawing.Size(23, 22);
+			this.tExportMarkdown.Text = "Markdown";
+			// 
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tImportExcel
+			// 
+			this.tImportExcel.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_excel;
+			this.tImportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tImportExcel.Name = "tImportExcel";
+			this.tImportExcel.Size = new System.Drawing.Size(63, 22);
+			this.tImportExcel.Text = "Import";
 			// 
 			// toolStripSeparator1
 			// 
@@ -174,10 +216,44 @@
 			this.toolStripLabel2.Size = new System.Drawing.Size(36, 22);
 			this.toolStripLabel2.Text = "Filter:";
 			// 
+			// tShowOnlyAssignedPrivileges
+			// 
+			this.tShowOnlyAssignedPrivileges.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tShowOnlyAssignedPrivileges.Image = ((System.Drawing.Image)(resources.GetObject("tShowOnlyAssignedPrivileges.Image")));
+			this.tShowOnlyAssignedPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tShowOnlyAssignedPrivileges.Name = "tShowOnlyAssignedPrivileges";
+			this.tShowOnlyAssignedPrivileges.Size = new System.Drawing.Size(168, 22);
+			this.tShowOnlyAssignedPrivileges.Text = "Show only assigned privileges";
+			// 
+			// tShowAllPrivileges
+			// 
+			this.tShowAllPrivileges.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tShowAllPrivileges.Image = ((System.Drawing.Image)(resources.GetObject("tShowAllPrivileges.Image")));
+			this.tShowAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tShowAllPrivileges.Name = "tShowAllPrivileges";
+			this.tShowAllPrivileges.Size = new System.Drawing.Size(108, 22);
+			this.tShowAllPrivileges.Text = "Show all privileges";
+			// 
 			// toolStripSeparator4
 			// 
 			this.toolStripSeparator4.Name = "toolStripSeparator4";
 			this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tCopyAllPrivileges
+			// 
+			this.tCopyAllPrivileges.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_copy;
+			this.tCopyAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tCopyAllPrivileges.Name = "tCopyAllPrivileges";
+			this.tCopyAllPrivileges.Size = new System.Drawing.Size(123, 22);
+			this.tCopyAllPrivileges.Text = "Copy all privileges";
+			// 
+			// tPasteAllPrivileges
+			// 
+			this.tPasteAllPrivileges.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_paste;
+			this.tPasteAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tPasteAllPrivileges.Name = "tPasteAllPrivileges";
+			this.tPasteAllPrivileges.Size = new System.Drawing.Size(123, 22);
+			this.tPasteAllPrivileges.Text = "Paste all privileges";
 			// 
 			// tabs
 			// 
@@ -349,7 +425,7 @@
 			this.tabMisc.Location = new System.Drawing.Point(4, 22);
 			this.tabMisc.Name = "tabMisc";
 			this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMisc.Size = new System.Drawing.Size(912, 477);
+			this.tabMisc.Size = new System.Drawing.Size(996, 477);
 			this.tabMisc.TabIndex = 1;
 			this.tabMisc.Text = "Miscellaneous Privileges";
 			this.tabMisc.UseVisualStyleBackColor = true;
@@ -373,7 +449,7 @@
 			this.treeMisc.Name = "treeMisc";
 			this.treeMisc.OwnerDraw = true;
 			this.treeMisc.ShowGroups = false;
-			this.treeMisc.Size = new System.Drawing.Size(906, 446);
+			this.treeMisc.Size = new System.Drawing.Size(990, 446);
 			this.treeMisc.SmallImageList = this.privilegeImagesOld;
 			this.treeMisc.TabIndex = 2;
 			this.treeMisc.UseCompatibleStateImageBehavior = false;
@@ -409,7 +485,7 @@
             this.txtSearchMisc});
 			this.tools3.Location = new System.Drawing.Point(3, 3);
 			this.tools3.Name = "tools3";
-			this.tools3.Size = new System.Drawing.Size(906, 25);
+			this.tools3.Size = new System.Drawing.Size(990, 25);
 			this.tools3.TabIndex = 0;
 			this.tools3.Text = "toolStrip1";
 			// 
@@ -431,7 +507,7 @@
 			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tabGeneral.Name = "tabGeneral";
 			this.tabGeneral.Padding = new System.Windows.Forms.Padding(10);
-			this.tabGeneral.Size = new System.Drawing.Size(912, 477);
+			this.tabGeneral.Size = new System.Drawing.Size(996, 477);
 			this.tabGeneral.TabIndex = 2;
 			this.tabGeneral.Text = "General information";
 			this.tabGeneral.UseVisualStyleBackColor = true;
@@ -461,7 +537,7 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(892, 205);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(976, 205);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// label1
@@ -515,7 +591,7 @@
 			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleName, 2);
 			this.txtRoleName.Location = new System.Drawing.Point(203, 3);
 			this.txtRoleName.Name = "txtRoleName";
-			this.txtRoleName.Size = new System.Drawing.Size(686, 20);
+			this.txtRoleName.Size = new System.Drawing.Size(770, 20);
 			this.txtRoleName.TabIndex = 4;
 			// 
 			// txtRoleBusinessUnit
@@ -525,7 +601,7 @@
 			this.txtRoleBusinessUnit.Enabled = false;
 			this.txtRoleBusinessUnit.Location = new System.Drawing.Point(203, 33);
 			this.txtRoleBusinessUnit.Name = "txtRoleBusinessUnit";
-			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(646, 20);
+			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(730, 20);
 			this.txtRoleBusinessUnit.TabIndex = 5;
 			// 
 			// txtRoleDescription
@@ -535,7 +611,7 @@
 			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleDescription, 2);
 			this.txtRoleDescription.Location = new System.Drawing.Point(203, 63);
 			this.txtRoleDescription.Name = "txtRoleDescription";
-			this.txtRoleDescription.Size = new System.Drawing.Size(686, 20);
+			this.txtRoleDescription.Size = new System.Drawing.Size(770, 20);
 			this.txtRoleDescription.TabIndex = 6;
 			// 
 			// cmbRoleInheritance
@@ -546,8 +622,17 @@
 			this.cmbRoleInheritance.FormattingEnabled = true;
 			this.cmbRoleInheritance.Location = new System.Drawing.Point(203, 93);
 			this.cmbRoleInheritance.Name = "cmbRoleInheritance";
-			this.cmbRoleInheritance.Size = new System.Drawing.Size(686, 21);
+			this.cmbRoleInheritance.Size = new System.Drawing.Size(770, 21);
 			this.cmbRoleInheritance.TabIndex = 7;
+			// 
+			// btnRoleBusinessUnitLookup
+			// 
+			this.btnRoleBusinessUnitLookup.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
+			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(939, 33);
+			this.btnRoleBusinessUnitLookup.Name = "btnRoleBusinessUnitLookup";
+			this.btnRoleBusinessUnitLookup.Size = new System.Drawing.Size(34, 23);
+			this.btnRoleBusinessUnitLookup.TabIndex = 8;
+			this.btnRoleBusinessUnitLookup.UseVisualStyleBackColor = true;
 			// 
 			// tabChangeSummary
 			// 
@@ -555,7 +640,7 @@
 			this.tabChangeSummary.Location = new System.Drawing.Point(4, 22);
 			this.tabChangeSummary.Name = "tabChangeSummary";
 			this.tabChangeSummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabChangeSummary.Size = new System.Drawing.Size(912, 477);
+			this.tabChangeSummary.Size = new System.Drawing.Size(996, 477);
 			this.tabChangeSummary.TabIndex = 3;
 			this.tabChangeSummary.Text = "Change Summary";
 			this.tabChangeSummary.UseVisualStyleBackColor = true;
@@ -569,7 +654,7 @@
 			this.olvChangeSummary.HideSelection = false;
 			this.olvChangeSummary.Location = new System.Drawing.Point(3, 3);
 			this.olvChangeSummary.Name = "olvChangeSummary";
-			this.olvChangeSummary.Size = new System.Drawing.Size(906, 471);
+			this.olvChangeSummary.Size = new System.Drawing.Size(990, 471);
 			this.olvChangeSummary.SmallImageList = this.privilegeImagesOld;
 			this.olvChangeSummary.TabIndex = 0;
 			this.olvChangeSummary.UseCompatibleStateImageBehavior = false;
@@ -590,7 +675,7 @@
 			this.notificationPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.notificationPanel.Location = new System.Drawing.Point(0, 0);
 			this.notificationPanel.Name = "notificationPanel";
-			this.notificationPanel.Size = new System.Drawing.Size(998, 0);
+			this.notificationPanel.Size = new System.Drawing.Size(1004, 0);
 			this.notificationPanel.TabIndex = 2;
 			// 
 			// contextMenu
@@ -638,91 +723,6 @@
 			this.mSet4.Size = new System.Drawing.Size(214, 22);
 			this.mSet4.Tag = "4";
 			this.mSet4.Text = "Organization";
-			// 
-			// btnRoleBusinessUnitLookup
-			// 
-			this.btnRoleBusinessUnitLookup.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
-			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(855, 33);
-			this.btnRoleBusinessUnitLookup.Name = "btnRoleBusinessUnitLookup";
-			this.btnRoleBusinessUnitLookup.Size = new System.Drawing.Size(34, 23);
-			this.btnRoleBusinessUnitLookup.TabIndex = 8;
-			this.btnRoleBusinessUnitLookup.UseVisualStyleBackColor = true;
-			// 
-			// tSave
-			// 
-			this.tSave.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.disk;
-			this.tSave.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tSave.Name = "tSave";
-			this.tSave.Size = new System.Drawing.Size(51, 22);
-			this.tSave.Text = "Save";
-			// 
-			// tAddToSolution
-			// 
-			this.tAddToSolution.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.package_add;
-			this.tAddToSolution.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tAddToSolution.Name = "tAddToSolution";
-			this.tAddToSolution.Size = new System.Drawing.Size(141, 22);
-			this.tAddToSolution.Text = "Add role to solution...";
-			// 
-			// tExportExcel
-			// 
-			this.tExportExcel.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tExportExcel.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_excel;
-			this.tExportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tExportExcel.Name = "tExportExcel";
-			this.tExportExcel.Size = new System.Drawing.Size(23, 22);
-			this.tExportExcel.Text = "Excel";
-			// 
-			// tExportMarkdown
-			// 
-			this.tExportMarkdown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-			this.tExportMarkdown.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_text;
-			this.tExportMarkdown.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tExportMarkdown.Name = "tExportMarkdown";
-			this.tExportMarkdown.Size = new System.Drawing.Size(23, 22);
-			this.tExportMarkdown.Text = "Markdown";
-			// 
-			// tImportExcel
-			// 
-			this.tImportExcel.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_excel;
-			this.tImportExcel.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tImportExcel.Name = "tImportExcel";
-			this.tImportExcel.Size = new System.Drawing.Size(63, 22);
-			this.tImportExcel.Text = "Import";
-			// 
-			// tShowOnlyAssignedPrivileges
-			// 
-			this.tShowOnlyAssignedPrivileges.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.tShowOnlyAssignedPrivileges.Image = ((System.Drawing.Image)(resources.GetObject("tShowOnlyAssignedPrivileges.Image")));
-			this.tShowOnlyAssignedPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tShowOnlyAssignedPrivileges.Name = "tShowOnlyAssignedPrivileges";
-			this.tShowOnlyAssignedPrivileges.Size = new System.Drawing.Size(168, 22);
-			this.tShowOnlyAssignedPrivileges.Text = "Show only assigned privileges";
-			// 
-			// tShowAllPrivileges
-			// 
-			this.tShowAllPrivileges.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.tShowAllPrivileges.Image = ((System.Drawing.Image)(resources.GetObject("tShowAllPrivileges.Image")));
-			this.tShowAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tShowAllPrivileges.Name = "tShowAllPrivileges";
-			this.tShowAllPrivileges.Size = new System.Drawing.Size(108, 22);
-			this.tShowAllPrivileges.Text = "Show all privileges";
-			// 
-			// tCopyAllPrivileges
-			// 
-			this.tCopyAllPrivileges.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_copy;
-			this.tCopyAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tCopyAllPrivileges.Name = "tCopyAllPrivileges";
-			this.tCopyAllPrivileges.Size = new System.Drawing.Size(123, 22);
-			this.tCopyAllPrivileges.Text = "Copy all privileges";
-			// 
-			// tPasteAllPrivileges
-			// 
-			this.tPasteAllPrivileges.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_paste;
-			this.tPasteAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tPasteAllPrivileges.Name = "tPasteAllPrivileges";
-			this.tPasteAllPrivileges.Size = new System.Drawing.Size(123, 22);
-			this.tPasteAllPrivileges.Text = "Paste all privileges";
 			// 
 			// RoleEditorView
 			// 
