@@ -1,5 +1,4 @@
-﻿using Neronotte;
-using System;
+﻿using System;
 
 namespace Greg.Xrm.SolutionManager.Views.Timeline
 {

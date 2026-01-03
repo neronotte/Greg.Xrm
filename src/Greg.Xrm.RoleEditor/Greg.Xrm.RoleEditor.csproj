@@ -120,6 +120,7 @@
     <Compile Include="Settings.cs" />
     <Compile Include="RoleEditorPlugin.cs" />
     <Compile Include="Views\AddUserRoles\AddUserRolesCommand.cs" />
+    <Compile Include="Views\AddUserRoles\RemoveUserRolesCommand.cs" />
     <Compile Include="Views\AddUserRoles\RoleDto.cs" />
     <Compile Include="Views\AddUserRoles\TreeNode.cs" />
     <Compile Include="Views\AddUserRoles\TreeNodeList.cs" />
@@ -589,6 +590,12 @@
     <PackageReference Include="XrmToolBoxPackage">
       <Version>1.2025.10.74</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_delete.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
