@@ -10,6 +10,7 @@
 		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
 		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
 		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
+		<icon>images\Logo_80.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Enhanced GUI to create, edit, assign and document Dataverse security roles.</description>
 		<releaseNotes>
@@ -34,6 +35,7 @@
 		</dependencies>
 	</metadata>
 	<files>
+		<file src="..\..\Logo_80.png" target="images\" />
 		<file src="bin\Release\Plugins\Greg.Xrm.RoleEditor.dll" target="lib\net48\Plugins" />
 	</files>
 </package>

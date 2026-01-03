@@ -10,6 +10,7 @@
 		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
 		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
 		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
+		<icon>images\Logo_80.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>This plugin compares the installed solutions versions between different environments</description>
 		<releaseNotes>
@@ -27,6 +28,7 @@
 		</dependencies>
 	</metadata>
 	<files>
+		<file src="..\..\Logo_80.png" target="images\" />
 		<file src="bin\Release\Plugins\Greg.Xrm.EnvironmentSolutionsComparer.dll" target="lib\net462\Plugins" />
 	</files>
 </package>
