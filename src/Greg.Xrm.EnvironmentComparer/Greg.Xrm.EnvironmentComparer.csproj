@@ -369,6 +369,6 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
-ILRepack /target:library /lib:"C:\Windows\Microsoft.NET\Framework64\v4.0.30319" /out:"Plugins\Greg.Xrm.EnvironmentComparer.dll" Greg.Xrm.EnvironmentComparer.dll DiffPlex.dll DiffPlex.Wpf.dll EPPLus.dll EPPlus.Interfaces.dll EPPLus.System.Drawing.dll Greg.Xrm.Core.dll Microsoft.IO.RecyclableMemoryStream.dll		</PostBuildEvent>
+ILRepack /target:library /lib:"$(FrameworkPathOverride)" /out:"Plugins\Greg.Xrm.EnvironmentComparer.dll" Greg.Xrm.EnvironmentComparer.dll DiffPlex.dll DiffPlex.Wpf.dll EPPLus.dll EPPlus.Interfaces.dll EPPLus.System.Drawing.dll Greg.Xrm.Core.dll Microsoft.IO.RecyclableMemoryStream.dll		</PostBuildEvent>
   </PropertyGroup>
 </Project>

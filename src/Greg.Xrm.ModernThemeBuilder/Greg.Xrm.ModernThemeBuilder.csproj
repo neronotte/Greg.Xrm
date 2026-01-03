@@ -330,6 +330,6 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
-ILRepack /target:library /lib:"C:\Windows\Microsoft.NET\Framework64\v4.0.30319" /out:"Plugins\Greg.Xrm.ModernThemeBuilder.dll" Greg.Xrm.ModernThemeBuilder.dll Greg.Xrm.Core.dll Microsoft.Web.WebView2.Core.dll Microsoft.Web.WebView2.WinForms.dll Microsoft.Web.WebView2.Wpf.dll Cyotek.Windows.Forms.ColorPicker.dll System.Diagnostics.DiagnosticSource.dll System.Memory.Data.dll System.ClientModel.dll Azure.Core.dll OpenAI.dll Azure.AI.OpenAI.dll System.Buffers.dll System.Text.Json.dll System.Text.Encodings.Web.dll Microsoft.Bcl.AsyncInterfaces.dll System.IO.Pipelines.dll</PostBuildEvent>
+ILRepack /target:library /lib:"$(FrameworkPathOverride)" /out:"Plugins\Greg.Xrm.ModernThemeBuilder.dll" Greg.Xrm.ModernThemeBuilder.dll Greg.Xrm.Core.dll Microsoft.Web.WebView2.Core.dll Microsoft.Web.WebView2.WinForms.dll Microsoft.Web.WebView2.Wpf.dll Cyotek.Windows.Forms.ColorPicker.dll System.Diagnostics.DiagnosticSource.dll System.Memory.Data.dll System.ClientModel.dll Azure.Core.dll OpenAI.dll Azure.AI.OpenAI.dll System.Buffers.dll System.Text.Json.dll System.Text.Encodings.Web.dll Microsoft.Bcl.AsyncInterfaces.dll System.IO.Pipelines.dll</PostBuildEvent>
   </PropertyGroup>
 </Project>
