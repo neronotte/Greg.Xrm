@@ -388,9 +388,17 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		private void OnCellClick(object sender, CellClickEventArgs e)
 		{
 			if (!this.viewModel.IsCustomizable) return;
-			if (e.ColumnIndex == 0) return;
-
-			if (e.Model is TableModel table)
+			if (e.ColumnIndex == 0)
+			{
+				if (e.Model is TableModel entireTable)
+				{
+					entireTable.IncreaseAllLowest();
+					this.treeTables.RefreshObject(entireTable);
+					this.viewModel.EvaluateDirty();
+                    e.Handled = true;
+                }
+            }
+			else if (e.Model is TableModel table)
 			{
 				var column = e.Column;
 				if (column == null) return;
@@ -402,7 +410,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 				this.viewModel.EvaluateDirty();
 				e.Handled = true;
 			}
-
+			
 			if (e.Model is MiscModel misc)
 			{
 				var column = e.Column;
