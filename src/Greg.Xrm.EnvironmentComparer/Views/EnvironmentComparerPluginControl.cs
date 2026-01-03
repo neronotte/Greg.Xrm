@@ -50,6 +50,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 
 			InitializeComponent();
 
+			this.dockPanel.Theme = new VS2015BlueTheme();
+
 			this.messenger = new Messenger(this);
 
 			this.tEnv1Name.Text = "1. Connect to environment 1";

@@ -25,6 +25,8 @@ namespace Greg.Xrm.SolutionManager
 
 			this.scheduler = new AsyncJobScheduler(this, this.viewModel);
 
+			this.dockPanel.Theme = new VS2015BlueTheme();
+
 			this.dataTreeView = new Views.DataTree.DataTreeView(this.viewModel);
 			this.dataTreeView.Show(this.dockPanel, DockState.DockRight);
 

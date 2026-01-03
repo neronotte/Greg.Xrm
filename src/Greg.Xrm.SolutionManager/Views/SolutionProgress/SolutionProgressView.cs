@@ -135,25 +135,25 @@ namespace Greg.Xrm.SolutionManager.Views.SolutionProgress
 				var progress = importJob.progress.GetValueOrDefault();
 				var elapsedTimespan = now - start;
 				var forecastTimespan = TimeSpan.Zero;
-				if (progress == 0)
+				if (progress <= Double.Epsilon)
 				{
 					sb.Append("Started on      : ").Append(start.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
 					sb.Append("Will complete on: ").Append("-").AppendLine();
-						sb.Append("Estimated total : ").Append("-").AppendLine();						sb.Append("Remaining       : ").Append("-").AppendLine();				}
+					sb.Append("Estimated total : ").Append("-").AppendLine(); sb.Append("Remaining       : ").Append("-").AppendLine();
+				}
 				else
 				{
-
 					var forecastMilliseconds = (elapsedTimespan.TotalMilliseconds / progress) * 100;
 					forecastTimespan = TimeSpan.FromMilliseconds(forecastMilliseconds);
 
 					var end = start.Add(forecastTimespan);
 
-var remainingTimespan = forecastTimespan - elapsedTimespan;
+					var remainingTimespan = forecastTimespan - elapsedTimespan;
 
-						sb.Append("Started on      : ").Append(start.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
-						sb.Append("Will complete on: ").Append(end.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
-						sb.Append("Estimated total : ").Append(forecastTimespan).AppendLine();
-						sb.Append("Remaining       : ").Append(remainingTimespan).AppendLine();
+					sb.Append("Started on      : ").Append(start.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
+					sb.Append("Will complete on: ").Append(end.ToString("dd/MM/yyyy HH:mm:ss")).AppendLine();
+					sb.Append("Estimated total : ").Append(forecastTimespan).AppendLine();
+					sb.Append("Remaining       : ").Append(remainingTimespan).AppendLine();
 				}
 
 				data.Elapsed = elapsedTimespan;

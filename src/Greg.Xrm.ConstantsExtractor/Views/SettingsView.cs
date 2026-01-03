@@ -297,8 +297,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// txtCsNamespace
 			// 
-			this.txtCsNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCsNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCsNamespace.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtCsNamespace.Location = new System.Drawing.Point(30, 131);
 			this.txtCsNamespace.Name = "txtCsNamespace";
@@ -307,8 +307,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// txtJsNamespace
 			// 
-			this.txtJsNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtJsNamespace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtJsNamespace.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtJsNamespace.Location = new System.Drawing.Point(30, 279);
 			this.txtJsNamespace.Name = "txtJsNamespace";
@@ -344,8 +344,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// txtJsHeaders
 			// 
-			this.txtJsHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtJsHeaders.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtJsHeaders.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.txtJsHeaders.Location = new System.Drawing.Point(29, 327);
 			this.txtJsHeaders.Multiline = true;
@@ -355,8 +355,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// cmbSolutionList
 			// 
-			this.cmbSolutionList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.cmbSolutionList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.cmbSolutionList.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
 			this.cmbSolutionList.FormattingEnabled = true;
 			this.cmbSolutionList.Location = new System.Drawing.Point(12, 33);
@@ -375,8 +375,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// btnExport
 			// 
-			this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnExport.Location = new System.Drawing.Point(297, 567);
+			this.btnExport.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnExport.Location = new System.Drawing.Point(297, 526);
 			this.btnExport.Name = "btnExport";
 			this.btnExport.Size = new System.Drawing.Size(75, 23);
 			this.btnExport.TabIndex = 12;
@@ -395,8 +395,8 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// txtCsFolder
 			// 
-			this.txtCsFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtCsFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtCsFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
 			this.txtCsFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.txtCsFolder.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -410,14 +410,14 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(30, 393);
 			this.label3.Name = "label3";
-			this.label3.Size = new System.Drawing.Size(168, 13);
+			this.label3.Size = new System.Drawing.Size(166, 13);
 			this.label3.TabIndex = 16;
-			this.label3.Text = "Folder that will contain the C# files";
+			this.label3.Text = "Folder that will contain the JS files";
 			// 
 			// txtJsFolder
 			// 
-			this.txtJsFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-			| System.Windows.Forms.AnchorStyles.Right)));
+			this.txtJsFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
 			this.txtJsFolder.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
 			this.txtJsFolder.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.FileSystemDirectories;
 			this.txtJsFolder.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -433,7 +433,7 @@ namespace Greg.Xrm.ConstantsExtractor.Views
 			// 
 			// SettingsView
 			// 
-			this.ClientSize = new System.Drawing.Size(384, 602);
+			this.ClientSize = new System.Drawing.Size(384, 619);
 			this.CloseButton = false;
 			this.CloseButtonVisible = false;
 			this.Controls.Add(this.label3);
