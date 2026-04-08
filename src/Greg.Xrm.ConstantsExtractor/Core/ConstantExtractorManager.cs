@@ -316,7 +316,7 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 				foreach (OptionMetadata option in options.Options)
 				{
 					var value = option.Value;
-					var label = option.Label.LocalizedLabels.FirstOrDefault()?.Label ?? string.Empty;
+					var label = option.Label.LocalizedLabels.FirstOrDefault()?.Label ?? option.Value.ToString();
 					optionsetValues[value.Value] = label;
 				}
 			}
@@ -335,12 +335,12 @@ namespace Greg.Xrm.ConstantsExtractor.Core
 				var dictionary1 = optionsetValues;
 				int? nullable = trueOption?.Value;
 				int key1 = nullable.Value;
-				string label1 = trueOption.Label.LocalizedLabels.FirstOrDefault()?.Label ?? string.Empty;
+				string label1 = trueOption.Label.LocalizedLabels.FirstOrDefault()?.Label ?? nullable.Value.ToString();
 				dictionary1.Add(key1, label1);
 				Dictionary<int, string> dictionary2 = optionsetValues;
 				nullable = falseOption?.Value;
 				int key2 = nullable.Value;
-				string label2 = falseOption.Label.LocalizedLabels.FirstOrDefault()?.Label ?? string.Empty;
+				string label2 = falseOption.Label.LocalizedLabels.FirstOrDefault()?.Label ?? nullable.Value.ToString();
 				dictionary2.Add(key2, label2);
 			}
 			return optionsetValues;
