@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Greg.Xrm.SolutionManager")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Red.RoleEditor")]
+[assembly: AssemblyDescription("Enhanced updated GUI to edit Security Roles")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Riccardo Gregori")]
-[assembly: AssemblyProduct("Greg.Xrm.SolutionManager")]
+[assembly: AssemblyProduct("Red.RoleEditor")]
 [assembly: AssemblyCopyright("Copyright ©  2023")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

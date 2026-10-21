@@ -1,5 +1,6 @@
 ﻿using Greg.Xrm.Core.Views;
 using Greg.Xrm.RoleEditor.Model;
+using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.Browser;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
@@ -7,6 +8,7 @@ using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Messages;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using XrmToolBox.Extensibility;
 
@@ -81,11 +83,7 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					if (createRequest == null)
 					{
 						// we don't have any creation. Let's do a simple ExecuteTransactionRequest
-						var request = new ExecuteTransactionRequest();
-						request.ReturnResponses = false;
-						request.Requests = new OrganizationRequestCollection();
-						request.Requests.AddRange(requestList);
-						crm.Execute(request);
+						crm.ExecuteTransactionWithFallback(requestList, log);
 					}
 					else
 					{
@@ -95,26 +93,24 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 						id = createResponse.id;
 
 
-						var request = new ExecuteTransactionRequest();
-						request.ReturnResponses = false;
-						request.Requests = new OrganizationRequestCollection();
+						var requests = new List<OrganizationRequest>();
 						foreach (var otherRequest in requestList.OfType<AddPrivilegesRoleRequest>())
 						{
 							otherRequest.RoleId = id.Value;
-							request.Requests.Add(otherRequest);
+							requests.Add(otherRequest);
 						}
 						foreach (var otherRequest in requestList.OfType<RemovePrivilegeRoleRequest>())
 						{
 							otherRequest.RoleId = id.Value;
-							request.Requests.Add(otherRequest);
+							requests.Add(otherRequest);
 						}
 						foreach (var otherRequest in requestList.OfType<ReplacePrivilegesRoleRequest>())
 						{
 							otherRequest.RoleId = id.Value;
-							request.Requests.Add(otherRequest);
+							requests.Add(otherRequest);
 						}
 
-						crm.Execute(request);
+						crm.ExecuteTransactionWithFallback(requests, log);
 					}
 
 					// now, if everything'sg good, we should reload role privil
@@ -129,6 +125,14 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 					if (e.Error != null)
 					{
 						log.Error("Error while trying to save the role: " + e.Error.Message, e.Error);
+						if (e.Error is PartialSaveException)
+						{
+							var hint = model.Id == Guid.Empty
+								? "The role has been created: close this editor and reopen the role before editing it again."
+								: "Reload the role before editing it again.";
+							this.viewModel.SendNotification(NotificationType.Error, "Role partially saved, see Output for details: " + e.Error.Message + " " + hint);
+							return;
+						}
 						this.viewModel.SendNotification(NotificationType.Error, "Error saving role, see Output for details: " + e.Error.Message);
 						return;
 					}

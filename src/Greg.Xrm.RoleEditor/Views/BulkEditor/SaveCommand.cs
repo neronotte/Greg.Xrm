@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Core.Views;
+using Greg.Xrm.RoleEditor.Services;
 using Greg.Xrm.RoleEditor.Views.Messages;
 using Greg.Xrm.Views;
 using Microsoft.Crm.Sdk.Messages;
@@ -79,14 +80,7 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 								j++;
 								messenger.Send(new SetWorkingMessage($"Saving changes to {role.name} ({i}/{this.viewModel.RoleCount}) in blocks.{Environment.NewLine}Processing block {j}/{totalRequestCount}.{Environment.NewLine}Please wait..."));
 								messenger.Send(new StatusBarMessageEventArgs((j * 100) / totalRequestCount));
-								var request = new ExecuteTransactionRequest
-								{
-									ReturnResponses = false,
-									Requests = new OrganizationRequestCollection()
-								};
-								request.Requests.AddRange(requestBlock);
-
-								role.ExecutionContext.Execute(request);
+								role.ExecutionContext.ExecuteTransactionWithFallback(requestBlock, role.ExecutionContext.Log);
 							}
 
 							foreach (var request in replaceRequestList)
@@ -112,6 +106,11 @@ namespace Greg.Xrm.RoleEditor.Views.BulkEditor
 					if (e.Error != null)
 					{
 						log.Error("Error while trying to save the role: " + e.Error.Message, e.Error);
+						if (e.Error is PartialSaveException)
+						{
+							this.viewModel.SendNotification(NotificationType.Error, "Roles partially saved, see Output for details: " + e.Error.Message + " Reload the roles before editing them again.");
+							return;
+						}
 						this.viewModel.SendNotification(NotificationType.Error, "Error saving roles, see Output for details: " + e.Error.Message);
 						return;
 					}

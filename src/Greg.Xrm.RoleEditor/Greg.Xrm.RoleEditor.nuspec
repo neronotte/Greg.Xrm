@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <package>
 	<metadata>
-		<id>Greg.Xrm.RoleEditor</id>
+		<id>Red.RoleEditor</id>
 		<version>$version$</version>
-		<title>_n.RoleEditor</title>
+		<title>Red.RoleEditor</title>
 		<authors>_neronotte</authors>
 		<owners>_neronotte</owners>
 		<license type="expression">MIT</license>
@@ -12,7 +12,7 @@
 		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
 		<icon>images\Logo_80.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
-		<description>Enhanced GUI to create, edit, assign and document Dataverse security roles.</description>
+		<description>Enhanced updated GUI to edit Security Roles</description>
 		<releaseNotes>
 			This tool provides an advanced GUI to create, edid, assign and generate documentation for Dataverse security roles.
 			v$version$: First version.
@@ -36,6 +36,6 @@
 	</metadata>
 	<files>
 		<file src="..\..\Logo_80.png" target="images\" />
-		<file src="bin\Release\Plugins\Greg.Xrm.RoleEditor.dll" target="lib\net48\Plugins" />
+		<file src="bin\Release\Plugins\Red.RoleEditor.dll" target="lib\net48\Plugins" />
 	</files>
 </package>

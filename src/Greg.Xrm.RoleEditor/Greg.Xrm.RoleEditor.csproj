@@ -8,7 +8,7 @@
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Greg.Xrm.RoleEditor</RootNamespace>
-    <AssemblyName>Greg.Xrm.RoleEditor</AssemblyName>
+    <AssemblyName>Red.RoleEditor</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -111,12 +111,14 @@
     <Compile Include="Services\Extensions.cs" />
     <Compile Include="Services\IPrivilegeClassificationProvider.cs" />
     <Compile Include="Services\MarkdownWriter.cs" />
+    <Compile Include="Services\PartialSaveException.cs" />
     <Compile Include="Services\PrivilegeClassificationProvider.cs" />
     <Compile Include="Services\RequestLogger.cs" />
     <Compile Include="Services\RoleTemplateBuilder.cs" />
     <Compile Include="Services\Snippets\IPrivilegeSnippetRepository.cs" />
     <Compile Include="Services\Snippets\PrivilegeSnippet.cs" />
     <Compile Include="Services\Snippets\PrivilegeSnippetRepository.cs" />
+    <Compile Include="Services\TransactionHelper.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="RoleEditorPlugin.cs" />
     <Compile Include="Views\AddUserRoles\AddUserRolesCommand.cs" />
@@ -600,13 +602,13 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
-ILRepack /target:library /lib:"$(FrameworkPathOverride)" /out:"Plugins\Greg.Xrm.RoleEditor.dll" Greg.Xrm.RoleEditor.dll Greg.Xrm.Core.dll ObjectListView.dll EPPLus.dll EPPlus.Interfaces.dll EPPLus.System.Drawing.dll Microsoft.IO.RecyclableMemoryStream.dll</PostBuildEvent>
+ILRepack /target:library /lib:"$(FrameworkPathOverride)" /out:"Plugins\Red.RoleEditor.dll" Red.RoleEditor.dll Greg.Xrm.Core.dll ObjectListView.dll EPPLus.dll EPPlus.Interfaces.dll EPPLus.System.Drawing.dll Microsoft.IO.RecyclableMemoryStream.dll</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
   </PropertyGroup>
   <PropertyGroup>
-    <VersionNumber>1.0.0.0</VersionNumber>
+    <VersionNumber>1.2026.1.8</VersionNumber>
   </PropertyGroup>
   <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
   <Target Name="BeforeBuild">

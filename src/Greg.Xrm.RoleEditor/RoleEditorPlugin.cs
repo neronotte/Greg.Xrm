@@ -15,8 +15,8 @@ namespace Greg.Xrm.RoleEditor
 	// Do not forget to update version number and author (company attribute) in AssemblyInfo.cs class
 	// To generate Base64 string for Images below, you can use https://www.base64-image.de/
 	[Export(typeof(IXrmToolBoxPlugin)),
-		ExportMetadata("Name", "_n.RoleEditor"),
-		ExportMetadata("Description", "This plugin provides an enhanced GUI to create, edit, assign and document Dataverse security roles."),
+		ExportMetadata("Name", "Red.RoleEditor"),
+		ExportMetadata("Description", "Enhanced updated GUI to edit Security Roles"),
 		// Please specify the base64 content of a 32x32 pixels image
 		ExportMetadata("SmallImageBase64", PluginConstants.SmallImageBase64),
 		// Please specify the base64 content of a 80x80 pixels image
