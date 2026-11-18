@@ -40,5 +40,20 @@
     <p>
         The dialog allows also to configure which attributes should <b>not</b> be taken in consideration while comparing records, and whether or not consider <b>only active records</b> in the comparison. 
     </p>
+    <h3>FetchXML filter</h3>
+    <p>
+        By default all the records of the table are compared. Clicking on <b>FetchXML filter...</b> you can type a FetchXML query
+        that restricts the set of records to compare. Please note that:
+    </p>
+    <ul>
+        <li>The <b>same filter</b> is applied to both environments.</li>
+        <li>Only filters and link-entities are taken into account: <b>all the columns</b> of the table are always compared (except the ones marked as "to ignore"), regardless of the attributes specified in the FetchXML.</li>
+        <li>If <b>only active records</b> is checked, the condition on the record status is applied in AND with the FetchXML filter.</li>
+        <li>The FetchXML must refer to the selected table, and cannot contain the <code>aggregate</code> or <code>top</code> attributes.</li>
+        <li>Use <b>Clear filter</b> (or leave the text empty) to compare all the records again.</li>
+    </ul>
+    <p>
+        You can also build the filter visually with <b>FetchXML Builder</b>, using the <b>Actions &gt; Edit filter with FetchXML Builder...</b> command of the <a href="/configurator">Configurator</a>.
+    </p>
 </body>
 </html>

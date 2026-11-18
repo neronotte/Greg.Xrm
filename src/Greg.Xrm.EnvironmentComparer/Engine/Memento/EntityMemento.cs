@@ -31,6 +31,12 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
 		public List<string> AttributesToSkip { get; set; }
 
+		/// <summary>
+		/// Optional FetchXML used to filter the records to compare (on both environments).
+		/// </summary>
+		[JsonProperty(DefaultValueHandling = DefaultValueHandling.Ignore)]
+		public string FetchXml { get; set; }
+
 		public object Clone()
 		{
 			return new EntityMemento
@@ -41,6 +47,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 				KeyAttributeNames = this.KeyAttributeNames.ToList(),
 				OnlyActive = this.OnlyActive,
 				AttributesToSkip = this.AttributesToSkip.ToList(),
+				FetchXml = this.FetchXml,
 			};
 		}
 
@@ -65,6 +72,14 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Memento
 				if (KeyAttributeNames == null || KeyAttributeNames.Count == 0)
 				{
 					yield return new ValidationResult($"[Entity {index}] KeyAttributeNames should be specified if KeyUseGuid = false.");
+				}
+			}
+
+			if (!string.IsNullOrWhiteSpace(EntityName))
+			{
+				foreach (var error in FetchXmlFilter.Validate(FetchXml, EntityName))
+				{
+					yield return new ValidationResult($"[Entity {index}] Invalid FetchXml: {error}");
 				}
 			}
 		}

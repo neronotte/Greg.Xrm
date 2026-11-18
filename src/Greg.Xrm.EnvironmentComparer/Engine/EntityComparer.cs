@@ -1,6 +1,7 @@
 ﻿using Greg.Xrm.EnvironmentComparer.Engine.Config;
 using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Greg.Xrm.Logging;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Query;
 using System;
@@ -30,9 +31,21 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 			IKeyProvider<Entity> keyProvider,
 			ISkipAttributeCriteria skipAttributeCriteria = null,
 			bool onlyActiveRecords = false)
+			: this(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords, null)
+		{
+		}
+
+
+		public EntityComparer(
+			string entityName,
+			IKeyProvider<Entity> keyProvider,
+			ISkipAttributeCriteria skipAttributeCriteria,
+			bool onlyActiveRecords,
+			string fetchXml)
 			: this(entityName, keyProvider, GetDefaultFilter(onlyActiveRecords), skipAttributeCriteria)
 		{
 			this.OnlyActiveRecords = onlyActiveRecords;
+			this.FetchXml = string.IsNullOrWhiteSpace(fetchXml) ? null : fetchXml;
 		}
 
 
@@ -72,6 +85,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 		public ISkipAttributeCriteria SkipAttributeCriteria { get; }
 		public IKeyProvider<Entity> KeyProvider { get; }
 		public bool OnlyActiveRecords { get; }
+		public string FetchXml { get; }
 
 		public IReadOnlyCollection<ObjectComparison<Entity>> Compare(List<Entity> list1, List<Entity> list2)
 		{
@@ -85,7 +99,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 			{
 				try
 				{
-					var query = new QueryExpression(this.EntityName);
+					var query = CreateQuery(crm);
 					query.ColumnSet.AllColumns = true;
 					query.NoLock = true;
 					query.PageInfo = new PagingInfo
@@ -149,6 +163,42 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 		}
 
 
+		private QueryExpression CreateQuery(IOrganizationService crm)
+		{
+			if (string.IsNullOrWhiteSpace(this.FetchXml))
+			{
+				return new QueryExpression(this.EntityName);
+			}
+
+			var response = (FetchXmlToQueryExpressionResponse)crm.Execute(new FetchXmlToQueryExpressionRequest
+			{
+				FetchXml = this.FetchXml
+			});
+
+			var query = response.Query;
+			query.ColumnSet = new ColumnSet(true);
+
+			// the FetchXML is used only to filter the records: columns from linked entities must not be compared
+			ClearColumns(query.LinkEntities);
+
+			// wraps the FetchXML criteria, so that the additional filters (e.g. only active records) are always in AND
+			var criteria = new FilterExpression(LogicalOperator.And);
+			criteria.AddFilter(query.Criteria);
+			query.Criteria = criteria;
+
+			return query;
+		}
+
+		private static void ClearColumns(IEnumerable<LinkEntity> linkEntities)
+		{
+			foreach (var linkEntity in linkEntities)
+			{
+				linkEntity.Columns = new ColumnSet(false);
+				ClearColumns(linkEntity.LinkEntities);
+			}
+		}
+
+
 		public EntityMemento ToEntityMemento()
 		{
 			var entityMemento = new EntityMemento
@@ -169,6 +219,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 			}
 
 			entityMemento.OnlyActive = this.OnlyActiveRecords;
+			entityMemento.FetchXml = this.FetchXml;
 			return entityMemento;
 		}
 	}

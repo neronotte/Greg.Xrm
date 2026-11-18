@@ -13,6 +13,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 		ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, Action<QueryExpression> filterCriteria);
 		ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria);
 		ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria, bool onlyActiveRecords);
+		ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria, bool onlyActiveRecords, string fetchXml);
 		ICompareFluentInterface ToMemento(out EngineMemento memento);
 		ICompareEngine GetEngine(IOrganizationService crm1, IOrganizationService crm2, ILog log);
 	}

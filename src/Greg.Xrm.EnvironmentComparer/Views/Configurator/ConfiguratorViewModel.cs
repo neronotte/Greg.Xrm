@@ -23,6 +23,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 	{
 		private readonly ILog log;
 		private readonly IMessenger messenger;
+		private EntityMemento entityMementoEditedInFetchXmlBuilder;
 
 		public ConfiguratorViewModel(ILog log, IMessenger messenger)
 		{
@@ -38,7 +39,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 				.ChangesAlso(() => CanEdit)
 				.ChangesAlso(() => EditLabel)
 				.ChangesAlso(() => CanRemove)
-				.ChangesAlso(() => RemoveLabel);
+				.ChangesAlso(() => RemoveLabel)
+				.ChangesAlso(() => CanEditFilterWithFetchXmlBuilder);
 
 			this.WhenChanges(() => Memento)
 				.ChangesAlso(() => CanSaveMemento)
@@ -66,6 +68,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 					this.Crm2 = m.GetNewValue<IOrganizationService>();
 				});
 
+			messenger.Register<FetchXmlBuilderResponse>(m => this.OnFetchXmlReturnedFromFetchXmlBuilder(m.FetchXml));
 		}
 
 		public IOrganizationService Crm1
@@ -122,6 +125,69 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		public string RemoveLabel
 		{
 			get => $"Remove {SelectedNode?.Text}".Trim();
+		}
+
+
+		public bool CanEditFilterWithFetchXmlBuilder
+		{
+			get => this.SelectedNode?.Tag is EntityMemento;
+		}
+
+		public void EditFilterWithFetchXmlBuilder()
+		{
+			if (!(this.SelectedNode?.Tag is EntityMemento entityMemento)) return;
+
+			this.entityMementoEditedInFetchXmlBuilder = entityMemento;
+
+			var fetchXml = string.IsNullOrWhiteSpace(entityMemento.FetchXml)
+				? FetchXmlFilter.CreateTemplate(entityMemento.EntityName)
+				: entityMemento.FetchXml;
+
+			this.messenger.Send(new FetchXmlBuilderRequest(fetchXml));
+		}
+
+		private void OnFetchXmlReturnedFromFetchXmlBuilder(string fetchXml)
+		{
+			var entityMemento = this.entityMementoEditedInFetchXmlBuilder;
+			this.entityMementoEditedInFetchXmlBuilder = null;
+
+			if (entityMemento == null) return;
+			if (this.Memento == null || !this.Memento.Entities.Contains(entityMemento))
+			{
+				this.log.Warn($"The FetchXML returned by FetchXML Builder has been ignored: the configuration of table <{entityMemento.EntityName}> has changed in the meantime.");
+				return;
+			}
+
+			if (FetchXmlFilter.HasTop(fetchXml))
+			{
+				var answer = MessageBox.Show(
+					"The FetchXML returned by FetchXML Builder contains the top attribute, that is not supported because all the records matching the filter must be compared." + Environment.NewLine + "Do you want to remove it and apply the filter?",
+					"FetchXML filter",
+					MessageBoxButtons.YesNo,
+					MessageBoxIcon.Question);
+				if (answer != DialogResult.Yes) return;
+
+				fetchXml = FetchXmlFilter.RemoveTop(fetchXml);
+			}
+
+			var errors = FetchXmlFilter.Validate(fetchXml, entityMemento.EntityName);
+			if (errors.Count > 0)
+			{
+				var sb = new StringBuilder();
+				sb.AppendLine($"The FetchXML returned by FetchXML Builder is not valid for table <{entityMemento.EntityName}>:");
+				foreach (var error in errors)
+				{
+					sb.Append(" - ").AppendLine(error);
+				}
+
+				this.log.Error(sb.ToString());
+				MessageBox.Show(sb.ToString(), "FetchXML filter", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+				return;
+			}
+
+			entityMemento.FetchXml = FetchXmlFilter.Format(fetchXml);
+			this.log.Info($"FetchXML filter updated for table <{entityMemento.EntityName}>");
+			this.RefreshMemento();
 		}
 
 

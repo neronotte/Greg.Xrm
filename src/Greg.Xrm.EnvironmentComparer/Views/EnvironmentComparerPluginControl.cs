@@ -24,10 +24,11 @@ using XrmToolBox.Extensibility.Interfaces;
 
 namespace Greg.Xrm.EnvironmentComparer.Views
 {
-	public partial class EnvironmentComparerPluginControl : GregMultipleConnectionsPluginControlBase<EnvironmentComparerPlugin>, IStatusBarMessenger
+	public partial class EnvironmentComparerPluginControl : GregMultipleConnectionsPluginControlBase<EnvironmentComparerPlugin>, IStatusBarMessenger, IMessageBusHost
 	{
 		const string ConnectToEnvironment1String = "1. Connect to environment 1";
 		const string ConnectToEnvironment2String = "2. Connect to environment 2";
+		const string FetchXmlBuilderPluginName = "FetchXML Builder";
 
 
 		private readonly ConfiguratorView configuratorView;
@@ -105,11 +106,34 @@ namespace Greg.Xrm.EnvironmentComparer.Views
 			{
 				this.SendMessageToStatusBar?.Invoke(this, m);
 			});
+
+			this.messenger.Register<FetchXmlBuilderRequest>(m =>
+			{
+				this.OnOutgoingMessage?.Invoke(this, new MessageBusEventArgs(FetchXmlBuilderPluginName)
+				{
+					TargetArgument = m.FetchXml
+				});
+			});
 		}
 
 		#region IStatusBarMessenger implementation
 
 		public event EventHandler<StatusBarMessageEventArgs> SendMessageToStatusBar;
+
+		#endregion
+
+		#region IMessageBusHost implementation
+
+		public event EventHandler<MessageBusEventArgs> OnOutgoingMessage;
+
+		public void OnIncomingMessage(MessageBusEventArgs message)
+		{
+			if (message == null) return;
+			if (!string.Equals(message.SourcePlugin, FetchXmlBuilderPluginName, StringComparison.OrdinalIgnoreCase)) return;
+			if (!(message.TargetArgument is string fetchXml)) return;
+
+			this.messenger.Send(new FetchXmlBuilderResponse(fetchXml));
+		}
 
 		#endregion
 

@@ -42,6 +42,12 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 			return f.Entity(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords);
 		}
 
+		public static ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria, bool onlyActiveRecords, string fetchXml)
+		{
+			var f = new FluentInterface();
+			return f.Entity(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords, fetchXml);
+		}
+
 		public static ICompareFluentInterface FromMemento(string mementoFileName, out EngineMemento memento)
 		{
 			if (string.IsNullOrWhiteSpace(mementoFileName))
@@ -86,15 +92,11 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 					keyProvider = AsKey.UseAttributes(entityMemento.KeyAttributeNames.ToArray());
 				}
 
-				if (entityMemento.AttributesToSkip?.Count > 0)
-				{
-					var skipAttributeCriteria = Skip.Attributes(entityMemento.AttributesToSkip.ToArray());
-					f.Entity(entityMemento.EntityName, keyProvider, skipAttributeCriteria, entityMemento.OnlyActive);
-				}
-				else
-				{
-					f.Entity(entityMemento.EntityName, keyProvider, entityMemento.OnlyActive);
-				}
+				var skipAttributeCriteria = entityMemento.AttributesToSkip?.Count > 0
+					? Skip.Attributes(entityMemento.AttributesToSkip.ToArray())
+					: Skip.Nothing;
+
+				f.Entity(entityMemento.EntityName, keyProvider, skipAttributeCriteria, entityMemento.OnlyActive, entityMemento.FetchXml);
 			}
 
 			return f;
@@ -133,6 +135,12 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 			public ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria, bool onlyActiveRecords)
 			{
 				this.comparerList.Add(new EntityComparer(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords));
+				return this;
+			}
+
+			public ICompareFluentInterface Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria, bool onlyActiveRecords, string fetchXml)
+			{
+				this.comparerList.Add(new EntityComparer(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords, fetchXml));
 				return this;
 			}
 

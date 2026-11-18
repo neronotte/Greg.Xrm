@@ -1,4 +1,5 @@
 ﻿using Greg.Xrm.Core.Views.Help;
+using Greg.Xrm.EnvironmentComparer.Engine;
 using Greg.Xrm.EnvironmentComparer.Engine.Memento;
 using Greg.Xrm.EnvironmentComparer.Help;
 using Greg.Xrm.Messaging;
@@ -14,13 +15,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 {
 	public partial class ConfiguratorDialog2 : Form
 	{
+		private readonly IMessenger messenger;
 		private readonly IReadOnlyCollection<EntityMetadata> entityMetadataList;
 		private readonly EntityMetadataDto[] dtoList;
+		private string fetchXml;
 
 		public ConfiguratorDialog2(IMessenger messenger, IReadOnlyCollection<EntityMetadata> entityMetadataList)
 		{
 			InitializeComponent();
 
+			this.messenger = messenger;
 			this.RegisterHelp(messenger, Topics.ConfiguratorDialog2);
 
 			this.Memento = null;
@@ -147,6 +151,34 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 
 			this.chkOnlyActive.Checked = memento.OnlyActive;
+			this.SetFetchXml(memento.FetchXml);
+		}
+
+
+		private void SetFetchXml(string value)
+		{
+			this.fetchXml = string.IsNullOrWhiteSpace(value) ? null : value;
+			this.lblFilter.Text = this.fetchXml == null
+				? "No filter: compare all records"
+				: "Records filtered by FetchXML";
+		}
+
+		private void OnFilterClick(object sender, EventArgs e)
+		{
+			this.errorProvider.Clear();
+
+			if (!(lstEntities.SelectedItem is EntityMetadataDto dto))
+			{
+				this.errorProvider.SetError(lstEntities, "Please select an entity before defining the filter");
+				return;
+			}
+
+			using (var dialog = new FetchXmlFilterDialog(this.messenger, dto.Name, this.fetchXml))
+			{
+				if (dialog.ShowDialog(this) != DialogResult.OK) return;
+
+				this.SetFetchXml(dialog.FetchXml);
+			}
 		}
 
 
@@ -189,10 +221,18 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			var onlyActive = this.chkOnlyActive.Checked;
 
+			var fetchXmlErrors = FetchXmlFilter.Validate(this.fetchXml, dto.Name);
+			if (fetchXmlErrors.Count > 0)
+			{
+				this.errorProvider.SetError(this.lblFilter, fetchXmlErrors.Join(Environment.NewLine));
+				return;
+			}
+
 			this.Memento.EntityName = dto.Name;
 			this.Memento.IsManyToMany = dto.IsManyToMany;
 			this.Memento.KeyUseGuid = useGuid;
 			this.Memento.OnlyActive = onlyActive;
+			this.Memento.FetchXml = this.fetchXml;
 			this.Memento.KeyAttributeNames.Clear();
 			this.Memento.KeyAttributeNames.AddRange(keyAttributeNames);
 			this.Memento.AttributesToSkip.Clear();
