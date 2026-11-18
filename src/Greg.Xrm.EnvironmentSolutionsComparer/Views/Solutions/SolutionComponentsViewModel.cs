@@ -3,6 +3,7 @@ using Greg.Xrm.EnvironmentSolutionsComparer.Messaging;
 using Greg.Xrm.Logging;
 using Greg.Xrm.Messaging;
 using Greg.Xrm.Model;
+using Greg.Xrm.Views;
 using System.Collections.ObjectModel;
 
 namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
@@ -37,12 +38,17 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.messenger.Register<SolutionSelectedMessage>(OnSolutionSelected);
 			this.messenger.Register<ConnectionAddedMessage>(obj => this.Connections.Insert(obj.Index, obj.Model));
 			this.messenger.Register<ConnectionRemovedMessage>(obj => this.Connections.Remove(obj.Model));
+
+			this.ExportCommand = new ExportSolutionComponentGridCommand(log, this.scheduler, this);
 		}
+
+		public ICommand ExportCommand { get; }
 
 
 		private void OnSolutionSelected(SolutionSelectedMessage obj)
 		{
 			this.Solution = obj.Solution;
+			this.Grid = new SolutionComponentGrid();
 		}
 
 

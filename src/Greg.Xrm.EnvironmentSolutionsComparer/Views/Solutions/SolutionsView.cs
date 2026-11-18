@@ -52,6 +52,7 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.tShowOnlyVisible.Bind(_ => _.Text, this.viewModel, _ => _.ShowOnlyVisibleSolutionsText);
 			this.tShowOnlyVisible.Click += (s, e) => this.viewModel.ShowOnlyVisibleSolutions = !this.viewModel.ShowOnlyVisibleSolutions;
 
+			this.tRefreshSolutionList.BindCommand(() => this.viewModel.RefreshCommand);
 
 			this.listView.SelectedIndexChanged += (s, e) =>
 			{

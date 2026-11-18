@@ -50,6 +50,8 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			this.ImportExcelCommand = new ImportExcelCommand(this);
 			this.SaveSnippetCommand = new SaveSnippetCommand(snippetRepository, this);
 			this.PasteSnippetCommand = new PasteSnippetCommand(snippetRepository, this);
+			this.CopyAllPrivilegesCommand = new CopyAllPrivilegesCommand(this);
+			this.PasteAllPrivilegesCommand = new PasteAllPrivilegesCommand(this);
 
 			this.WhenChanges(() => IsEnabled)
 				.Refresh(this.ShowAllPrivilegesCommand)
@@ -180,6 +182,9 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 		public ICommand SaveSnippetCommand { get; }
 
 		public ICommand PasteSnippetCommand { get; }
+
+		public ICommand CopyAllPrivilegesCommand { get; }
+		public ICommand PasteAllPrivilegesCommand { get; }
 
 
 

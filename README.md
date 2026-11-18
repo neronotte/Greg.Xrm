@@ -92,3 +92,13 @@ You should also update the .csproj files to add the following build steps:
     <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.Partial.cs" AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)" />
   </Target>
 ```
+
+## ILRepack Installation
+
+ILRepack can now be installed as a dotnet tool:
+
+```Powershell
+PS C:\> dotnet tool install -g dotnet-ilrepack
+```
+
+See [official website](https://github.com/gluck/il-repack)

@@ -206,6 +206,18 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				this.tAddUserRoles.Visible = selectedEnvironment.Length == 1;
 				this.tAddUserRoles.Tag = selectedEnvironment.FirstOrDefault();
 
+
+				var selectedUserRoles = this.userTree.SelectedObjects.OfType<UserRole>().ToArray();
+				this.tRemoveUserRole.Tag = selectedUserRoles.FirstOrDefault();
+				if (selectedUserRoles.Length == 1)
+				{
+					this.tRemoveUserRole.Visible = selectedUserRoles[0].User.Roles.Count > 1;
+				}
+				else
+				{
+					this.tRemoveUserRole.Visible = false;
+				}
+
 				this.contextMenu.Show(this.userTree, e.Location);
 			};
 			this.tAddUserRoles.Click += (s, e) =>
@@ -213,6 +225,11 @@ namespace Greg.Xrm.RoleEditor.Views.UserBrowser
 				var environment = this.tAddUserRoles.Tag as DataverseEnvironment;
 				if (environment == null) return;
 				this.viewModel.OpenAddUserRoleViewCommand.Execute(environment);
+			};
+			this.tRemoveUserRole.Click += (s, e) =>
+			{
+				var userRole = this.tRemoveUserRole.Tag as UserRole;
+				this.viewModel.RemoveUserRolesCommand.Execute(userRole);
 			};
 
 			this.tSearchText.KeyUp += (s, e) =>

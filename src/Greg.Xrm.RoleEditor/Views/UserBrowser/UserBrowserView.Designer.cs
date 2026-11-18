@@ -32,14 +32,15 @@
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UserBrowserView));
 			this.notifications = new Greg.Xrm.Core.Views.NotificationPanel();
 			this.tools = new System.Windows.Forms.ToolStrip();
-			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
 			this.tSearchText = new Greg.Xrm.Views.ToolStripBindableTextBox();
 			this.images = new System.Windows.Forms.ImageList(this.components);
 			this.cName = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.cBusinessUnit = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
 			this.userTree = new BrightIdeasSoftware.TreeListView();
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
 			this.tAddUserRoles = new System.Windows.Forms.ToolStripMenuItem();
+			this.tRemoveUserRole = new System.Windows.Forms.ToolStripMenuItem();
 			this.tools.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.userTree)).BeginInit();
 			this.contextMenu.SuspendLayout();
@@ -65,13 +66,6 @@
 			this.tools.Size = new System.Drawing.Size(447, 25);
 			this.tools.TabIndex = 1;
 			this.tools.Text = "toolStrip1";
-			// 
-			// toolStripLabel2
-			// 
-			this.toolStripLabel2.AutoSize = false;
-			this.toolStripLabel2.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
-			this.toolStripLabel2.Name = "toolStripLabel2";
-			this.toolStripLabel2.Size = new System.Drawing.Size(22, 22);
 			// 
 			// tSearchText
 			// 
@@ -133,16 +127,31 @@
 			// contextMenu
 			// 
 			this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tAddUserRoles});
+            this.tAddUserRoles,
+            this.tRemoveUserRole});
 			this.contextMenu.Name = "contextMenu";
-			this.contextMenu.Size = new System.Drawing.Size(191, 26);
+			this.contextMenu.Size = new System.Drawing.Size(191, 48);
+			// 
+			// toolStripLabel2
+			// 
+			this.toolStripLabel2.AutoSize = false;
+			this.toolStripLabel2.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
+			this.toolStripLabel2.Name = "toolStripLabel2";
+			this.toolStripLabel2.Size = new System.Drawing.Size(22, 22);
 			// 
 			// tAddUserRoles
 			// 
-			this.tAddUserRoles.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.user_go;
+			this.tAddUserRoles.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.user_add;
 			this.tAddUserRoles.Name = "tAddUserRoles";
 			this.tAddUserRoles.Size = new System.Drawing.Size(190, 22);
 			this.tAddUserRoles.Text = "Assign roles to users...";
+			// 
+			// tRemoveUserRole
+			// 
+			this.tRemoveUserRole.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.user_delete;
+			this.tRemoveUserRole.Name = "tRemoveUserRole";
+			this.tRemoveUserRole.Size = new System.Drawing.Size(190, 22);
+			this.tRemoveUserRole.Text = "Remove role...";
 			// 
 			// UserBrowserView
 			// 
@@ -177,5 +186,6 @@
 		private BrightIdeasSoftware.TreeListView userTree;
 		private System.Windows.Forms.ContextMenuStrip contextMenu;
 		private System.Windows.Forms.ToolStripMenuItem tAddUserRoles;
-	}
+        private System.Windows.Forms.ToolStripMenuItem tRemoveUserRole;
+    }
 }

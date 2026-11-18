@@ -23,11 +23,11 @@ namespace Greg.Xrm.SolutionManager.Model
 		public string data => Get<string>();
 
 
-		public string uniquename => GetAliased<string>("s", nameof(uniquename));
-		public string friendlyname => GetAliased<string>("s", nameof(friendlyname));
-		public string description => GetAliased<string>("s", nameof(description));
-		public EntityReference publisherid => GetAliased<EntityReference>("s", nameof(publisherid));
-		public string version => GetAliased<string>("s", nameof(version));
+		public string uniquename => GetAliased<string>("s", nameof(uniquename)) ?? GetAliased<string>("s2", nameof(uniquename));
+		public string friendlyname => GetAliased<string>("s", nameof(friendlyname)) ?? GetAliased<string>("s2", nameof(friendlyname));
+		public string description => GetAliased<string>("s", nameof(description)) ?? GetAliased<string>("s2", nameof(description));
+		public EntityReference publisherid => GetAliased<EntityReference>("s", nameof(publisherid)) ?? GetAliased<EntityReference>("s2", nameof(publisherid));
+		public string version => GetAliased<string>("s", nameof(version)) ?? GetAliased<string>("s2", nameof(version));
 #pragma warning restore IDE1006 // Naming Styles
 
 
@@ -52,11 +52,23 @@ namespace Greg.Xrm.SolutionManager.Model
 					nameof(completedon),
 					nameof(createdon),
 					nameof(createdby),
-					nameof(data));
+					nameof(data),
+					"solutionid");
 
 				var solutionLink = query.AddLink("solution", "solutionid", "solutionid", JoinOperator.LeftOuter);
 				solutionLink.EntityAlias = "s";
 				solutionLink.Columns.AddColumns(
+					"solutionid",
+					nameof(uniquename),
+					nameof(friendlyname),
+					nameof(description),
+					nameof(publisherid),
+					nameof(version));
+
+				var solutionLink2 = query.AddLink("solution", "solutionname", "uniquename", JoinOperator.LeftOuter);
+				solutionLink2.EntityAlias = "s2";
+				solutionLink2.Columns.AddColumns(
+					"solutionid",
 					nameof(uniquename),
 					nameof(friendlyname),
 					nameof(description),

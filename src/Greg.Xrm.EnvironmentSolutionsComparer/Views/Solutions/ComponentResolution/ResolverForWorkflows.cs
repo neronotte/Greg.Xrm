@@ -1,56 +1,75 @@
 ﻿using Greg.Xrm.Logging;
 using Microsoft.Xrm.Sdk.Query;
+using Microsoft.Xrm.Sdk;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
+using System.Threading.Tasks;
+using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Metadata;
 
-namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions.ComponentResolution
+namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions.ComponentResolution2
 {
-	public class ResolverForWorkflows : IResolver
+	public class ResolverForWorkflows : IComponentResolver
 	{
 		private readonly ILog log;
 
 		public ResolverForWorkflows(ILog log)
 		{
-			this.log = log ?? throw new System.ArgumentNullException(nameof(log));
+			this.log = log;
 		}
 
-		public void Resolve(SolutionComponentGrid grid, IReadOnlyCollection<ConnectionModel> connections)
+		public void Resolve(IReadOnlyCollection<SolutionComponent> componentList, ConnectionModel env)
 		{
-			using (this.log.Track("Fetching workflow definitions"))
+			if (componentList.Count == 0) return;
+			var idList = componentList
+				.Select(_ => _.objectid)
+				.ToList();
+
+			var dict = GetNames(env.Crm, idList);
+			foreach (var id in idList)
 			{
-				var group = grid.FirstOrDefault(_ => _.ComponentTypeCode == (int)SolutionComponentType.Workflow);
-				if (group == null) return;
-
-				group.SetAnalyzed();
-
-				var idList = group
-					.OfType<SolutionComponentLeaf>()
-					.Select(_ => _.ObjectId)
-					.ToList();
-
-				foreach (var env in connections)
+				if (!dict.TryGetValue(id, out var name))
 				{
-					if (idList.Count == 0) return;
-
-					var query = new QueryExpression("workflow");
-					query.ColumnSet.AddColumns("uniquename", "name");
-					query.Criteria.AddCondition("workflowid", ConditionOperator.In, idList.Cast<object>().ToArray());
-					query.NoLock = true;
-
-					var result = env.Crm.RetrieveMultiple(query);
-
-					var entityList = result.Entities;
-
-					foreach (var entity in entityList)
-					{
-						var entityId = entity.Id;
-						idList.Remove(entityId);
-
-						var leaf = group.OfType<SolutionComponentLeaf>().First(_ => _.ObjectId == entityId);
-						leaf.SetLabelFromWorkflow(entity);
-					}
+					name = $"[Missing: {id}]";
 				}
+				var leaf = componentList.First(_ => _.objectid == id);
+				leaf.Label = name;
 			}
+		}
+
+
+
+
+		private Dictionary<Guid, string> GetNames(IOrganizationService crm, IReadOnlyList<Guid> componentIdSet)
+		{
+
+			Dictionary<Guid, string> dict;
+			try
+			{
+				var query = new QueryExpression("workflow");
+				query.ColumnSet.AddColumns("uniquename", "name");
+				query.Criteria.AddCondition("workflowid", ConditionOperator.In, componentIdSet.Cast<object>().ToArray());
+				query.NoLock = true;
+
+				var result = crm.RetrieveMultiple(query);
+
+				dict = result.Entities.ToDictionary(x => x.Id, GetLabelFromWorkflow);
+			}
+			catch (FaultException<OrganizationServiceFault> ex)
+			{
+				this.log.Error($"Error while retrieving workflow records: {ex.Message}", ex);
+				dict = new Dictionary<Guid, string>();
+			}
+			return dict;
+		}
+
+		private static string GetLabelFromWorkflow(Entity entity)
+		{
+			return $"{entity.GetAttributeValue<string>("name")} ({entity.GetAttributeValue<string>("uniquename")})"
+				.Replace("()", string.Empty)
+				.Trim();
 		}
 	}
 }

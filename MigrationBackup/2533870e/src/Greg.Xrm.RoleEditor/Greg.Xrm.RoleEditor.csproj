@@ -1,0 +1,772 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.props" Condition="Exists('..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C909DB22-9D73-4199-BE9C-75A19D16CEFC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Greg.Xrm.RoleEditor</RootNamespace>
+    <AssemblyName>Greg.Xrm.RoleEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=7.4.2.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.7.4.2\lib\net462\EPPlus.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.Interfaces, Version=6.1.1.0, Culture=neutral, PublicKeyToken=a694d7f3b0907a61, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.Interfaces.6.1.1\lib\net462\EPPlus.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="EPPlus.System.Drawing, Version=6.1.1.0, Culture=neutral, PublicKeyToken=2308d35469c9bac0, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EPPlus.System.Drawing.6.1.1\lib\net462\EPPlus.System.Drawing.dll</HintPath>
+    </Reference>
+    <Reference Include="ListViewPrinter, Version=2.7.1.31255, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ObjectListView.2.7.1.5\lib\ListViewPrinter.dll</HintPath>
+    </Reference>
+    <Reference Include="McTools.Xrm.Connection, Version=1.2025.9.64, Culture=neutral, PublicKeyToken=96037217801d9658, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MscrmTools.Xrm.Connection.1.2025.9.64\lib\net48\McTools.Xrm.Connection.dll</HintPath>
+    </Reference>
+    <Reference Include="McTools.Xrm.Connection.WinForms, Version=1.2025.9.64, Culture=neutral, PublicKeyToken=f1559f79cf894e27, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MscrmTools.Xrm.Connection.1.2025.9.64\lib\net48\McTools.Xrm.Connection.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.AsyncInterfaces.10.0.1\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.Cryptography, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.Cryptography.10.0.1\lib\net462\Microsoft.Bcl.Cryptography.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.HashCode, Version=6.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.HashCode.6.0.0\lib\net462\Microsoft.Bcl.HashCode.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Bcl.Numerics, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Bcl.Numerics.10.0.1\lib\net462\Microsoft.Bcl.Numerics.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.60\lib\net462\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.AI, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.AI.10.1.1\lib\net462\Microsoft.Extensions.AI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.AI.Abstractions, Version=10.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.AI.Abstractions.10.1.1\lib\net462\Microsoft.Extensions.AI.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=10.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Caching.Abstractions.10.0.1\lib\net462\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=10.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.10.0.1\lib\net462\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=10.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Logging.Abstractions.10.0.1\lib\net462\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=10.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Extensions.Primitives.10.0.1\lib\net462\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel.Clients.ActiveDirectory, Version=5.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IdentityModel.Clients.ActiveDirectory.5.3.0\lib\net45\Microsoft.IdentityModel.Clients.ActiveDirectory.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.IO.RecyclableMemoryStream, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.IO.RecyclableMemoryStream.3.0.1\lib\netstandard2.0\Microsoft.IO.RecyclableMemoryStream.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.9.1.1.65\lib\net462\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Toolkit.Uwp.Notifications, Version=7.1.0.0, Culture=neutral, PublicKeyToken=4aff67a105548ee2, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Toolkit.Uwp.Notifications.7.1.3\lib\net461\Microsoft.Toolkit.Uwp.Notifications.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Core, Version=1.0.3650.58, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\lib\net462\Microsoft.Web.WebView2.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.WinForms, Version=1.0.3650.58, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\lib\net462\Microsoft.Web.WebView2.WinForms.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.WebView2.Wpf, Version=1.0.3650.58, Culture=neutral, PublicKeyToken=2a8ab48044d2601e, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\lib\net462\Microsoft.Web.WebView2.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Win32.Primitives, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.CoreAssemblies.9.0.2.60\lib\net462\Microsoft.Xrm.Sdk.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.Deployment.9.0.2.34\lib\net462\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Workflow, Version=9.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.Workflow.9.0.2.60\lib\net462\Microsoft.Xrm.Sdk.Workflow.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.Connector, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.CoreAssembly.9.1.1.65\lib\net462\Microsoft.Xrm.Tooling.Connector.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.CrmConnectControl, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.WpfControls.9.1.1.65\lib\net462\Microsoft.Xrm.Tooling.CrmConnectControl.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.Ui.Styles, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.WpfControls.9.1.1.65\lib\net462\Microsoft.Xrm.Tooling.Ui.Styles.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Tooling.WebResourceUtility, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.CrmSdk.XrmTooling.WpfControls.9.1.1.65\lib\net462\Microsoft.Xrm.Tooling.WebResourceUtility.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.13.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Common, Version=7.0.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Common.7.0.1\lib\net472\NuGet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Configuration, Version=7.0.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Configuration.7.0.1\lib\net472\NuGet.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Frameworks, Version=7.0.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Frameworks.7.0.1\lib\net472\NuGet.Frameworks.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Packaging, Version=7.0.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Packaging.7.0.1\lib\net472\NuGet.Packaging.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Protocol, Version=7.0.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Protocol.7.0.1\lib\net472\NuGet.Protocol.dll</HintPath>
+    </Reference>
+    <Reference Include="NuGet.Versioning, Version=7.0.1.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NuGet.Versioning.7.0.1\lib\net472\NuGet.Versioning.dll</HintPath>
+    </Reference>
+    <Reference Include="ObjectListView, Version=2.7.1.31255, Culture=neutral, PublicKeyToken=b1c5bf581481bcd4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ObjectListView.2.7.1.5\lib\ObjectListView.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="ScintillaNET, Version=3.6.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\jacobslusser.ScintillaNET.3.6.3\lib\net40\ScintillaNET.dll</HintPath>
+    </Reference>
+    <Reference Include="SparkleLibrary, Version=2.7.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\ObjectListView.2.7.1.5\lib\SparkleLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Buffers, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Buffers.4.6.1\lib\net462\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable, Version=10.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Collections.Immutable.10.0.1\lib\net462\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Diagnostics.DiagnosticSource.10.0.1\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Formats.Asn1, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Formats.Asn1.10.0.1\lib\net462\System.Formats.Asn1.dll</HintPath>
+    </Reference>
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IO, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.4.3.0\lib\net462\System.IO.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.IO.Pipelines, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.IO.Pipelines.10.0.1\lib\net462\System.IO.Pipelines.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Memory.4.6.3\lib\net462\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http, Version=4.1.1.3, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Net.Sockets, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Net.Sockets.4.3.0\lib\net46\System.Net.Sockets.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Tensors, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Tensors.10.0.1\lib\net462\System.Numerics.Tensors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors, Version=4.1.6.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Numerics.Vectors.4.6.1\lib\net462\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Reflection.4.3.0\lib\net462\System.Reflection.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.3.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.6.1.2\lib\net462\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.Extensions.4.3.1\lib\net462\System.Runtime.Extensions.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices, Version=4.1.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.4.3.0\lib\net463\System.Runtime.InteropServices.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Security.Cryptography.Algorithms, Version=4.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Algorithms.4.3.1\lib\net461\System.Security.Cryptography.Algorithms.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Cng, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Cng.5.0.0\lib\net462\System.Security.Cryptography.Cng.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Encoding, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Encoding.4.3.0\lib\net46\System.Security.Cryptography.Encoding.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Pkcs, Version=10.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Pkcs.10.0.1\lib\net462\System.Security.Cryptography.Pkcs.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.Primitives, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.Primitives.4.3.0\lib\net46\System.Security.Cryptography.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.ProtectedData, Version=10.0.0.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.ProtectedData.10.0.1\lib\net462\System.Security.Cryptography.ProtectedData.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security.Cryptography.X509Certificates, Version=4.1.1.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Security.Cryptography.X509Certificates.4.3.2\lib\net461\System.Security.Cryptography.X509Certificates.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Duplex, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ServiceModel.Primitives.10.0.652802\lib\net462\System.ServiceModel.Duplex.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Http, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ServiceModel.Http.10.0.652802\lib\net462\System.ServiceModel.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Primitives, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ServiceModel.Primitives.10.0.652802\lib\net462\System.ServiceModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Security, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.ServiceModel.Primitives.10.0.652802\lib\net462\System.ServiceModel.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Text.Encodings.Web, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Encodings.Web.10.0.1\lib\net462\System.Text.Encodings.Web.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Text.Json.10.0.1\lib\net462\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels, Version=10.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Channels.10.0.1\lib\net462\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks.Extensions, Version=4.2.4.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\System.Threading.Tasks.Extensions.4.6.3\lib\net462\System.Threading.Tasks.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DockPanelSuite.3.1.1\lib\net40\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+    </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking.ThemeVS2015, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DockPanelSuite.ThemeVS2015.3.1.1\lib\net40\WeifenLuo.WinFormsUI.Docking.ThemeVS2015.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="XrmToolBox, Version=1.2025.10.74, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XrmToolBoxPackage.1.2025.10.74\lib\net48\XrmToolBox.exe</HintPath>
+    </Reference>
+    <Reference Include="XrmToolBox.Extensibility, Version=1.2025.10.74, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XrmToolBoxPackage.1.2025.10.74\lib\net48\XrmToolBox.Extensibility.dll</HintPath>
+    </Reference>
+    <Reference Include="XrmToolBox.ToolLibrary, Version=1.2025.10.74, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\XrmToolBoxPackage.1.2025.10.74\lib\net48\XrmToolBox.ToolLibrary.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Help\HelpContentIndexProvider.cs" />
+    <Compile Include="Help\Topics.cs" />
+    <Compile Include="Model\BusinessUnit.cs" />
+    <Compile Include="Model\DataverseEnvironment.cs" />
+    <Compile Include="Model\DependencyList.cs" />
+    <Compile Include="Model\Extensions.cs" />
+    <Compile Include="Model\IBusinessUnitRepository.cs" />
+    <Compile Include="Model\IChangeOperation.cs" />
+    <Compile Include="Model\IDependencyRepository.cs" />
+    <Compile Include="Model\IRoleRepository.cs" />
+    <Compile Include="Model\ISystemUserRepository.cs" />
+    <Compile Include="Model\ITemplateForTable.cs" />
+    <Compile Include="Model\Privilege.cs" />
+    <Compile Include="Model\PrivilegeClassification.cs" />
+    <Compile Include="Model\Role.cs" />
+    <Compile Include="Model\RoleInheritance.cs" />
+    <Compile Include="Model\RoleName.cs" />
+    <Compile Include="Model\SecurityModelSettings.cs" />
+    <Compile Include="Model\SystemUser.cs" />
+    <Compile Include="Model\TemplateForTableSet.cs" />
+    <Compile Include="Model\TemplateForGenericPrivilege.cs" />
+    <Compile Include="Model\TemplateForRole.cs" />
+    <Compile Include="Model\TemplateForTable.cs" />
+    <Compile Include="Model\TreeNode.cs" />
+    <Compile Include="Model\XrmToolboxPluginContextLoggingDecorator.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\AssemblyInfo.Partial.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Services\ComponentResolvers\ComponentResolverFactory.cs" />
+    <Compile Include="Services\ComponentResolvers\IComponentResolver.cs" />
+    <Compile Include="Services\ComponentResolvers\IComponentResolverFactory.cs" />
+    <Compile Include="Services\ComponentResolvers\ResolverByQuery.cs" />
+    <Compile Include="Services\ComponentResolvers\ResolverForSystemForms.cs" />
+    <Compile Include="Services\Extensions.cs" />
+    <Compile Include="Services\IPrivilegeClassificationProvider.cs" />
+    <Compile Include="Services\MarkdownWriter.cs" />
+    <Compile Include="Services\PrivilegeClassificationProvider.cs" />
+    <Compile Include="Services\RequestLogger.cs" />
+    <Compile Include="Services\RoleTemplateBuilder.cs" />
+    <Compile Include="Services\Snippets\IPrivilegeSnippetRepository.cs" />
+    <Compile Include="Services\Snippets\PrivilegeSnippet.cs" />
+    <Compile Include="Services\Snippets\PrivilegeSnippetRepository.cs" />
+    <Compile Include="Settings.cs" />
+    <Compile Include="RoleEditorPlugin.cs" />
+    <Compile Include="Views\AddUserRoles\AddUserRolesCommand.cs" />
+    <Compile Include="Views\AddUserRoles\RoleDto.cs" />
+    <Compile Include="Views\AddUserRoles\TreeNode.cs" />
+    <Compile Include="Views\AddUserRoles\TreeNodeList.cs" />
+    <Compile Include="Views\AddUserRoles\TreeNodeRole.cs" />
+    <Compile Include="Views\AddUserRoles\TreeNodeRoleList.cs" />
+    <Compile Include="Views\AddUserRoles\TreeNodeUser.cs" />
+    <Compile Include="Views\AddUserRoles\TreeNodeUserList.cs" />
+    <Compile Include="Views\AddUserRoles\UserRolesView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\AddUserRoles\UserRolesView.Designer.cs">
+      <DependentUpon>UserRolesView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AddUserRoles\UserRolesViewClosed.cs" />
+    <Compile Include="Views\AddUserRoles\UserRolesViewModel.cs" />
+    <Compile Include="Views\AddUserRoles\UserRolesViewOpen.cs" />
+    <Compile Include="Views\Browser\NewRoleCommand.cs" />
+    <Compile Include="Views\Browser\NewRoleFromCurrentCommand.cs" />
+    <Compile Include="Views\Browser\NewRoleFromExistingCommand.cs" />
+    <Compile Include="Views\AddUserRoles\OpenAddUserRoleViewCommand.cs" />
+    <Compile Include="Views\Browser\OpenMultipleRolesCommand.cs" />
+    <Compile Include="Views\Browser\OpenUsageInspectorCommand.cs" />
+    <Compile Include="Views\Browser\RoleAdded.cs" />
+    <Compile Include="Views\Browser\RoleEventArgs.cs" />
+    <Compile Include="Views\Browser\SearchByPrivilegeCommand.cs" />
+    <Compile Include="Views\Browser\SearchBySolutionCommand.cs" />
+    <Compile Include="Views\Browser\SearchResultView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Browser\SearchResultView.Designer.cs">
+      <DependentUpon>SearchResultView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkChangeSummary.cs" />
+    <Compile Include="Views\BulkEditor\BulkEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkEditorView.Designer.cs">
+      <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\BulkEditor\BulkEditorViewModel.cs" />
+    <Compile Include="Views\BulkEditor\IBulkChangeOperation.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkGroupModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkMiscModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\BulkTableModel.cs" />
+    <Compile Include="Views\BulkEditor\Model\IEditorChild.cs" />
+    <Compile Include="Views\BulkEditor\SaveCommand.cs" />
+    <Compile Include="Views\Common\IPrivilegeHolder.cs" />
+    <Compile Include="Views\Common\IReadOnlyList.cs" />
+    <Compile Include="Views\Common\PasteSnippetCommand.cs" />
+    <Compile Include="Views\Common\PrivilegeConfigForMiscMemento.cs" />
+    <Compile Include="Views\Common\PrivilegeConfigForTableMemento.cs" />
+    <Compile Include="Views\Common\PrivilegeColumnExtensions.cs" />
+    <Compile Include="Views\Common\PrivilegeColumnTag.cs" />
+    <Compile Include="Views\Common\SaveSnippetCommand.cs" />
+    <Compile Include="Views\Comparer\CompareRolesCommand.cs" />
+    <Compile Include="Views\Comparer\ExportExcelCommand.cs" />
+    <Compile Include="Views\Comparer\PrivilegeDifference.cs" />
+    <Compile Include="Views\Comparer\RoleComparer.cs" />
+    <Compile Include="Views\Comparer\RoleComparerView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Comparer\RoleComparerView.Designer.cs">
+      <DependentUpon>RoleComparerView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Comparer\RoleComparisonResult.cs" />
+    <Compile Include="Views\Config\PrivilegeSnippetViewModel.cs" />
+    <Compile Include="Views\Editor\AddRoleToSolutionCommand.cs" />
+    <Compile Include="Views\Editor\ChangeSummary.cs" />
+    <Compile Include="Views\Editor\CopyAllPrivilegesCommand.cs" />
+    <Compile Include="Views\Editor\Excel\Constants.cs" />
+    <Compile Include="Views\Editor\Excel\ExcelExtensions.cs" />
+    <Compile Include="Views\Editor\Excel\ExcelMap.cs" />
+    <Compile Include="Views\Editor\Excel\ExportExcelCommand.cs" />
+    <Compile Include="Views\Editor\Excel\ImportExcelCommand.cs" />
+    <Compile Include="Views\Editor\ExportMarkdownCommand.cs" />
+    <Compile Include="Views\Editor\Model\MementoMergeResult.cs" />
+    <Compile Include="Views\Editor\Model\RoleMementoRowParseResult.cs" />
+    <Compile Include="Views\Editor\Model\RoleMementoProvider.cs" />
+    <Compile Include="Views\Editor\Model\RoleModel.cs" />
+    <Compile Include="Views\Editor\PasteAllPrivilegesCommand.cs" />
+    <Compile Include="Views\Editor\RoleEditorViewModel.cs" />
+    <Compile Include="Views\LoadDataCommand.cs" />
+    <Compile Include="Views\Messages\ChangePrivilegeIcons.cs" />
+    <Compile Include="Views\Messages\ConnectionUpdated.cs" />
+    <Compile Include="Views\Editor\ChangeBusinessUnitCommand.cs" />
+    <Compile Include="Views\Editor\Model\MiscGroupModel.cs" />
+    <Compile Include="Views\Editor\Model\MiscModel.cs" />
+    <Compile Include="Views\Editor\Model\TableGroupModel.cs" />
+    <Compile Include="Views\Editor\IsInheritedValue.cs" />
+    <Compile Include="Model\Level.cs" />
+    <Compile Include="Views\Editor\RoleEditorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Editor\RoleEditorView.Designer.cs">
+      <DependentUpon>RoleEditorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Editor\Model\TableModel.cs" />
+    <Compile Include="Views\Editor\SaveCommand.cs" />
+    <Compile Include="Views\Lookup\LookupDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Lookup\LookupDialog.Designer.cs">
+      <DependentUpon>LookupDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\MainView.Designer.cs">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainViewModel.cs" />
+    <Compile Include="Views\Messages\Freeze.cs" />
+    <Compile Include="Views\Messages\OpenRoleView.cs" />
+    <Compile Include="Views\Messages\OpenUsageInspector.cs" />
+    <Compile Include="Views\Messages\RefreshRoleBrowser.cs" />
+    <Compile Include="Views\Messages\RoleListLoaded.cs" />
+    <Compile Include="Views\Browser\OpenRoleCommand.cs" />
+    <Compile Include="Views\Browser\RoleBrowserView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Browser\RoleBrowserView.Designer.cs">
+      <DependentUpon>RoleBrowserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Browser\RoleBrowserViewModel.cs" />
+    <Compile Include="Views\Config\SettingsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Config\SettingsDialog.Designer.cs">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Config\SettingsViewModel.cs" />
+    <Compile Include="Views\Messages\SearchRoleCompleted.cs" />
+    <Compile Include="Views\Search\EditableComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Search\SearchByPrivilegeCommand.cs" />
+    <Compile Include="Views\Search\SearchByPrivilegeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Search\SearchByPrivilegeDialog.Designer.cs">
+      <DependentUpon>SearchByPrivilegeDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\SearchByPrivilegeViewModel.cs" />
+    <Compile Include="Model\Dependency.cs" />
+    <Compile Include="Views\UsageInspector\UsageInspectorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UsageInspector\UsageInspectorView.Designer.cs">
+      <DependentUpon>UsageInspectorView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UsageInspector\UsageInspectorViewModel.cs" />
+    <Compile Include="Views\UserBrowser\ChangeBusinessUnitCommand.cs" />
+    <Compile Include="Views\UserBrowser\Loader.cs" />
+    <Compile Include="Views\UserBrowser\OpenRoleFromUserCommand.cs" />
+    <Compile Include="Views\UserBrowser\RefreshUserEventArgs.cs" />
+    <Compile Include="Views\UserBrowser\RefreshUserRequest.cs" />
+    <Compile Include="Views\UserBrowser\UserBrowserView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\UserBrowser\UserBrowserView.Designer.cs">
+      <DependentUpon>UserBrowserView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserBrowser\UserBrowserViewModel.cs" />
+    <Compile Include="Views\UserBrowser\UserGroup.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\AddUserRoles\UserRolesView.resx">
+      <DependentUpon>UserRolesView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Browser\SearchResultView.resx">
+      <DependentUpon>SearchResultView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\BulkEditor\BulkEditorView.resx">
+      <DependentUpon>BulkEditorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Comparer\RoleComparerView.resx">
+      <DependentUpon>RoleComparerView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Editor\RoleEditorView.resx">
+      <DependentUpon>RoleEditorView.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Lookup\LookupDialog.resx">
+      <DependentUpon>LookupDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\MainView.resx">
+      <DependentUpon>MainView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Browser\RoleBrowserView.resx">
+      <DependentUpon>RoleBrowserView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Config\SettingsDialog.resx">
+      <DependentUpon>SettingsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Search\SearchByPrivilegeDialog.resx">
+      <DependentUpon>SearchByPrivilegeDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UsageInspector\UsageInspectorView.resx">
+      <DependentUpon>UsageInspectorView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\UserBrowser\UserBrowserView.resx">
+      <DependentUpon>UserBrowserView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Greg.Xrm.Core\Greg.Xrm.Core.csproj">
+      <Project>{1b125f62-8e7a-4d30-9ca4-8523493293e6}</Project>
+      <Name>Greg.Xrm.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Greg.Xrm.RoleEditor.nuspec" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\home.html" />
+    <None Include="README.md" />
+    <None Include="Resources\page_white.png" />
+    <None Include="Resources\folder.png" />
+    <None Include="Resources\folder_explore.png" />
+    <None Include="Resources\door_out.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\zoom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_explore1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\disk.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_excel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_text.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_stack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_code.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_code_red.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\browser.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_layout.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_docking.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_create.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_update.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_edit.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_save.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_export.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\cog.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_addtosolution.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_import.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\arrow_left.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_bulk.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\inspector.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\application_form_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_copy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\package_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\tag_blue_magnify.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_first.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_previous.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\resultset_next.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\table_relationship.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\comparer.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\folder_user.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\user_browser.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\user_go.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\lightning.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\add_roles_to_users.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\page_white_paste.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Help\Content\editor_copypasteall.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT EXIST Plugins mkdir Plugins
+..\..\..\..\packages\ILRepack.2.0.44\tools\ILRepack.exe /target:library /out:"Plugins\Greg.Xrm.RoleEditor.dll" Greg.Xrm.RoleEditor.dll Greg.Xrm.Core.dll ObjectListView.dll EPPLus.dll EPPlus.Interfaces.dll EPPLus.System.Drawing.dll Microsoft.IO.RecyclableMemoryStream.dll</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <MSBuildCommunityTasksPath>$(SolutionDir)\.build</MSBuildCommunityTasksPath>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VersionNumber>1.0.0.0</VersionNumber>
+  </PropertyGroup>
+  <Import Project="$(MSBuildCommunityTasksPath)\MSBuild.Community.Tasks.Targets" />
+  <Target Name="BeforeBuild">
+    <Message Text="Updating AssemblyInfo to Version $(VersionNumber)" />
+    <Message Text="Writing to AssemblyInfo files in $(SolutionRoot)" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Properties\AssemblyInfo.Partial.cs" AssemblyVersion="$(VersionNumber)" AssemblyFileVersion="$(VersionNumber)" />
+  </Target>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets'))" />
+    <Error Condition="!Exists('..\..\packages\System.Runtime.WindowsRuntime.4.7.0\build\net461\System.Runtime.WindowsRuntime.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Runtime.WindowsRuntime.4.7.0\build\net461\System.Runtime.WindowsRuntime.targets'))" />
+    <Error Condition="!Exists('..\..\packages\System.Runtime.WindowsRuntime.UI.Xaml.4.7.0\build\net461\System.Runtime.WindowsRuntime.UI.Xaml.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.Runtime.WindowsRuntime.UI.Xaml.4.7.0\build\net461\System.Runtime.WindowsRuntime.UI.Xaml.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.props'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.targets'))" />
+    <Error Condition="!Exists('..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets'))" />
+    <Error Condition="!Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets'))" />
+  </Target>
+  <Import Project="..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets" Condition="Exists('..\..\packages\Microsoft.NETFramework.ReferenceAssemblies.net48.1.0.3\build\Microsoft.NETFramework.ReferenceAssemblies.net48.targets')" />
+  <Import Project="..\..\packages\System.Runtime.WindowsRuntime.4.7.0\build\net461\System.Runtime.WindowsRuntime.targets" Condition="Exists('..\..\packages\System.Runtime.WindowsRuntime.4.7.0\build\net461\System.Runtime.WindowsRuntime.targets')" />
+  <Import Project="..\..\packages\System.Runtime.WindowsRuntime.UI.Xaml.4.7.0\build\net461\System.Runtime.WindowsRuntime.UI.Xaml.targets" Condition="Exists('..\..\packages\System.Runtime.WindowsRuntime.UI.Xaml.4.7.0\build\net461\System.Runtime.WindowsRuntime.UI.Xaml.targets')" />
+  <Import Project="..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.targets" Condition="Exists('..\..\packages\Microsoft.Windows.SDK.Contracts.10.0.26100.7175\build\Microsoft.Windows.SDK.Contracts.targets')" />
+  <Import Project="..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets" Condition="Exists('..\..\packages\System.ValueTuple.4.6.1\build\net471\System.ValueTuple.targets')" />
+  <Import Project="..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets" Condition="Exists('..\..\packages\Microsoft.Web.WebView2.1.0.3650.58\build\Microsoft.Web.WebView2.targets')" />
+</Project>

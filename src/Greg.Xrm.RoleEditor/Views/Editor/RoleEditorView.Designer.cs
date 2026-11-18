@@ -44,6 +44,9 @@
 			this.toolStripLabel2 = new System.Windows.Forms.ToolStripLabel();
 			this.tShowOnlyAssignedPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tShowAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+			this.tCopyAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tPasteAllPrivileges = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tabs = new System.Windows.Forms.TabControl();
 			this.tabTables = new System.Windows.Forms.TabPage();
 			this.treeTables = new BrightIdeasSoftware.TreeListView();
@@ -134,10 +137,13 @@
             this.toolStripSeparator1,
             this.toolStripLabel2,
             this.tShowOnlyAssignedPrivileges,
-            this.tShowAllPrivileges});
+            this.tShowAllPrivileges,
+            this.toolStripSeparator4,
+            this.tCopyAllPrivileges,
+            this.tPasteAllPrivileges});
 			this.tools.Location = new System.Drawing.Point(0, 0);
 			this.tools.Name = "tools";
-			this.tools.Size = new System.Drawing.Size(920, 25);
+			this.tools.Size = new System.Drawing.Size(1004, 25);
 			this.tools.TabIndex = 3;
 			this.tools.Text = "toolStrip1";
 			// 
@@ -228,6 +234,27 @@
 			this.tShowAllPrivileges.Size = new System.Drawing.Size(108, 22);
 			this.tShowAllPrivileges.Text = "Show all privileges";
 			// 
+			// toolStripSeparator4
+			// 
+			this.toolStripSeparator4.Name = "toolStripSeparator4";
+			this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tCopyAllPrivileges
+			// 
+			this.tCopyAllPrivileges.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_copy;
+			this.tCopyAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tCopyAllPrivileges.Name = "tCopyAllPrivileges";
+			this.tCopyAllPrivileges.Size = new System.Drawing.Size(123, 22);
+			this.tCopyAllPrivileges.Text = "Copy all privileges";
+			// 
+			// tPasteAllPrivileges
+			// 
+			this.tPasteAllPrivileges.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.page_white_paste;
+			this.tPasteAllPrivileges.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tPasteAllPrivileges.Name = "tPasteAllPrivileges";
+			this.tPasteAllPrivileges.Size = new System.Drawing.Size(123, 22);
+			this.tPasteAllPrivileges.Text = "Paste all privileges";
+			// 
 			// tabs
 			// 
 			this.tabs.Controls.Add(this.tabTables);
@@ -238,7 +265,7 @@
 			this.tabs.Location = new System.Drawing.Point(0, 25);
 			this.tabs.Name = "tabs";
 			this.tabs.SelectedIndex = 0;
-			this.tabs.Size = new System.Drawing.Size(920, 503);
+			this.tabs.Size = new System.Drawing.Size(1004, 503);
 			this.tabs.TabIndex = 4;
 			// 
 			// tabTables
@@ -248,7 +275,7 @@
 			this.tabTables.Location = new System.Drawing.Point(4, 22);
 			this.tabTables.Name = "tabTables";
 			this.tabTables.Padding = new System.Windows.Forms.Padding(3);
-			this.tabTables.Size = new System.Drawing.Size(912, 477);
+			this.tabTables.Size = new System.Drawing.Size(996, 477);
 			this.tabTables.TabIndex = 0;
 			this.tabTables.Text = "Table related privileges";
 			this.tabTables.UseVisualStyleBackColor = true;
@@ -286,7 +313,7 @@
 			this.treeTables.Name = "treeTables";
 			this.treeTables.OwnerDraw = true;
 			this.treeTables.ShowGroups = false;
-			this.treeTables.Size = new System.Drawing.Size(906, 446);
+			this.treeTables.Size = new System.Drawing.Size(990, 446);
 			this.treeTables.SmallImageList = this.privilegeImagesNew;
 			this.treeTables.TabIndex = 1;
 			this.treeTables.UseCompatibleStateImageBehavior = false;
@@ -367,7 +394,7 @@
             this.toolStripLabel5});
 			this.tools2.Location = new System.Drawing.Point(3, 3);
 			this.tools2.Name = "tools2";
-			this.tools2.Size = new System.Drawing.Size(906, 25);
+			this.tools2.Size = new System.Drawing.Size(990, 25);
 			this.tools2.TabIndex = 0;
 			this.tools2.Text = "toolStrip1";
 			// 
@@ -398,7 +425,7 @@
 			this.tabMisc.Location = new System.Drawing.Point(4, 22);
 			this.tabMisc.Name = "tabMisc";
 			this.tabMisc.Padding = new System.Windows.Forms.Padding(3);
-			this.tabMisc.Size = new System.Drawing.Size(912, 477);
+			this.tabMisc.Size = new System.Drawing.Size(996, 477);
 			this.tabMisc.TabIndex = 1;
 			this.tabMisc.Text = "Miscellaneous Privileges";
 			this.tabMisc.UseVisualStyleBackColor = true;
@@ -422,7 +449,7 @@
 			this.treeMisc.Name = "treeMisc";
 			this.treeMisc.OwnerDraw = true;
 			this.treeMisc.ShowGroups = false;
-			this.treeMisc.Size = new System.Drawing.Size(906, 446);
+			this.treeMisc.Size = new System.Drawing.Size(990, 446);
 			this.treeMisc.SmallImageList = this.privilegeImagesOld;
 			this.treeMisc.TabIndex = 2;
 			this.treeMisc.UseCompatibleStateImageBehavior = false;
@@ -458,7 +485,7 @@
             this.txtSearchMisc});
 			this.tools3.Location = new System.Drawing.Point(3, 3);
 			this.tools3.Name = "tools3";
-			this.tools3.Size = new System.Drawing.Size(906, 25);
+			this.tools3.Size = new System.Drawing.Size(990, 25);
 			this.tools3.TabIndex = 0;
 			this.tools3.Text = "toolStrip1";
 			// 
@@ -480,7 +507,7 @@
 			this.tabGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tabGeneral.Name = "tabGeneral";
 			this.tabGeneral.Padding = new System.Windows.Forms.Padding(10);
-			this.tabGeneral.Size = new System.Drawing.Size(912, 477);
+			this.tabGeneral.Size = new System.Drawing.Size(996, 477);
 			this.tabGeneral.TabIndex = 2;
 			this.tabGeneral.Text = "General information";
 			this.tabGeneral.UseVisualStyleBackColor = true;
@@ -510,7 +537,7 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(892, 205);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(976, 205);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// label1
@@ -564,7 +591,7 @@
 			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleName, 2);
 			this.txtRoleName.Location = new System.Drawing.Point(203, 3);
 			this.txtRoleName.Name = "txtRoleName";
-			this.txtRoleName.Size = new System.Drawing.Size(686, 20);
+			this.txtRoleName.Size = new System.Drawing.Size(770, 20);
 			this.txtRoleName.TabIndex = 4;
 			// 
 			// txtRoleBusinessUnit
@@ -574,7 +601,7 @@
 			this.txtRoleBusinessUnit.Enabled = false;
 			this.txtRoleBusinessUnit.Location = new System.Drawing.Point(203, 33);
 			this.txtRoleBusinessUnit.Name = "txtRoleBusinessUnit";
-			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(646, 20);
+			this.txtRoleBusinessUnit.Size = new System.Drawing.Size(730, 20);
 			this.txtRoleBusinessUnit.TabIndex = 5;
 			// 
 			// txtRoleDescription
@@ -584,7 +611,7 @@
 			this.tableLayoutPanel1.SetColumnSpan(this.txtRoleDescription, 2);
 			this.txtRoleDescription.Location = new System.Drawing.Point(203, 63);
 			this.txtRoleDescription.Name = "txtRoleDescription";
-			this.txtRoleDescription.Size = new System.Drawing.Size(686, 20);
+			this.txtRoleDescription.Size = new System.Drawing.Size(770, 20);
 			this.txtRoleDescription.TabIndex = 6;
 			// 
 			// cmbRoleInheritance
@@ -595,13 +622,13 @@
 			this.cmbRoleInheritance.FormattingEnabled = true;
 			this.cmbRoleInheritance.Location = new System.Drawing.Point(203, 93);
 			this.cmbRoleInheritance.Name = "cmbRoleInheritance";
-			this.cmbRoleInheritance.Size = new System.Drawing.Size(686, 21);
+			this.cmbRoleInheritance.Size = new System.Drawing.Size(770, 21);
 			this.cmbRoleInheritance.TabIndex = 7;
 			// 
 			// btnRoleBusinessUnitLookup
 			// 
 			this.btnRoleBusinessUnitLookup.Image = global::Greg.Xrm.RoleEditor.Properties.Resources.zoom;
-			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(855, 33);
+			this.btnRoleBusinessUnitLookup.Location = new System.Drawing.Point(939, 33);
 			this.btnRoleBusinessUnitLookup.Name = "btnRoleBusinessUnitLookup";
 			this.btnRoleBusinessUnitLookup.Size = new System.Drawing.Size(34, 23);
 			this.btnRoleBusinessUnitLookup.TabIndex = 8;
@@ -613,7 +640,7 @@
 			this.tabChangeSummary.Location = new System.Drawing.Point(4, 22);
 			this.tabChangeSummary.Name = "tabChangeSummary";
 			this.tabChangeSummary.Padding = new System.Windows.Forms.Padding(3);
-			this.tabChangeSummary.Size = new System.Drawing.Size(912, 477);
+			this.tabChangeSummary.Size = new System.Drawing.Size(996, 477);
 			this.tabChangeSummary.TabIndex = 3;
 			this.tabChangeSummary.Text = "Change Summary";
 			this.tabChangeSummary.UseVisualStyleBackColor = true;
@@ -627,7 +654,7 @@
 			this.olvChangeSummary.HideSelection = false;
 			this.olvChangeSummary.Location = new System.Drawing.Point(3, 3);
 			this.olvChangeSummary.Name = "olvChangeSummary";
-			this.olvChangeSummary.Size = new System.Drawing.Size(906, 471);
+			this.olvChangeSummary.Size = new System.Drawing.Size(990, 471);
 			this.olvChangeSummary.SmallImageList = this.privilegeImagesOld;
 			this.olvChangeSummary.TabIndex = 0;
 			this.olvChangeSummary.UseCompatibleStateImageBehavior = false;
@@ -648,7 +675,7 @@
 			this.notificationPanel.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
 			this.notificationPanel.Location = new System.Drawing.Point(0, 0);
 			this.notificationPanel.Name = "notificationPanel";
-			this.notificationPanel.Size = new System.Drawing.Size(920, 0);
+			this.notificationPanel.Size = new System.Drawing.Size(1004, 0);
 			this.notificationPanel.TabIndex = 2;
 			// 
 			// contextMenu
@@ -701,7 +728,7 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(920, 528);
+			this.ClientSize = new System.Drawing.Size(1004, 528);
 			this.Controls.Add(this.tabs);
 			this.Controls.Add(this.tools);
 			this.Controls.Add(this.notificationPanel);
@@ -794,5 +821,8 @@
 		private Xrm.Views.ToolStripBindableButton tImportExcel;
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel5;
+		private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+		private Xrm.Views.ToolStripBindableButton tCopyAllPrivileges;
+		private Xrm.Views.ToolStripBindableButton tPasteAllPrivileges;
 	}
 }

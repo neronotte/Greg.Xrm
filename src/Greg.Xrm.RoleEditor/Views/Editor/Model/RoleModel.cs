@@ -264,5 +264,24 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			|| this.Description != this.role.description
 			|| this.BusinessUnit?.Id != this.role.businessunitid?.Id
 			|| this.IsInherited?.Value != this.role.isinherited.Value;
+
+		public string GetMemento()
+		{
+			var mementoProvider = new RoleMementoProvider(this);
+			return mementoProvider.CreateMemento();
+		}
+
+		/// <summary>
+		/// Merges privilege levels from a memento string into the current role.
+		/// Only applies levels that are not null and greater than the current values, unless override is specified.
+		/// </summary>
+		/// <param name="mementoString">The memento string containing privilege levels to merge</param>
+		/// <param name="overrideExisting">If true, applies memento values even when current values are greater</param>
+		/// <returns>A MementoMergeResult containing detailed information about the merge operation</returns>
+		public MementoMergeResult MergeMemento(string mementoString, bool overrideExisting = false)
+		{
+			var mementoProvider = new RoleMementoProvider(this);
+			return mementoProvider.TryMergeMemento(mementoString, overrideExisting);
+		}
 	}
 }

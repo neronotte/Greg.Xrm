@@ -117,4 +117,9 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="lblAIText.Text" xml:space="preserve">
+    <value>Use this tool to create personalized themes for your Dataverse Model-Driven Apps using AI. 
+Start by uploading an image, and let your preferred AI engine do the magic.
+👉 Don't forget to configure your AI connection in the tool Settings before getting started.</value>
+  </data>
 </root>

@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta charset="utf-8" />
+	<title>Help</title>
+	<style type="text/css">
+		body {
+			font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+			font-size: .7em;
+			line-height: 1.6em;
+		}
+
+		h1, h2, h3, h4 {
+			line-height: 1.2em;
+		}
+
+		a {
+			text-decoration: none;
+			color: #0065B3;
+		}
+
+			a:hover {
+				text-decoration: underline;
+				color: #0065B3;
+			}
+
+			a:visited {
+				text-decoration: none;
+				color: #0065B3;
+			}
+
+		body > img {
+			display: block;
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		code {
+			background-color: #f4f4f4;
+			padding: 2px 4px;
+			border-radius: 3px;
+			font-family: monospace;
+		}
+	</style>
+</head>
+<body>
+	<small><a href="/home">Home</a> | <a href="/editor">Editor</a></small>
+	<h2>Copy all privileges</h2>
+	<p>
+		The <b>Copy all privileges</b> button creates a text-based snapshot of the current role, including all its privileges and their access levels.
+		This snapshot is stored in memory and can be pasted to another role using the <b>Paste all privileges</b> button.
+	</p>
+	<p>
+		This feature is particularly useful when you want to duplicate or merge privileges from one role to another, ensuring consistency and saving time.
+	</p>
+
+	<h2>Paste all privileges</h2>
+	<p>
+		The <b>Paste all privileges</b> button applies a previously copied privilege snapshot to the currently selected role.
+		This action will merge the privileges from the snapshot with those in the target role using "additive" rules:
+	</p>
+	<ul>
+		<li>If a privilege from the snapshot has a <b>higher</b> access level than the current role, the higher level is applied</li>
+		<li>If a privilege from the snapshot has a <b>lower or equal</b> access level, the current role's level is preserved</li>
+		<li>Unknown tables or privileges in the snapshot are skipped without causing errors</li>
+	</ul>
+	<p>
+		This ensures that no privilege is downgraded during the paste operation, maintaining the highest level of access for each privilege.
+	</p>
+
+	<h3>Validation and Feedback</h3>
+	<p>
+		The paste operation includes comprehensive validation and provides detailed feedback:
+	</p>
+	<ul>
+		<li><b>Success messages</b> show how many privileges were applied and skipped</li>
+		<li><b>Error messages</b> identify specific format or validation issues</li>
+		<li><b>Warning messages</b> alert you to empty clipboard or unknown privileges</li>
+	</ul>
+</body>
+</html>

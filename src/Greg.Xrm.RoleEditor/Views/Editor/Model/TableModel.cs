@@ -106,7 +106,37 @@ namespace Greg.Xrm.RoleEditor.Views.Editor
 			}
 		}
 
-		public void Increase(PrivilegeType privilege)
+        /// <summary>
+        /// Increase multiple levels like old role editor in Xrm does:
+        /// - Increase all privileges that are less than any other privilege
+        /// - When all privs maxed out, start again from none
+        /// </summary>
+        public void IncreaseAllLowest()
+        {
+			// Find the lowest privilege level among all privileges
+			var lowestLevel = template
+				.Select(x => Get(x.Key) ?? Level.None)
+				.Where(level => level != Level.None)
+				.OrderBy(x => x)
+				.FirstOrDefault();
+
+			var atLeastOneAtLowest = template.Any(x => (Get(x.Key) ?? Level.None) == Level.None);
+			if (lowestLevel != Level.None && atLeastOneAtLowest)
+			{
+				lowestLevel = Level.None;
+            }
+
+            // Increase only the privileges that are at the lowest level
+            var privtsToIncrease = template
+			.Where(x => Get(x.Key) == lowestLevel)
+			.Select(x => x.Key);
+            foreach (var privilege in privtsToIncrease)
+            {
+                Increase(privilege);
+            }
+        }
+
+        public void Increase(PrivilegeType privilege)
 		{
 			var privilegeMetadata = template[privilege];
 			if (privilegeMetadata == null) return;

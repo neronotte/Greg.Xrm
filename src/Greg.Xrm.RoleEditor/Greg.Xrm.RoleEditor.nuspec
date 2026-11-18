@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<package >
+<package>
 	<metadata>
 		<id>Greg.Xrm.RoleEditor</id>
 		<version>$version$</version>
@@ -9,6 +9,7 @@
 		<license type="expression">MIT</license>
 		<projectUrl>https://github.com/neronotte/Greg.Xrm</projectUrl>
 		<repository type="git" url="https://github.com/neronotte/Greg.Xrm" />
+		<iconUrl>https://raw.githubusercontent.com/neronotte/Greg.Xrm/master/Logo_80.png</iconUrl>
 		<icon>images\Logo_80.png</icon>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<description>Enhanced GUI to create, edit, assign and document Dataverse security roles.</description>

@@ -12,17 +12,18 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		{			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SolutionsView));
 			this.listView = new System.Windows.Forms.ListView();
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
+			this.tFind = new System.Windows.Forms.ToolStripTextBox();
+			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+			this.tExport = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+			this.tShowOnlyVisible = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.lSuccess = new System.Windows.Forms.Label();
 			this.lWarn = new System.Windows.Forms.Label();
 			this.lError = new System.Windows.Forms.Label();
 			this.lGray = new System.Windows.Forms.Label();
-			this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
 			this.label1 = new System.Windows.Forms.Label();
-			this.tExport = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.tShowOnlyVisible = new Greg.Xrm.Views.ToolStripBindableButton();
-			this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-			this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
-			this.tFind = new System.Windows.Forms.ToolStripTextBox();
+			this.tRefreshSolutionList = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -48,12 +49,54 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
             this.toolStripSeparator2,
             this.tExport,
             this.toolStripSeparator1,
-            this.tShowOnlyVisible});
+            this.tShowOnlyVisible,
+            this.tRefreshSolutionList});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
 			this.toolStrip1.Name = "toolStrip1";
 			this.toolStrip1.Size = new System.Drawing.Size(1119, 25);
 			this.toolStrip1.TabIndex = 1;
 			this.toolStrip1.Text = "toolStrip1";
+			// 
+			// toolStripLabel1
+			// 
+			this.toolStripLabel1.Name = "toolStripLabel1";
+			this.toolStripLabel1.Size = new System.Drawing.Size(33, 22);
+			this.toolStripLabel1.Text = "Find:";
+			// 
+			// tFind
+			// 
+			this.tFind.Font = new System.Drawing.Font("Segoe UI", 9F);
+			this.tFind.Name = "tFind";
+			this.tFind.Size = new System.Drawing.Size(200, 25);
+			this.tFind.ToolTipText = "Press F3 to search next item";
+			this.tFind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnFindKeyUp);
+			// 
+			// toolStripSeparator2
+			// 
+			this.toolStripSeparator2.Name = "toolStripSeparator2";
+			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tExport
+			// 
+			this.tExport.Image = global::Greg.Xrm.EnvironmentSolutionsComparer.Properties.Resources.page_white_excel;
+			this.tExport.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tExport.Name = "tExport";
+			this.tExport.Size = new System.Drawing.Size(69, 22);
+			this.tExport.Text = "Export...";
+			// 
+			// toolStripSeparator1
+			// 
+			this.toolStripSeparator1.Name = "toolStripSeparator1";
+			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+			// 
+			// tShowOnlyVisible
+			// 
+			this.tShowOnlyVisible.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tShowOnlyVisible.Image = ((System.Drawing.Image)(resources.GetObject("tShowOnlyVisible.Image")));
+			this.tShowOnlyVisible.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tShowOnlyVisible.Name = "tShowOnlyVisible";
+			this.tShowOnlyVisible.Size = new System.Drawing.Size(153, 22);
+			this.tShowOnlyVisible.Text = "Show only visible solutions";
 			// 
 			// lSuccess
 			// 
@@ -111,11 +154,6 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.lGray.Text = "Gray";
 			this.lGray.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// toolStripSeparator1
-			// 
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			// 
 			// label1
 			// 
 			this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -130,41 +168,13 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 			this.label1.Text = "M: managed, UM: unmanaged";
 			this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
-			// tExport
+			// tRefreshSolutionList
 			// 
-			this.tExport.Image = global::Greg.Xrm.EnvironmentSolutionsComparer.Properties.Resources.page_white_excel;
-			this.tExport.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tExport.Name = "tExport";
-			this.tExport.Size = new System.Drawing.Size(70, 22);
-			this.tExport.Text = "Export...";
-			// 
-			// tShowOnlyVisible
-			// 
-			this.tShowOnlyVisible.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.tShowOnlyVisible.Image = ((System.Drawing.Image)(resources.GetObject("tShowOnlyVisible.Image")));
-			this.tShowOnlyVisible.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.tShowOnlyVisible.Name = "tShowOnlyVisible";
-			this.tShowOnlyVisible.Size = new System.Drawing.Size(153, 22);
-			this.tShowOnlyVisible.Text = "Show only visible solutions";
-			// 
-			// toolStripSeparator2
-			// 
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			// 
-			// toolStripLabel1
-			// 
-			this.toolStripLabel1.Name = "toolStripLabel1";
-			this.toolStripLabel1.Size = new System.Drawing.Size(33, 22);
-			this.toolStripLabel1.Text = "Find:";
-			// 
-			// tFind
-			// 
-			this.tFind.Font = new System.Drawing.Font("Segoe UI", 9F);
-			this.tFind.Name = "tFind";
-			this.tFind.Size = new System.Drawing.Size(200, 25);
-			this.tFind.ToolTipText = "Press F3 to search next item";
-			this.tFind.KeyUp += new System.Windows.Forms.KeyEventHandler(this.OnFindKeyUp);
+			this.tRefreshSolutionList.Image = global::Greg.Xrm.EnvironmentSolutionsComparer.Properties.Resources.arrow_refresh;
+			this.tRefreshSolutionList.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tRefreshSolutionList.Name = "tRefreshSolutionList";
+			this.tRefreshSolutionList.Size = new System.Drawing.Size(66, 22);
+			this.tRefreshSolutionList.Text = "Refresh";
 			// 
 			// SolutionsView
 			// 
@@ -199,5 +209,6 @@ namespace Greg.Xrm.EnvironmentSolutionsComparer.Views.Solutions
 		private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
 		private System.Windows.Forms.ToolStripLabel toolStripLabel1;
 		private System.Windows.Forms.ToolStripTextBox tFind;
+		private Greg.Xrm.Views.ToolStripBindableButton tRefreshSolutionList;
 	}
 }
