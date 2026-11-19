@@ -57,6 +57,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.panel6 = new System.Windows.Forms.Panel();
 			this.bFilter = new System.Windows.Forms.Button();
 			this.lblFilter = new System.Windows.Forms.Label();
+			this.bLookupMappings = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -356,12 +357,24 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.lblFilter.TabIndex = 15;
 			this.lblFilter.Text = "No filter: compare all records";
 			// 
+			// bLookupMappings
+			//
+			this.bLookupMappings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.bLookupMappings.Location = new System.Drawing.Point(300, 614);
+			this.bLookupMappings.Name = "bLookupMappings";
+			this.bLookupMappings.Size = new System.Drawing.Size(165, 23);
+			this.bLookupMappings.TabIndex = 16;
+			this.bLookupMappings.Text = "Lookup mappings...";
+			this.bLookupMappings.UseVisualStyleBackColor = true;
+			this.bLookupMappings.Click += new System.EventHandler(this.OnLookupMappingsClick);
+			//
 			// ConfiguratorDialog2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1017, 646);
 			this.ControlBox = false;
+			this.Controls.Add(this.bLookupMappings);
 			this.Controls.Add(this.lblFilter);
 			this.Controls.Add(this.bFilter);
 			this.Controls.Add(this.btnCancel);
@@ -422,5 +435,6 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private System.Windows.Forms.Button bIgnoreSelectAll;
 		private System.Windows.Forms.Button bFilter;
 		private System.Windows.Forms.Label lblFilter;
+		private System.Windows.Forms.Button bLookupMappings;
 	}
 }

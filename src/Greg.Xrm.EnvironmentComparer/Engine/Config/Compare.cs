@@ -96,7 +96,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 					? Skip.Attributes(entityMemento.AttributesToSkip.ToArray())
 					: Skip.Nothing;
 
-				f.Entity(entityMemento.EntityName, keyProvider, skipAttributeCriteria, entityMemento.OnlyActive, entityMemento.FetchXml);
+				f.Entity(entityMemento.EntityName, keyProvider, skipAttributeCriteria, entityMemento.OnlyActive, entityMemento.FetchXml, entityMemento.LookupMappings);
 			}
 
 			return f;
@@ -142,6 +142,11 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 			{
 				this.comparerList.Add(new EntityComparer(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords, fetchXml));
 				return this;
+			}
+
+			public void Entity(string entityName, IKeyProvider<Entity> keyProvider, ISkipAttributeCriteria skipAttributeCriteria, bool onlyActiveRecords, string fetchXml, List<LookupMappingMemento> lookupMappings)
+			{
+				this.comparerList.Add(new EntityComparer(entityName, keyProvider, skipAttributeCriteria, onlyActiveRecords, fetchXml, lookupMappings));
 			}
 
 			public ICompareEngine GetEngine(IOrganizationService crm1, IOrganizationService crm2, ILog log)

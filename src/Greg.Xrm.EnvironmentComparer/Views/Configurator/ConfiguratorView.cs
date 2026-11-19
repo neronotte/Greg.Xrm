@@ -173,6 +173,16 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 					childItem.SelectedImageKey = "active";
 				}
 
+				if (entity.LookupMappings?.Count > 0)
+				{
+					childItem = entityItem.Nodes.Add($"Lookup mappings: {entity.LookupMappings.Count}");
+					childItem.ToolTipText = entity.LookupMappings
+						.Select(x => x.UseDestinationRootBusinessUnit
+							? $"{x.LookupAttributeName} -> DEFAULT root business unit"
+							: $"{x.LookupAttributeName} -> {x.TargetEntityName}.{x.MatchAttributeName}")
+						.Join(Environment.NewLine);
+				}
+
 				if (!string.IsNullOrWhiteSpace(entity.FetchXml))
 				{
 					childItem = entityItem.Nodes.Add("Filtered by FetchXML");
@@ -202,7 +212,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			if (this.viewModel.EntityMetadataList.Count == 0) return;
 
 
-			using (var dialog = new ConfiguratorDialog2(this.messenger, this.viewModel.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog2(this.messenger, this.viewModel.EntityMetadataList, this.viewModel.Crm1, this.viewModel.Crm2))
 			{
 				if (dialog.ShowDialog(this) != DialogResult.OK) return;
 
@@ -250,7 +260,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 
 			var entityMemento = (EntityMemento)node.Tag;
 
-			using (var dialog = new ConfiguratorDialog2(this.messenger, this.viewModel.EntityMetadataList))
+			using (var dialog = new ConfiguratorDialog2(this.messenger, this.viewModel.EntityMetadataList, this.viewModel.Crm1, this.viewModel.Crm2))
 			{
 				dialog.Memento = entityMemento;
 

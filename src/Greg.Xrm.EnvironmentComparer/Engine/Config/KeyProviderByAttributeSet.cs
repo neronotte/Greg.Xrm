@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Greg.Xrm.EnvironmentComparer.Engine.Config
@@ -56,6 +57,14 @@ namespace Greg.Xrm.EnvironmentComparer.Engine.Config
 
 			if (attributeValue is EntityReference entityRef)
 			{
+				if (entityRef.KeyAttributes?.Count > 0)
+				{
+					var keyValues = entityRef.KeyAttributes
+						.OrderBy(x => x.Key, StringComparer.OrdinalIgnoreCase)
+						.Select(x => $"{x.Key}={Format(x.Value)}");
+					return $"[{entityRef.LogicalName}:{string.Join(",", keyValues)}]";
+				}
+
 				return $"[{entityRef.LogicalName}={entityRef.Id},{entityRef.Name}]";
 			}
 			if (attributeValue is Money money)

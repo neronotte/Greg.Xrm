@@ -40,6 +40,19 @@
     <p>
         The dialog allows also to configure which attributes should <b>not</b> be taken in consideration while comparing records, and whether or not consider <b>only active records</b> in the comparison. 
     </p>
+    <h3>Lookup mappings</h3>
+    <p>
+        Use <b>Lookup mappings...</b> when the GUID of a referenced record is different in the two environments.
+        For each lookup field and target table, choose any compatible scalar field whose value identifies the referenced record in both environments. The field does not have to be registered as a Dataverse alternate key, but its value must be unique in the destination environment.
+    </p>
+    <ul>
+        <li>Unmapped lookups continue to be compared by GUID.</li>
+        <li>For a lookup targeting <b>businessunit</b>, <b>DEFAULT: destination root business unit</b> is also available. It compares the value as a fixed default and resolves it to the root business unit of the environment receiving the copy.</li>
+        <li>Mapped lookup references are compared by the selected field value. During copy, that value is queried in the destination and converted to the destination record GUID.</li>
+        <li>The comparison validates field existence and type before reading records. Missing fields, missing referenced records, null values, or duplicate destination values stop the operation with an explicit error; they do not silently fall back to the GUID.</li>
+        <li>For performance, referenced records are retrieved in batches of unique IDs, requesting only the matching column. All resolutions are cached for the current comparison.</li>
+        <li>A lookup field configured as a mapping cannot also be selected among the ignored attributes.</li>
+    </ul>
     <h3>FetchXML filter</h3>
     <p>
         By default all the records of the table are compared. Clicking on <b>FetchXML filter...</b> you can type a FetchXML query
