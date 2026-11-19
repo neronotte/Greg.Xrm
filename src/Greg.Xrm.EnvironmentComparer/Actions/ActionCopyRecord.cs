@@ -126,12 +126,21 @@ namespace Greg.Xrm.EnvironmentComparer.Actions
 		public void ApplyTo(IOrganizationService crm1, IOrganizationService crm2)
 		{
 			var crm = this.TargetEnvironmentIndex == 1 ? crm1 : crm2;
+			var entityToCopy = LookupReferenceMapper.CloneForCopy(this.Entity);
+			LookupReferenceMapper.ResolveMappedReferences(crm, entityToCopy);
 
-			var request = new UpsertRequest
+			if (this.Result.Result == ObjectComparisonResult.MatchingButDifferent)
 			{
-				Target = this.Entity
-			};
-			crm.Execute(request);
+				if (entityToCopy.Id == Guid.Empty)
+				{
+					throw new InvalidOperationException("The destination record ID is missing for an update action.");
+				}
+				crm.Execute(new UpdateRequest { Target = entityToCopy });
+				return;
+			}
+
+			entityToCopy.Id = Guid.Empty;
+			crm.Execute(new CreateRequest { Target = entityToCopy });
 		}
 	}
 }

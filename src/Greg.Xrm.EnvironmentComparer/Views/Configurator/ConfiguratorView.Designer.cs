@@ -41,6 +41,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.tAdd = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tEdit = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.tRemove = new Greg.Xrm.Views.ToolStripBindableButton();
+			this.tFetchXmlBuilder = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
 			this.tExecute = new Greg.Xrm.Views.ToolStripBindableButton();
 			this.treeView1 = new System.Windows.Forms.TreeView();
@@ -57,6 +58,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mAdd = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.mEdit = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.mRemove = new Greg.Xrm.Views.ToolStripBindableMenuItem();
+			this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+			this.mFetchXmlBuilder = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.compareToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.mExecute = new Greg.Xrm.Views.ToolStripBindableMenuItem();
 			this.toolStrip1.SuspendLayout();
@@ -75,6 +78,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
             this.tAdd,
             this.tEdit,
             this.tRemove,
+            this.tFetchXmlBuilder,
             this.toolStripSeparator3,
             this.tExecute});
 			this.toolStrip1.Location = new System.Drawing.Point(0, 24);
@@ -171,6 +175,17 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.tRemove.Text = "Remove";
 			this.tRemove.Click += new System.EventHandler(this.OnRemoveClick);
 			// 
+			// tFetchXmlBuilder
+			// 
+			this.tFetchXmlBuilder.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+			this.tFetchXmlBuilder.Enabled = false;
+			this.tFetchXmlBuilder.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.script_go;
+			this.tFetchXmlBuilder.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tFetchXmlBuilder.Name = "tFetchXmlBuilder";
+			this.tFetchXmlBuilder.Size = new System.Drawing.Size(23, 22);
+			this.tFetchXmlBuilder.Text = "Edit filter with FetchXML Builder";
+			this.tFetchXmlBuilder.Click += new System.EventHandler(this.OnEditFilterWithFetchXmlBuilderClick);
+			// 
 			// toolStripSeparator3
 			// 
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -198,6 +213,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.treeView1.Location = new System.Drawing.Point(0, 49);
 			this.treeView1.Name = "treeView1";
 			this.treeView1.SelectedImageIndex = 0;
+			this.treeView1.ShowNodeToolTips = true;
 			this.treeView1.Size = new System.Drawing.Size(565, 612);
 			this.treeView1.TabIndex = 1;
 			this.treeView1.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.OnAfterSelectTreeNode);
@@ -273,7 +289,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
             this.toolStripMenuItem1,
             this.mAdd,
             this.mEdit,
-            this.mRemove});
+            this.mRemove,
+            this.toolStripMenuItem2,
+            this.mFetchXmlBuilder});
 			this.actionsToolStripMenuItem.Name = "actionsToolStripMenuItem";
 			this.actionsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
 			this.actionsToolStripMenuItem.Text = "Actions";
@@ -318,6 +336,20 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.mRemove.Size = new System.Drawing.Size(134, 22);
 			this.mRemove.Text = "Remove";
 			this.mRemove.Click += new System.EventHandler(this.OnRemoveClick);
+			// 
+			// toolStripMenuItem2
+			// 
+			this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+			this.toolStripMenuItem2.Size = new System.Drawing.Size(259, 6);
+			// 
+			// mFetchXmlBuilder
+			// 
+			this.mFetchXmlBuilder.Enabled = false;
+			this.mFetchXmlBuilder.Image = global::Greg.Xrm.EnvironmentComparer.Properties.Resources.script_go;
+			this.mFetchXmlBuilder.Name = "mFetchXmlBuilder";
+			this.mFetchXmlBuilder.Size = new System.Drawing.Size(262, 22);
+			this.mFetchXmlBuilder.Text = "Edit filter with FetchXML Builder...";
+			this.mFetchXmlBuilder.Click += new System.EventHandler(this.OnEditFilterWithFetchXmlBuilderClick);
 			// 
 			// compareToolStripMenuItem
 			// 
@@ -387,5 +419,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private Greg.Xrm.Views.ToolStripBindableButton tNew;
 		private Greg.Xrm.Views.ToolStripBindableButton tOpen;
 		private Greg.Xrm.Views.ToolStripBindableButton tSave;
+		private Greg.Xrm.Views.ToolStripBindableButton tFetchXmlBuilder;
+		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+		private Greg.Xrm.Views.ToolStripBindableMenuItem mFetchXmlBuilder;
 	}
 }

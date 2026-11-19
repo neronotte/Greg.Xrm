@@ -94,6 +94,7 @@
     <Compile Include="Engine\EntityEqualityComparer.cs" />
     <Compile Include="Engine\EntityNotFoundException.cs" />
     <Compile Include="Engine\ExtendedValidationException.cs" />
+    <Compile Include="Engine\FetchXmlFilter.cs" />
     <Compile Include="Engine\GenericCollectionComparer.cs" />
     <Compile Include="Engine\ICompareEngine.cs" />
     <Compile Include="Engine\IExtendedEqualityComparer.cs" />
@@ -108,6 +109,8 @@
     <Compile Include="Messaging\CompareResultGroupSelected.cs" />
     <Compile Include="Messaging\CompareResultRecordSelected.cs" />
     <Compile Include="Messaging\CompareResultSetAvailable.cs" />
+    <Compile Include="Messaging\FetchXmlBuilderRequest.cs" />
+    <Compile Include="Messaging\FetchXmlBuilderResponse.cs" />
     <Compile Include="Messaging\LoadEntitiesRequest.cs" />
     <Compile Include="Messaging\LoadEntitiesResponse.cs" />
     <Compile Include="Messaging\ResetEntityList.cs" />
@@ -152,6 +155,12 @@
     </Compile>
     <Compile Include="Views\Configurator\ConfiguratorViewModel.cs" />
     <Compile Include="Views\Configurator\EntityMetadataDto.cs" />
+    <Compile Include="Views\Configurator\FetchXmlFilterDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Configurator\FetchXmlFilterDialog.Designer.cs">
+      <DependentUpon>FetchXmlFilterDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Configurator\IReadOnlyDictionary.cs" />
     <Compile Include="Views\Constants.cs" />
     <Compile Include="Views\EnvironmentComparerPluginControl.cs">

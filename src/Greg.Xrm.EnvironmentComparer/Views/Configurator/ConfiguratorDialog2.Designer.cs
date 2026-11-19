@@ -55,6 +55,9 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.panel5 = new System.Windows.Forms.Panel();
 			this.panel6 = new System.Windows.Forms.Panel();
+			this.bFilter = new System.Windows.Forms.Button();
+			this.lblFilter = new System.Windows.Forms.Label();
+			this.bLookupMappings = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
 			this.tableLayoutPanel1.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -333,12 +336,47 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.panel6.Size = new System.Drawing.Size(331, 34);
 			this.panel6.TabIndex = 5;
 			// 
+			// bFilter
+			// 
+			this.bFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.bFilter.Location = new System.Drawing.Point(12, 614);
+			this.bFilter.Name = "bFilter";
+			this.bFilter.Size = new System.Drawing.Size(120, 23);
+			this.bFilter.TabIndex = 14;
+			this.bFilter.Text = "FetchXML filter...";
+			this.bFilter.UseVisualStyleBackColor = true;
+			this.bFilter.Click += new System.EventHandler(this.OnFilterClick);
+			// 
+			// lblFilter
+			// 
+			this.lblFilter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.lblFilter.AutoSize = true;
+			this.lblFilter.Location = new System.Drawing.Point(150, 619);
+			this.lblFilter.Name = "lblFilter";
+			this.lblFilter.Size = new System.Drawing.Size(141, 13);
+			this.lblFilter.TabIndex = 15;
+			this.lblFilter.Text = "No filter: compare all records";
+			// 
+			// bLookupMappings
+			//
+			this.bLookupMappings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+			this.bLookupMappings.Location = new System.Drawing.Point(300, 614);
+			this.bLookupMappings.Name = "bLookupMappings";
+			this.bLookupMappings.Size = new System.Drawing.Size(165, 23);
+			this.bLookupMappings.TabIndex = 16;
+			this.bLookupMappings.Text = "Lookup mappings...";
+			this.bLookupMappings.UseVisualStyleBackColor = true;
+			this.bLookupMappings.Click += new System.EventHandler(this.OnLookupMappingsClick);
+			//
 			// ConfiguratorDialog2
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(1017, 646);
 			this.ControlBox = false;
+			this.Controls.Add(this.bLookupMappings);
+			this.Controls.Add(this.lblFilter);
+			this.Controls.Add(this.bFilter);
 			this.Controls.Add(this.btnCancel);
 			this.Controls.Add(this.tableLayoutPanel1);
 			this.Controls.Add(this.btnAccept);
@@ -365,6 +403,7 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 			this.panel6.ResumeLayout(false);
 			this.panel6.PerformLayout();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -394,5 +433,8 @@ namespace Greg.Xrm.EnvironmentComparer.Views.Configurator
 		private System.Windows.Forms.Button bKeySelectAll;
 		private System.Windows.Forms.Button bIgnoreUnselectAll;
 		private System.Windows.Forms.Button bIgnoreSelectAll;
+		private System.Windows.Forms.Button bFilter;
+		private System.Windows.Forms.Label lblFilter;
+		private System.Windows.Forms.Button bLookupMappings;
 	}
 }

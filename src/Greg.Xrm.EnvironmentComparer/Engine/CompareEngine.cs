@@ -83,6 +83,7 @@ namespace Greg.Xrm.EnvironmentComparer.Engine
 				isEntityValidForCrm2 = false;
 			}
 
+			comparer.MapLookupReferences(this.crm1, list1, this.crm2, list2);
 			var resultByObjectList = comparer.Compare(list1, list2);
 
 			var r = new CompareResultForEntity(comparer.EntityName, isEntityValidForCrm1, isEntityValidForCrm2, resultByObjectList);
